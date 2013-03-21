@@ -1,0 +1,273 @@
+<pre><tt>
+<span style="font-weight: bold"><span style="color: #000080">#ifndef</span></span> _GAMEENGINE_H_
+<span style="font-weight: bold"><span style="color: #000080">#define</span></span> _GAMEENGINE_H_
+
+<span style="font-weight: bold"><span style="color: #0000FF">class</span></span> GameEngine<span style="color: #990000">;</span>
+
+<span style="font-weight: bold"><span style="color: #000080">#include</span></span> <span style="color: #FF0000">&lt;vector&gt;</span>
+<span style="font-weight: bold"><span style="color: #000080">#include</span></span> <span style="color: #FF0000">"World.h"</span>
+<span style="font-weight: bold"><span style="color: #000080">#include</span></span> <span style="color: #FF0000">"Player.h"</span>
+<span style="font-weight: bold"><span style="color: #000080">#include</span></span> <span style="color: #FF0000">"Projectile.h"</span>
+<span style="font-weight: bold"><span style="color: #000080">#include</span></span> <span style="color: #FF0000">"Sounds.h"</span>
+<span style="font-weight: bold"><span style="color: #000080">#include</span></span> <span style="color: #FF0000">"images.h"</span>
+
+<span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * Author: Jaakko Luttinen</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * GameEngine is a class for controlling the actual game simulation and the</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * game phase.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> */</span></span>
+<span style="font-weight: bold"><span style="color: #0000FF">class</span></span> GameEngine
+<span style="color: #FF0000">{</span>
+
+<span style="font-weight: bold"><span style="color: #0000FF">public</span></span><span style="color: #990000">:</span>
+
+    <span style="font-weight: bold"><span style="color: #0000FF">enum</span></span> status <span style="color: #FF0000">{</span> GAMEOVER<span style="color: #990000">,</span> ACTION<span style="color: #990000">,</span> TURN<span style="color: #990000">,</span> ENDOFROUND <span style="color: #FF0000">}</span><span style="color: #990000">;</span>
+
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Constructs a new game engine.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="font-weight: bold"><span style="color: #000000">GameEngine</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span><span style="color: #990000">;</span>
+    
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Destructs the game engine.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="color: #990000">~</span><span style="font-weight: bold"><span style="color: #000000">GameEngine</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span><span style="color: #990000">;</span>
+
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Sets the world. Game engine WILL delete the memory allocation of the</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * world after the game.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @param world The world for the game.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="color: #009900">void</span> <span style="font-weight: bold"><span style="color: #000000">setWorld</span></span><span style="color: #990000">(</span> World <span style="color: #990000">&amp;</span>world <span style="color: #990000">)</span><span style="color: #990000">;</span>
+    
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Returns the world.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @return The world.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="font-weight: bold"><span style="color: #0000FF">inline</span></span> World<span style="color: #990000">*</span> <span style="font-weight: bold"><span style="color: #000000">getWorld</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span>  <span style="color: #FF0000">{</span> <span style="font-weight: bold"><span style="color: #0000FF">return</span></span> <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>gameWorld<span style="color: #990000">;</span> <span style="color: #FF0000">}</span><span style="color: #990000">;</span>
+
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Returns the player of given index or NULL (if invalid index).</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @return The player of given index or NULL for invalid index.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    Player<span style="color: #990000">*</span> <span style="font-weight: bold"><span style="color: #000000">getPlayer</span></span><span style="color: #990000">(</span> <span style="color: #009900">int</span> index <span style="color: #990000">)</span><span style="color: #990000">;</span>
+
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Returns the player in turn.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @return The player in turn.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>   
+    Player<span style="color: #990000">*</span> <span style="font-weight: bold"><span style="color: #000000">getPlayerInTurn</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span><span style="color: #990000">;</span>
+    
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Returns the number of players in the game.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @return The number of players in the game.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="font-weight: bold"><span style="color: #0000FF">inline</span></span> <span style="color: #009900">int</span> <span style="font-weight: bold"><span style="color: #000000">getPlayerCount</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span>  <span style="color: #FF0000">{</span> <span style="font-weight: bold"><span style="color: #0000FF">return</span></span> <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>players<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">size</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span><span style="color: #990000">;</span> <span style="color: #FF0000">}</span><span style="color: #990000">;</span>
+    
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Returns the number of projectile templates.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @return The number of projectile templates.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="font-weight: bold"><span style="color: #0000FF">inline</span></span> <span style="color: #009900">int</span> <span style="font-weight: bold"><span style="color: #000000">getProjectileTemplateCount</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span> <span style="font-weight: bold"><span style="color: #0000FF">const</span></span>
+        <span style="color: #FF0000">{</span> <span style="font-weight: bold"><span style="color: #0000FF">return</span></span> <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>projectileTemplates<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">size</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span><span style="color: #990000">;</span> <span style="color: #FF0000">}</span><span style="color: #990000">;</span>
+    
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Returns the projectile template of given index or NULL for invalid</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * index.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @return Projectile template of given index or NULL for invalid index.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="font-weight: bold"><span style="color: #0000FF">const</span></span> Projectile<span style="color: #990000">*</span> <span style="font-weight: bold"><span style="color: #000000">getProjectileTemplate</span></span><span style="color: #990000">(</span> <span style="color: #009900">int</span> index <span style="color: #990000">)</span><span style="color: #990000">;</span>
+    
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Sets the function to call at the beginning of a turn.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @param callbackFunction The function to call.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @param parameter        The parameter for the function.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>   
+    <span style="color: #009900">void</span> <span style="font-weight: bold"><span style="color: #000000">setCallbackFunction</span></span><span style="color: #990000">(</span> <span style="color: #009900">void</span> <span style="color: #990000">(</span><span style="color: #990000">*</span>callbackFunction<span style="color: #990000">)</span><span style="color: #990000">(</span> <span style="color: #009900">void</span><span style="color: #990000">*</span><span style="color: #990000">)</span><span style="color: #990000">,</span>
+                              <span style="color: #009900">void</span> <span style="color: #990000">*</span>parameter <span style="color: #990000">)</span><span style="color: #990000">;</span>
+
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Tries to start the game.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @return Return values are following:</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     *         0: start successful.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     *         -1: game already running (earlier game must end first).</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     *         -2: game does not have enough players.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     *         -3: world has not been created. </span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="color: #009900">int</span> <span style="font-weight: bold"><span style="color: #000000">startGame</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span><span style="color: #990000">;</span>
+    
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Ends the game - that is sets the status to GAMEOVER and calculates</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * points and rankings.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="color: #009900">void</span> <span style="font-weight: bold"><span style="color: #000000">endGame</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span><span style="color: #990000">;</span>
+
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Gives the turn to next player. Mainly for game engine's own use. If</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * used outside, it means skipping the turn.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>   
+    <span style="color: #009900">void</span> <span style="font-weight: bold"><span style="color: #000000">nextTurn</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span><span style="color: #990000">;</span>
+    
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Returns the status of the game.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="font-weight: bold"><span style="color: #0000FF">inline</span></span> status <span style="font-weight: bold"><span style="color: #000000">getStatus</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span> <span style="font-weight: bold"><span style="color: #0000FF">const</span></span>  <span style="color: #FF0000">{</span> <span style="font-weight: bold"><span style="color: #0000FF">return</span></span> <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>gameStatus<span style="color: #990000">;</span> <span style="color: #FF0000">}</span><span style="color: #990000">;</span>
+
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Starts action phase which continues until no action flagged body</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * exists.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="color: #009900">void</span> <span style="font-weight: bold"><span style="color: #000000">startAction</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span><span style="color: #990000">;</span>
+    
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Works "identically" with startAction, but all the changes are only</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * simulated - no permanent changes are made. Big difference between these</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * two functions is, that this function returns only after it has</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * completed the simulation.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="color: #009900">void</span> <span style="font-weight: bold"><span style="color: #000000">simulate</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span><span style="color: #990000">;</span>
+
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Allows the game engine to work. Depending on the game status the engine</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * will do a bit different things.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @param timestep Delay since last call (ms).</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="color: #009900">void</span> <span style="font-weight: bold"><span style="color: #000000">step</span></span><span style="color: #990000">(</span><span style="color: #009900">unsigned</span> <span style="color: #009900">int</span> timestep<span style="color: #990000">)</span><span style="color: #990000">;</span>
+
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Tells whether the given player is in the game.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @param player The player to look for.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @return Whether the given player is in the game.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="color: #009900">bool</span> <span style="font-weight: bold"><span style="color: #000000">hasPlayer</span></span><span style="color: #990000">(</span>Player <span style="color: #990000">&amp;</span>player<span style="color: #990000">)</span> <span style="font-weight: bold"><span style="color: #0000FF">const</span></span><span style="color: #990000">;</span>
+    
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Adds the given player in the game. Does not add same player multiple</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * times. Game engine will clean the player's memory allocation!</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @param The player to be add.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="color: #009900">void</span> <span style="font-weight: bold"><span style="color: #000000">addPlayer</span></span><span style="color: #990000">(</span>Player <span style="color: #990000">&amp;</span>player<span style="color: #990000">)</span><span style="color: #990000">;</span>
+    
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Removes the player of given index from the game.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @param index The index of the player to be removed.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="color: #009900">void</span> <span style="font-weight: bold"><span style="color: #000000">removePlayer</span></span><span style="color: #990000">(</span><span style="color: #009900">int</span> index<span style="color: #990000">)</span><span style="color: #990000">;</span>
+    
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Removes the given player from the game - if it is in it.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @param player The player to remove.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="color: #009900">void</span> <span style="font-weight: bold"><span style="color: #000000">removePlayer</span></span><span style="color: #990000">(</span>Player <span style="color: #990000">&amp;</span>player<span style="color: #990000">)</span><span style="color: #990000">;</span>
+    
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Removes all players from the game.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="color: #009900">void</span> <span style="font-weight: bold"><span style="color: #000000">removeAllPlayers</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span><span style="color: #990000">;</span>
+
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Draws the world into graphics.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @param graphics The graphics object to draw to.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="color: #009900">void</span> <span style="font-weight: bold"><span style="color: #000000">draw</span></span><span style="color: #990000">(</span>Graphics <span style="color: #990000">&amp;</span>graphics<span style="color: #990000">)</span><span style="color: #990000">;</span>
+    
+<span style="font-weight: bold"><span style="color: #0000FF">private</span></span><span style="color: #990000">:</span>
+
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Length of action step in ms.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="font-weight: bold"><span style="color: #0000FF">static</span></span> <span style="font-weight: bold"><span style="color: #0000FF">const</span></span> <span style="color: #009900">int</span> actionStepLength <span style="color: #990000">=</span> <span style="color: #993399">10</span><span style="color: #990000">;</span>
+    
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Length of end of round step in ms.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="font-weight: bold"><span style="color: #0000FF">static</span></span> <span style="font-weight: bold"><span style="color: #0000FF">const</span></span> <span style="color: #009900">int</span> endOfRoundStepLength <span style="color: #990000">=</span> <span style="color: #993399">20</span><span style="color: #990000">;</span>
+    
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Number of end of round steps.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="font-weight: bold"><span style="color: #0000FF">static</span></span> <span style="font-weight: bold"><span style="color: #0000FF">const</span></span> <span style="color: #009900">int</span> endOfRoundStepCount <span style="color: #990000">=</span> <span style="color: #993399">70</span><span style="color: #990000">;</span>
+    
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Checks game over conditions (that is number of players alive is less</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * than two). Ends game if conditions are met.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="color: #009900">void</span> <span style="font-weight: bold"><span style="color: #000000">checkGameOverConditions</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span><span style="color: #990000">;</span>
+    
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Sorts the players by rankings. First is the player with lowest ranking</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * and last is the player with best ranking.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="color: #009900">void</span> <span style="font-weight: bold"><span style="color: #000000">sortPlayers</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span><span style="color: #990000">;</span>
+    
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Begins a new turn. Does the necessary routines.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="color: #009900">void</span> <span style="font-weight: bold"><span style="color: #000000">beginTurn</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span><span style="color: #990000">;</span>
+    
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Does end of round procedures.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="color: #009900">void</span> <span style="font-weight: bold"><span style="color: #000000">endOfRound</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span><span style="color: #990000">;</span>
+
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Projectiles of the game.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>   
+    vector<span style="color: #FF0000">&lt;Projectile*&gt;</span> projectileTemplates<span style="color: #990000">;</span>
+    
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * The world of the game.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    World <span style="color: #990000">*</span>gameWorld<span style="color: #990000">;</span>
+    
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * The players in the game.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    vector<span style="color: #FF0000">&lt;Player*&gt;</span> players<span style="color: #990000">;</span>
+    
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Index of player in turn.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="color: #009900">int</span> playerInTurn<span style="color: #990000">;</span>
+    
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Status of the game (gameover, turn, action, endofround).</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    status gameStatus<span style="color: #990000">;</span> <span style="font-style: italic"><span style="color: #9A1900">//Pelin tila (gameover, turn, action, endofround)</span></span>
+
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Tells that endofround procedures have been passed and must be done</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * as soon as possible. For unusual situations.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="color: #009900">bool</span> endOfRoundPassed<span style="color: #990000">;</span>
+
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Steps taken during the end of round phase.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>   
+    <span style="color: #009900">int</span> endOfRoundStepsTaken<span style="color: #990000">;</span>
+    
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Time (ms) remainder since last end of round step.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="color: #009900">int</span> endOfRoundTimeRemainder<span style="color: #990000">;</span>
+
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Because action must be done in constant length steps, we need the</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * remainder from last step to keep up the exact speed.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="color: #009900">int</span> actionTimeRemainder<span style="color: #990000">;</span>
+    
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Function to call when a new turn begins.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span> 
+    <span style="color: #009900">void</span> <span style="color: #990000">(</span><span style="color: #990000">*</span>callbackFunction<span style="color: #990000">)</span><span style="color: #990000">(</span> <span style="color: #009900">void</span><span style="color: #990000">*</span> <span style="color: #990000">)</span><span style="color: #990000">;</span>
+    
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * The parameter to the callback function.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="color: #009900">void</span> <span style="color: #990000">*</span>callbackFunctionParameter<span style="color: #990000">;</span>
+    
+<span style="color: #FF0000">}</span><span style="color: #990000">;</span>
+
+<span style="font-weight: bold"><span style="color: #000080">#endif</span></span> <span style="font-style: italic"><span style="color: #9A1900">//_GAMEENGINE_H_</span></span>
+</tt></pre>

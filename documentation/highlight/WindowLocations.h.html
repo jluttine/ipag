@@ -1,0 +1,96 @@
+<pre><tt><span style="font-weight: bold"><span style="color: #000080">#ifndef</span></span> _WINDOW_LOCATIONS_H_
+<span style="font-weight: bold"><span style="color: #000080">#define</span></span> _WINDOW_LOCATIONS_H_
+
+<span style="font-weight: bold"><span style="color: #000080">#include</span></span> <span style="color: #FF0000">&lt;vector&gt;</span>
+
+<span style="font-weight: bold"><span style="color: #000080">#include</span></span> <span style="color: #FF0000">"Window.h"</span>
+<span style="font-weight: bold"><span style="color: #000080">#include</span></span> <span style="color: #FF0000">"GameEngine.h"</span>
+<span style="font-weight: bold"><span style="color: #000080">#include</span></span> <span style="color: #FF0000">"UIText.h"</span>
+<span style="font-weight: bold"><span style="color: #000080">#include</span></span> <span style="color: #FF0000">"UIButton.h"</span>
+
+<span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * WindowLocations is a window where players select locations for their</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * cannons. </span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * @author Tapio Auvinen</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> */</span></span>
+
+<span style="font-weight: bold"><span style="color: #0000FF">class</span></span> WindowLocations  <span style="color: #990000">:</span>  <span style="font-weight: bold"><span style="color: #0000FF">public</span></span> Window <span style="color: #FF0000">{</span>
+<span style="font-weight: bold"><span style="color: #0000FF">public</span></span><span style="color: #990000">:</span>
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Constructor</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @param &amp;graphics Reference to graphics</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @param &amp;sounds Reference to sound engine</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @param &amp;engine Reference to game engine</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="font-weight: bold"><span style="color: #000000">WindowLocations</span></span><span style="color: #990000">(</span>Graphics <span style="color: #990000">&amp;</span>graphics<span style="color: #990000">,</span> Sounds <span style="color: #990000">&amp;</span>sounds<span style="color: #990000">,</span> GameEngine <span style="color: #990000">&amp;</span>engine<span style="color: #990000">)</span><span style="color: #990000">;</span>
+    
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Destructor</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="color: #990000">~</span><span style="font-weight: bold"><span style="color: #000000">WindowLocations</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span><span style="color: #990000">;</span>
+    
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Step is called periodically by window::open().</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="color: #009900">void</span> <span style="font-weight: bold"><span style="color: #000000">step</span></span><span style="color: #990000">(</span><span style="color: #009900">int</span> timestep<span style="color: #990000">)</span><span style="color: #990000">;</span>
+    
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Handles key down events</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="color: #009900">void</span> <span style="font-weight: bold"><span style="color: #000000">keyDown</span></span><span style="color: #990000">(</span>SDL_keysym keysym<span style="color: #990000">)</span><span style="color: #990000">;</span>
+    
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Handles mouse move events</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="color: #009900">void</span> <span style="font-weight: bold"><span style="color: #000000">mouseMove</span></span><span style="color: #990000">(</span>SDL_MouseMotionEvent motion<span style="color: #990000">)</span><span style="color: #990000">;</span>
+    
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Handles mouse down events</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="color: #009900">void</span> <span style="font-weight: bold"><span style="color: #000000">mouseDown</span></span><span style="color: #990000">(</span>SDL_MouseButtonEvent button<span style="color: #990000">)</span><span style="color: #990000">;</span>
+    
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Handles mouse up events</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="color: #009900">void</span> <span style="font-weight: bold"><span style="color: #000000">mouseUp</span></span><span style="color: #990000">(</span>SDL_MouseButtonEvent button<span style="color: #990000">)</span><span style="color: #990000">;</span>
+    
+
+<span style="font-weight: bold"><span style="color: #0000FF">private</span></span><span style="color: #990000">:</span>
+    
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Draws player colors on the sidebar. The boxes are not UI components</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * so they have to be redrawn on every refresh.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="color: #009900">void</span> <span style="font-weight: bold"><span style="color: #000000">drawPlayerColors</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span><span style="color: #990000">;</span>
+    
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Activates next player. </span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="color: #009900">void</span> <span style="font-weight: bold"><span style="color: #000000">nextPlayer</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span><span style="color: #990000">;</span>
+    
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Starts game and closes this window.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="color: #009900">void</span> <span style="font-weight: bold"><span style="color: #000000">startGame</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span><span style="color: #990000">;</span>
+    
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Selects random locations for all players.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="color: #009900">void</span> <span style="font-weight: bold"><span style="color: #000000">randomLocations</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span><span style="color: #990000">;</span>
+    
+    GameEngine <span style="color: #990000">&amp;</span>gameEngine<span style="color: #990000">;</span> <span style="font-style: italic"><span style="color: #9A1900">//Reference to game engine</span></span>
+    <span style="color: #009900">int</span> playerInTurn<span style="color: #990000">;</span>       <span style="font-style: italic"><span style="color: #9A1900">//Player index</span></span>
+    
+    <span style="color: #009900">bool</span> scrollMode<span style="color: #990000">;</span>    <span style="font-style: italic"><span style="color: #9A1900">//Tells whether we are scrolling or not</span></span>
+    <span style="color: #009900">float</span> dragDistance<span style="color: #990000">;</span> <span style="font-style: italic"><span style="color: #9A1900">//Odometer when scrolling</span></span>
+    
+    <span style="font-style: italic"><span style="color: #9A1900">//UI components:</span></span>
+    UIText <span style="color: #990000">*</span>textPlayer<span style="color: #990000">;</span>
+    UIText <span style="color: #990000">*</span>textTip<span style="color: #990000">;</span>
+    UIText <span style="color: #990000">*</span>textPlayers<span style="color: #990000">;</span>
+    UIButton <span style="color: #990000">*</span>butNext<span style="color: #990000">;</span>
+    UIButton <span style="color: #990000">*</span>butQuit<span style="color: #990000">;</span>
+<span style="color: #FF0000">}</span><span style="color: #990000">;</span>
+
+<span style="font-weight: bold"><span style="color: #000080">#endif</span></span> <span style="font-style: italic"><span style="color: #9A1900">//_WINDOWSTARTINGLOCATIONS_H_</span></span>
+</tt></pre>

@@ -1,0 +1,267 @@
+<pre><tt>
+<span style="font-weight: bold"><span style="color: #000080">#include</span></span> <span style="color: #FF0000">&lt;iostream&gt;</span>
+<span style="font-weight: bold"><span style="color: #000080">#include</span></span> <span style="color: #FF0000">"World.h"</span>
+<span style="font-weight: bold"><span style="color: #000080">#include</span></span> <span style="color: #FF0000">"Body.h"</span>
+<span style="font-weight: bold"><span style="color: #000080">#include</span></span> <span style="color: #FF0000">"BodyMovable.h"</span>
+<span style="font-weight: bold"><span style="color: #000080">#include</span></span> <span style="color: #FF0000">"BodyPlanet.h"</span>
+
+<span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * Constructs a new world.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * @param width  Width of the world.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * @param height Height of the world.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * @param sounds Sound engine.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> */</span></span>
+World<span style="color: #990000">:</span><span style="color: #990000">:</span><span style="font-weight: bold"><span style="color: #000000">World</span></span><span style="color: #990000">(</span> <span style="color: #009900">int</span> width<span style="color: #990000">,</span> <span style="color: #009900">int</span> height<span style="color: #990000">,</span> <span style="color: #009900">float</span> gravity<span style="color: #990000">,</span> Sounds <span style="color: #990000">&amp;</span>sounds <span style="color: #990000">)</span>
+    <span style="color: #990000">:</span> <span style="font-weight: bold"><span style="color: #000000">system</span></span><span style="color: #990000">(</span> width<span style="color: #990000">,</span> height <span style="color: #990000">)</span><span style="color: #990000">,</span> <span style="font-weight: bold"><span style="color: #000000">sounds</span></span><span style="color: #990000">(</span> sounds <span style="color: #990000">)</span>
+<span style="color: #FF0000">{</span>
+
+    <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>gravity <span style="color: #990000">=</span> gravity<span style="color: #990000">;</span>
+
+<span style="color: #FF0000">}</span>
+
+<span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * Destructs the world.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> */</span></span>
+World<span style="color: #990000">:</span><span style="color: #990000">:</span><span style="color: #990000">~</span><span style="font-weight: bold"><span style="color: #000000">World</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span>
+<span style="color: #FF0000">{</span>
+    
+    <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span><span style="font-weight: bold"><span style="color: #000000">removeAllBodies</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span><span style="color: #990000">;</span>
+
+<span style="color: #FF0000">}</span>
+
+<span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * Adds the given body into the world. World will free the memory</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * allocation.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * @param newBody Body to add.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> */</span></span>
+<span style="color: #009900">void</span> World<span style="color: #990000">:</span><span style="color: #990000">:</span><span style="font-weight: bold"><span style="color: #000000">addBody</span></span><span style="color: #990000">(</span> Body <span style="color: #990000">&amp;</span>newBody <span style="color: #990000">)</span>
+<span style="color: #FF0000">{</span>
+
+    <span style="font-weight: bold"><span style="color: #0000FF">if</span></span> <span style="color: #990000">(</span> <span style="color: #990000">!</span><span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span><span style="font-weight: bold"><span style="color: #000000">hasBody</span></span><span style="color: #990000">(</span>newBody<span style="color: #990000">)</span> <span style="color: #990000">)</span>
+        <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>bodies<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">push_back</span></span><span style="color: #990000">(</span><span style="color: #990000">&amp;</span>newBody<span style="color: #990000">)</span><span style="color: #990000">;</span>
+
+<span style="color: #FF0000">}</span>
+
+<span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * Removes the given body from the world.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * @param body Body to remove.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> */</span></span>
+<span style="color: #009900">void</span> World<span style="color: #990000">:</span><span style="color: #990000">:</span><span style="font-weight: bold"><span style="color: #000000">removeBody</span></span><span style="color: #990000">(</span> Body <span style="color: #990000">&amp;</span>body <span style="color: #990000">)</span>
+<span style="color: #FF0000">{</span>
+    
+    <span style="font-weight: bold"><span style="color: #0000FF">for</span></span> <span style="color: #990000">(</span><span style="color: #009900">unsigned</span> <span style="color: #009900">int</span> i <span style="color: #990000">=</span> <span style="color: #993399">0</span><span style="color: #990000">;</span> i <span style="color: #990000">&lt;</span> <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>bodies<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">size</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span><span style="color: #990000">;</span> i<span style="color: #990000">+</span><span style="color: #990000">+</span> <span style="color: #990000">)</span> <span style="color: #FF0000">{</span>
+
+        <span style="font-weight: bold"><span style="color: #0000FF">if</span></span> <span style="color: #990000">(</span> <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>bodies<span style="color: #990000">[</span>i<span style="color: #990000">]</span> <span style="color: #990000">=</span><span style="color: #990000">=</span> <span style="color: #990000">&amp;</span>body <span style="color: #990000">)</span>
+            <span style="font-weight: bold"><span style="color: #0000FF">return</span></span> <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span><span style="font-weight: bold"><span style="color: #000000">removeBody</span></span><span style="color: #990000">(</span> i <span style="color: #990000">)</span><span style="color: #990000">;</span>
+
+    <span style="color: #FF0000">}</span>
+    
+<span style="color: #FF0000">}</span>
+
+<span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * Removes the body of given index.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * @param index Index of the body to remove.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> */</span></span>
+<span style="color: #009900">void</span> World<span style="color: #990000">:</span><span style="color: #990000">:</span><span style="font-weight: bold"><span style="color: #000000">removeBody</span></span><span style="color: #990000">(</span> <span style="color: #009900">int</span> index <span style="color: #990000">)</span>
+<span style="color: #FF0000">{</span>
+    
+    Body <span style="color: #990000">*</span>oldBody<span style="color: #990000">;</span>
+        
+    <span style="font-weight: bold"><span style="color: #0000FF">if</span></span> <span style="color: #990000">(</span> index <span style="color: #990000">&lt;</span> <span style="color: #993399">0</span> <span style="color: #990000">|</span><span style="color: #990000">|</span> index <span style="color: #990000">&gt;</span><span style="color: #990000">=</span> <span style="color: #990000">(</span><span style="color: #009900">int</span><span style="color: #990000">)</span><span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>bodies<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">size</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span> <span style="color: #990000">)</span>
+        std<span style="color: #990000">:</span><span style="color: #990000">:</span>cerr <span style="color: #990000">&lt;</span><span style="color: #990000">&lt;</span> <span style="color: #FF0000">"\nWorld::removeBody: Invalid index "</span> <span style="color: #990000">&lt;</span><span style="color: #990000">&lt;</span> index<span style="color: #990000">;</span>
+    <span style="font-weight: bold"><span style="color: #0000FF">else</span></span> <span style="color: #FF0000">{</span>
+        
+        oldBody <span style="color: #990000">=</span> <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>bodies<span style="color: #990000">[</span>index<span style="color: #990000">]</span><span style="color: #990000">;</span>
+        <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>bodies<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">erase</span></span><span style="color: #990000">(</span> <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>bodies<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">begin</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span> <span style="color: #990000">+</span> index <span style="color: #990000">)</span><span style="color: #990000">;</span>
+        <span style="font-weight: bold"><span style="color: #0000FF">delete</span></span> oldBody<span style="color: #990000">;</span>
+        
+    <span style="color: #FF0000">}</span>
+    
+<span style="color: #FF0000">}</span>
+
+<span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * Removes all bodies from the world.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> */</span></span>
+<span style="color: #009900">void</span> World<span style="color: #990000">:</span><span style="color: #990000">:</span><span style="font-weight: bold"><span style="color: #000000">removeAllBodies</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span>
+<span style="color: #FF0000">{</span>
+    
+    <span style="font-style: italic"><span style="color: #9A1900">//Remove bodies in reverse order, so the index won't jump over someone.</span></span>
+    <span style="font-style: italic"><span style="color: #9A1900">//Also the list doesn't have to do lots of junk.</span></span>
+    <span style="font-weight: bold"><span style="color: #0000FF">for</span></span> <span style="color: #990000">(</span> <span style="color: #009900">int</span> i <span style="color: #990000">=</span> <span style="color: #990000">(</span><span style="color: #009900">int</span><span style="color: #990000">)</span><span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>bodies<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">size</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span> <span style="color: #990000">-</span> <span style="color: #993399">1</span><span style="color: #990000">;</span> i <span style="color: #990000">&gt;</span><span style="color: #990000">=</span> <span style="color: #993399">0</span><span style="color: #990000">;</span> i<span style="color: #990000">-</span><span style="color: #990000">-</span> <span style="color: #990000">)</span>
+        <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span><span style="font-weight: bold"><span style="color: #000000">removeBody</span></span><span style="color: #990000">(</span> i <span style="color: #990000">)</span><span style="color: #990000">;</span>
+        
+<span style="color: #FF0000">}</span>
+
+<span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * Tells whether the world has the given body.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * @param body Body to check.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * @return Whether the world has the given body.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> */</span></span>
+<span style="color: #009900">bool</span> World<span style="color: #990000">:</span><span style="color: #990000">:</span><span style="font-weight: bold"><span style="color: #000000">hasBody</span></span><span style="color: #990000">(</span> Body <span style="color: #990000">&amp;</span>body <span style="color: #990000">)</span> <span style="font-weight: bold"><span style="color: #0000FF">const</span></span>
+<span style="color: #FF0000">{</span>
+    
+    <span style="font-weight: bold"><span style="color: #0000FF">for</span></span> <span style="color: #990000">(</span> <span style="color: #009900">unsigned</span> <span style="color: #009900">int</span> i <span style="color: #990000">=</span> <span style="color: #993399">0</span><span style="color: #990000">;</span> i <span style="color: #990000">&lt;</span> <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>bodies<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">size</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span><span style="color: #990000">;</span> i<span style="color: #990000">+</span><span style="color: #990000">+</span> <span style="color: #990000">)</span>
+    <span style="color: #FF0000">{</span>
+        <span style="font-weight: bold"><span style="color: #0000FF">if</span></span> <span style="color: #990000">(</span> <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>bodies<span style="color: #990000">[</span>i<span style="color: #990000">]</span> <span style="color: #990000">=</span><span style="color: #990000">=</span> <span style="color: #990000">&amp;</span>body <span style="color: #990000">)</span>
+            <span style="font-weight: bold"><span style="color: #0000FF">return</span></span> <span style="font-weight: bold"><span style="color: #0000FF">true</span></span><span style="color: #990000">;</span>
+    <span style="color: #FF0000">}</span>
+    
+    <span style="font-weight: bold"><span style="color: #0000FF">return</span></span> <span style="font-weight: bold"><span style="color: #0000FF">false</span></span><span style="color: #990000">;</span>
+    
+<span style="color: #FF0000">}</span>
+
+<span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * Returns the body of given index (or NULL).</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * @param index Index of the body.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * @return Body of given index.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> */</span></span>   
+Body<span style="color: #990000">*</span> World<span style="color: #990000">:</span><span style="color: #990000">:</span><span style="font-weight: bold"><span style="color: #000000">getBody</span></span><span style="color: #990000">(</span> <span style="color: #009900">int</span> index <span style="color: #990000">)</span>
+<span style="color: #FF0000">{</span>
+    
+    <span style="font-weight: bold"><span style="color: #0000FF">if</span></span> <span style="color: #990000">(</span> index <span style="color: #990000">&lt;</span> <span style="color: #993399">0</span> <span style="color: #990000">|</span><span style="color: #990000">|</span> index <span style="color: #990000">&gt;</span><span style="color: #990000">=</span> <span style="color: #990000">(</span><span style="color: #009900">int</span><span style="color: #990000">)</span><span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>bodies<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">size</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span> <span style="color: #990000">)</span>
+        <span style="font-weight: bold"><span style="color: #0000FF">return</span></span> NULL<span style="color: #990000">;</span>
+        
+    <span style="font-weight: bold"><span style="color: #0000FF">return</span></span> <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>bodies<span style="color: #990000">[</span>index<span style="color: #990000">]</span><span style="color: #990000">;</span>
+    
+<span style="color: #FF0000">}</span>
+
+<span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * Returns the closest planet to the given coordinates.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * @param x X coordinate.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * @param y Y coordinate.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * @return The closest planet.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> */</span></span>
+Body<span style="color: #990000">*</span> World<span style="color: #990000">:</span><span style="color: #990000">:</span><span style="font-weight: bold"><span style="color: #000000">getNearestPlanet</span></span><span style="color: #990000">(</span> <span style="color: #009900">float</span> x<span style="color: #990000">,</span> <span style="color: #009900">float</span> y <span style="color: #990000">)</span>
+<span style="color: #FF0000">{</span>
+    
+    <span style="font-style: italic"><span style="color: #9A1900">//Put the init value so big that every planet has smaller value.</span></span>
+    <span style="color: #009900">float</span> shortestDistance <span style="color: #990000">=</span> <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>system<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">getWidth</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span>
+                             <span style="color: #990000">+</span> <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>system<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">getHeight</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span><span style="color: #990000">;</span>
+    <span style="color: #009900">float</span> distance<span style="color: #990000">;</span>
+    BodyPlanet <span style="color: #990000">*</span>planet<span style="color: #990000">,</span> <span style="color: #990000">*</span>closestPlanet <span style="color: #990000">=</span> NULL<span style="color: #990000">;</span>
+    
+    <span style="font-style: italic"><span style="color: #9A1900">//Look for closest planet.</span></span>
+    <span style="font-weight: bold"><span style="color: #0000FF">for</span></span> <span style="color: #990000">(</span> <span style="color: #009900">unsigned</span> <span style="color: #009900">int</span> i <span style="color: #990000">=</span> <span style="color: #993399">0</span><span style="color: #990000">;</span> i <span style="color: #990000">&lt;</span> <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>bodies<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">size</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span><span style="color: #990000">;</span> i<span style="color: #990000">+</span><span style="color: #990000">+</span> <span style="color: #990000">)</span> <span style="color: #FF0000">{</span>
+        
+        planet <span style="color: #990000">=</span> <span style="font-weight: bold"><span style="color: #0000FF">dynamic_cast</span></span><span style="color: #FF0000">&lt;BodyPlanet*&gt;</span><span style="color: #990000">(</span> <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>bodies<span style="color: #990000">[</span>i<span style="color: #990000">]</span> <span style="color: #990000">)</span><span style="color: #990000">;</span>
+        <span style="font-weight: bold"><span style="color: #0000FF">if</span></span> <span style="color: #990000">(</span> planet <span style="color: #990000">!</span><span style="color: #990000">=</span> NULL <span style="color: #990000">)</span> <span style="color: #FF0000">{</span>
+            <span style="font-style: italic"><span style="color: #9A1900">//Calculate distance to planet's surface.</span></span>
+            distance <span style="color: #990000">=</span> planet<span style="color: #990000">-</span><span style="color: #990000">&gt;</span><span style="font-weight: bold"><span style="color: #000000">getLocation</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span><span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">getDistance</span></span><span style="color: #990000">(</span> x<span style="color: #990000">,</span> y <span style="color: #990000">)</span>
+                       <span style="color: #990000">-</span> planet<span style="color: #990000">-</span><span style="color: #990000">&gt;</span><span style="font-weight: bold"><span style="color: #000000">getRadius</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span><span style="color: #990000">;</span>
+            <span style="font-weight: bold"><span style="color: #0000FF">if</span></span> <span style="color: #990000">(</span> distance <span style="color: #990000">&lt;</span> shortestDistance <span style="color: #990000">)</span> <span style="color: #FF0000">{</span>
+                shortestDistance <span style="color: #990000">=</span> distance<span style="color: #990000">;</span>
+                closestPlanet <span style="color: #990000">=</span> planet<span style="color: #990000">;</span>             
+            <span style="color: #FF0000">}</span>
+            
+        <span style="color: #FF0000">}</span>
+        
+    <span style="color: #FF0000">}</span>
+    
+    <span style="font-weight: bold"><span style="color: #0000FF">return</span></span> closestPlanet<span style="color: #990000">;</span>
+    
+<span style="color: #FF0000">}</span>
+
+<span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * Simulates collisions with the given body.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * @param targetBody Body to check the collisions with.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> */</span></span>
+<span style="color: #009900">void</span> World<span style="color: #990000">:</span><span style="color: #990000">:</span><span style="font-weight: bold"><span style="color: #000000">simulateCollisions</span></span><span style="color: #990000">(</span> Body <span style="color: #990000">&amp;</span>targetBody <span style="color: #990000">)</span>
+<span style="color: #FF0000">{</span>
+    
+    <span style="font-weight: bold"><span style="color: #0000FF">for</span></span> <span style="color: #990000">(</span> <span style="color: #009900">unsigned</span> <span style="color: #009900">int</span> i <span style="color: #990000">=</span> <span style="color: #993399">0</span><span style="color: #990000">;</span> i <span style="color: #990000">&lt;</span> <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>bodies<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">size</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span><span style="color: #990000">;</span> i<span style="color: #990000">+</span><span style="color: #990000">+</span> <span style="color: #990000">)</span> <span style="color: #FF0000">{</span>
+        
+        <span style="font-weight: bold"><span style="color: #0000FF">if</span></span> <span style="color: #990000">(</span> <span style="color: #990000">&amp;</span>targetBody <span style="color: #990000">!</span><span style="color: #990000">=</span> <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>bodies<span style="color: #990000">[</span>i<span style="color: #990000">]</span>
+             <span style="color: #990000">&amp;</span><span style="color: #990000">&amp;</span> targetBody<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">collisionDetection</span></span><span style="color: #990000">(</span> <span style="color: #990000">*</span><span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>bodies<span style="color: #990000">[</span>i<span style="color: #990000">]</span> <span style="color: #990000">)</span> <span style="color: #990000">)</span>
+        <span style="color: #FF0000">{</span>
+            
+            targetBody<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">collide</span></span><span style="color: #990000">(</span> <span style="color: #990000">*</span><span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>bodies<span style="color: #990000">[</span>i<span style="color: #990000">]</span> <span style="color: #990000">)</span><span style="color: #990000">;</span>
+            <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>bodies<span style="color: #990000">[</span>i<span style="color: #990000">]</span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span><span style="font-weight: bold"><span style="color: #000000">collide</span></span><span style="color: #990000">(</span> targetBody <span style="color: #990000">)</span><span style="color: #990000">;</span>
+            
+        <span style="color: #FF0000">}</span>
+        
+    <span style="color: #FF0000">}</span>
+    
+<span style="color: #FF0000">}</span>
+
+<span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * Lets bodies do their end of round procedures.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * @param step The relative step length 0-1.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> */</span></span>   
+<span style="color: #009900">void</span> World<span style="color: #990000">:</span><span style="color: #990000">:</span><span style="font-weight: bold"><span style="color: #000000">endOfRound</span></span><span style="color: #990000">(</span> <span style="color: #009900">float</span> step <span style="color: #990000">)</span>
+<span style="color: #FF0000">{</span>
+    
+    <span style="font-weight: bold"><span style="color: #0000FF">for</span></span> <span style="color: #990000">(</span> <span style="color: #009900">unsigned</span> <span style="color: #009900">int</span> i <span style="color: #990000">=</span> <span style="color: #993399">0</span><span style="color: #990000">;</span> i <span style="color: #990000">&lt;</span> <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>bodies<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">size</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span><span style="color: #990000">;</span> i<span style="color: #990000">+</span><span style="color: #990000">+</span> <span style="color: #990000">)</span>
+            <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>bodies<span style="color: #990000">[</span>i<span style="color: #990000">]</span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span><span style="font-weight: bold"><span style="color: #000000">endOfRound</span></span><span style="color: #990000">(</span> step <span style="color: #990000">)</span><span style="color: #990000">;</span>
+    
+<span style="color: #FF0000">}</span>
+
+<span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * Plays a sound of given index.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * @param index Index of the sound.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> */</span></span>
+<span style="color: #009900">void</span> World<span style="color: #990000">:</span><span style="color: #990000">:</span><span style="font-weight: bold"><span style="color: #000000">playSound</span></span><span style="color: #990000">(</span><span style="color: #009900">int</span> index<span style="color: #990000">)</span><span style="color: #FF0000">{</span>
+
+  <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>sounds<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">playSound</span></span><span style="color: #990000">(</span>index<span style="color: #990000">)</span><span style="color: #990000">;</span>
+
+<span style="color: #FF0000">}</span>
+
+<span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * World takes a step of length timestep.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * @param timestep Length of the simulation step.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> */</span></span>
+<span style="color: #009900">void</span> World<span style="color: #990000">:</span><span style="color: #990000">:</span><span style="font-weight: bold"><span style="color: #000000">step</span></span><span style="color: #990000">(</span><span style="color: #009900">unsigned</span> <span style="color: #009900">int</span> timestep<span style="color: #990000">)</span>
+<span style="color: #FF0000">{</span>
+    
+    <span style="font-style: italic"><span style="color: #9A1900">//First, let every non-destroyed body act.</span></span>
+    <span style="font-weight: bold"><span style="color: #0000FF">for</span></span> <span style="color: #990000">(</span> <span style="color: #009900">unsigned</span> <span style="color: #009900">int</span> i <span style="color: #990000">=</span> <span style="color: #993399">0</span><span style="color: #990000">;</span> i <span style="color: #990000">&lt;</span> <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>bodies<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">size</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span><span style="color: #990000">;</span> i<span style="color: #990000">+</span><span style="color: #990000">+</span> <span style="color: #990000">)</span> <span style="color: #FF0000">{</span>
+        
+        <span style="font-weight: bold"><span style="color: #0000FF">if</span></span> <span style="color: #990000">(</span> <span style="color: #990000">!</span><span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>bodies<span style="color: #990000">[</span>i<span style="color: #990000">]</span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span><span style="font-weight: bold"><span style="color: #000000">isDestroyed</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span> <span style="color: #990000">)</span>
+            <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>bodies<span style="color: #990000">[</span>i<span style="color: #990000">]</span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span><span style="font-weight: bold"><span style="color: #000000">step</span></span><span style="color: #990000">(</span>timestep<span style="color: #990000">)</span><span style="color: #990000">;</span>
+        
+    <span style="color: #FF0000">}</span>
+        
+    <span style="font-style: italic"><span style="color: #9A1900">//Then remove destroyed bodies.</span></span>
+    <span style="font-weight: bold"><span style="color: #0000FF">for</span></span> <span style="color: #990000">(</span> <span style="color: #009900">int</span> i <span style="color: #990000">=</span> <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>bodies<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">size</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span> <span style="color: #990000">-</span> <span style="color: #993399">1</span><span style="color: #990000">;</span> i <span style="color: #990000">&gt;</span><span style="color: #990000">=</span> <span style="color: #993399">0</span><span style="color: #990000">;</span> i<span style="color: #990000">-</span><span style="color: #990000">-</span> <span style="color: #990000">)</span> <span style="color: #FF0000">{</span>
+        
+        <span style="font-weight: bold"><span style="color: #0000FF">if</span></span> <span style="color: #990000">(</span> <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>bodies<span style="color: #990000">[</span>i<span style="color: #990000">]</span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span><span style="font-weight: bold"><span style="color: #000000">isDestroyed</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span> <span style="color: #990000">)</span>
+            <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span><span style="font-weight: bold"><span style="color: #000000">removeBody</span></span><span style="color: #990000">(</span> i <span style="color: #990000">)</span><span style="color: #990000">;</span>
+            
+    <span style="color: #FF0000">}</span>
+
+<span style="color: #FF0000">}</span>
+
+<span style="font-style: italic"><span style="color: #9A1900">/**   </span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * Tells the gravitational field in a given location.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * @param vector Vector to store the gravitational field.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * @param x      X coordinate.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * @param y      Y coordinate.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> */</span></span>
+<span style="color: #009900">void</span> World<span style="color: #990000">:</span><span style="color: #990000">:</span><span style="font-weight: bold"><span style="color: #000000">getGravitationalField</span></span><span style="color: #990000">(</span> Vector <span style="color: #990000">&amp;</span>vector<span style="color: #990000">,</span> <span style="color: #009900">float</span> x<span style="color: #990000">,</span> <span style="color: #009900">float</span> y <span style="color: #990000">)</span> <span style="font-weight: bold"><span style="color: #0000FF">const</span></span>
+<span style="color: #FF0000">{</span>
+    
+    Vector tempGrav<span style="color: #990000">;</span>
+
+    vector<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">set</span></span><span style="color: #990000">(</span> <span style="color: #993399">0</span><span style="color: #990000">,</span> <span style="color: #993399">0</span> <span style="color: #990000">)</span><span style="color: #990000">;</span>
+    
+    <span style="font-weight: bold"><span style="color: #0000FF">for</span></span> <span style="color: #990000">(</span> <span style="color: #009900">unsigned</span> <span style="color: #009900">int</span> i <span style="color: #990000">=</span> <span style="color: #993399">0</span><span style="color: #990000">;</span> i <span style="color: #990000">&lt;</span> <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>bodies<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">size</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span><span style="color: #990000">;</span> i<span style="color: #990000">+</span><span style="color: #990000">+</span> <span style="color: #990000">)</span> <span style="color: #FF0000">{</span>
+        
+        bodies<span style="color: #990000">[</span>i<span style="color: #990000">]</span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span><span style="font-weight: bold"><span style="color: #000000">getGravitationalField</span></span><span style="color: #990000">(</span> tempGrav<span style="color: #990000">,</span> x<span style="color: #990000">,</span> y <span style="color: #990000">)</span><span style="color: #990000">;</span>
+        vector <span style="color: #990000">+</span><span style="color: #990000">=</span> tempGrav<span style="color: #990000">;</span>
+
+    <span style="color: #FF0000">}</span>
+
+<span style="color: #FF0000">}</span>
+
+<span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * Draws the world into graphics.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * @param graphics Graphics object to draw the world into.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> */</span></span>
+<span style="color: #009900">void</span> World<span style="color: #990000">:</span><span style="color: #990000">:</span><span style="font-weight: bold"><span style="color: #000000">draw</span></span><span style="color: #990000">(</span> Graphics <span style="color: #990000">&amp;</span>graphics <span style="color: #990000">)</span> <span style="font-weight: bold"><span style="color: #0000FF">const</span></span>
+<span style="color: #FF0000">{</span>
+    graphics<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">drawStarfield</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span><span style="color: #990000">;</span>
+    
+    <span style="font-weight: bold"><span style="color: #0000FF">for</span></span> <span style="color: #990000">(</span> <span style="color: #009900">unsigned</span> <span style="color: #009900">int</span> i <span style="color: #990000">=</span> <span style="color: #993399">0</span><span style="color: #990000">;</span> i <span style="color: #990000">&lt;</span> <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>bodies<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">size</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span><span style="color: #990000">;</span> i<span style="color: #990000">+</span><span style="color: #990000">+</span><span style="color: #990000">)</span>
+        bodies<span style="color: #990000">[</span>i<span style="color: #990000">]</span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span><span style="font-weight: bold"><span style="color: #000000">draw</span></span><span style="color: #990000">(</span>graphics<span style="color: #990000">)</span><span style="color: #990000">;</span>
+    
+<span style="color: #FF0000">}</span>
+</tt></pre>

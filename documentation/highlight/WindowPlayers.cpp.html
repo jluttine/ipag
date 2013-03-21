@@ -1,0 +1,310 @@
+<pre><tt><span style="font-weight: bold"><span style="color: #000080">#include</span></span> <span style="color: #FF0000">"WindowPlayers.h"</span>
+
+<span style="font-weight: bold"><span style="color: #000080">#define</span></span> MIN_PLAYERS  <span style="color: #993399">2</span>
+<span style="font-weight: bold"><span style="color: #000080">#define</span></span> MAX_PLAYERS  <span style="color: #993399">8</span>
+
+<span style="font-style: italic"><span style="color: #9A1900">//NOTE: If you increase the maximum number of players, you have to add</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">//more colors.</span></span>
+
+ 
+<span style="font-style: italic"><span style="color: #9A1900">//Player colors:</span></span>
+<span style="color: #009900">unsigned</span> <span style="color: #009900">char</span> colors<span style="color: #990000">[</span><span style="color: #990000">]</span><span style="color: #990000">[</span><span style="color: #993399">3</span><span style="color: #990000">]</span> <span style="color: #990000">=</span> <span style="color: #FF0000">{</span>
+    <span style="color: #FF0000">{</span> <span style="color: #993399">255</span><span style="color: #990000">,</span>   <span style="color: #993399">0</span><span style="color: #990000">,</span>   <span style="color: #993399">0</span> <span style="color: #FF0000">}</span><span style="color: #990000">,</span>
+    <span style="color: #FF0000">{</span>   <span style="color: #993399">0</span><span style="color: #990000">,</span> <span style="color: #993399">255</span><span style="color: #990000">,</span>   <span style="color: #993399">0</span> <span style="color: #FF0000">}</span><span style="color: #990000">,</span>
+    <span style="color: #FF0000">{</span>   <span style="color: #993399">0</span><span style="color: #990000">,</span> <span style="color: #993399">255</span><span style="color: #990000">,</span> <span style="color: #993399">255</span> <span style="color: #FF0000">}</span><span style="color: #990000">,</span>
+    <span style="color: #FF0000">{</span> <span style="color: #993399">255</span><span style="color: #990000">,</span> <span style="color: #993399">255</span><span style="color: #990000">,</span>   <span style="color: #993399">0</span> <span style="color: #FF0000">}</span><span style="color: #990000">,</span>
+    <span style="color: #FF0000">{</span> <span style="color: #993399">191</span><span style="color: #990000">,</span>  <span style="color: #993399">63</span><span style="color: #990000">,</span> <span style="color: #993399">255</span> <span style="color: #FF0000">}</span><span style="color: #990000">,</span>
+    <span style="color: #FF0000">{</span> <span style="color: #993399">127</span><span style="color: #990000">,</span> <span style="color: #993399">127</span><span style="color: #990000">,</span> <span style="color: #993399">255</span> <span style="color: #FF0000">}</span><span style="color: #990000">,</span>
+    <span style="color: #FF0000">{</span> <span style="color: #993399">255</span><span style="color: #990000">,</span> <span style="color: #993399">255</span><span style="color: #990000">,</span> <span style="color: #993399">191</span> <span style="color: #FF0000">}</span><span style="color: #990000">,</span>
+    <span style="color: #FF0000">{</span> <span style="color: #993399">255</span><span style="color: #990000">,</span> <span style="color: #993399">191</span><span style="color: #990000">,</span> <span style="color: #993399">255</span> <span style="color: #FF0000">}</span>
+<span style="color: #FF0000">}</span><span style="color: #990000">;</span>
+
+<span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * Constructor.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> */</span></span>
+WindowPlayers<span style="color: #990000">:</span><span style="color: #990000">:</span><span style="font-weight: bold"><span style="color: #000000">WindowPlayers</span></span><span style="color: #990000">(</span>Graphics <span style="color: #990000">&amp;</span>graphics<span style="color: #990000">,</span> Sounds <span style="color: #990000">&amp;</span>sounds<span style="color: #990000">,</span>
+                             GameEngine <span style="color: #990000">&amp;</span>gameEngine<span style="color: #990000">)</span>
+    <span style="color: #990000">:</span> <span style="font-weight: bold"><span style="color: #000000">Window</span></span><span style="color: #990000">(</span>graphics<span style="color: #990000">,</span> sounds<span style="color: #990000">)</span><span style="color: #990000">,</span> <span style="font-weight: bold"><span style="color: #000000">gameEngine</span></span><span style="color: #990000">(</span>gameEngine<span style="color: #990000">)</span>
+<span style="color: #FF0000">{</span>
+    <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>newPlayerType <span style="color: #990000">=</span> <span style="color: #993399">0</span><span style="color: #990000">;</span>
+    <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>humanNumbering <span style="color: #990000">=</span> <span style="color: #993399">1</span><span style="color: #990000">;</span>
+    <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>aiNumbering <span style="color: #990000">=</span> <span style="color: #993399">1</span><span style="color: #990000">;</span>
+    <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>playerCount <span style="color: #990000">=</span> <span style="color: #993399">0</span><span style="color: #990000">;</span>
+    
+    <span style="font-style: italic"><span style="color: #9A1900">//Create UI components</span></span>
+    <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>textTitle <span style="color: #990000">=</span> <span style="font-weight: bold"><span style="color: #0000FF">new</span></span> <span style="font-weight: bold"><span style="color: #000000">UIText</span></span><span style="color: #990000">(</span><span style="color: #990000">*</span><span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">,</span> <span style="color: #FF0000">"Players:"</span><span style="color: #990000">,</span> <span style="color: #993399">350</span><span style="color: #990000">,</span> <span style="color: #993399">140</span><span style="color: #990000">)</span><span style="color: #990000">;</span>
+    <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>textPlayers <span style="color: #990000">=</span> <span style="font-weight: bold"><span style="color: #0000FF">new</span></span> <span style="font-weight: bold"><span style="color: #000000">UIText</span></span><span style="color: #990000">(</span><span style="color: #990000">*</span><span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">,</span> <span style="color: #993399">372</span><span style="color: #990000">,</span> <span style="color: #993399">160</span><span style="color: #990000">)</span><span style="color: #990000">;</span>
+    
+    <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>buttonStart <span style="color: #990000">=</span> <span style="font-weight: bold"><span style="color: #0000FF">new</span></span> <span style="font-weight: bold"><span style="color: #000000">UIButton</span></span><span style="color: #990000">(</span><span style="color: #990000">*</span><span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">,</span> <span style="color: #FF0000">"Start game"</span><span style="color: #990000">,</span> <span style="color: #993399">800</span><span style="color: #990000">,</span> <span style="color: #993399">660</span><span style="color: #990000">)</span><span style="color: #990000">;</span>
+    
+    <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>textNewPlayer <span style="color: #990000">=</span> <span style="font-weight: bold"><span style="color: #0000FF">new</span></span> <span style="font-weight: bold"><span style="color: #000000">UIText</span></span><span style="color: #990000">(</span><span style="color: #990000">*</span><span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">,</span> <span style="color: #FF0000">"New player"</span><span style="color: #990000">,</span> <span style="color: #993399">350</span><span style="color: #990000">,</span> <span style="color: #993399">590</span><span style="color: #990000">)</span><span style="color: #990000">;</span>
+    <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>textNewName <span style="color: #990000">=</span> <span style="font-weight: bold"><span style="color: #0000FF">new</span></span> <span style="font-weight: bold"><span style="color: #000000">UIText</span></span><span style="color: #990000">(</span><span style="color: #990000">*</span><span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">,</span> <span style="color: #FF0000">"Name:"</span><span style="color: #990000">,</span> <span style="color: #993399">360</span><span style="color: #990000">,</span> <span style="color: #993399">620</span><span style="color: #990000">)</span><span style="color: #990000">;</span>
+    <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>fieldName <span style="color: #990000">=</span> <span style="font-weight: bold"><span style="color: #0000FF">new</span></span> <span style="font-weight: bold"><span style="color: #000000">UITextField</span></span><span style="color: #990000">(</span><span style="color: #990000">*</span><span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">,</span> <span style="color: #993399">20</span><span style="color: #990000">,</span> <span style="color: #993399">408</span><span style="color: #990000">,</span> <span style="color: #993399">620</span><span style="color: #990000">)</span><span style="color: #990000">;</span>
+    
+    <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>textNewType <span style="color: #990000">=</span> <span style="font-weight: bold"><span style="color: #0000FF">new</span></span> <span style="font-weight: bold"><span style="color: #000000">UIText</span></span><span style="color: #990000">(</span><span style="color: #990000">*</span><span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">,</span> <span style="color: #993399">380</span><span style="color: #990000">,</span> <span style="color: #993399">640</span><span style="color: #990000">)</span><span style="color: #990000">;</span>
+    <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>butDecrType <span style="color: #990000">=</span> <span style="font-weight: bold"><span style="color: #0000FF">new</span></span> <span style="font-weight: bold"><span style="color: #000000">UIButton</span></span><span style="color: #990000">(</span><span style="color: #990000">*</span><span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">,</span> <span style="color: #FF0000">"&lt;"</span><span style="color: #990000">,</span> <span style="color: #993399">360</span><span style="color: #990000">,</span> <span style="color: #993399">640</span><span style="color: #990000">)</span><span style="color: #990000">;</span>
+    <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>butIncrType <span style="color: #990000">=</span> <span style="font-weight: bold"><span style="color: #0000FF">new</span></span> <span style="font-weight: bold"><span style="color: #000000">UIButton</span></span><span style="color: #990000">(</span><span style="color: #990000">*</span><span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">,</span> <span style="color: #FF0000">"&gt;"</span><span style="color: #990000">,</span> <span style="color: #993399">508</span><span style="color: #990000">,</span> <span style="color: #993399">640</span><span style="color: #990000">)</span><span style="color: #990000">;</span>
+    <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>butAdd <span style="color: #990000">=</span> <span style="font-weight: bold"><span style="color: #0000FF">new</span></span> <span style="font-weight: bold"><span style="color: #000000">UIButton</span></span><span style="color: #990000">(</span><span style="color: #990000">*</span><span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">,</span> <span style="color: #FF0000">"Add player"</span><span style="color: #990000">,</span> <span style="color: #993399">360</span><span style="color: #990000">,</span> <span style="color: #993399">660</span><span style="color: #990000">)</span><span style="color: #990000">;</span>
+    <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>butRemoveAll <span style="color: #990000">=</span> <span style="font-weight: bold"><span style="color: #0000FF">new</span></span> <span style="font-weight: bold"><span style="color: #000000">UIButton</span></span><span style="color: #990000">(</span><span style="color: #990000">*</span><span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">,</span> <span style="color: #FF0000">"Remove all"</span><span style="color: #990000">,</span> <span style="color: #993399">360</span><span style="color: #990000">,</span> <span style="color: #993399">700</span><span style="color: #990000">)</span><span style="color: #990000">;</span>
+    
+    <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span><span style="font-weight: bold"><span style="color: #000000">setFocus</span></span><span style="color: #990000">(</span>fieldName<span style="color: #990000">)</span><span style="color: #990000">;</span>
+    <span style="font-weight: bold"><span style="color: #000000">updatePlayerType</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span><span style="color: #990000">;</span>
+    
+    <span style="font-weight: bold"><span style="color: #000000">addComponent</span></span><span style="color: #990000">(</span>textTitle<span style="color: #990000">)</span><span style="color: #990000">;</span>
+    <span style="font-weight: bold"><span style="color: #000000">addComponent</span></span><span style="color: #990000">(</span>textPlayers<span style="color: #990000">)</span><span style="color: #990000">;</span>
+    <span style="font-weight: bold"><span style="color: #000000">addComponent</span></span><span style="color: #990000">(</span>buttonStart<span style="color: #990000">)</span><span style="color: #990000">;</span>
+    <span style="font-weight: bold"><span style="color: #000000">addComponent</span></span><span style="color: #990000">(</span>textNewPlayer<span style="color: #990000">)</span><span style="color: #990000">;</span>
+    <span style="font-weight: bold"><span style="color: #000000">addComponent</span></span><span style="color: #990000">(</span>textNewName<span style="color: #990000">)</span><span style="color: #990000">;</span>
+    <span style="font-weight: bold"><span style="color: #000000">addComponent</span></span><span style="color: #990000">(</span>fieldName<span style="color: #990000">)</span><span style="color: #990000">;</span>
+    <span style="font-weight: bold"><span style="color: #000000">addComponent</span></span><span style="color: #990000">(</span>textNewType<span style="color: #990000">)</span><span style="color: #990000">;</span>
+    <span style="font-weight: bold"><span style="color: #000000">addComponent</span></span><span style="color: #990000">(</span>butDecrType<span style="color: #990000">)</span><span style="color: #990000">;</span>
+    <span style="font-weight: bold"><span style="color: #000000">addComponent</span></span><span style="color: #990000">(</span>butIncrType<span style="color: #990000">)</span><span style="color: #990000">;</span>
+    <span style="font-weight: bold"><span style="color: #000000">addComponent</span></span><span style="color: #990000">(</span>butAdd<span style="color: #990000">)</span><span style="color: #990000">;</span>
+    <span style="font-weight: bold"><span style="color: #000000">addComponent</span></span><span style="color: #990000">(</span>butRemoveAll<span style="color: #990000">)</span><span style="color: #990000">;</span>
+<span style="color: #FF0000">}</span>
+
+<span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * Destructor</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> */</span></span>
+WindowPlayers<span style="color: #990000">:</span><span style="color: #990000">:</span><span style="color: #990000">~</span><span style="font-weight: bold"><span style="color: #000000">WindowPlayers</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span> <span style="color: #FF0000">{</span>
+    <span style="font-weight: bold"><span style="color: #0000FF">delete</span></span> textTitle<span style="color: #990000">;</span>
+    <span style="font-weight: bold"><span style="color: #0000FF">delete</span></span> textPlayers<span style="color: #990000">;</span>
+    <span style="font-weight: bold"><span style="color: #0000FF">delete</span></span> buttonStart<span style="color: #990000">;</span>
+    <span style="font-weight: bold"><span style="color: #0000FF">delete</span></span> textNewPlayer<span style="color: #990000">;</span>
+    <span style="font-weight: bold"><span style="color: #0000FF">delete</span></span> textNewName<span style="color: #990000">;</span>
+    <span style="font-weight: bold"><span style="color: #0000FF">delete</span></span> fieldName<span style="color: #990000">;</span>
+    <span style="font-weight: bold"><span style="color: #0000FF">delete</span></span> textNewType<span style="color: #990000">;</span>
+    <span style="font-weight: bold"><span style="color: #0000FF">delete</span></span> butDecrType<span style="color: #990000">;</span>
+    <span style="font-weight: bold"><span style="color: #0000FF">delete</span></span> butIncrType<span style="color: #990000">;</span>
+    <span style="font-weight: bold"><span style="color: #0000FF">delete</span></span> butAdd<span style="color: #990000">;</span>
+    <span style="font-weight: bold"><span style="color: #0000FF">delete</span></span> butRemoveAll<span style="color: #990000">;</span>
+<span style="color: #FF0000">}</span>
+
+<span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * Show is called automatically when window is opened.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> */</span></span>
+<span style="color: #009900">void</span> WindowPlayers<span style="color: #990000">:</span><span style="color: #990000">:</span><span style="font-weight: bold"><span style="color: #000000">show</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span> <span style="color: #FF0000">{</span>
+    <span style="font-weight: bold"><span style="color: #000000">redraw</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span><span style="color: #990000">;</span>
+<span style="color: #FF0000">}</span>
+
+<span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * Redraws everything.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> */</span></span>
+<span style="color: #009900">void</span> WindowPlayers<span style="color: #990000">:</span><span style="color: #990000">:</span><span style="font-weight: bold"><span style="color: #000000">redraw</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span> <span style="color: #FF0000">{</span>
+    <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>graphics<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">clear</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span><span style="color: #990000">;</span>                            <span style="font-style: italic"><span style="color: #9A1900">//Clear screen</span></span>
+    <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>graphics<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">drawSprite</span></span><span style="color: #990000">(</span>IMAGE_BACKGROUND<span style="color: #990000">,</span> <span style="color: #993399">0</span><span style="color: #990000">,</span> <span style="color: #993399">0</span><span style="color: #990000">)</span><span style="color: #990000">;</span> <span style="font-style: italic"><span style="color: #9A1900">//Draw background</span></span>
+    <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span><span style="font-weight: bold"><span style="color: #000000">update</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span><span style="color: #990000">;</span>                                    <span style="font-style: italic"><span style="color: #9A1900">//Draw components</span></span>
+    
+    <span style="font-style: italic"><span style="color: #9A1900">//Draw player colors</span></span>
+    Player <span style="color: #990000">*</span>player<span style="color: #990000">;</span>
+    <span style="color: #009900">unsigned</span> <span style="color: #009900">char</span> r<span style="color: #990000">,</span> g<span style="color: #990000">,</span> b<span style="color: #990000">;</span>  <span style="font-style: italic"><span style="color: #9A1900">//player color</span></span>
+    
+    <span style="font-weight: bold"><span style="color: #0000FF">for</span></span> <span style="color: #990000">(</span><span style="color: #009900">int</span> i <span style="color: #990000">=</span> <span style="color: #993399">0</span><span style="color: #990000">;</span> i <span style="color: #990000">&lt;</span> gameEngine<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">getPlayerCount</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span><span style="color: #990000">;</span> i<span style="color: #990000">+</span><span style="color: #990000">+</span><span style="color: #990000">)</span> <span style="color: #FF0000">{</span>
+        player <span style="color: #990000">=</span> gameEngine<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">getPlayer</span></span><span style="color: #990000">(</span>i<span style="color: #990000">)</span><span style="color: #990000">;</span>
+        
+        <span style="font-weight: bold"><span style="color: #0000FF">if</span></span> <span style="color: #990000">(</span>player<span style="color: #990000">)</span> <span style="color: #FF0000">{</span>
+            player<span style="color: #990000">-</span><span style="color: #990000">&gt;</span><span style="font-weight: bold"><span style="color: #000000">getColor</span></span><span style="color: #990000">(</span>r<span style="color: #990000">,</span> g<span style="color: #990000">,</span> b<span style="color: #990000">)</span><span style="color: #990000">;</span>
+            graphics<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">drawRect</span></span><span style="color: #990000">(</span>NULL<span style="color: #990000">,</span> <span style="color: #993399">360</span><span style="color: #990000">,</span> <span style="color: #993399">164</span> <span style="color: #990000">+</span> i <span style="color: #990000">*</span> <span style="color: #993399">18</span><span style="color: #990000">,</span> <span style="color: #993399">5</span><span style="color: #990000">,</span> <span style="color: #993399">5</span><span style="color: #990000">,</span> r<span style="color: #990000">,</span> g<span style="color: #990000">,</span> b<span style="color: #990000">)</span><span style="color: #990000">;</span>
+        <span style="color: #FF0000">}</span>
+    <span style="color: #FF0000">}</span>
+    
+    <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>graphics<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">update</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span><span style="color: #990000">;</span>  <span style="font-style: italic"><span style="color: #9A1900">//Update screen</span></span>
+<span style="color: #FF0000">}</span>
+
+<span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * Handles key down events</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> */</span></span>
+<span style="color: #009900">void</span> WindowPlayers<span style="color: #990000">:</span><span style="color: #990000">:</span><span style="font-weight: bold"><span style="color: #000000">keyDown</span></span><span style="color: #990000">(</span>SDL_keysym keysym<span style="color: #990000">)</span> <span style="color: #FF0000">{</span>
+    <span style="font-style: italic"><span style="color: #9A1900">//Send events to focused component</span></span>
+    <span style="font-weight: bold"><span style="color: #0000FF">if</span></span> <span style="color: #990000">(</span><span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>focus <span style="color: #990000">!</span><span style="color: #990000">=</span> NULL<span style="color: #990000">)</span> <span style="color: #FF0000">{</span>
+        <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>focus<span style="color: #990000">-</span><span style="color: #990000">&gt;</span><span style="font-weight: bold"><span style="color: #000000">keyDown</span></span><span style="color: #990000">(</span>keysym<span style="color: #990000">)</span><span style="color: #990000">;</span>
+    <span style="color: #FF0000">}</span>
+    
+    <span style="font-weight: bold"><span style="color: #0000FF">switch</span></span> <span style="color: #990000">(</span>keysym<span style="color: #990000">.</span>sym<span style="color: #990000">)</span> <span style="color: #FF0000">{</span>
+        <span style="font-weight: bold"><span style="color: #0000FF">case</span></span> SDLK_ESCAPE<span style="color: #990000">:</span>
+            <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span><span style="font-weight: bold"><span style="color: #000000">close</span></span><span style="color: #990000">(</span><span style="color: #993399">0</span><span style="color: #990000">)</span><span style="color: #990000">;</span>
+            <span style="font-weight: bold"><span style="color: #0000FF">break</span></span><span style="color: #990000">;</span>
+            
+        <span style="font-weight: bold"><span style="color: #0000FF">case</span></span> SDLK_RETURN<span style="color: #990000">:</span>
+            <span style="font-weight: bold"><span style="color: #000000">addPlayer</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span><span style="color: #990000">;</span>
+            <span style="font-weight: bold"><span style="color: #0000FF">break</span></span><span style="color: #990000">;</span>
+        
+        <span style="font-weight: bold"><span style="color: #0000FF">default</span></span><span style="color: #990000">:</span>
+            <span style="font-weight: bold"><span style="color: #0000FF">break</span></span><span style="color: #990000">;</span>
+    <span style="color: #FF0000">}</span>
+    
+    <span style="font-style: italic"><span style="color: #9A1900">//Update screen</span></span>
+    <span style="font-weight: bold"><span style="color: #000000">redraw</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span><span style="color: #990000">;</span>
+<span style="color: #FF0000">}</span>
+
+<span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * Handles mouse up events</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> */</span></span>
+<span style="color: #009900">void</span> WindowPlayers<span style="color: #990000">:</span><span style="color: #990000">:</span><span style="font-weight: bold"><span style="color: #000000">mouseUp</span></span><span style="color: #990000">(</span>SDL_MouseButtonEvent button<span style="color: #990000">)</span> <span style="color: #FF0000">{</span>
+
+    <span style="font-style: italic"><span style="color: #9A1900">//Find out if a button was hit</span></span>
+    UIComponent <span style="color: #990000">*</span>component <span style="color: #990000">=</span> <span style="font-weight: bold"><span style="color: #000000">findComponent</span></span><span style="color: #990000">(</span>button<span style="color: #990000">.</span>x<span style="color: #990000">,</span> button<span style="color: #990000">.</span>y<span style="color: #990000">)</span><span style="color: #990000">;</span>
+    
+    <span style="font-style: italic"><span style="color: #9A1900">//'Start game' button</span></span>
+    <span style="font-weight: bold"><span style="color: #0000FF">if</span></span> <span style="color: #990000">(</span>component <span style="color: #990000">=</span><span style="color: #990000">=</span> buttonStart<span style="color: #990000">)</span> <span style="color: #FF0000">{</span>
+        <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>sounds<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">playSound</span></span><span style="color: #990000">(</span>SOUND_CLICK<span style="color: #990000">)</span><span style="color: #990000">;</span>
+        <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span><span style="font-weight: bold"><span style="color: #000000">startGame</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span><span style="color: #990000">;</span>
+    <span style="color: #FF0000">}</span>
+    
+    <span style="font-style: italic"><span style="color: #9A1900">//'Add player' button</span></span>
+    <span style="font-weight: bold"><span style="color: #0000FF">else</span></span> <span style="font-weight: bold"><span style="color: #0000FF">if</span></span> <span style="color: #990000">(</span>component <span style="color: #990000">=</span><span style="color: #990000">=</span> butAdd<span style="color: #990000">)</span> <span style="color: #FF0000">{</span>
+        <span style="font-weight: bold"><span style="color: #000000">addPlayer</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span><span style="color: #990000">;</span>
+    <span style="color: #FF0000">}</span>
+    
+    <span style="font-style: italic"><span style="color: #9A1900">//Player type (increase)</span></span>
+    <span style="font-weight: bold"><span style="color: #0000FF">else</span></span> <span style="font-weight: bold"><span style="color: #0000FF">if</span></span> <span style="color: #990000">(</span>component <span style="color: #990000">=</span><span style="color: #990000">=</span> butIncrType<span style="color: #990000">)</span> <span style="color: #FF0000">{</span>
+        newPlayerType<span style="color: #990000">+</span><span style="color: #990000">+</span><span style="color: #990000">;</span>
+        <span style="font-weight: bold"><span style="color: #0000FF">if</span></span> <span style="color: #990000">(</span>newPlayerType <span style="color: #990000">&gt;</span> <span style="color: #993399">3</span><span style="color: #990000">)</span>
+            newPlayerType <span style="color: #990000">=</span> <span style="color: #993399">0</span><span style="color: #990000">;</span>
+    
+        <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>sounds<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">playSound</span></span><span style="color: #990000">(</span>SOUND_CLICK<span style="color: #990000">)</span><span style="color: #990000">;</span>
+
+        <span style="font-weight: bold"><span style="color: #000000">updatePlayerType</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span><span style="color: #990000">;</span>
+    <span style="color: #FF0000">}</span>
+    
+    <span style="font-style: italic"><span style="color: #9A1900">//Player type (decrease)</span></span>
+    <span style="font-weight: bold"><span style="color: #0000FF">else</span></span> <span style="font-weight: bold"><span style="color: #0000FF">if</span></span> <span style="color: #990000">(</span>component <span style="color: #990000">=</span><span style="color: #990000">=</span> butDecrType<span style="color: #990000">)</span> <span style="color: #FF0000">{</span>
+        newPlayerType<span style="color: #990000">-</span><span style="color: #990000">-</span><span style="color: #990000">;</span>
+        <span style="font-weight: bold"><span style="color: #0000FF">if</span></span> <span style="color: #990000">(</span>newPlayerType <span style="color: #990000">&lt;</span> <span style="color: #993399">0</span><span style="color: #990000">)</span>
+            newPlayerType <span style="color: #990000">=</span> <span style="color: #993399">3</span><span style="color: #990000">;</span>
+            
+        <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>sounds<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">playSound</span></span><span style="color: #990000">(</span>SOUND_CLICK<span style="color: #990000">)</span><span style="color: #990000">;</span>
+        
+        <span style="font-weight: bold"><span style="color: #000000">updatePlayerType</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span><span style="color: #990000">;</span>
+    <span style="color: #FF0000">}</span>
+    
+    <span style="font-style: italic"><span style="color: #9A1900">//'Remove all' button</span></span>
+    <span style="font-weight: bold"><span style="color: #0000FF">else</span></span> <span style="font-weight: bold"><span style="color: #0000FF">if</span></span> <span style="color: #990000">(</span>component <span style="color: #990000">=</span><span style="color: #990000">=</span> butRemoveAll<span style="color: #990000">)</span> <span style="color: #FF0000">{</span>
+        gameEngine<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">removeAllPlayers</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span><span style="color: #990000">;</span>
+        <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>humanNumbering <span style="color: #990000">=</span> <span style="color: #993399">1</span><span style="color: #990000">;</span>
+        <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>aiNumbering <span style="color: #990000">=</span> <span style="color: #993399">1</span><span style="color: #990000">;</span>
+        <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>playerCount <span style="color: #990000">=</span> <span style="color: #993399">0</span><span style="color: #990000">;</span>
+
+        <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>sounds<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">playSound</span></span><span style="color: #990000">(</span>SOUND_TICK<span style="color: #990000">)</span><span style="color: #990000">;</span>
+
+        <span style="font-weight: bold"><span style="color: #000000">updatePlayers</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span><span style="color: #990000">;</span>
+    <span style="color: #FF0000">}</span>
+    
+    <span style="font-weight: bold"><span style="color: #000000">redraw</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span><span style="color: #990000">;</span>
+<span style="color: #FF0000">}</span>
+
+<span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * Adds a new player. Parameters are read from UI components.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> */</span></span>
+<span style="color: #009900">void</span> WindowPlayers<span style="color: #990000">:</span><span style="color: #990000">:</span><span style="font-weight: bold"><span style="color: #000000">addPlayer</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span> <span style="color: #FF0000">{</span>
+    Player <span style="color: #990000">*</span>player<span style="color: #990000">;</span>
+    <span style="color: #009900">char</span> <span style="color: #990000">*</span>name <span style="color: #990000">=</span> fieldName<span style="color: #990000">-</span><span style="color: #990000">&gt;</span><span style="font-weight: bold"><span style="color: #000000">getText</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span><span style="color: #990000">;</span>
+    
+    <span style="font-style: italic"><span style="color: #9A1900">//Limit number of players</span></span>
+    <span style="font-weight: bold"><span style="color: #0000FF">if</span></span> <span style="color: #990000">(</span>gameEngine<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">getPlayerCount</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span> <span style="color: #990000">&gt;</span><span style="color: #990000">=</span> MAX_PLAYERS<span style="color: #990000">)</span> <span style="color: #FF0000">{</span>
+        <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>sounds<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">playSound</span></span><span style="color: #990000">(</span>SOUND_TICK<span style="color: #990000">)</span><span style="color: #990000">;</span>
+        <span style="font-weight: bold"><span style="color: #0000FF">return</span></span><span style="color: #990000">;</span>
+    <span style="color: #FF0000">}</span> <span style="font-weight: bold"><span style="color: #0000FF">else</span></span> <span style="color: #FF0000">{</span>
+        <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>sounds<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">playSound</span></span><span style="color: #990000">(</span>SOUND_CLICK<span style="color: #990000">)</span><span style="color: #990000">;</span>
+    <span style="color: #FF0000">}</span>
+
+    
+    <span style="font-style: italic"><span style="color: #9A1900">//Default names</span></span>
+    <span style="font-weight: bold"><span style="color: #0000FF">if</span></span> <span style="color: #990000">(</span>name <span style="color: #990000">=</span><span style="color: #990000">=</span> NULL<span style="color: #990000">)</span> <span style="color: #FF0000">{</span>
+        name <span style="color: #990000">=</span> <span style="font-weight: bold"><span style="color: #0000FF">new</span></span> <span style="color: #009900">char</span><span style="color: #990000">[</span><span style="color: #993399">20</span><span style="color: #990000">]</span><span style="color: #990000">;</span>
+        
+        <span style="font-weight: bold"><span style="color: #0000FF">if</span></span> <span style="color: #990000">(</span>newPlayerType <span style="color: #990000">&gt;</span> <span style="color: #993399">0</span><span style="color: #990000">)</span> <span style="color: #FF0000">{</span>
+            <span style="font-weight: bold"><span style="color: #000000">sprintf</span></span><span style="color: #990000">(</span>name<span style="color: #990000">,</span> <span style="color: #FF0000">"AI %d"</span><span style="color: #990000">,</span> aiNumbering<span style="color: #990000">)</span><span style="color: #990000">;</span>
+            aiNumbering<span style="color: #990000">+</span><span style="color: #990000">+</span><span style="color: #990000">;</span>
+            
+        <span style="color: #FF0000">}</span> <span style="font-weight: bold"><span style="color: #0000FF">else</span></span> <span style="color: #FF0000">{</span>
+            <span style="font-weight: bold"><span style="color: #000000">sprintf</span></span><span style="color: #990000">(</span>name<span style="color: #990000">,</span> <span style="color: #FF0000">"Player %d"</span><span style="color: #990000">,</span> humanNumbering<span style="color: #990000">)</span><span style="color: #990000">;</span>
+            humanNumbering<span style="color: #990000">+</span><span style="color: #990000">+</span><span style="color: #990000">;</span>
+        <span style="color: #FF0000">}</span>
+    <span style="color: #FF0000">}</span>
+    
+    <span style="font-style: italic"><span style="color: #9A1900">//Create player</span></span>
+    player <span style="color: #990000">=</span> <span style="font-weight: bold"><span style="color: #0000FF">new</span></span> <span style="font-weight: bold"><span style="color: #000000">Player</span></span><span style="color: #990000">(</span>name<span style="color: #990000">,</span> gameEngine<span style="color: #990000">)</span><span style="color: #990000">;</span>
+    player<span style="color: #990000">-</span><span style="color: #990000">&gt;</span><span style="font-weight: bold"><span style="color: #000000">setColor</span></span><span style="color: #990000">(</span>colors<span style="color: #990000">[</span>playerCount<span style="color: #990000">]</span><span style="color: #990000">[</span><span style="color: #993399">0</span><span style="color: #990000">]</span><span style="color: #990000">,</span>
+                     colors<span style="color: #990000">[</span>playerCount<span style="color: #990000">]</span><span style="color: #990000">[</span><span style="color: #993399">1</span><span style="color: #990000">]</span><span style="color: #990000">,</span>
+                     colors<span style="color: #990000">[</span>playerCount<span style="color: #990000">]</span><span style="color: #990000">[</span><span style="color: #993399">2</span><span style="color: #990000">]</span><span style="color: #990000">)</span><span style="color: #990000">;</span>
+    playerCount<span style="color: #990000">+</span><span style="color: #990000">+</span><span style="color: #990000">;</span>
+
+    <span style="font-style: italic"><span style="color: #9A1900">//Set AI</span></span>
+    <span style="font-weight: bold"><span style="color: #0000FF">switch</span></span> <span style="color: #990000">(</span>newPlayerType<span style="color: #990000">)</span> <span style="color: #FF0000">{</span>
+        <span style="font-weight: bold"><span style="color: #0000FF">case</span></span> <span style="color: #993399">1</span><span style="color: #990000">:</span>
+            <span style="font-style: italic"><span style="color: #9A1900">//Stupid computer</span></span>
+            player<span style="color: #990000">-</span><span style="color: #990000">&gt;</span><span style="font-weight: bold"><span style="color: #000000">setAI</span></span><span style="color: #990000">(</span><span style="color: #990000">*</span><span style="color: #990000">(</span><span style="font-weight: bold"><span style="color: #0000FF">new</span></span> <span style="font-weight: bold"><span style="color: #000000">Ai</span></span><span style="color: #990000">(</span><span style="color: #990000">*</span>player<span style="color: #990000">,</span> <span style="color: #993399">0</span><span style="color: #990000">)</span><span style="color: #990000">)</span><span style="color: #990000">)</span><span style="color: #990000">;</span>
+            <span style="font-weight: bold"><span style="color: #0000FF">break</span></span><span style="color: #990000">;</span>
+        
+        <span style="font-weight: bold"><span style="color: #0000FF">case</span></span> <span style="color: #993399">2</span><span style="color: #990000">:</span>
+            <span style="font-style: italic"><span style="color: #9A1900">//Normal computer</span></span>
+            player<span style="color: #990000">-</span><span style="color: #990000">&gt;</span><span style="font-weight: bold"><span style="color: #000000">setAI</span></span><span style="color: #990000">(</span><span style="color: #990000">*</span><span style="color: #990000">(</span><span style="font-weight: bold"><span style="color: #0000FF">new</span></span> <span style="font-weight: bold"><span style="color: #000000">Ai</span></span><span style="color: #990000">(</span><span style="color: #990000">*</span>player<span style="color: #990000">,</span> <span style="color: #993399">1</span><span style="color: #990000">)</span><span style="color: #990000">)</span><span style="color: #990000">)</span><span style="color: #990000">;</span>
+            <span style="font-weight: bold"><span style="color: #0000FF">break</span></span><span style="color: #990000">;</span>
+        
+        <span style="font-weight: bold"><span style="color: #0000FF">case</span></span> <span style="color: #993399">3</span><span style="color: #990000">:</span>
+            <span style="font-style: italic"><span style="color: #9A1900">//Clever computer</span></span>
+            player<span style="color: #990000">-</span><span style="color: #990000">&gt;</span><span style="font-weight: bold"><span style="color: #000000">setAI</span></span><span style="color: #990000">(</span><span style="color: #990000">*</span><span style="color: #990000">(</span><span style="font-weight: bold"><span style="color: #0000FF">new</span></span> <span style="font-weight: bold"><span style="color: #000000">Ai</span></span><span style="color: #990000">(</span><span style="color: #990000">*</span>player<span style="color: #990000">,</span> <span style="color: #993399">2</span><span style="color: #990000">)</span><span style="color: #990000">)</span><span style="color: #990000">)</span><span style="color: #990000">;</span>
+            <span style="font-weight: bold"><span style="color: #0000FF">break</span></span><span style="color: #990000">;</span>
+    <span style="color: #FF0000">}</span>
+    
+    gameEngine<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">addPlayer</span></span><span style="color: #990000">(</span><span style="color: #990000">*</span>player<span style="color: #990000">)</span><span style="color: #990000">;</span>
+    
+    <span style="font-weight: bold"><span style="color: #0000FF">delete</span></span> <span style="color: #990000">[</span><span style="color: #990000">]</span> name<span style="color: #990000">;</span>
+    
+    <span style="font-weight: bold"><span style="color: #000000">updatePlayers</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span><span style="color: #990000">;</span>
+    fieldName<span style="color: #990000">-</span><span style="color: #990000">&gt;</span><span style="font-weight: bold"><span style="color: #000000">clear</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span><span style="color: #990000">;</span>
+<span style="color: #FF0000">}</span>
+
+<span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * Updates player list.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> */</span></span>
+<span style="color: #009900">void</span> WindowPlayers<span style="color: #990000">:</span><span style="color: #990000">:</span><span style="font-weight: bold"><span style="color: #000000">updatePlayers</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span> <span style="color: #FF0000">{</span>
+    Player <span style="color: #990000">*</span>player<span style="color: #990000">;</span>
+    string text<span style="color: #990000">;</span>
+    
+    <span style="font-weight: bold"><span style="color: #0000FF">for</span></span> <span style="color: #990000">(</span><span style="color: #009900">int</span> i <span style="color: #990000">=</span> <span style="color: #993399">0</span><span style="color: #990000">;</span> i <span style="color: #990000">&lt;</span> gameEngine<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">getPlayerCount</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span><span style="color: #990000">;</span> i<span style="color: #990000">+</span><span style="color: #990000">+</span><span style="color: #990000">)</span> <span style="color: #FF0000">{</span>
+        player <span style="color: #990000">=</span> gameEngine<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">getPlayer</span></span><span style="color: #990000">(</span>i<span style="color: #990000">)</span><span style="color: #990000">;</span>
+        
+        <span style="font-weight: bold"><span style="color: #0000FF">if</span></span> <span style="color: #990000">(</span>player<span style="color: #990000">)</span> <span style="color: #FF0000">{</span>
+            text<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">append</span></span><span style="color: #990000">(</span>player<span style="color: #990000">-</span><span style="color: #990000">&gt;</span><span style="font-weight: bold"><span style="color: #000000">getName</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span><span style="color: #990000">)</span><span style="color: #990000">;</span>
+            text<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">append</span></span><span style="color: #990000">(</span><span style="color: #FF0000">"\n"</span><span style="color: #990000">)</span><span style="color: #990000">;</span>
+        <span style="color: #FF0000">}</span>
+    <span style="color: #FF0000">}</span>
+    
+    <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>textPlayers<span style="color: #990000">-</span><span style="color: #990000">&gt;</span><span style="font-weight: bold"><span style="color: #000000">setText</span></span><span style="color: #990000">(</span>text<span style="color: #990000">)</span><span style="color: #990000">;</span>
+<span style="color: #FF0000">}</span>
+
+<span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * Updates the component showing player type.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> */</span></span>
+<span style="color: #009900">void</span> WindowPlayers<span style="color: #990000">:</span><span style="color: #990000">:</span><span style="font-weight: bold"><span style="color: #000000">updatePlayerType</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span> <span style="color: #FF0000">{</span>
+    <span style="font-weight: bold"><span style="color: #0000FF">switch</span></span> <span style="color: #990000">(</span>newPlayerType<span style="color: #990000">)</span> <span style="color: #FF0000">{</span>
+        <span style="font-weight: bold"><span style="color: #0000FF">case</span></span> <span style="color: #993399">0</span><span style="color: #990000">:</span>
+            <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>textNewType<span style="color: #990000">-</span><span style="color: #990000">&gt;</span><span style="font-weight: bold"><span style="color: #000000">setText</span></span><span style="color: #990000">(</span><span style="color: #FF0000">"Human"</span><span style="color: #990000">)</span><span style="color: #990000">;</span>
+            <span style="font-weight: bold"><span style="color: #0000FF">break</span></span><span style="color: #990000">;</span>
+        
+        <span style="font-weight: bold"><span style="color: #0000FF">case</span></span> <span style="color: #993399">1</span><span style="color: #990000">:</span>
+            <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>textNewType<span style="color: #990000">-</span><span style="color: #990000">&gt;</span><span style="font-weight: bold"><span style="color: #000000">setText</span></span><span style="color: #990000">(</span><span style="color: #FF0000">"Stupid computer"</span><span style="color: #990000">)</span><span style="color: #990000">;</span>
+            <span style="font-weight: bold"><span style="color: #0000FF">break</span></span><span style="color: #990000">;</span>
+        
+        <span style="font-weight: bold"><span style="color: #0000FF">case</span></span> <span style="color: #993399">2</span><span style="color: #990000">:</span>
+            <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>textNewType<span style="color: #990000">-</span><span style="color: #990000">&gt;</span><span style="font-weight: bold"><span style="color: #000000">setText</span></span><span style="color: #990000">(</span><span style="color: #FF0000">"Normal computer"</span><span style="color: #990000">)</span><span style="color: #990000">;</span>
+            <span style="font-weight: bold"><span style="color: #0000FF">break</span></span><span style="color: #990000">;</span>
+        
+        <span style="font-weight: bold"><span style="color: #0000FF">case</span></span> <span style="color: #993399">3</span><span style="color: #990000">:</span>
+            <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>textNewType<span style="color: #990000">-</span><span style="color: #990000">&gt;</span><span style="font-weight: bold"><span style="color: #000000">setText</span></span><span style="color: #990000">(</span><span style="color: #FF0000">"Clever computer"</span><span style="color: #990000">)</span><span style="color: #990000">;</span>
+            <span style="font-weight: bold"><span style="color: #0000FF">break</span></span><span style="color: #990000">;</span>
+    <span style="color: #FF0000">}</span>
+<span style="color: #FF0000">}</span>
+
+<span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * Starts game and closes this window.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> */</span></span>
+<span style="color: #009900">void</span> WindowPlayers<span style="color: #990000">:</span><span style="color: #990000">:</span><span style="font-weight: bold"><span style="color: #000000">startGame</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span> <span style="color: #FF0000">{</span>
+    <span style="font-weight: bold"><span style="color: #0000FF">if</span></span> <span style="color: #990000">(</span>gameEngine<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">getPlayerCount</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span> <span style="color: #990000">&lt;</span> MIN_PLAYERS<span style="color: #990000">)</span>
+        <span style="font-weight: bold"><span style="color: #0000FF">return</span></span><span style="color: #990000">;</span>
+    
+    <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span><span style="font-weight: bold"><span style="color: #000000">close</span></span><span style="color: #990000">(</span><span style="color: #993399">1</span><span style="color: #990000">)</span><span style="color: #990000">;</span>
+<span style="color: #FF0000">}</span>
+</tt></pre>

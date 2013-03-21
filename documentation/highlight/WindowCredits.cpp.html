@@ -1,0 +1,116 @@
+<pre><tt>
+<span style="font-weight: bold"><span style="color: #000080">#include</span></span> <span style="color: #FF0000">"WindowCredits.h"</span>
+<span style="font-weight: bold"><span style="color: #000080">#include</span></span> <span style="color: #FF0000">"images.h"</span>
+
+
+<span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * Class WindowCredits.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * Shows the developers of the game.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * @author Lasse Hakulinen</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> */</span></span>
+
+<span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * @param &amp;graphics - reference to the graphics</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * @param &amp;sounds - reference to the sounds</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> */</span></span>
+WindowCredits<span style="color: #990000">:</span><span style="color: #990000">:</span><span style="font-weight: bold"><span style="color: #000000">WindowCredits</span></span><span style="color: #990000">(</span>Graphics <span style="color: #990000">&amp;</span>graphics<span style="color: #990000">,</span> Sounds <span style="color: #990000">&amp;</span>sounds<span style="color: #990000">)</span>
+    <span style="color: #990000">:</span> <span style="font-weight: bold"><span style="color: #000000">Window</span></span><span style="color: #990000">(</span>graphics<span style="color: #990000">,</span> sounds<span style="color: #990000">)</span> <span style="color: #FF0000">{</span>        
+    
+    <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>textTitle <span style="color: #990000">=</span> <span style="font-weight: bold"><span style="color: #0000FF">new</span></span> <span style="font-weight: bold"><span style="color: #000000">UIText</span></span><span style="color: #990000">(</span><span style="color: #990000">*</span><span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">,</span> <span style="color: #FF0000">"INTERPLANETARY ARTILLERY GAME"</span><span style="color: #990000">,</span>
+                                 <span style="color: #993399">400</span><span style="color: #990000">,</span> <span style="color: #993399">80</span><span style="color: #990000">)</span><span style="color: #990000">;</span>
+                                 
+    <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>textDevelopers <span style="color: #990000">=</span> <span style="font-weight: bold"><span style="color: #0000FF">new</span></span> <span style="font-weight: bold"><span style="color: #000000">UIText</span></span><span style="color: #990000">(</span><span style="color: #990000">*</span><span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">,</span>
+    <span style="color: #FF0000">"Developers:\n\nJaakko Luttinen\nTapio Auvinen\nLasse Hakulinen"</span><span style="color: #990000">,</span>
+    <span style="color: #993399">200</span><span style="color: #990000">,</span> <span style="color: #993399">200</span><span style="color: #990000">)</span><span style="color: #990000">;</span>
+            
+    <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>textSpecial <span style="color: #990000">=</span> <span style="font-weight: bold"><span style="color: #0000FF">new</span></span> <span style="font-weight: bold"><span style="color: #000000">UIText</span></span><span style="color: #990000">(</span><span style="color: #990000">*</span><span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">,</span>
+    <span style="color: #FF0000">"Artwork: Jaakko Luttinen\nSounds: Lasse Hakulinen"</span><span style="color: #990000">,</span> <span style="color: #993399">200</span><span style="color: #990000">,</span> <span style="color: #993399">350</span><span style="color: #990000">)</span><span style="color: #990000">;</span>
+        
+    <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>textMade <span style="color: #990000">=</span> <span style="font-weight: bold"><span style="color: #0000FF">new</span></span> <span style="font-weight: bold"><span style="color: #000000">UIText</span></span><span style="color: #990000">(</span><span style="color: #990000">*</span><span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">,</span> <span style="color: #FF0000">"Made in Otaniemi 2005"</span><span style="color: #990000">,</span> <span style="color: #993399">200</span><span style="color: #990000">,</span> <span style="color: #993399">550</span><span style="color: #990000">)</span><span style="color: #990000">;</span>
+    
+    <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>buttonBack <span style="color: #990000">=</span> <span style="font-weight: bold"><span style="color: #0000FF">new</span></span> <span style="font-weight: bold"><span style="color: #000000">UIButton</span></span><span style="color: #990000">(</span><span style="color: #990000">*</span><span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">,</span> <span style="color: #FF0000">"Back to Main menu"</span><span style="color: #990000">,</span> <span style="color: #993399">80</span><span style="color: #990000">,</span> <span style="color: #993399">650</span><span style="color: #990000">)</span><span style="color: #990000">;</span>
+    
+    <span style="font-weight: bold"><span style="color: #000000">addComponent</span></span><span style="color: #990000">(</span><span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>textTitle<span style="color: #990000">)</span><span style="color: #990000">;</span>
+    <span style="font-weight: bold"><span style="color: #000000">addComponent</span></span><span style="color: #990000">(</span><span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>textDevelopers<span style="color: #990000">)</span><span style="color: #990000">;</span>
+    <span style="font-weight: bold"><span style="color: #000000">addComponent</span></span><span style="color: #990000">(</span><span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>textSpecial<span style="color: #990000">)</span><span style="color: #990000">;</span>
+    <span style="font-weight: bold"><span style="color: #000000">addComponent</span></span><span style="color: #990000">(</span><span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>textMade<span style="color: #990000">)</span><span style="color: #990000">;</span>
+    <span style="font-weight: bold"><span style="color: #000000">addComponent</span></span><span style="color: #990000">(</span><span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>buttonBack<span style="color: #990000">)</span><span style="color: #990000">;</span>
+    
+<span style="color: #FF0000">}</span>
+
+<span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * Frees all memory allocated by WindowCredits</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> */</span></span>
+WindowCredits<span style="color: #990000">:</span><span style="color: #990000">:</span><span style="color: #990000">~</span><span style="font-weight: bold"><span style="color: #000000">WindowCredits</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span><span style="color: #FF0000">{</span>
+    
+    <span style="font-weight: bold"><span style="color: #0000FF">delete</span></span> <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>textTitle<span style="color: #990000">;</span>
+    <span style="font-weight: bold"><span style="color: #0000FF">delete</span></span> <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>textDevelopers<span style="color: #990000">;</span>
+    <span style="font-weight: bold"><span style="color: #0000FF">delete</span></span> <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>textSpecial<span style="color: #990000">;</span>
+    <span style="font-weight: bold"><span style="color: #0000FF">delete</span></span> <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>textMade<span style="color: #990000">;</span>
+    <span style="font-weight: bold"><span style="color: #0000FF">delete</span></span> <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>buttonBack<span style="color: #990000">;</span>
+        
+<span style="color: #FF0000">}</span>
+
+<span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * Shows the windowCredits</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> */</span></span>
+<span style="color: #009900">void</span> WindowCredits<span style="color: #990000">:</span><span style="color: #990000">:</span><span style="font-weight: bold"><span style="color: #000000">show</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span><span style="color: #FF0000">{</span>
+
+    <span style="font-weight: bold"><span style="color: #000000">redraw</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span><span style="color: #990000">;</span>
+<span style="color: #FF0000">}</span>
+
+<span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * Redraws the screen</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> */</span></span>
+<span style="color: #009900">void</span> WindowCredits<span style="color: #990000">:</span><span style="color: #990000">:</span><span style="font-weight: bold"><span style="color: #000000">redraw</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span> <span style="color: #FF0000">{</span>
+    
+    <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>graphics<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">clear</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span><span style="color: #990000">;</span>  <span style="font-style: italic"><span style="color: #9A1900">//Clear screen</span></span>
+    <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>graphics<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">drawSprite</span></span><span style="color: #990000">(</span>IMAGE_BACKGROUND<span style="color: #990000">,</span> <span style="color: #993399">0</span><span style="color: #990000">,</span> <span style="color: #993399">0</span><span style="color: #990000">)</span><span style="color: #990000">;</span>
+    <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span><span style="font-weight: bold"><span style="color: #000000">update</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span><span style="color: #990000">;</span>          <span style="font-style: italic"><span style="color: #9A1900">//Draw components</span></span>
+    <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>graphics<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">update</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span><span style="color: #990000">;</span> <span style="font-style: italic"><span style="color: #9A1900">//Update screen</span></span>
+<span style="color: #FF0000">}</span>
+
+
+<span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * Takes one timestep</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * @param timestep - timestep to take</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> */</span></span>
+<span style="color: #009900">void</span> WindowCredits<span style="color: #990000">:</span><span style="color: #990000">:</span><span style="font-weight: bold"><span style="color: #000000">step</span></span><span style="color: #990000">(</span><span style="color: #009900">int</span> timestep<span style="color: #990000">)</span> <span style="color: #FF0000">{</span>
+
+<span style="color: #FF0000">}</span>
+
+<span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * Handles key down events</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * @param keysym - key that is pressed</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> */</span></span>
+<span style="color: #009900">void</span> WindowCredits<span style="color: #990000">:</span><span style="color: #990000">:</span><span style="font-weight: bold"><span style="color: #000000">keyDown</span></span><span style="color: #990000">(</span>SDL_keysym keysym<span style="color: #990000">)</span><span style="color: #FF0000">{</span>
+    
+    <span style="font-weight: bold"><span style="color: #0000FF">switch</span></span> <span style="color: #990000">(</span>keysym<span style="color: #990000">.</span>sym<span style="color: #990000">)</span> <span style="color: #FF0000">{</span>
+        <span style="font-weight: bold"><span style="color: #0000FF">case</span></span> SDLK_ESCAPE<span style="color: #990000">:</span>
+            <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span><span style="font-weight: bold"><span style="color: #000000">close</span></span><span style="color: #990000">(</span><span style="color: #993399">0</span><span style="color: #990000">)</span><span style="color: #990000">;</span>
+            <span style="font-weight: bold"><span style="color: #0000FF">break</span></span><span style="color: #990000">;</span>
+        
+        <span style="font-weight: bold"><span style="color: #0000FF">default</span></span><span style="color: #990000">:</span>
+            <span style="font-weight: bold"><span style="color: #0000FF">break</span></span><span style="color: #990000">;</span>
+    <span style="color: #FF0000">}</span>
+    
+    <span style="font-weight: bold"><span style="color: #000000">redraw</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span><span style="color: #990000">;</span>
+<span style="color: #FF0000">}</span>
+
+<span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * Handles mouse up events</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * @param button - button that is pressed</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> */</span></span>
+<span style="color: #009900">void</span> WindowCredits<span style="color: #990000">:</span><span style="color: #990000">:</span><span style="font-weight: bold"><span style="color: #000000">mouseUp</span></span><span style="color: #990000">(</span>SDL_MouseButtonEvent button<span style="color: #990000">)</span><span style="color: #FF0000">{</span>
+
+    <span style="font-style: italic"><span style="color: #9A1900">//Find out if a button was hit</span></span>
+    UIComponent <span style="color: #990000">*</span>component <span style="color: #990000">=</span> <span style="font-weight: bold"><span style="color: #000000">findComponent</span></span><span style="color: #990000">(</span>button<span style="color: #990000">.</span>x<span style="color: #990000">,</span> button<span style="color: #990000">.</span>y<span style="color: #990000">)</span><span style="color: #990000">;</span>
+        
+    <span style="font-weight: bold"><span style="color: #0000FF">if</span></span> <span style="color: #990000">(</span>component <span style="color: #990000">=</span><span style="color: #990000">=</span> buttonBack<span style="color: #990000">)</span> <span style="color: #FF0000">{</span>
+        <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>sounds<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">playSound</span></span><span style="color: #990000">(</span>SOUND_CLICK<span style="color: #990000">)</span><span style="color: #990000">;</span>
+        <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span><span style="font-weight: bold"><span style="color: #000000">close</span></span><span style="color: #990000">(</span><span style="color: #993399">0</span><span style="color: #990000">)</span><span style="color: #990000">;</span>
+    <span style="color: #FF0000">}</span>
+    
+    <span style="font-weight: bold"><span style="color: #000000">redraw</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span><span style="color: #990000">;</span>
+<span style="color: #FF0000">}</span>
+</tt></pre>

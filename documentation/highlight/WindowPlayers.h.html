@@ -1,0 +1,99 @@
+<pre><tt><span style="font-weight: bold"><span style="color: #000080">#ifndef</span></span> _WINDOW_PLAYERS_H_
+<span style="font-weight: bold"><span style="color: #000080">#define</span></span> _WINDOW_PLAYERS_H_
+
+<span style="font-weight: bold"><span style="color: #000080">#include</span></span> <span style="color: #FF0000">"Window.h"</span>
+<span style="font-weight: bold"><span style="color: #000080">#include</span></span> <span style="color: #FF0000">"UIButton.h"</span>
+<span style="font-weight: bold"><span style="color: #000080">#include</span></span> <span style="color: #FF0000">"UIText.h"</span>
+<span style="font-weight: bold"><span style="color: #000080">#include</span></span> <span style="color: #FF0000">"UITextField.h"</span>
+<span style="font-weight: bold"><span style="color: #000080">#include</span></span> <span style="color: #FF0000">"GameEngine.h"</span>
+
+<span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * WindowPlayers is a window where players are added.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * @author Tapio Auvinen</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> */</span></span>
+ 
+<span style="font-weight: bold"><span style="color: #0000FF">class</span></span> WindowPlayers  <span style="color: #990000">:</span>  <span style="font-weight: bold"><span style="color: #0000FF">public</span></span> Window <span style="color: #FF0000">{</span>
+<span style="font-weight: bold"><span style="color: #0000FF">public</span></span><span style="color: #990000">:</span>
+
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Constructor.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @param &amp;graphics Reference to graphics</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @param &amp;sounds Reference to sound engine</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @param &amp;engine Reference to game engine</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="font-weight: bold"><span style="color: #000000">WindowPlayers</span></span><span style="color: #990000">(</span>Graphics <span style="color: #990000">&amp;</span>graphics<span style="color: #990000">,</span> Sounds <span style="color: #990000">&amp;</span>sounds<span style="color: #990000">,</span>
+                  GameEngine <span style="color: #990000">&amp;</span>gameEngine<span style="color: #990000">)</span><span style="color: #990000">;</span>
+    
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Destructor</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="color: #990000">~</span><span style="font-weight: bold"><span style="color: #000000">WindowPlayers</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span><span style="color: #990000">;</span>
+
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Show is called automatically when window is opened.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="color: #009900">void</span> <span style="font-weight: bold"><span style="color: #000000">show</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span><span style="color: #990000">;</span>
+    
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Handles key down events</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="color: #009900">void</span> <span style="font-weight: bold"><span style="color: #000000">keyDown</span></span><span style="color: #990000">(</span>SDL_keysym keysym<span style="color: #990000">)</span><span style="color: #990000">;</span>
+    
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Handles mouse up events</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="color: #009900">void</span> <span style="font-weight: bold"><span style="color: #000000">mouseUp</span></span><span style="color: #990000">(</span>SDL_MouseButtonEvent button<span style="color: #990000">)</span><span style="color: #990000">;</span>
+    
+    
+<span style="font-weight: bold"><span style="color: #0000FF">private</span></span><span style="color: #990000">:</span>
+
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Redraws everything.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="color: #009900">void</span> <span style="font-weight: bold"><span style="color: #000000">redraw</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span><span style="color: #990000">;</span>
+
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Adds a new player. Parameters are read from UI components.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="color: #009900">void</span> <span style="font-weight: bold"><span style="color: #000000">addPlayer</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span><span style="color: #990000">;</span>
+    
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Updates player list.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="color: #009900">void</span> <span style="font-weight: bold"><span style="color: #000000">updatePlayers</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span><span style="color: #990000">;</span>
+    
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Updates the component showing player type.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="color: #009900">void</span> <span style="font-weight: bold"><span style="color: #000000">updatePlayerType</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span><span style="color: #990000">;</span>
+    
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Starts game and closes this window.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="color: #009900">void</span> <span style="font-weight: bold"><span style="color: #000000">startGame</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span><span style="color: #990000">;</span>
+    
+    GameEngine <span style="color: #990000">&amp;</span>gameEngine<span style="color: #990000">;</span> <span style="font-style: italic"><span style="color: #9A1900">//Reference to game engine</span></span>
+    
+    <span style="font-style: italic"><span style="color: #9A1900">//UI components:</span></span>
+    UIText <span style="color: #990000">*</span>textTitle<span style="color: #990000">;</span>
+    UIText <span style="color: #990000">*</span>textPlayers<span style="color: #990000">;</span>
+    
+    UIText <span style="color: #990000">*</span>textNewPlayer<span style="color: #990000">;</span>
+    UIText <span style="color: #990000">*</span>textNewName<span style="color: #990000">;</span>
+    UITextField <span style="color: #990000">*</span>fieldName<span style="color: #990000">;</span>
+    UIText <span style="color: #990000">*</span>textNewType<span style="color: #990000">;</span>
+    UIButton <span style="color: #990000">*</span>butIncrType<span style="color: #990000">;</span>
+    UIButton <span style="color: #990000">*</span>butDecrType<span style="color: #990000">;</span>
+    
+    UIButton <span style="color: #990000">*</span>buttonStart<span style="color: #990000">;</span>
+    UIButton <span style="color: #990000">*</span>butAdd<span style="color: #990000">;</span>
+    UIButton <span style="color: #990000">*</span>butRemoveAll<span style="color: #990000">;</span>
+    
+    <span style="color: #009900">int</span> newPlayerType<span style="color: #990000">;</span>   <span style="font-style: italic"><span style="color: #9A1900">//Type of the new player</span></span>
+    <span style="color: #009900">int</span> humanNumbering<span style="color: #990000">;</span>  <span style="font-style: italic"><span style="color: #9A1900">//Counter for automatic naming</span></span>
+    <span style="color: #009900">int</span> aiNumbering<span style="color: #990000">;</span>     <span style="font-style: italic"><span style="color: #9A1900">//Counter for automatic naming</span></span>
+    <span style="color: #009900">int</span> playerCount<span style="color: #990000">;</span>     <span style="font-style: italic"><span style="color: #9A1900">//Counts players</span></span>
+<span style="color: #FF0000">}</span><span style="color: #990000">;</span>
+
+<span style="font-weight: bold"><span style="color: #000080">#endif</span></span> <span style="font-style: italic"><span style="color: #9A1900">//_WINDOW_PLAYERS_H_</span></span>
+</tt></pre>

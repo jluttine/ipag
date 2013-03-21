@@ -1,0 +1,159 @@
+<pre><tt>
+<span style="font-weight: bold"><span style="color: #000080">#ifndef</span></span> _VECTOR_H_
+<span style="font-weight: bold"><span style="color: #000080">#define</span></span> _VECTOR_H_
+
+<span style="font-weight: bold"><span style="color: #000080">#ifndef</span></span> M_PI
+<span style="font-weight: bold"><span style="color: #000080">#define</span></span> M_PI <span style="color: #993399">3.14159265358979323846</span>
+<span style="font-weight: bold"><span style="color: #000080">#endif</span></span>
+
+
+<span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * Author: Jaakko Luttinen</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * Vector is a class for 2D vectors.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> */</span></span>
+
+<span style="font-weight: bold"><span style="color: #0000FF">class</span></span> Vector
+<span style="color: #FF0000">{</span>
+    
+<span style="font-weight: bold"><span style="color: #0000FF">public</span></span><span style="color: #990000">:</span>
+
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Constructs a new vector with given components.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @param x X component.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @param y Y component.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="font-weight: bold"><span style="color: #000000">Vector</span></span><span style="color: #990000">(</span> <span style="color: #009900">float</span> x <span style="color: #990000">=</span> <span style="color: #993399">0</span><span style="color: #990000">,</span> <span style="color: #009900">float</span> y <span style="color: #990000">=</span> <span style="color: #993399">0</span> <span style="color: #990000">)</span>  <span style="color: #FF0000">{</span> <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span><span style="font-weight: bold"><span style="color: #000000">set</span></span><span style="color: #990000">(</span> x<span style="color: #990000">,</span> y <span style="color: #990000">)</span><span style="color: #990000">;</span> <span style="color: #FF0000">}</span><span style="color: #990000">;</span>
+    
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Constructs a new vector from given vector.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @param vect The vector to copy.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>   
+    <span style="font-weight: bold"><span style="color: #000000">Vector</span></span><span style="color: #990000">(</span> <span style="font-weight: bold"><span style="color: #0000FF">const</span></span> Vector <span style="color: #990000">&amp;</span>vect <span style="color: #990000">)</span>  <span style="color: #FF0000">{</span> <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span><span style="font-weight: bold"><span style="color: #000000">set</span></span><span style="color: #990000">(</span> vect<span style="color: #990000">.</span>x<span style="color: #990000">,</span> vect<span style="color: #990000">.</span>y <span style="color: #990000">)</span><span style="color: #990000">;</span> <span style="color: #FF0000">}</span><span style="color: #990000">;</span>
+    
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Returns the x component.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @return X component.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="font-weight: bold"><span style="color: #0000FF">inline</span></span> <span style="color: #009900">float</span> <span style="font-weight: bold"><span style="color: #000000">getX</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span> <span style="font-weight: bold"><span style="color: #0000FF">const</span></span>  <span style="color: #FF0000">{</span> <span style="font-weight: bold"><span style="color: #0000FF">return</span></span> <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>x<span style="color: #990000">;</span> <span style="color: #FF0000">}</span><span style="color: #990000">;</span>
+    
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Returns the y component.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @return Y component.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="font-weight: bold"><span style="color: #0000FF">inline</span></span> <span style="color: #009900">float</span> <span style="font-weight: bold"><span style="color: #000000">getY</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span> <span style="font-weight: bold"><span style="color: #0000FF">const</span></span>  <span style="color: #FF0000">{</span> <span style="font-weight: bold"><span style="color: #0000FF">return</span></span> <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>y<span style="color: #990000">;</span> <span style="color: #FF0000">}</span><span style="color: #990000">;</span>
+
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Returns the angle in range 0-2Pi.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @return The angle.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="color: #009900">float</span> <span style="font-weight: bold"><span style="color: #000000">getAngle</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span> <span style="font-weight: bold"><span style="color: #0000FF">const</span></span><span style="color: #990000">;</span>
+    
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Returns the length of the vector.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @return Length of the vector.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="color: #009900">float</span> <span style="font-weight: bold"><span style="color: #000000">getLength</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span> <span style="font-weight: bold"><span style="color: #0000FF">const</span></span><span style="color: #990000">;</span>
+    
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Forms a unit vector.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @param unitVector Vector to modify.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="color: #009900">void</span> <span style="font-weight: bold"><span style="color: #000000">getUnitVector</span></span><span style="color: #990000">(</span> Vector <span style="color: #990000">&amp;</span>unitVector <span style="color: #990000">)</span> <span style="font-weight: bold"><span style="color: #0000FF">const</span></span><span style="color: #990000">;</span>
+    
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Projects the vector to base vector and stores the result to result</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * vector.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @param result The vector to store the result.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @param base   The vector to use as a base.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="color: #009900">void</span> <span style="font-weight: bold"><span style="color: #000000">getProjectVector</span></span><span style="color: #990000">(</span> Vector <span style="color: #990000">&amp;</span>result<span style="color: #990000">,</span> <span style="font-weight: bold"><span style="color: #0000FF">const</span></span> Vector <span style="color: #990000">&amp;</span>base <span style="color: #990000">)</span> <span style="font-weight: bold"><span style="color: #0000FF">const</span></span><span style="color: #990000">;</span>
+    
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Returns dot product between the vectors.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @param vect Other operand.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @return Dot product.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="color: #009900">float</span> <span style="font-weight: bold"><span style="color: #000000">getDotProduct</span></span><span style="color: #990000">(</span> <span style="font-weight: bold"><span style="color: #0000FF">const</span></span> Vector <span style="color: #990000">&amp;</span>vect <span style="color: #990000">)</span> <span style="font-weight: bold"><span style="color: #0000FF">const</span></span><span style="color: #990000">;</span>
+    
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Returns scalar cross product.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @param vect Other operand.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @return Cross product.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="color: #009900">float</span> <span style="font-weight: bold"><span style="color: #000000">getCrossProduct</span></span><span style="color: #990000">(</span> <span style="font-weight: bold"><span style="color: #0000FF">const</span></span> Vector <span style="color: #990000">&amp;</span>vect <span style="color: #990000">)</span> <span style="font-weight: bold"><span style="color: #0000FF">const</span></span><span style="color: #990000">;</span>
+    
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Sets the components.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @param x X component.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @param y Y component.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="color: #009900">void</span> <span style="font-weight: bold"><span style="color: #000000">set</span></span><span style="color: #990000">(</span> <span style="color: #009900">float</span> x<span style="color: #990000">,</span> <span style="color: #009900">float</span> y <span style="color: #990000">)</span><span style="color: #990000">;</span>
+    
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Adds the components.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @param dx X component to add.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @param dy Y component to add.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="color: #009900">void</span> <span style="font-weight: bold"><span style="color: #000000">add</span></span><span style="color: #990000">(</span> <span style="color: #009900">float</span> dx<span style="color: #990000">,</span> <span style="color: #009900">float</span> dy <span style="color: #990000">)</span><span style="color: #990000">;</span>
+    
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Adds the given vector.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @param vect Vector to add.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="color: #009900">void</span> <span style="font-weight: bold"><span style="color: #000000">add</span></span><span style="color: #990000">(</span> <span style="font-weight: bold"><span style="color: #0000FF">const</span></span> Vector <span style="color: #990000">&amp;</span>vect <span style="color: #990000">)</span><span style="color: #990000">;</span>
+    
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Scales the vector.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @param scalar The scalar.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="color: #009900">void</span> <span style="font-weight: bold"><span style="color: #000000">scale</span></span><span style="color: #990000">(</span> <span style="color: #009900">float</span> scalar <span style="color: #990000">)</span><span style="color: #990000">;</span>
+    
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Rotates the vector by given angle.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @param angle Rotation angle.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="color: #009900">void</span> <span style="font-weight: bold"><span style="color: #000000">rotate</span></span><span style="color: #990000">(</span> <span style="color: #009900">float</span> angle <span style="color: #990000">)</span><span style="color: #990000">;</span>
+
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Assigns the vector.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @param vect Vector to copy.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @return Result vector.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>   
+    Vector<span style="color: #990000">&amp;</span> <span style="font-weight: bold"><span style="color: #0000FF">operator</span></span><span style="color: #990000">=</span><span style="color: #990000">(</span> <span style="font-weight: bold"><span style="color: #0000FF">const</span></span> Vector <span style="color: #990000">&amp;</span>vect <span style="color: #990000">)</span><span style="color: #990000">;</span>
+    
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Adds the given vector.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @param vect Vector to add.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @return Result vector.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    Vector<span style="color: #990000">&amp;</span> <span style="font-weight: bold"><span style="color: #0000FF">operator</span></span><span style="color: #990000">+</span><span style="color: #990000">=</span><span style="color: #990000">(</span> <span style="font-weight: bold"><span style="color: #0000FF">const</span></span> Vector <span style="color: #990000">&amp;</span>vect <span style="color: #990000">)</span><span style="color: #990000">;</span>
+    
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Subtracts the given vector.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @param vect Vector to subtract.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @return Result vector.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    Vector<span style="color: #990000">&amp;</span> <span style="font-weight: bold"><span style="color: #0000FF">operator</span></span><span style="color: #990000">-</span><span style="color: #990000">=</span><span style="color: #990000">(</span> <span style="font-weight: bold"><span style="color: #0000FF">const</span></span> Vector <span style="color: #990000">&amp;</span>vect <span style="color: #990000">)</span><span style="color: #990000">;</span>
+    
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Scales the vector.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @param scalar The scalar.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    Vector<span style="color: #990000">&amp;</span> <span style="font-weight: bold"><span style="color: #0000FF">operator</span></span><span style="color: #990000">*</span><span style="color: #990000">=</span><span style="color: #990000">(</span> <span style="color: #009900">float</span> scalar <span style="color: #990000">)</span><span style="color: #990000">;</span>
+    
+<span style="font-weight: bold"><span style="color: #0000FF">private</span></span><span style="color: #990000">:</span>
+
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * X component.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="color: #009900">float</span> x<span style="color: #990000">;</span>
+    
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Y component.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="color: #009900">float</span> y<span style="color: #990000">;</span>
+    
+<span style="color: #FF0000">}</span><span style="color: #990000">;</span>
+
+<span style="font-weight: bold"><span style="color: #000080">#endif</span></span> <span style="font-style: italic"><span style="color: #9A1900">//_VECTOR_H_</span></span>
+</tt></pre>

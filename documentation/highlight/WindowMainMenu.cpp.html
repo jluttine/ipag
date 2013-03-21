@@ -1,0 +1,105 @@
+<pre><tt><span style="font-weight: bold"><span style="color: #000080">#include</span></span> <span style="color: #FF0000">"images.h"</span>
+<span style="font-weight: bold"><span style="color: #000080">#include</span></span> <span style="color: #FF0000">"WindowMainMenu.h"</span>
+<span style="font-weight: bold"><span style="color: #000080">#include</span></span> <span style="color: #FF0000">"WindowCredits.h"</span>
+
+<span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * Class WindowMainMenu</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * Window that shows the main menu</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * @author Lasse Hakulinen</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> */</span></span>
+
+<span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * Constructor</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * @param &amp;graphics - reference to the graphics</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * @param &amp;sounds - reference to the sounds</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> */</span></span>
+WindowMainMenu<span style="color: #990000">:</span><span style="color: #990000">:</span><span style="font-weight: bold"><span style="color: #000000">WindowMainMenu</span></span><span style="color: #990000">(</span>Graphics <span style="color: #990000">&amp;</span>graphics<span style="color: #990000">,</span> Sounds <span style="color: #990000">&amp;</span>sounds<span style="color: #990000">)</span>
+    <span style="color: #990000">:</span> <span style="font-weight: bold"><span style="color: #000000">Window</span></span><span style="color: #990000">(</span>graphics<span style="color: #990000">,</span> sounds<span style="color: #990000">)</span> <span style="color: #FF0000">{</span>
+        
+    <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>buttonStart <span style="color: #990000">=</span> <span style="font-weight: bold"><span style="color: #0000FF">new</span></span> <span style="font-weight: bold"><span style="color: #000000">UIButton</span></span><span style="color: #990000">(</span><span style="color: #990000">*</span><span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">,</span> <span style="color: #FF0000">"Start game"</span><span style="color: #990000">,</span> <span style="color: #993399">470</span><span style="color: #990000">,</span> <span style="color: #993399">200</span><span style="color: #990000">)</span><span style="color: #990000">;</span>
+    <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>buttonCredits <span style="color: #990000">=</span> <span style="font-weight: bold"><span style="color: #0000FF">new</span></span> <span style="font-weight: bold"><span style="color: #000000">UIButton</span></span><span style="color: #990000">(</span><span style="color: #990000">*</span><span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">,</span> <span style="color: #FF0000">"Credits"</span><span style="color: #990000">,</span> <span style="color: #993399">470</span><span style="color: #990000">,</span> <span style="color: #993399">250</span><span style="color: #990000">)</span><span style="color: #990000">;</span>
+    <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>buttonQuit <span style="color: #990000">=</span> <span style="font-weight: bold"><span style="color: #0000FF">new</span></span> <span style="font-weight: bold"><span style="color: #000000">UIButton</span></span><span style="color: #990000">(</span><span style="color: #990000">*</span><span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">,</span> <span style="color: #FF0000">"Quit"</span><span style="color: #990000">,</span> <span style="color: #993399">470</span><span style="color: #990000">,</span> <span style="color: #993399">300</span><span style="color: #990000">)</span><span style="color: #990000">;</span>
+    
+    <span style="font-weight: bold"><span style="color: #000000">addComponent</span></span><span style="color: #990000">(</span><span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>buttonStart<span style="color: #990000">)</span><span style="color: #990000">;</span>
+    <span style="font-weight: bold"><span style="color: #000000">addComponent</span></span><span style="color: #990000">(</span><span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>buttonCredits<span style="color: #990000">)</span><span style="color: #990000">;</span>
+    <span style="font-weight: bold"><span style="color: #000000">addComponent</span></span><span style="color: #990000">(</span><span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>buttonQuit<span style="color: #990000">)</span><span style="color: #990000">;</span>
+<span style="color: #FF0000">}</span>
+
+<span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * Destructor</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> */</span></span>
+WindowMainMenu<span style="color: #990000">:</span><span style="color: #990000">:</span><span style="color: #990000">~</span><span style="font-weight: bold"><span style="color: #000000">WindowMainMenu</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span> <span style="color: #FF0000">{</span>
+    <span style="font-weight: bold"><span style="color: #0000FF">delete</span></span> <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>buttonStart<span style="color: #990000">;</span>
+    <span style="font-weight: bold"><span style="color: #0000FF">delete</span></span> <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>buttonCredits<span style="color: #990000">;</span>
+    <span style="font-weight: bold"><span style="color: #0000FF">delete</span></span> <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>buttonQuit<span style="color: #990000">;</span>
+<span style="color: #FF0000">}</span>
+
+<span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * Show is called automatically when the window is created.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> */</span></span>
+<span style="color: #009900">void</span> WindowMainMenu<span style="color: #990000">:</span><span style="color: #990000">:</span><span style="font-weight: bold"><span style="color: #000000">show</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span> <span style="color: #FF0000">{</span>
+    <span style="font-weight: bold"><span style="color: #000000">redraw</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span><span style="color: #990000">;</span>
+<span style="color: #FF0000">}</span>
+
+<span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * Redraws everything</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> */</span></span>
+<span style="color: #009900">void</span> WindowMainMenu<span style="color: #990000">:</span><span style="color: #990000">:</span><span style="font-weight: bold"><span style="color: #000000">redraw</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span> <span style="color: #FF0000">{</span>
+    <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>graphics<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">clear</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span><span style="color: #990000">;</span>                            <span style="font-style: italic"><span style="color: #9A1900">//Clear screen</span></span>
+    <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>graphics<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">drawSprite</span></span><span style="color: #990000">(</span>IMAGE_BACKGROUND<span style="color: #990000">,</span> <span style="color: #993399">0</span><span style="color: #990000">,</span> <span style="color: #993399">0</span><span style="color: #990000">)</span><span style="color: #990000">;</span> <span style="font-style: italic"><span style="color: #9A1900">//Draw sidebar</span></span>
+    <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span><span style="font-weight: bold"><span style="color: #000000">update</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span><span style="color: #990000">;</span>                                    <span style="font-style: italic"><span style="color: #9A1900">//Draw components</span></span>
+    <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>graphics<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">update</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span><span style="color: #990000">;</span>                           <span style="font-style: italic"><span style="color: #9A1900">//Update screen</span></span>
+<span style="color: #FF0000">}</span>
+
+<span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * Handles key down events</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * @param keysym - Event information.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> */</span></span>   
+<span style="color: #009900">void</span> WindowMainMenu<span style="color: #990000">:</span><span style="color: #990000">:</span><span style="font-weight: bold"><span style="color: #000000">keyDown</span></span><span style="color: #990000">(</span>SDL_keysym keysym<span style="color: #990000">)</span> <span style="color: #FF0000">{</span>
+    <span style="font-weight: bold"><span style="color: #0000FF">switch</span></span> <span style="color: #990000">(</span>keysym<span style="color: #990000">.</span>sym<span style="color: #990000">)</span> <span style="color: #FF0000">{</span>
+        <span style="font-weight: bold"><span style="color: #0000FF">case</span></span> SDLK_ESCAPE<span style="color: #990000">:</span>
+            <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span><span style="font-weight: bold"><span style="color: #000000">close</span></span><span style="color: #990000">(</span><span style="color: #993399">0</span><span style="color: #990000">)</span><span style="color: #990000">;</span>
+            <span style="font-weight: bold"><span style="color: #0000FF">break</span></span><span style="color: #990000">;</span>
+            
+        <span style="font-weight: bold"><span style="color: #0000FF">case</span></span> SDLK_RETURN<span style="color: #990000">:</span>
+            <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span><span style="font-weight: bold"><span style="color: #000000">close</span></span><span style="color: #990000">(</span><span style="color: #993399">1</span><span style="color: #990000">)</span><span style="color: #990000">;</span>
+            <span style="font-weight: bold"><span style="color: #0000FF">break</span></span><span style="color: #990000">;</span>
+            
+        <span style="font-weight: bold"><span style="color: #0000FF">default</span></span><span style="color: #990000">:</span>
+            <span style="font-weight: bold"><span style="color: #0000FF">break</span></span><span style="color: #990000">;</span>
+    <span style="color: #FF0000">}</span>
+<span style="color: #FF0000">}</span>
+
+<span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * Handles mouse up events</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * @param button - Event information.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> */</span></span>   
+<span style="color: #009900">void</span> WindowMainMenu<span style="color: #990000">:</span><span style="color: #990000">:</span><span style="font-weight: bold"><span style="color: #000000">mouseUp</span></span><span style="color: #990000">(</span>SDL_MouseButtonEvent button<span style="color: #990000">)</span> <span style="color: #FF0000">{</span>
+    
+    <span style="font-style: italic"><span style="color: #9A1900">//Find out if a component was hit</span></span>
+    UIComponent <span style="color: #990000">*</span>component <span style="color: #990000">=</span> <span style="font-weight: bold"><span style="color: #000000">findComponent</span></span><span style="color: #990000">(</span>button<span style="color: #990000">.</span>x<span style="color: #990000">,</span> button<span style="color: #990000">.</span>y<span style="color: #990000">)</span><span style="color: #990000">;</span>
+    
+    <span style="font-weight: bold"><span style="color: #0000FF">if</span></span> <span style="color: #990000">(</span>component <span style="color: #990000">=</span><span style="color: #990000">=</span> buttonStart<span style="color: #990000">)</span> <span style="color: #FF0000">{</span>
+        <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>sounds<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">playSound</span></span><span style="color: #990000">(</span>SOUND_CLICK<span style="color: #990000">)</span><span style="color: #990000">;</span>
+        <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span><span style="font-weight: bold"><span style="color: #000000">close</span></span><span style="color: #990000">(</span><span style="color: #993399">1</span><span style="color: #990000">)</span><span style="color: #990000">;</span>
+    <span style="color: #FF0000">}</span>
+    
+    <span style="font-style: italic"><span style="color: #9A1900">// Creates the credits window and deletes it when returning to main menu</span></span>
+    <span style="font-weight: bold"><span style="color: #0000FF">else</span></span> <span style="font-weight: bold"><span style="color: #0000FF">if</span></span> <span style="color: #990000">(</span>component <span style="color: #990000">=</span><span style="color: #990000">=</span> buttonCredits<span style="color: #990000">)</span> <span style="color: #FF0000">{</span>
+        
+        Window <span style="color: #990000">*</span>window <span style="color: #990000">=</span> <span style="font-weight: bold"><span style="color: #0000FF">new</span></span> <span style="font-weight: bold"><span style="color: #000000">WindowCredits</span></span><span style="color: #990000">(</span><span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>graphics<span style="color: #990000">,</span> <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>sounds<span style="color: #990000">)</span><span style="color: #990000">;</span>
+        
+        <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>sounds<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">playSound</span></span><span style="color: #990000">(</span>SOUND_CLICK<span style="color: #990000">)</span><span style="color: #990000">;</span>
+        window<span style="color: #990000">-</span><span style="color: #990000">&gt;</span><span style="font-weight: bold"><span style="color: #000000">open</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span><span style="color: #990000">;</span>
+        
+        <span style="font-weight: bold"><span style="color: #0000FF">if</span></span> <span style="color: #990000">(</span>window<span style="color: #990000">)</span>
+            <span style="font-weight: bold"><span style="color: #0000FF">delete</span></span> window<span style="color: #990000">;</span>
+        
+        <span style="font-weight: bold"><span style="color: #000000">redraw</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span><span style="color: #990000">;</span>
+    <span style="color: #FF0000">}</span>
+    <span style="font-weight: bold"><span style="color: #0000FF">else</span></span> <span style="font-weight: bold"><span style="color: #0000FF">if</span></span> <span style="color: #990000">(</span>component <span style="color: #990000">=</span><span style="color: #990000">=</span> buttonQuit<span style="color: #990000">)</span> <span style="color: #FF0000">{</span>
+        <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>sounds<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">playSound</span></span><span style="color: #990000">(</span>SOUND_CLICK<span style="color: #990000">)</span><span style="color: #990000">;</span>
+        <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span><span style="font-weight: bold"><span style="color: #000000">close</span></span><span style="color: #990000">(</span><span style="color: #993399">0</span><span style="color: #990000">)</span><span style="color: #990000">;</span>
+    <span style="color: #FF0000">}</span>
+<span style="color: #FF0000">}</span>
+</tt></pre>

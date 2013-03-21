@@ -1,0 +1,121 @@
+<pre><tt><span style="font-weight: bold"><span style="color: #000080">#include</span></span> <span style="color: #FF0000">&lt;iostream&gt;</span>
+<span style="font-weight: bold"><span style="color: #000080">#include</span></span> <span style="color: #FF0000">&lt;cstring&gt;</span>
+<span style="font-weight: bold"><span style="color: #000080">#include</span></span> <span style="color: #FF0000">"UIText.h"</span>
+
+<span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * Constructor.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> */</span></span>
+UIText<span style="color: #990000">:</span><span style="color: #990000">:</span><span style="font-weight: bold"><span style="color: #000000">UIText</span></span><span style="color: #990000">(</span>Window <span style="color: #990000">&amp;</span>parentWindow<span style="color: #990000">,</span> <span style="color: #009900">int</span> x<span style="color: #990000">,</span> <span style="color: #009900">int</span> y<span style="color: #990000">)</span>
+    <span style="color: #990000">:</span> <span style="font-weight: bold"><span style="color: #000000">UIComponent</span></span><span style="color: #990000">(</span>parentWindow<span style="color: #990000">,</span> x<span style="color: #990000">,</span> y<span style="color: #990000">)</span>
+<span style="color: #FF0000">{</span>
+    <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>image <span style="color: #990000">=</span> NULL<span style="color: #990000">;</span>
+<span style="color: #FF0000">}</span>
+
+<span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * Constructor.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> */</span></span>
+UIText<span style="color: #990000">:</span><span style="color: #990000">:</span><span style="font-weight: bold"><span style="color: #000000">UIText</span></span><span style="color: #990000">(</span>Window <span style="color: #990000">&amp;</span>parentWindow<span style="color: #990000">,</span> <span style="font-weight: bold"><span style="color: #0000FF">const</span></span> <span style="color: #009900">char</span> <span style="color: #990000">*</span>text<span style="color: #990000">,</span> <span style="color: #009900">int</span> x<span style="color: #990000">,</span> <span style="color: #009900">int</span> y<span style="color: #990000">)</span>
+    <span style="color: #990000">:</span> <span style="font-weight: bold"><span style="color: #000000">UIComponent</span></span><span style="color: #990000">(</span>parentWindow<span style="color: #990000">,</span> x<span style="color: #990000">,</span> y<span style="color: #990000">)</span>
+<span style="color: #FF0000">{</span>
+    <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>image <span style="color: #990000">=</span> NULL<span style="color: #990000">;</span>
+    
+    <span style="font-weight: bold"><span style="color: #000000">setText</span></span><span style="color: #990000">(</span>text<span style="color: #990000">)</span><span style="color: #990000">;</span>
+<span style="color: #FF0000">}</span>
+
+<span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * Destructor</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> */</span></span>
+UIText<span style="color: #990000">:</span><span style="color: #990000">:</span><span style="color: #990000">~</span><span style="font-weight: bold"><span style="color: #000000">UIText</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span> <span style="color: #FF0000">{</span>
+    Graphics <span style="color: #990000">*</span>graphics <span style="color: #990000">=</span> parentWindow<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">getGraphics</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span><span style="color: #990000">;</span>
+    
+    <span style="font-weight: bold"><span style="color: #0000FF">if</span></span> <span style="color: #990000">(</span><span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>image<span style="color: #990000">)</span>
+        graphics<span style="color: #990000">-</span><span style="color: #990000">&gt;</span><span style="font-weight: bold"><span style="color: #000000">freeSurface</span></span><span style="color: #990000">(</span><span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>image<span style="color: #990000">)</span><span style="color: #990000">;</span>
+<span style="color: #FF0000">}</span>
+
+<span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * Sets text.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> */</span></span>
+<span style="color: #009900">void</span> UIText<span style="color: #990000">:</span><span style="color: #990000">:</span><span style="font-weight: bold"><span style="color: #000000">setText</span></span><span style="color: #990000">(</span>string <span style="color: #990000">&amp;</span>text<span style="color: #990000">)</span> <span style="color: #FF0000">{</span>
+    <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>content <span style="color: #990000">=</span> text<span style="color: #990000">;</span>
+    
+    <span style="font-weight: bold"><span style="color: #000000">updateImage</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span><span style="color: #990000">;</span>
+<span style="color: #FF0000">}</span>
+
+<span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * Sets text.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> */</span></span>
+<span style="color: #009900">void</span> UIText<span style="color: #990000">:</span><span style="color: #990000">:</span><span style="font-weight: bold"><span style="color: #000000">setText</span></span><span style="color: #990000">(</span><span style="font-weight: bold"><span style="color: #0000FF">const</span></span> <span style="color: #009900">char</span> <span style="color: #990000">*</span>text<span style="color: #990000">)</span> <span style="color: #FF0000">{</span>
+    <span style="font-weight: bold"><span style="color: #0000FF">if</span></span> <span style="color: #990000">(</span>text <span style="color: #990000">=</span><span style="color: #990000">=</span> NULL<span style="color: #990000">)</span>
+        <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>content<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">clear</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span><span style="color: #990000">;</span>
+    <span style="font-weight: bold"><span style="color: #0000FF">else</span></span>
+        <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>content <span style="color: #990000">=</span> text<span style="color: #990000">;</span>
+    
+    <span style="font-weight: bold"><span style="color: #000000">updateImage</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span><span style="color: #990000">;</span>
+<span style="color: #FF0000">}</span>
+
+<span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * Sets text.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> */</span></span>
+<span style="color: #009900">void</span> UIText<span style="color: #990000">:</span><span style="color: #990000">:</span><span style="font-weight: bold"><span style="color: #000000">setText</span></span><span style="color: #990000">(</span><span style="font-weight: bold"><span style="color: #0000FF">const</span></span> <span style="color: #009900">int</span> number<span style="color: #990000">)</span> <span style="color: #FF0000">{</span>
+    <span style="color: #009900">char</span> text<span style="color: #990000">[</span><span style="color: #993399">20</span><span style="color: #990000">]</span><span style="color: #990000">;</span>
+    
+    <span style="font-weight: bold"><span style="color: #000000">sprintf</span></span><span style="color: #990000">(</span>text<span style="color: #990000">,</span> <span style="color: #FF0000">"%d"</span><span style="color: #990000">,</span> number<span style="color: #990000">)</span><span style="color: #990000">;</span>
+    <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>content <span style="color: #990000">=</span> text<span style="color: #990000">;</span>
+    
+    <span style="font-weight: bold"><span style="color: #000000">updateImage</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span><span style="color: #990000">;</span>
+<span style="color: #FF0000">}</span>
+
+<span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * Clears text.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> */</span></span>
+<span style="color: #009900">void</span> UIText<span style="color: #990000">:</span><span style="color: #990000">:</span><span style="font-weight: bold"><span style="color: #000000">clear</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span> <span style="color: #FF0000">{</span>
+    <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>content<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">clear</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span><span style="color: #990000">;</span>
+    <span style="font-weight: bold"><span style="color: #000000">updateImage</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span><span style="color: #990000">;</span>
+<span style="color: #FF0000">}</span>
+
+<span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * Updates image of the component. Nothing is drawn on the screen. This</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * should be called is text is changed.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> */</span></span>
+<span style="color: #009900">void</span> UIText<span style="color: #990000">:</span><span style="color: #990000">:</span><span style="font-weight: bold"><span style="color: #000000">updateImage</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span> <span style="color: #FF0000">{</span>
+    Graphics <span style="color: #990000">*</span>graphics <span style="color: #990000">=</span> parentWindow<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">getGraphics</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span><span style="color: #990000">;</span>
+    
+    <span style="color: #009900">int</span> lines <span style="color: #990000">=</span> <span style="color: #993399">1</span><span style="color: #990000">;</span>   <span style="font-style: italic"><span style="color: #9A1900">//Number of lines</span></span>
+    <span style="color: #009900">int</span> width <span style="color: #990000">=</span> <span style="color: #993399">0</span><span style="color: #990000">;</span>   <span style="font-style: italic"><span style="color: #9A1900">//Width counter</span></span>
+    <span style="color: #009900">int</span> widest <span style="color: #990000">=</span> <span style="color: #993399">0</span><span style="color: #990000">;</span>  <span style="font-style: italic"><span style="color: #9A1900">//Width of the widest line in characters</span></span>
+    
+    <span style="font-style: italic"><span style="color: #9A1900">//Measure width and height</span></span>
+    <span style="font-weight: bold"><span style="color: #0000FF">for</span></span> <span style="color: #990000">(</span><span style="color: #009900">unsigned</span> <span style="color: #009900">int</span> i <span style="color: #990000">=</span> <span style="color: #993399">0</span><span style="color: #990000">;</span> i <span style="color: #990000">&lt;</span> content<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">length</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span><span style="color: #990000">;</span> i<span style="color: #990000">+</span><span style="color: #990000">+</span><span style="color: #990000">)</span> <span style="color: #FF0000">{</span>
+        <span style="font-weight: bold"><span style="color: #0000FF">if</span></span> <span style="color: #990000">(</span>content<span style="color: #990000">[</span>i<span style="color: #990000">]</span> <span style="color: #990000">=</span><span style="color: #990000">=</span> <span style="color: #FF0000">'\n'</span><span style="color: #990000">)</span> <span style="color: #FF0000">{</span>
+            <span style="font-weight: bold"><span style="color: #0000FF">if</span></span> <span style="color: #990000">(</span>width <span style="color: #990000">&gt;</span> widest<span style="color: #990000">)</span>
+                widest <span style="color: #990000">=</span> width<span style="color: #990000">;</span>
+            
+            width <span style="color: #990000">=</span> <span style="color: #993399">0</span><span style="color: #990000">;</span>
+            lines<span style="color: #990000">+</span><span style="color: #990000">+</span><span style="color: #990000">;</span>
+        <span style="color: #FF0000">}</span> <span style="font-weight: bold"><span style="color: #0000FF">else</span></span> <span style="color: #FF0000">{</span>
+            width<span style="color: #990000">+</span><span style="color: #990000">+</span><span style="color: #990000">;</span>
+        <span style="color: #FF0000">}</span>
+    <span style="color: #FF0000">}</span>
+    
+    <span style="font-style: italic"><span style="color: #9A1900">//What if the last line was longest?</span></span>
+    <span style="font-weight: bold"><span style="color: #0000FF">if</span></span> <span style="color: #990000">(</span>width <span style="color: #990000">&gt;</span> widest<span style="color: #990000">)</span>
+        widest <span style="color: #990000">=</span> width<span style="color: #990000">;</span>
+    
+    <span style="font-style: italic"><span style="color: #9A1900">//Set width and height of the component</span></span>
+    <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>width <span style="color: #990000">=</span> widest <span style="color: #990000">*</span> graphics<span style="color: #990000">-</span><span style="color: #990000">&gt;</span><span style="font-weight: bold"><span style="color: #000000">getCharWidth</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span><span style="color: #990000">;</span>
+    <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>height <span style="color: #990000">=</span> lines <span style="color: #990000">*</span> graphics<span style="color: #990000">-</span><span style="color: #990000">&gt;</span><span style="font-weight: bold"><span style="color: #000000">getLineHeight</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span><span style="color: #990000">;</span>
+    
+    <span style="font-style: italic"><span style="color: #9A1900">//Destroy old image and create a new one</span></span>
+    <span style="font-weight: bold"><span style="color: #0000FF">if</span></span> <span style="color: #990000">(</span><span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>image <span style="color: #990000">!</span><span style="color: #990000">=</span> NULL<span style="color: #990000">)</span>
+        graphics<span style="color: #990000">-</span><span style="color: #990000">&gt;</span><span style="font-weight: bold"><span style="color: #000000">freeSurface</span></span><span style="color: #990000">(</span><span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>image<span style="color: #990000">)</span><span style="color: #990000">;</span>
+    
+    <span style="font-weight: bold"><span style="color: #0000FF">if</span></span> <span style="color: #990000">(</span><span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>width <span style="color: #990000">&gt;</span> <span style="color: #993399">0</span> <span style="color: #990000">&amp;</span><span style="color: #990000">&amp;</span> <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>height <span style="color: #990000">&gt;</span> <span style="color: #993399">0</span><span style="color: #990000">)</span>
+        <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>image <span style="color: #990000">=</span> graphics<span style="color: #990000">-</span><span style="color: #990000">&gt;</span><span style="font-weight: bold"><span style="color: #000000">createSurface</span></span><span style="color: #990000">(</span><span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>width<span style="color: #990000">,</span> <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>height<span style="color: #990000">)</span><span style="color: #990000">;</span>
+    <span style="font-weight: bold"><span style="color: #0000FF">else</span></span>
+        <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>image <span style="color: #990000">=</span> NULL<span style="color: #990000">;</span>
+    
+    <span style="font-style: italic"><span style="color: #9A1900">//Draw text on surface</span></span>
+    <span style="font-weight: bold"><span style="color: #0000FF">if</span></span> <span style="color: #990000">(</span><span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>image<span style="color: #990000">)</span>
+        graphics<span style="color: #990000">-</span><span style="color: #990000">&gt;</span><span style="font-weight: bold"><span style="color: #000000">drawText</span></span><span style="color: #990000">(</span><span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>image<span style="color: #990000">,</span> <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>content<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">c_str</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span><span style="color: #990000">,</span> <span style="color: #993399">0</span><span style="color: #990000">,</span> <span style="color: #993399">0</span><span style="color: #990000">)</span><span style="color: #990000">;</span>
+<span style="color: #FF0000">}</span>
+</tt></pre>

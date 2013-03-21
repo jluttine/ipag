@@ -1,0 +1,127 @@
+<pre><tt>
+<span style="font-weight: bold"><span style="color: #000080">#ifndef</span></span> _WINDOWGAMEOVER_H_
+<span style="font-weight: bold"><span style="color: #000080">#define</span></span> _WINDOWGAMEOVER_H_
+
+<span style="font-weight: bold"><span style="color: #000080">#include</span></span> <span style="color: #FF0000">"Window.h"</span>
+<span style="font-weight: bold"><span style="color: #000080">#include</span></span> <span style="color: #FF0000">"UIText.h"</span>
+<span style="font-weight: bold"><span style="color: #000080">#include</span></span> <span style="color: #FF0000">"UIButton.h"</span>
+<span style="font-weight: bold"><span style="color: #000080">#include</span></span> <span style="color: #FF0000">"GameEngine.h"</span>
+
+<span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * Class WindowGameOver.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * WindowGameOver is a window that shows the ending results of the game</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * and the current total ranking points.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * @author Lasse Hakulinen</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> */</span></span>
+<span style="font-weight: bold"><span style="color: #0000FF">class</span></span> WindowGameOver  <span style="color: #990000">:</span>  <span style="font-weight: bold"><span style="color: #0000FF">public</span></span> Window <span style="color: #FF0000">{</span>
+    
+<span style="font-weight: bold"><span style="color: #0000FF">public</span></span><span style="color: #990000">:</span>
+
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Constructor.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @param &amp;graphics - reference to the graphics</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @param &amp;sounds - reference to the sounds</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @param &amp;gameEngine - reference to the gameEngine</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="font-weight: bold"><span style="color: #000000">WindowGameOver</span></span><span style="color: #990000">(</span>Graphics <span style="color: #990000">&amp;</span>graphics<span style="color: #990000">,</span> Sounds <span style="color: #990000">&amp;</span>sounds<span style="color: #990000">,</span>
+                   GameEngine <span style="color: #990000">&amp;</span>gameEngine<span style="color: #990000">)</span><span style="color: #990000">;</span>
+    
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Destructs the window.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="color: #990000">~</span><span style="font-weight: bold"><span style="color: #000000">WindowGameOver</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span><span style="color: #990000">;</span>
+    
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Shows the window.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="color: #009900">void</span> <span style="font-weight: bold"><span style="color: #000000">show</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span><span style="color: #990000">;</span>
+    
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Redraws the window.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="color: #009900">void</span> <span style="font-weight: bold"><span style="color: #000000">redraw</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span><span style="color: #990000">;</span>
+    
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Nothing to do in this function.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="font-weight: bold"><span style="color: #0000FF">virtual</span></span> <span style="color: #009900">void</span> <span style="font-weight: bold"><span style="color: #000000">step</span></span><span style="color: #990000">(</span><span style="color: #009900">int</span> timestep<span style="color: #990000">)</span> <span style="color: #FF0000">{</span>  <span style="color: #FF0000">}</span><span style="color: #990000">;</span>
+
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Function for handling key down events.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @param keysym - Event information.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>   
+    <span style="color: #009900">void</span> <span style="font-weight: bold"><span style="color: #000000">keyDown</span></span><span style="color: #990000">(</span>SDL_keysym keysym<span style="color: #990000">)</span><span style="color: #990000">;</span>
+    
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Function for handling mouse button up events.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @param button - Event information.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="color: #009900">void</span> <span style="font-weight: bold"><span style="color: #000000">mouseUp</span></span><span style="color: #990000">(</span>SDL_MouseButtonEvent button<span style="color: #990000">)</span><span style="color: #990000">;</span>
+    
+<span style="font-weight: bold"><span style="color: #0000FF">private</span></span><span style="color: #990000">:</span>
+
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Updates text fields.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="color: #009900">void</span> <span style="font-weight: bold"><span style="color: #000000">updateFields</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span><span style="color: #990000">;</span>
+    
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Compares points between two players. For qsort.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @param *player1 - pointer to the first player.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @param *player2 - pointer to the second player.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @return player2's points - player1's points.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="font-weight: bold"><span style="color: #0000FF">static</span></span> <span style="color: #009900">int</span> <span style="font-weight: bold"><span style="color: #000000">comparePoints</span></span><span style="color: #990000">(</span><span style="font-weight: bold"><span style="color: #0000FF">const</span></span> <span style="color: #009900">void</span> <span style="color: #990000">*</span>player1<span style="color: #990000">,</span> <span style="font-weight: bold"><span style="color: #0000FF">const</span></span> <span style="color: #009900">void</span> <span style="color: #990000">*</span>player2<span style="color: #990000">)</span><span style="color: #990000">;</span>
+    
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Compares rankings between two players. For qsort.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @param *player1 - pointer to the first player.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @param *player2 - pointer to the second player.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @return player2's ranking - player1's ranking.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="font-weight: bold"><span style="color: #0000FF">static</span></span> <span style="color: #009900">int</span> <span style="font-weight: bold"><span style="color: #000000">compareRankings</span></span><span style="color: #990000">(</span><span style="font-weight: bold"><span style="color: #0000FF">const</span></span> <span style="color: #009900">void</span> <span style="color: #990000">*</span>player1<span style="color: #990000">,</span> <span style="font-weight: bold"><span style="color: #0000FF">const</span></span> <span style="color: #009900">void</span> <span style="color: #990000">*</span>player2<span style="color: #990000">)</span><span style="color: #990000">;</span>
+
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Game engine.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    GameEngine <span style="color: #990000">&amp;</span>gameEngine<span style="color: #990000">;</span>
+
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Window title.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    UIText <span style="color: #990000">*</span>textTitle<span style="color: #990000">;</span>
+    
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Title for point list.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    UIText <span style="color: #990000">*</span>textPointsTitle<span style="color: #990000">;</span>
+    
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Title for ranking list.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    UIText <span style="color: #990000">*</span>textRankingsTitle<span style="color: #990000">;</span>
+    
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Number of players.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="color: #009900">int</span> playerCount<span style="color: #990000">;</span>
+    
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Player point texts.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    UIText <span style="color: #990000">*</span><span style="color: #990000">*</span>textsPlayerPoints<span style="color: #990000">;</span>
+    
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Player ranking texts.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    UIText <span style="color: #990000">*</span><span style="color: #990000">*</span>textsPlayerRankings<span style="color: #990000">;</span>
+    
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * OK button.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    UIButton <span style="color: #990000">*</span>buttonOk<span style="color: #990000">;</span>
+    
+<span style="color: #FF0000">}</span><span style="color: #990000">;</span>
+
+<span style="font-weight: bold"><span style="color: #000080">#endif</span></span> <span style="font-style: italic"><span style="color: #9A1900">//_WINDOWGAMEOVER_H_</span></span>
+</tt></pre>

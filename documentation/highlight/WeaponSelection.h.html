@@ -1,0 +1,138 @@
+<pre><tt><span style="font-weight: bold"><span style="color: #000080">#ifndef</span></span> _WEAPONSELECTION_H_
+<span style="font-weight: bold"><span style="color: #000080">#define</span></span> _WEAPONSELECTION_H_
+
+<span style="font-weight: bold"><span style="color: #0000FF">class</span></span> WeaponSelection<span style="color: #990000">;</span>
+
+<span style="font-weight: bold"><span style="color: #000080">#include</span></span> <span style="color: #FF0000">&lt;vector&gt;</span>
+<span style="font-weight: bold"><span style="color: #000080">#include</span></span> <span style="color: #FF0000">"Weapon.h"</span>
+
+<span style="font-weight: bold"><span style="color: #0000FF">using</span></span> std<span style="color: #990000">:</span><span style="color: #990000">:</span>vector<span style="color: #990000">;</span>
+
+<span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * Class WeaponSelection.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * Players weaponselection which has all the weapons and functions</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * to handle them.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * @author Lasse Hakulinen</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> */</span></span>
+
+<span style="font-weight: bold"><span style="color: #0000FF">class</span></span> WeaponSelection <span style="color: #FF0000">{</span>
+    
+<span style="font-weight: bold"><span style="color: #0000FF">public</span></span><span style="color: #990000">:</span>
+    
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Constructor</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="font-weight: bold"><span style="color: #000000">WeaponSelection</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span><span style="color: #990000">;</span>
+    
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Destructor</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="color: #990000">~</span><span style="font-weight: bold"><span style="color: #000000">WeaponSelection</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span><span style="color: #990000">;</span>
+
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Adds shots to weaponselection</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @param projectile - index of the projectile</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @param amount - amount of added shots</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @param &amp;parameters - parameters of the added shots</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @return - the amount of successfully added shots</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="color: #009900">int</span> <span style="font-weight: bold"><span style="color: #000000">addShots</span></span><span style="color: #990000">(</span><span style="color: #009900">int</span> projectile<span style="color: #990000">,</span> <span style="color: #009900">int</span> amount<span style="color: #990000">,</span> <span style="font-weight: bold"><span style="color: #0000FF">const</span></span> ParameterList <span style="color: #990000">&amp;</span>parameters<span style="color: #990000">)</span><span style="color: #990000">;</span>
+    
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Adds infinite shots</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @param projectile - index of the projectile</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @param &amp;parameters - parameters of the added shots</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="color: #009900">void</span> <span style="font-weight: bold"><span style="color: #000000">addInfiniteShots</span></span><span style="color: #990000">(</span><span style="color: #009900">int</span> projectile<span style="color: #990000">,</span> <span style="font-weight: bold"><span style="color: #0000FF">const</span></span> ParameterList <span style="color: #990000">&amp;</span>parameters<span style="color: #990000">)</span><span style="color: #990000">;</span>
+    
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @param shot - shot which count is wanted</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @return - the count of wanted shot</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="color: #009900">int</span> <span style="font-weight: bold"><span style="color: #000000">getShotCount</span></span><span style="color: #990000">(</span><span style="color: #009900">int</span> shot<span style="color: #990000">)</span> <span style="font-weight: bold"><span style="color: #0000FF">const</span></span><span style="color: #990000">;</span>
+    
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @param shot - index of the shot to check</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @return true if shot has infinite shots</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="color: #009900">bool</span> <span style="font-weight: bold"><span style="color: #000000">hasInfiniteShots</span></span><span style="color: #990000">(</span><span style="color: #009900">int</span> shot<span style="color: #990000">)</span> <span style="font-weight: bold"><span style="color: #0000FF">const</span></span><span style="color: #990000">;</span>
+    
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Fires one shot with currently selected weapon</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="color: #009900">int</span> <span style="font-weight: bold"><span style="color: #000000">shoot</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span><span style="color: #990000">;</span>
+
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @return - a pointer to selected weapon</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="font-weight: bold"><span style="color: #0000FF">const</span></span> Weapon<span style="color: #990000">*</span> <span style="font-weight: bold"><span style="color: #000000">getSelectedWeapon</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span> <span style="font-weight: bold"><span style="color: #0000FF">const</span></span><span style="color: #990000">;</span>
+    
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Selects a weapon.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @param change - change in selection</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @return - a pointer to selected weapon</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="font-weight: bold"><span style="color: #0000FF">const</span></span> Weapon<span style="color: #990000">*</span> <span style="font-weight: bold"><span style="color: #000000">selectWeapon</span></span><span style="color: #990000">(</span><span style="color: #009900">int</span> change<span style="color: #990000">)</span><span style="color: #990000">;</span>
+    
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Sets the selected weapon</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @param index - index to which the selected weapon is changed</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @return - a pointer to selected weapon</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="font-weight: bold"><span style="color: #0000FF">const</span></span> Weapon<span style="color: #990000">*</span> <span style="font-weight: bold"><span style="color: #000000">setSelectedWeapon</span></span><span style="color: #990000">(</span><span style="color: #009900">int</span> index<span style="color: #990000">)</span><span style="color: #990000">;</span>
+    
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @return - amount of weapons</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="color: #009900">int</span> <span style="font-weight: bold"><span style="color: #000000">getWeaponCount</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span> <span style="font-weight: bold"><span style="color: #0000FF">const</span></span><span style="color: #990000">;</span>
+    
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Increases the parameters of selected weapon</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @param index - index of the parameter</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @param steps - steps to increase</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="color: #009900">void</span> <span style="font-weight: bold"><span style="color: #000000">increaseParameter</span></span><span style="color: #990000">(</span><span style="color: #009900">int</span> index<span style="color: #990000">,</span> <span style="color: #009900">int</span> steps<span style="color: #990000">)</span><span style="color: #990000">;</span>
+    
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Removes all weapons.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="color: #009900">void</span> <span style="font-weight: bold"><span style="color: #000000">clear</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span><span style="color: #990000">;</span>
+
+<span style="font-weight: bold"><span style="color: #0000FF">private</span></span><span style="color: #990000">:</span>
+    
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Removes one weapon from the selection and</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * frees memory allocated by the weapon</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @param shot - index of the shot which weapon is removed</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="color: #009900">void</span> <span style="font-weight: bold"><span style="color: #000000">removeWeaponType</span></span><span style="color: #990000">(</span><span style="color: #009900">int</span> shot<span style="color: #990000">)</span><span style="color: #990000">;</span>
+    
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Removes one weapon by index and frees memory allocated by the weapon</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @param index - index of the weapon to remove</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="color: #009900">void</span> <span style="font-weight: bold"><span style="color: #000000">removeWeaponIndex</span></span><span style="color: #990000">(</span><span style="color: #009900">int</span> index<span style="color: #990000">)</span><span style="color: #990000">;</span>
+    
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Removes all weapons and frees memory allocated by them</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="color: #009900">void</span> <span style="font-weight: bold"><span style="color: #000000">removeAllWeapons</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span><span style="color: #990000">;</span>
+    
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Creates a new weapon</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @param shot - index of the shot</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @param amout - amount of the shots</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @param infinite - true if weapon has infinite shots</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @param &amp;parameters - reference to weapons parameters</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="color: #009900">void</span> <span style="font-weight: bold"><span style="color: #000000">createWeapon</span></span><span style="color: #990000">(</span><span style="color: #009900">int</span> shot<span style="color: #990000">,</span> <span style="color: #009900">int</span> amount<span style="color: #990000">,</span> <span style="color: #009900">bool</span> infinite<span style="color: #990000">,</span>
+                        <span style="font-weight: bold"><span style="color: #0000FF">const</span></span> ParameterList <span style="color: #990000">&amp;</span>parameters<span style="color: #990000">)</span><span style="color: #990000">;</span>
+
+    
+    vector<span style="color: #FF0000">&lt;Weapon*&gt;</span> weapons<span style="color: #990000">;</span>    
+    <span style="color: #009900">int</span> selection<span style="color: #990000">;</span>
+    
+<span style="color: #FF0000">}</span><span style="color: #990000">;</span>
+<span style="font-weight: bold"><span style="color: #000080">#endif</span></span> <span style="font-style: italic"><span style="color: #9A1900">//_WEAPONSELECTION_H_</span></span>
+
+</tt></pre>

@@ -1,0 +1,136 @@
+<pre><tt>
+<span style="font-weight: bold"><span style="color: #000080">#ifndef</span></span> _WINDOW_H_
+<span style="font-weight: bold"><span style="color: #000080">#define</span></span> _WINDOW_H_
+
+<span style="font-weight: bold"><span style="color: #0000FF">class</span></span> Window<span style="color: #990000">;</span>
+
+<span style="font-weight: bold"><span style="color: #000080">#include</span></span> <span style="color: #FF0000">&lt;SDL/SDL.h&gt;</span>
+<span style="font-weight: bold"><span style="color: #000080">#include</span></span> <span style="color: #FF0000">&lt;vector&gt;</span>
+<span style="font-weight: bold"><span style="color: #000080">#include</span></span> <span style="color: #FF0000">"Graphics.h"</span>
+<span style="font-weight: bold"><span style="color: #000080">#include</span></span> <span style="color: #FF0000">"UIComponent.h"</span>
+<span style="font-weight: bold"><span style="color: #000080">#include</span></span> <span style="color: #FF0000">"soundList.h"</span>
+<span style="font-weight: bold"><span style="color: #000080">#include</span></span> <span style="color: #FF0000">"Sounds.h"</span>
+
+<span style="font-weight: bold"><span style="color: #0000FF">using</span></span> std<span style="color: #990000">:</span><span style="color: #990000">:</span>vector<span style="color: #990000">;</span>
+
+<span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * Class Window. Base class for all windows.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * @author Tapio Auvinen</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> */</span></span>
+
+<span style="font-weight: bold"><span style="color: #0000FF">class</span></span> Window <span style="color: #FF0000">{</span>
+<span style="font-weight: bold"><span style="color: #0000FF">public</span></span><span style="color: #990000">:</span>
+
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Constructor</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @param &amp;graphics Reference to graphics</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @param &amp;sounds Reference to sound engine</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="font-weight: bold"><span style="color: #000000">Window</span></span><span style="color: #990000">(</span>Graphics <span style="color: #990000">&amp;</span>graphics<span style="color: #990000">,</span> Sounds <span style="color: #990000">&amp;</span>sounds<span style="color: #990000">)</span><span style="color: #990000">;</span>
+    
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Destructor</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="font-weight: bold"><span style="color: #0000FF">virtual</span></span> <span style="color: #990000">~</span><span style="font-weight: bold"><span style="color: #000000">Window</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span><span style="color: #990000">;</span>
+
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Step is called periodically by Window::open(). Add here stuff that</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * has to be updated regularly.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @param timestep timestep in milliseconds</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="font-weight: bold"><span style="color: #0000FF">virtual</span></span> <span style="color: #009900">void</span> <span style="font-weight: bold"><span style="color: #000000">step</span></span><span style="color: #990000">(</span><span style="color: #009900">int</span> timestep<span style="color: #990000">)</span> <span style="color: #FF0000">{</span> <span style="color: #FF0000">}</span><span style="color: #990000">;</span>
+    
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Opens the window. This won't return until the window closes. All input</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * handling is done by the window.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @return Returns a return value that may reflect users choise.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="font-weight: bold"><span style="color: #0000FF">virtual</span></span> <span style="color: #009900">int</span> <span style="font-weight: bold"><span style="color: #000000">open</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span><span style="color: #990000">;</span>
+    
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Closes window.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @param returnValue Value that will be returned by open(). Following</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     *    values are recommended:</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     *    0: back to main menu or quit</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     *    1: next window</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="color: #009900">void</span> <span style="font-weight: bold"><span style="color: #000000">close</span></span><span style="color: #990000">(</span><span style="color: #009900">int</span> returnValue<span style="color: #990000">)</span><span style="color: #990000">;</span>
+    
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Default show action. Updates screen.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="font-weight: bold"><span style="color: #0000FF">virtual</span></span> <span style="color: #009900">void</span> <span style="font-weight: bold"><span style="color: #000000">show</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span><span style="color: #990000">;</span>
+    
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Redraws every component on the screen.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="color: #009900">void</span> <span style="font-weight: bold"><span style="color: #000000">update</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span><span style="color: #990000">;</span>
+    
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Adds a gui component to the window. All components must be added with</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * this function. They are removed when window closes.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @param *component component to be added</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="color: #009900">void</span> <span style="font-weight: bold"><span style="color: #000000">addComponent</span></span><span style="color: #990000">(</span>UIComponent <span style="color: #990000">*</span>component<span style="color: #990000">)</span><span style="color: #990000">;</span>
+    
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Finds out if there is a component at these coordinates. NOTE: If</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * components are overlapping, the first one found is returned.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @param x location, screen coordinates</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @param y location, screen coordinates</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @return pointer to the component. NULL if no component was found.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    UIComponent <span style="color: #990000">*</span><span style="font-weight: bold"><span style="color: #000000">findComponent</span></span><span style="color: #990000">(</span><span style="color: #009900">int</span> x<span style="color: #990000">,</span> <span style="color: #009900">int</span> y<span style="color: #990000">)</span><span style="color: #990000">;</span>
+    
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Handles key down events.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="font-weight: bold"><span style="color: #0000FF">virtual</span></span> <span style="color: #009900">void</span> <span style="font-weight: bold"><span style="color: #000000">keyDown</span></span><span style="color: #990000">(</span>SDL_keysym keysym<span style="color: #990000">)</span> <span style="color: #FF0000">{</span> <span style="color: #FF0000">}</span><span style="color: #990000">;</span>
+    
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Handles key up events.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="font-weight: bold"><span style="color: #0000FF">virtual</span></span> <span style="color: #009900">void</span> <span style="font-weight: bold"><span style="color: #000000">keyUp</span></span><span style="color: #990000">(</span>SDL_keysym keysym<span style="color: #990000">)</span> <span style="color: #FF0000">{</span> <span style="color: #FF0000">}</span><span style="color: #990000">;</span>
+    
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Handles mouse move events.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="font-weight: bold"><span style="color: #0000FF">virtual</span></span> <span style="color: #009900">void</span> <span style="font-weight: bold"><span style="color: #000000">mouseMove</span></span><span style="color: #990000">(</span>SDL_MouseMotionEvent motion<span style="color: #990000">)</span> <span style="color: #FF0000">{</span> <span style="color: #FF0000">}</span><span style="color: #990000">;</span>
+    
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Handles mouse down events.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="font-weight: bold"><span style="color: #0000FF">virtual</span></span> <span style="color: #009900">void</span> <span style="font-weight: bold"><span style="color: #000000">mouseDown</span></span><span style="color: #990000">(</span>SDL_MouseButtonEvent button<span style="color: #990000">)</span> <span style="color: #FF0000">{</span> <span style="color: #FF0000">}</span><span style="color: #990000">;</span>
+    
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Handles mouse up events.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="font-weight: bold"><span style="color: #0000FF">virtual</span></span> <span style="color: #009900">void</span> <span style="font-weight: bold"><span style="color: #000000">mouseUp</span></span><span style="color: #990000">(</span>SDL_MouseButtonEvent button<span style="color: #990000">)</span> <span style="color: #FF0000">{</span> <span style="color: #FF0000">}</span><span style="color: #990000">;</span>
+    
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Returns pointer to graphics.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @return poiner to graphics</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    Graphics <span style="color: #990000">*</span><span style="font-weight: bold"><span style="color: #000000">getGraphics</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span> <span style="color: #FF0000">{</span> <span style="font-weight: bold"><span style="color: #0000FF">return</span></span> <span style="color: #990000">&amp;</span>graphics<span style="color: #990000">;</span> <span style="color: #FF0000">}</span><span style="color: #990000">;</span>
+    
+<span style="font-weight: bold"><span style="color: #0000FF">protected</span></span><span style="color: #990000">:</span>
+    Graphics <span style="color: #990000">&amp;</span>graphics<span style="color: #990000">;</span> <span style="font-style: italic"><span style="color: #9A1900">//Refernce to graphics engine</span></span>
+    Sounds <span style="color: #990000">&amp;</span>sounds<span style="color: #990000">;</span>     <span style="font-style: italic"><span style="color: #9A1900">//Refernce to sound engine</span></span>
+    <span style="color: #009900">bool</span> closed<span style="color: #990000">;</span>        <span style="font-style: italic"><span style="color: #9A1900">//Tells if we are ready to quit</span></span>
+    <span style="color: #009900">int</span> returnValue<span style="color: #990000">;</span>    <span style="font-style: italic"><span style="color: #9A1900">//Value to be returned by open()</span></span>
+    
+    UIComponent <span style="color: #990000">*</span>focus<span style="color: #990000">;</span>  <span style="font-style: italic"><span style="color: #9A1900">//Focused component</span></span>
+    
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Sets the focused component.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @param *component Component to be focused.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="color: #009900">void</span> <span style="font-weight: bold"><span style="color: #000000">setFocus</span></span><span style="color: #990000">(</span>UIComponent <span style="color: #990000">*</span>component<span style="color: #990000">)</span><span style="color: #990000">;</span>
+    
+<span style="font-weight: bold"><span style="color: #0000FF">private</span></span><span style="color: #990000">:</span>
+
+    vector<span style="color: #FF0000">&lt;UIComponent*&gt;</span> components<span style="color: #990000">;</span> <span style="font-style: italic"><span style="color: #9A1900">//All components contained by the window</span></span>
+<span style="color: #FF0000">}</span><span style="color: #990000">;</span>
+
+<span style="font-weight: bold"><span style="color: #000080">#endif</span></span> <span style="font-style: italic"><span style="color: #9A1900">//_WINDOW_H_</span></span>
+</tt></pre>

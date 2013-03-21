@@ -1,0 +1,141 @@
+<pre><tt><span style="font-weight: bold"><span style="color: #000080">#ifndef</span></span> _SPRITE_H_ 
+<span style="font-weight: bold"><span style="color: #000080">#define</span></span> _SPRITE_H_ 
+
+<span style="font-weight: bold"><span style="color: #0000FF">class</span></span> Sprite<span style="color: #990000">;</span>
+
+<span style="font-weight: bold"><span style="color: #000080">#include</span></span> <span style="color: #FF0000">&lt;SDL/SDL.h&gt;</span>
+<span style="font-weight: bold"><span style="color: #000080">#include</span></span> <span style="color: #FF0000">"Graphics.h"</span>
+<span style="font-weight: bold"><span style="color: #000080">#include</span></span> <span style="color: #FF0000">"Coordinates.h"</span>
+
+<span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * Class Sprite is used to store unique game graphics. For example rotation</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * is such a slow operation that you don't want to do it for every frame but</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * to do it once and store the result.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> *</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * You can tell Sprite to use common game garphics in which case no extra</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * memory is consumed. However, it's usually easier to deal with Graphics</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * directly.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> *</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * @author Tapio Auvinen</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> */</span></span>
+
+<span style="font-weight: bold"><span style="color: #0000FF">class</span></span> Sprite <span style="color: #FF0000">{</span>
+<span style="font-weight: bold"><span style="color: #0000FF">public</span></span><span style="color: #990000">:</span>
+    
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Constructor. You should call create() or setBitmapIndex() later.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="font-weight: bold"><span style="color: #000000">Sprite</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span><span style="color: #990000">;</span>
+    
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Constructor that makes the Sprite use common game graphics.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @param spriteIndex indexes are defined in images.h</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="font-weight: bold"><span style="color: #000000">Sprite</span></span><span style="color: #990000">(</span><span style="color: #009900">int</span> spriteIndex<span style="color: #990000">)</span><span style="color: #990000">;</span>
+    
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Constructor that creates an empty surface of size (w x h).</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @param width width in pixels</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @param width height in pixels</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="font-weight: bold"><span style="color: #000000">Sprite</span></span><span style="color: #990000">(</span><span style="color: #009900">int</span> w<span style="color: #990000">,</span> <span style="color: #009900">int</span> h<span style="color: #990000">)</span><span style="color: #990000">;</span>
+    
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Destructor</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="color: #990000">~</span><span style="font-weight: bold"><span style="color: #000000">Sprite</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span><span style="color: #990000">;</span>
+    
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Creates an empty surface of size (w x h). If the Sprite was using</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * common game graphics, it forgets about it now and starts using it's</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * own surface.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @param width width in pixels</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @param width height in pixels</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="color: #009900">void</span> <span style="font-weight: bold"><span style="color: #000000">create</span></span><span style="color: #990000">(</span><span style="color: #009900">int</span> w<span style="color: #990000">,</span> <span style="color: #009900">int</span> h<span style="color: #990000">)</span><span style="color: #990000">;</span>
+    
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Makes the Sprite use common game graphics. If the Sprite has it's</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * own surface, it is deleted now.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @param bitmapIndex indexes are defined in images.h</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="color: #009900">void</span> <span style="font-weight: bold"><span style="color: #000000">setBitmapIndex</span></span><span style="color: #990000">(</span><span style="color: #009900">int</span> bitmapIndex<span style="color: #990000">)</span><span style="color: #990000">;</span>
+    
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Sets phase of animation.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @param phase [0, 1] or [0, inf] (looping)</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="color: #009900">void</span> <span style="font-weight: bold"><span style="color: #000000">setPhase</span></span><span style="color: #990000">(</span><span style="color: #009900">float</span> phase<span style="color: #990000">)</span><span style="color: #990000">;</span>
+    
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Sets the orientation of Sprite. You have to use drawRotated to see</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * the effect. The actual rotation (which is slow) takes place in</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * drawRotated and only if the angle has changed. If you call setAngle</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * and drawRotated many times with the same angle, no re-rotation is</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * done.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @param angle radians, ccw, 0 = east</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="color: #009900">void</span> <span style="font-weight: bold"><span style="color: #000000">setAngle</span></span><span style="color: #990000">(</span><span style="color: #009900">float</span> angle<span style="color: #990000">)</span><span style="color: #990000">;</span>
+    
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Returns width of the sprite in pixels if the sprite has its own</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * surface. Sprite doesn't have direct access to graphics so it can't</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * give dimensions of common sprites.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @return width in pixels, -1 if the sprite doesn't have it's own surface</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="color: #009900">int</span> <span style="font-weight: bold"><span style="color: #000000">getWidth</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span><span style="color: #990000">;</span>
+    
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Returns width of the sprite in pixels if the sprite has its own</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * surface.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @return hight in pixels, -1 if the sprite doesn't have it's own surface</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="color: #009900">int</span> <span style="font-weight: bold"><span style="color: #000000">getHeight</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span><span style="color: #990000">;</span>
+    
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Draws the sprite on screen. World coordinates.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @param &amp;graphics Reference to graphics</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @param location location of the object's center in the world</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="color: #009900">void</span> <span style="font-weight: bold"><span style="color: #000000">draw</span></span><span style="color: #990000">(</span>Graphics <span style="color: #990000">&amp;</span>graphics<span style="color: #990000">,</span> <span style="font-weight: bold"><span style="color: #0000FF">const</span></span> Coordinates <span style="color: #990000">&amp;</span>location<span style="color: #990000">)</span><span style="color: #990000">;</span>
+    
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Draws the sprite on screen. Screen coordinates.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @param &amp;graphics Reference to graphics</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @param x location of the object's upper-left corner, screen coordinates</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @param y location of the object's upper-left corner, screen coordinates</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="color: #009900">void</span> <span style="font-weight: bold"><span style="color: #000000">draw</span></span><span style="color: #990000">(</span>Graphics <span style="color: #990000">&amp;</span>graphics<span style="color: #990000">,</span> <span style="color: #009900">int</span> x<span style="color: #990000">,</span> <span style="color: #009900">int</span> y<span style="color: #990000">)</span><span style="color: #990000">;</span>
+    
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Draws a rotated bitmap on screen. Angle can be set with setAngle().</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * For larger bitmaps this is a rather slow operation. If angle has</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * not changed, no re-rotation is done. Only rotation of common game</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * graphics is supported, i.e. you set the source bitmap with </span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * setBitmapIndex().</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @param &amp;graphics Reference to graphics</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @param location location of the object's center in the world</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="color: #009900">void</span> <span style="font-weight: bold"><span style="color: #000000">drawRotated</span></span><span style="color: #990000">(</span>Graphics <span style="color: #990000">&amp;</span>graphics<span style="color: #990000">,</span> <span style="font-weight: bold"><span style="color: #0000FF">const</span></span> Coordinates <span style="color: #990000">&amp;</span>location<span style="color: #990000">)</span><span style="color: #990000">;</span>
+
+
+<span style="font-weight: bold"><span style="color: #0000FF">private</span></span><span style="color: #990000">:</span>
+    SDL_Surface <span style="color: #990000">*</span>surface<span style="color: #990000">;</span>
+    <span style="color: #009900">int</span> bitmapIndex<span style="color: #990000">;</span>  <span style="font-style: italic"><span style="color: #9A1900">//Common game graphics index</span></span>
+    
+    <span style="color: #009900">float</span> phase<span style="color: #990000">;</span>      <span style="font-style: italic"><span style="color: #9A1900">//Phase of animation</span></span>
+    <span style="color: #009900">float</span> angle<span style="color: #990000">;</span>      <span style="font-style: italic"><span style="color: #9A1900">//Orientation</span></span>
+    <span style="color: #009900">float</span> previousAngle<span style="color: #990000">;</span> <span style="font-style: italic"><span style="color: #9A1900">//Previous orientation to prevent</span></span>
+                         <span style="font-style: italic"><span style="color: #9A1900">//unnecessary re-rotation</span></span>
+    
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Takes a sprite from common game graphics, rotates it and stores the</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * result on a surface. Source sprite is set with with</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * setBitamapIndex() or constructor. </span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @param angle angle in radians, ccw, 0 = east</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="color: #009900">void</span> <span style="font-weight: bold"><span style="color: #000000">rotate</span></span><span style="color: #990000">(</span>Graphics <span style="color: #990000">&amp;</span>graphics<span style="color: #990000">,</span> <span style="color: #009900">float</span> angle<span style="color: #990000">)</span><span style="color: #990000">;</span>
+<span style="color: #FF0000">}</span><span style="color: #990000">;</span>
+
+<span style="font-weight: bold"><span style="color: #000080">#endif</span></span>
+</tt></pre>

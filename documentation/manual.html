@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="no"?>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<style type="text/css">
+		h2 { margin-top: 2em; }
+		h3 { margin-top: 2em; }
+	</style>
+	<title>AS-0.101 Project document</title>
+</head>
+
+<body>
+
+<p>
+	<a href="index.html">Front page</a> -
+	<a href="manual.html">Manual</a> -
+	<a href="arch.html">Architecture</a> -
+	<a href="algorithms.html">Algorithms</a> -
+	<a href="bugs.html">Bugs</a> -
+	<a href="tasks.html">Tasks sharing</a> -
+	<a href="diff.html">Differences</a> -
+	<a href="sources.html">Sources</a> -
+	<a href="doxygen/index.html">Doxygen</a> -
+	<a href="references.html">References</a>
+</p>
+<hr />
+
+
+<h2>Instructions for compiling and use</h2>
+
+<p>Program is tested on Linux and Windows. It requires libSDL and optionally SDL_mixer for sound. It can be compiled with <i>make</i> command. Make sure to unpack resource files. There should be a subdirectory called <i>data</i>.</p>
+
+<p>Sounds are disabled by default. If SDL_mixer is installed properly, you just need to add linker flag <i>-lSDL_mixer</i> and uncomment <i>#define SOUND</i> in sounds.h.</p>
+
+
+<h3>SDL_mixer at HUT</h3>
+
+<p>This is a bit tricky and only necessary if you want to hear sound at HUT computers (there are no speakers, by the way).</p>
+<p>
+Uncomment following lines in Sounds.h<br />
+#define SOUND<br />
+#include "SDL_mixer.h"<br />
+</p>
+
+<p>Comment following line out in Sounds.h<br />
+#include &lt;SDL/SDL_mixer.h&gt;
+</p>
+
+<p>
+You have to set enviroment variable LD_LIBRARY_PATH by typing<br />
+setenv LD_LIBRARY_PATH "/p/contrib/lib"<br />
+in command prompt.
+</p>
+
+<p>
+Compile program with following command:<br />
+g++ -g -o ipag *.cpp `sdl-config --cflags --libs` -lSDL -lSDL_mixer -L/p/contrib/lib
+</p>
+
+
+<h3>Features</h3>
+<ul>
+	<li>Multiplayer game on a single computer</li>
+	<li>Different AI players</li>
+	<li>Lots of different weapons</li>
+	<li>A shop where user can buy weapons</li>
+	<li>Continuous world and scrolling</li>
+	<li>Rotating planets</li>
+</ul>
+
+
+<h3>Playing</h3>
+
+<p>Start a new game</p>
+
+<p>First you must add players. Type the name of the new player and select it's type by clicking the arrows. Player can be human or one of three different AIs. Add the new player by clicking <i>Add player</i> button or by pressing return. You can add up to eight players. If you don't type a name, a default name is used.</p>
+
+<p>In the next window you can adjust parameters of the world. Choose the number of planets and keep clicking <i>Create</i> button until you see a world that pleases you. Click <i>Finish</i> to move on.</p>
+
+<p>Next you will have to choose location for your cannon. Do this by clicking a spot on the screen. You can't place the cannon too close to an existing cannon. When all players have selected their locations, click <i>Finish</i>.</p>
+
+<p>In shop window you can buy weapons an shields. Click a weapon's name to see a description.</p>
+
+<p>In the game you aim with left and right arrow key, set power with up and down arrow keys and shoot with space bar. You can fine-tune by keeping CTRL key down while adujusting the aiming. On the lower right corner you can select your weapon and adjust parametes by clicking the arrows. You can relocate your cannon by clicking <i>Move</i> button and selecting a new spot on the game area, but it will cost you your turn.</p>
+
+<p>Game ends after all cannons but one are destroyed. A score window appears and after that a new round starts.</p>
+
+<p>You can usually quit by pressing <i>esc</i> key a few times. In game window this is, however, disabled to avoid accidents.</p>
+
+
+<h3 id="screens">Screenshots</h3>
+
+<p>
+<a href="screen1.html"><img src="screen1t.jpg" alt="Screenshot 1" /></a>
+<a href="screen2.html"><img src="screen2t.jpg" alt="Screenshot 2" /></a>
+<a href="screen3.html"><img src="screen3t.jpg" alt="Screenshot 3" /></a>
+</p>
+
+
+<hr />
+<p>
+	<a href="index.html">Front page</a> -
+	<a href="manual.html">Manual</a> -
+	<a href="arch.html">Architecture</a> -
+	<a href="algorithms.html">Algorithms</a> -
+	<a href="bugs.html">Bugs</a> -
+	<a href="tasks.html">Tasks sharing</a> -
+	<a href="diff.html">Differences</a> -
+	<a href="sources.html">Sources</a> -
+	<a href="doxygen/index.html">Doxygen</a> -
+	<a href="references.html">References</a>
+</p>
+
+
+</body>
+</html>

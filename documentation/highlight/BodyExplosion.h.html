@@ -1,0 +1,79 @@
+<pre><tt><span style="font-weight: bold"><span style="color: #000080">#ifndef</span></span> _BODY_EXPLOSION_H_
+<span style="font-weight: bold"><span style="color: #000080">#define</span></span> _BODY_EXPLOSION_H_
+
+<span style="font-weight: bold"><span style="color: #000080">#include</span></span> <span style="color: #FF0000">"BodyMovable.h"</span>
+
+<span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * BodyExplosion is a visual effect. It does not do any damage or interact</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * with any object in any way. BodyExplosion destroys itself after timeout.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * @author Tapio Auvinen</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> */</span></span>
+ 
+<span style="font-weight: bold"><span style="color: #0000FF">class</span></span> BodyExplosion  <span style="color: #990000">:</span>  <span style="font-weight: bold"><span style="color: #0000FF">public</span></span> BodyMovable <span style="color: #FF0000">{</span>
+<span style="font-weight: bold"><span style="color: #0000FF">public</span></span><span style="color: #990000">:</span>
+
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Explosion types</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="font-weight: bold"><span style="color: #0000FF">typedef</span></span> <span style="font-weight: bold"><span style="color: #0000FF">enum</span></span> <span style="color: #FF0000">{</span>BIG_NUCLEAR<span style="color: #990000">,</span> SMALL_NUCLEAR<span style="color: #990000">,</span>
+                  BIG_GAS<span style="color: #990000">,</span> SMALL_GAS<span style="color: #990000">,</span> LASER<span style="color: #FF0000">}</span> EType<span style="color: #990000">;</span>
+    
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Contsructor.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @param &amp;world Reference to game world</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @param x location, world coordinates</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @param y location, world coordinates</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @param type Style of the explosion. Styles are: BIG_NUCLEAR,</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     *             SMALL_NUCLEAR, BIG_GAS, SMALL_GAS, LASER</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="font-weight: bold"><span style="color: #000000">BodyExplosion</span></span><span style="color: #990000">(</span>World <span style="color: #990000">&amp;</span>world<span style="color: #990000">,</span> <span style="color: #009900">float</span> x<span style="color: #990000">,</span> <span style="color: #009900">float</span> y<span style="color: #990000">,</span> EType type<span style="color: #990000">)</span><span style="color: #990000">;</span>
+    
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Destructor</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="color: #990000">~</span><span style="font-weight: bold"><span style="color: #000000">BodyExplosion</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span><span style="color: #990000">;</span>
+
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Step() makes the explosion move.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @param timestep timestep in milliseconds</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="color: #009900">void</span> <span style="font-weight: bold"><span style="color: #000000">step</span></span><span style="color: #990000">(</span><span style="color: #009900">unsigned</span> <span style="color: #009900">int</span> timestep<span style="color: #990000">)</span><span style="color: #990000">;</span>
+    
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Draws explosion on screen.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @param &amp;graphics Reference to graphics</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="color: #009900">void</span> <span style="font-weight: bold"><span style="color: #000000">draw</span></span><span style="color: #990000">(</span>Graphics <span style="color: #990000">&amp;</span>graphics<span style="color: #990000">)</span><span style="color: #990000">;</span>
+
+<span style="font-weight: bold"><span style="color: #0000FF">private</span></span><span style="color: #990000">:</span>
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Adds a standard shockwave.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="color: #009900">void</span> <span style="font-weight: bold"><span style="color: #000000">createShockwave</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span><span style="color: #990000">;</span>
+    
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Draws particle cloud on screen.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @param &amp;graphics Reference to graphics</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="color: #009900">void</span> <span style="font-weight: bold"><span style="color: #000000">drawParticles</span></span><span style="color: #990000">(</span>Graphics <span style="color: #990000">&amp;</span>graphics<span style="color: #990000">)</span><span style="color: #990000">;</span>
+    
+    <span style="font-weight: bold"><span style="color: #0000FF">typedef</span></span> <span style="font-weight: bold"><span style="color: #0000FF">struct</span></span> <span style="color: #FF0000">{</span>
+        Coordinates <span style="color: #990000">*</span>location<span style="color: #990000">;</span>
+        <span style="color: #009900">float</span> vx<span style="color: #990000">;</span>      <span style="font-style: italic"><span style="color: #9A1900">//Velocity</span></span>
+        <span style="color: #009900">float</span> vy<span style="color: #990000">;</span>      <span style="font-style: italic"><span style="color: #9A1900">//Velocity</span></span>
+        <span style="color: #009900">int</span> sprite<span style="color: #990000">;</span>    <span style="font-style: italic"><span style="color: #9A1900">//Sprite index</span></span>
+        <span style="color: #009900">float</span> phase<span style="color: #990000">;</span>   <span style="font-style: italic"><span style="color: #9A1900">//Animation phase</span></span>
+        <span style="color: #009900">int</span> timeLived<span style="color: #990000">;</span>
+        <span style="color: #009900">int</span> lifetime<span style="color: #990000">;</span>
+        <span style="color: #009900">bool</span> active<span style="color: #990000">;</span>
+    <span style="color: #FF0000">}</span> TParticle<span style="color: #990000">;</span>
+    
+    <span style="color: #009900">int</span> lifetime<span style="color: #990000">,</span> timeLived<span style="color: #990000">;</span> <span style="font-style: italic"><span style="color: #9A1900">//Lifetime of the object</span></span>
+    EType type<span style="color: #990000">;</span>              <span style="font-style: italic"><span style="color: #9A1900">//Explosion type</span></span>
+    
+    TParticle <span style="color: #990000">*</span>particles<span style="color: #990000">;</span> <span style="font-style: italic"><span style="color: #9A1900">//Particle cloud</span></span>
+    <span style="color: #009900">int</span> numParticles<span style="color: #990000">;</span>     <span style="font-style: italic"><span style="color: #9A1900">//Number of particles</span></span>
+<span style="color: #FF0000">}</span><span style="color: #990000">;</span>
+
+<span style="font-weight: bold"><span style="color: #000080">#endif</span></span> <span style="font-style: italic"><span style="color: #9A1900">//_BODY_EXPLOSION_H_</span></span>
+</tt></pre>

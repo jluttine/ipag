@@ -1,0 +1,116 @@
+<pre><tt>
+<span style="font-weight: bold"><span style="color: #000080">#ifndef</span></span> _PROJECTILESHOOTING_H_
+<span style="font-weight: bold"><span style="color: #000080">#define</span></span> _PROJECTILESHOOTING_H_
+
+<span style="font-weight: bold"><span style="color: #000080">#include</span></span> <span style="color: #FF0000">"Projectile.h"</span>
+
+<span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * Author: Jaakko Luttinen</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * ProjectileShooting is a class for projectiles that are able to shoot</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * while flying. Projectiles to shoot and shooting delay are both</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * selectable. Projectile has limited ammo and it will destruct after all</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * shots are fired.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> */</span></span>
+<span style="font-weight: bold"><span style="color: #0000FF">class</span></span> ProjectileShooting  <span style="color: #990000">:</span>  <span style="font-weight: bold"><span style="color: #0000FF">public</span></span> <span style="font-weight: bold"><span style="color: #0000FF">virtual</span></span> Projectile
+<span style="color: #FF0000">{</span>
+    
+<span style="font-weight: bold"><span style="color: #0000FF">public</span></span><span style="color: #990000">:</span>
+
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Constructs a new projectile.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @param name           Name of the projectile.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @param description    Description of the projectile.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @param price          Price of the projectile.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @param spriteIndex    Index of the sprite.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @param soundIndex     Index of the firing sound.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @param explosionIndex Index of the explosion type.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @param radius         Radius of the projectile.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @param mass           Mass of the projectile.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @param damage         Maximum damage of the projectile.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @param damageRadius   Radius of the damage.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @param ammunition     Projectile template to shoot.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @param shotCount      Maximum ammunition. After all ammunition has been</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     *                       fired, projectile will destruct.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @param shotDelay      Delay between two shots in ms.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @param shotVelocity   Shooting velocity for shots.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="font-weight: bold"><span style="color: #000000">ProjectileShooting</span></span><span style="color: #990000">(</span> <span style="font-weight: bold"><span style="color: #0000FF">const</span></span> string <span style="color: #990000">&amp;</span>name<span style="color: #990000">,</span> <span style="font-weight: bold"><span style="color: #0000FF">const</span></span> string <span style="color: #990000">&amp;</span>description<span style="color: #990000">,</span>
+                        <span style="color: #009900">int</span> price<span style="color: #990000">,</span> <span style="color: #009900">int</span> spriteIndex<span style="color: #990000">,</span> <span style="color: #009900">int</span> soundIndex<span style="color: #990000">,</span>
+                        BodyExplosion<span style="color: #990000">:</span><span style="color: #990000">:</span>EType explosionIndex<span style="color: #990000">,</span> <span style="color: #009900">float</span> radius<span style="color: #990000">,</span>
+                        <span style="color: #009900">float</span> mass<span style="color: #990000">,</span> <span style="color: #009900">float</span> damage<span style="color: #990000">,</span> <span style="color: #009900">float</span> damageRadius<span style="color: #990000">,</span>
+                        <span style="font-weight: bold"><span style="color: #0000FF">const</span></span> Projectile <span style="color: #990000">&amp;</span>ammunition<span style="color: #990000">,</span> <span style="color: #009900">int</span> shotCount<span style="color: #990000">,</span>
+                        <span style="color: #009900">int</span> shotDelay<span style="color: #990000">,</span> <span style="color: #009900">float</span> shotVelocity <span style="color: #990000">)</span><span style="color: #990000">;</span>
+                        
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Constructs a projectile with same properties.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @param copy The projectile to use as a copy.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="font-weight: bold"><span style="color: #000000">ProjectileShooting</span></span><span style="color: #990000">(</span> <span style="font-weight: bold"><span style="color: #0000FF">const</span></span> ProjectileShooting <span style="color: #990000">&amp;</span>copy <span style="color: #990000">)</span><span style="color: #990000">;</span>
+    
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Returns a dynamic copy. Makes it possible to get a copy without knowing</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * which subclass the object actually represents. Every subclass must</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * overwrite this function.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @return Dynamic copy of itself.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>   
+    <span style="font-weight: bold"><span style="color: #0000FF">virtual</span></span> Projectile<span style="color: #990000">*</span> <span style="font-weight: bold"><span style="color: #000000">getCopy</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span> <span style="font-weight: bold"><span style="color: #0000FF">const</span></span>
+        <span style="color: #FF0000">{</span> <span style="font-weight: bold"><span style="color: #0000FF">return</span></span> <span style="font-weight: bold"><span style="color: #0000FF">new</span></span> <span style="font-weight: bold"><span style="color: #000000">ProjectileShooting</span></span><span style="color: #990000">(</span> <span style="color: #990000">*</span><span style="font-weight: bold"><span style="color: #0000FF">this</span></span> <span style="color: #990000">)</span><span style="color: #990000">;</span> <span style="color: #FF0000">}</span><span style="color: #990000">;</span>
+
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Forms a string to describe the damage of the projectile.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @param text String to store the damage description.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="font-weight: bold"><span style="color: #0000FF">virtual</span></span> <span style="color: #009900">void</span> <span style="font-weight: bold"><span style="color: #000000">getDamageText</span></span><span style="color: #990000">(</span> std<span style="color: #990000">:</span><span style="color: #990000">:</span>string <span style="color: #990000">&amp;</span>text <span style="color: #990000">)</span> <span style="font-weight: bold"><span style="color: #0000FF">const</span></span><span style="color: #990000">;</span>
+
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Simulates the timestep for the capsule.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @param timestep The step length in ms.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @param capsule  The capsule, that is the projectile in the world.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="font-weight: bold"><span style="color: #0000FF">virtual</span></span> <span style="color: #009900">void</span> <span style="font-weight: bold"><span style="color: #000000">step</span></span><span style="color: #990000">(</span> <span style="color: #009900">int</span> timestep<span style="color: #990000">,</span> BodyProjectile <span style="color: #990000">&amp;</span>capsel <span style="color: #990000">)</span><span style="color: #990000">;</span>
+
+<span style="font-weight: bold"><span style="color: #0000FF">private</span></span><span style="color: #990000">:</span>
+
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Selects a new target. Target is the closest cannon not owned by the</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * owner.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @param capsule The capsule.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @return Selected target.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="font-weight: bold"><span style="color: #0000FF">const</span></span> Body<span style="color: #990000">*</span> <span style="font-weight: bold"><span style="color: #000000">selectTarget</span></span><span style="color: #990000">(</span> <span style="font-weight: bold"><span style="color: #0000FF">const</span></span> BodyProjectile <span style="color: #990000">&amp;</span>capsule <span style="color: #990000">)</span><span style="color: #990000">;</span>
+
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Projectile templates to use as ammunition.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="font-weight: bold"><span style="color: #0000FF">const</span></span> Projectile <span style="color: #990000">&amp;</span>ammunition<span style="color: #990000">;</span>
+    
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Number of fired shots.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="color: #009900">int</span> shotsFired<span style="color: #990000">;</span>
+    
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Number of shots. After all shots have been fired, projectile will</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * destruct.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="color: #009900">int</span> shotCount<span style="color: #990000">;</span>
+     
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Delay between two shots.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="color: #009900">int</span> shotDelay<span style="color: #990000">;</span>
+      
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Time elapsed since last shot.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="color: #009900">int</span> timeElapsed<span style="color: #990000">;</span>
+    
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Velocity for fired shots.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="color: #009900">float</span> shotVelocity<span style="color: #990000">;</span>
+    
+<span style="color: #FF0000">}</span><span style="color: #990000">;</span>
+
+<span style="font-weight: bold"><span style="color: #000080">#endif</span></span> <span style="font-style: italic"><span style="color: #9A1900">//_PROJECTILESHOOTING_H_</span></span>
+</tt></pre>

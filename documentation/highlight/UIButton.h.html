@@ -1,0 +1,43 @@
+<pre><tt><span style="font-weight: bold"><span style="color: #000080">#ifndef</span></span> _UI_BUTTON_H_
+<span style="font-weight: bold"><span style="color: #000080">#define</span></span> _UI_BUTTON_H_
+
+<span style="font-weight: bold"><span style="color: #000080">#include</span></span> <span style="color: #FF0000">"Window.h"</span>
+<span style="font-weight: bold"><span style="color: #000080">#include</span></span> <span style="color: #FF0000">"UIComponent.h"</span>
+
+<span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * UIButton is a UI component. Currently it works pretty much the same way</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * as UIText but in future buttons may have a special look.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * </span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * Width and height of the button are adjusted automatically.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> *</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * @author Tapio Auvinen</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> */</span></span>
+
+<span style="font-weight: bold"><span style="color: #0000FF">class</span></span> UIButton <span style="color: #990000">:</span> <span style="font-weight: bold"><span style="color: #0000FF">public</span></span> UIComponent <span style="color: #FF0000">{</span>
+<span style="font-weight: bold"><span style="color: #0000FF">public</span></span><span style="color: #990000">:</span>
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Constructor. </span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @param &amp;parentWindow Reference to the parent window</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @param *text Text</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @param x Location of the upper-left corner.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @param y Location of the upper-left corner.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="font-weight: bold"><span style="color: #000000">UIButton</span></span><span style="color: #990000">(</span>Window <span style="color: #990000">&amp;</span>parentWindow<span style="color: #990000">,</span> <span style="font-weight: bold"><span style="color: #0000FF">const</span></span> <span style="color: #009900">char</span> <span style="color: #990000">*</span>text<span style="color: #990000">,</span> <span style="color: #009900">int</span> x<span style="color: #990000">,</span> <span style="color: #009900">int</span> y<span style="color: #990000">)</span><span style="color: #990000">;</span>
+    
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Destructor</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="color: #990000">~</span><span style="font-weight: bold"><span style="color: #000000">UIButton</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span><span style="color: #990000">;</span>
+
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Changes text.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @param text new text</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="color: #009900">void</span> <span style="font-weight: bold"><span style="color: #000000">setText</span></span><span style="color: #990000">(</span><span style="font-weight: bold"><span style="color: #0000FF">const</span></span> <span style="color: #009900">char</span> <span style="color: #990000">*</span>text<span style="color: #990000">)</span><span style="color: #990000">;</span>
+    
+<span style="font-weight: bold"><span style="color: #0000FF">private</span></span><span style="color: #990000">:</span>
+    <span style="color: #009900">char</span> <span style="color: #990000">*</span>text<span style="color: #990000">;</span>  <span style="font-style: italic"><span style="color: #9A1900">//Text of the button</span></span>
+<span style="color: #FF0000">}</span><span style="color: #990000">;</span>
+
+<span style="font-weight: bold"><span style="color: #000080">#endif</span></span>
+</tt></pre>

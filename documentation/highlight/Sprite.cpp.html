@@ -1,0 +1,195 @@
+<pre><tt><span style="font-weight: bold"><span style="color: #000080">#include</span></span> <span style="color: #FF0000">&lt;iostream&gt;</span>
+<span style="font-weight: bold"><span style="color: #000080">#include</span></span> <span style="color: #FF0000">"Sprite.h"</span>
+
+<span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * Constructor. You should call create() or setBitmapIndex() later.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> */</span></span>
+Sprite<span style="color: #990000">:</span><span style="color: #990000">:</span><span style="font-weight: bold"><span style="color: #000000">Sprite</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span> <span style="color: #FF0000">{</span>
+    <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>surface <span style="color: #990000">=</span> NULL<span style="color: #990000">;</span>
+    <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>bitmapIndex <span style="color: #990000">=</span> <span style="color: #990000">-</span><span style="color: #993399">1</span><span style="color: #990000">;</span>
+    
+    phase <span style="color: #990000">=</span> <span style="color: #993399">0</span><span style="color: #990000">;</span>
+    angle <span style="color: #990000">=</span> <span style="color: #993399">0</span><span style="color: #990000">;</span>
+    previousAngle <span style="color: #990000">=</span> <span style="color: #990000">-</span><span style="color: #993399">1</span><span style="color: #990000">;</span>
+<span style="color: #FF0000">}</span>
+
+<span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * Constructor that makes the Sprite use common game graphics.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> */</span></span>
+Sprite<span style="color: #990000">:</span><span style="color: #990000">:</span><span style="font-weight: bold"><span style="color: #000000">Sprite</span></span><span style="color: #990000">(</span><span style="color: #009900">int</span> bitmapIndex<span style="color: #990000">)</span> <span style="color: #FF0000">{</span>
+    <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>surface <span style="color: #990000">=</span> NULL<span style="color: #990000">;</span>
+    <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>bitmapIndex <span style="color: #990000">=</span> bitmapIndex<span style="color: #990000">;</span>
+    
+    phase <span style="color: #990000">=</span> <span style="color: #993399">0</span><span style="color: #990000">;</span>
+    angle <span style="color: #990000">=</span> <span style="color: #993399">0</span><span style="color: #990000">;</span>
+    previousAngle <span style="color: #990000">=</span> <span style="color: #990000">-</span><span style="color: #993399">1</span><span style="color: #990000">;</span>
+<span style="color: #FF0000">}</span>
+
+<span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * Constructor that creates an empty surface of size (w x h).</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> */</span></span>
+Sprite<span style="color: #990000">:</span><span style="color: #990000">:</span><span style="font-weight: bold"><span style="color: #000000">Sprite</span></span><span style="color: #990000">(</span><span style="color: #009900">int</span> w<span style="color: #990000">,</span> <span style="color: #009900">int</span> h<span style="color: #990000">)</span> <span style="color: #FF0000">{</span>
+    <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>surface <span style="color: #990000">=</span> NULL<span style="color: #990000">;</span>
+    <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>bitmapIndex <span style="color: #990000">=</span> <span style="color: #990000">-</span><span style="color: #993399">1</span><span style="color: #990000">;</span>
+    
+    <span style="font-weight: bold"><span style="color: #000000">create</span></span><span style="color: #990000">(</span>w<span style="color: #990000">,</span> h<span style="color: #990000">)</span><span style="color: #990000">;</span>
+    
+    phase <span style="color: #990000">=</span> <span style="color: #993399">0</span><span style="color: #990000">;</span>
+    angle <span style="color: #990000">=</span> <span style="color: #993399">0</span><span style="color: #990000">;</span>
+    previousAngle <span style="color: #990000">=</span> <span style="color: #990000">-</span><span style="color: #993399">1</span><span style="color: #990000">;</span>
+<span style="color: #FF0000">}</span>
+
+<span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * Destructor</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> */</span></span>
+Sprite<span style="color: #990000">:</span><span style="color: #990000">:</span><span style="color: #990000">~</span><span style="font-weight: bold"><span style="color: #000000">Sprite</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span> <span style="color: #FF0000">{</span>
+    <span style="font-weight: bold"><span style="color: #0000FF">if</span></span> <span style="color: #990000">(</span><span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>surface<span style="color: #990000">)</span>
+        <span style="font-weight: bold"><span style="color: #000000">SDL_FreeSurface</span></span><span style="color: #990000">(</span><span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>surface<span style="color: #990000">)</span><span style="color: #990000">;</span>
+<span style="color: #FF0000">}</span>
+
+<span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * Creates an empty surface of size (w x h). If the Sprite was using common</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * game graphics, it forgets about it now and starts using it's own surface.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> */</span></span>
+<span style="color: #009900">void</span> Sprite<span style="color: #990000">:</span><span style="color: #990000">:</span><span style="font-weight: bold"><span style="color: #000000">create</span></span><span style="color: #990000">(</span><span style="color: #009900">int</span> w<span style="color: #990000">,</span> <span style="color: #009900">int</span> h<span style="color: #990000">)</span> <span style="color: #FF0000">{</span>
+    <span style="font-style: italic"><span style="color: #9A1900">//Free the old surface</span></span>
+    <span style="font-weight: bold"><span style="color: #0000FF">if</span></span> <span style="color: #990000">(</span><span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>surface<span style="color: #990000">)</span>
+        <span style="font-weight: bold"><span style="color: #000000">SDL_FreeSurface</span></span><span style="color: #990000">(</span><span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>surface<span style="color: #990000">)</span><span style="color: #990000">;</span>
+        
+    <span style="font-style: italic"><span style="color: #9A1900">//Create a new surface</span></span>
+    SDL_Surface <span style="color: #990000">*</span>tempBitmap<span style="color: #990000">;</span>
+    tempBitmap <span style="color: #990000">=</span> <span style="font-weight: bold"><span style="color: #000000">SDL_CreateRGBSurface</span></span><span style="color: #990000">(</span>SDL_SRCCOLORKEY<span style="color: #990000">,</span> w<span style="color: #990000">,</span> h<span style="color: #990000">,</span> <span style="color: #993399">32</span><span style="color: #990000">,</span>
+                                      <span style="color: #993399">255</span><span style="color: #990000">,</span> <span style="color: #993399">0</span><span style="color: #990000">,</span> <span style="color: #993399">255</span><span style="color: #990000">,</span> <span style="color: #993399">0</span><span style="color: #990000">)</span><span style="color: #990000">;</span>
+    
+    <span style="font-style: italic"><span style="color: #9A1900">//Set transparency</span></span>
+    <span style="font-weight: bold"><span style="color: #000000">SDL_SetColorKey</span></span><span style="color: #990000">(</span>tempBitmap<span style="color: #990000">,</span> SDL_SRCCOLORKEY <span style="color: #990000">|</span> SDL_RLEACCEL<span style="color: #990000">,</span> 
+                    <span style="font-weight: bold"><span style="color: #000000">SDL_MapRGB</span></span><span style="color: #990000">(</span>tempBitmap<span style="color: #990000">-</span><span style="color: #990000">&gt;</span>format<span style="color: #990000">,</span> <span style="color: #993399">255</span><span style="color: #990000">,</span> <span style="color: #993399">0</span><span style="color: #990000">,</span> <span style="color: #993399">255</span><span style="color: #990000">)</span><span style="color: #990000">)</span><span style="color: #990000">;</span> 
+    
+    <span style="font-style: italic"><span style="color: #9A1900">//Convert colors to speed up blitting</span></span>
+    <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>surface <span style="color: #990000">=</span> <span style="font-weight: bold"><span style="color: #000000">SDL_DisplayFormat</span></span><span style="color: #990000">(</span>tempBitmap<span style="color: #990000">)</span><span style="color: #990000">;</span>
+    <span style="font-weight: bold"><span style="color: #000000">SDL_FreeSurface</span></span><span style="color: #990000">(</span>tempBitmap<span style="color: #990000">)</span><span style="color: #990000">;</span>
+    
+    <span style="font-weight: bold"><span style="color: #0000FF">if</span></span> <span style="color: #990000">(</span><span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>surface <span style="color: #990000">=</span><span style="color: #990000">=</span> NULL<span style="color: #990000">)</span>
+        <span style="font-weight: bold"><span style="color: #0000FF">return</span></span><span style="color: #990000">;</span>
+    
+    <span style="font-weight: bold"><span style="color: #000000">SDL_FillRect</span></span><span style="color: #990000">(</span><span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>surface<span style="color: #990000">,</span> NULL<span style="color: #990000">,</span> <span style="font-weight: bold"><span style="color: #000000">SDL_MapRGB</span></span><span style="color: #990000">(</span><span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>surface<span style="color: #990000">-</span><span style="color: #990000">&gt;</span>format<span style="color: #990000">,</span>
+                 <span style="color: #993399">255</span><span style="color: #990000">,</span> <span style="color: #993399">0</span><span style="color: #990000">,</span> <span style="color: #993399">255</span><span style="color: #990000">)</span><span style="color: #990000">)</span><span style="color: #990000">;</span>
+<span style="color: #FF0000">}</span>
+
+<span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * Makes the sprite use common game graphics. If the sprite has it's own</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * surface, it is deleted now.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * @param bitmapIndex</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> */</span></span>
+<span style="color: #009900">void</span> Sprite<span style="color: #990000">:</span><span style="color: #990000">:</span><span style="font-weight: bold"><span style="color: #000000">setBitmapIndex</span></span><span style="color: #990000">(</span><span style="color: #009900">int</span> bitmapIndex<span style="color: #990000">)</span> <span style="color: #FF0000">{</span>
+    <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>bitmapIndex <span style="color: #990000">=</span> bitmapIndex<span style="color: #990000">;</span>
+    
+    <span style="font-style: italic"><span style="color: #9A1900">//Free the old surface</span></span>
+    <span style="font-weight: bold"><span style="color: #0000FF">if</span></span> <span style="color: #990000">(</span><span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>surface<span style="color: #990000">)</span> <span style="color: #FF0000">{</span>
+        <span style="font-weight: bold"><span style="color: #000000">SDL_FreeSurface</span></span><span style="color: #990000">(</span><span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>surface<span style="color: #990000">)</span><span style="color: #990000">;</span>
+        <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>surface <span style="color: #990000">=</span> NULL<span style="color: #990000">;</span>
+    <span style="color: #FF0000">}</span>
+<span style="color: #FF0000">}</span>
+
+<span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * Sets phase of animation. [0, 1] or [0, inf] (looping)</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> */</span></span>
+<span style="color: #009900">void</span> Sprite<span style="color: #990000">:</span><span style="color: #990000">:</span><span style="font-weight: bold"><span style="color: #000000">setPhase</span></span><span style="color: #990000">(</span><span style="color: #009900">float</span> phase<span style="color: #990000">)</span> <span style="color: #FF0000">{</span>
+    <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>phase <span style="color: #990000">=</span> phase<span style="color: #990000">;</span>
+<span style="color: #FF0000">}</span>
+
+<span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * Sets orientation of Sprite. You have to use drawRotated to see the</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * effect. The actual rotation (which is slow) takes place in drawRotated</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * and only if the angle has changed. If you call setAngle and drawRotated</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * many times with the same angle, no re-rotation is done.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * @param angle radians, ccw, 0 = east</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> */</span></span>
+<span style="color: #009900">void</span> Sprite<span style="color: #990000">:</span><span style="color: #990000">:</span><span style="font-weight: bold"><span style="color: #000000">setAngle</span></span><span style="color: #990000">(</span><span style="color: #009900">float</span> angle<span style="color: #990000">)</span> <span style="color: #FF0000">{</span>
+    <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>angle <span style="color: #990000">=</span> angle<span style="color: #990000">;</span>
+<span style="color: #FF0000">}</span>
+
+<span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * Returns width of the sprite in pixels if the sprite has its own surface.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * Sprite doesn't have direct access to graphics so it can't give dimensions</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * of common pictures.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * @return -1 if the sprite doesn't have it's own surface</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> */</span></span>
+<span style="color: #009900">int</span> Sprite<span style="color: #990000">:</span><span style="color: #990000">:</span><span style="font-weight: bold"><span style="color: #000000">getWidth</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span> <span style="color: #FF0000">{</span>
+    <span style="font-weight: bold"><span style="color: #0000FF">if</span></span> <span style="color: #990000">(</span><span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>surface<span style="color: #990000">)</span> <span style="color: #FF0000">{</span>
+        <span style="font-weight: bold"><span style="color: #0000FF">return</span></span> <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>surface<span style="color: #990000">-</span><span style="color: #990000">&gt;</span>w<span style="color: #990000">;</span>
+    <span style="color: #FF0000">}</span> <span style="font-weight: bold"><span style="color: #0000FF">else</span></span> <span style="color: #FF0000">{</span>
+        <span style="font-weight: bold"><span style="color: #0000FF">return</span></span> <span style="color: #990000">-</span><span style="color: #993399">1</span><span style="color: #990000">;</span>
+    <span style="color: #FF0000">}</span>
+<span style="color: #FF0000">}</span>
+
+<span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * Returns width of the sprite in pixels if the sprite has its own surface.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * @return -1 if the sprite doesn't have it's own surface</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> */</span></span>
+<span style="color: #009900">int</span> Sprite<span style="color: #990000">:</span><span style="color: #990000">:</span><span style="font-weight: bold"><span style="color: #000000">getHeight</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span> <span style="color: #FF0000">{</span>
+    <span style="font-weight: bold"><span style="color: #0000FF">if</span></span> <span style="color: #990000">(</span><span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>surface<span style="color: #990000">)</span> <span style="color: #FF0000">{</span>
+        <span style="font-weight: bold"><span style="color: #0000FF">return</span></span> <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>surface<span style="color: #990000">-</span><span style="color: #990000">&gt;</span>h<span style="color: #990000">;</span>
+    <span style="color: #FF0000">}</span> <span style="font-weight: bold"><span style="color: #0000FF">else</span></span> <span style="color: #FF0000">{</span>
+        <span style="font-weight: bold"><span style="color: #0000FF">return</span></span> <span style="color: #990000">-</span><span style="color: #993399">1</span><span style="color: #990000">;</span>
+    <span style="color: #FF0000">}</span>
+<span style="color: #FF0000">}</span>
+
+<span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * Draws the sprite on screen. World coordinates.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> */</span></span>
+<span style="color: #009900">void</span> Sprite<span style="color: #990000">:</span><span style="color: #990000">:</span><span style="font-weight: bold"><span style="color: #000000">draw</span></span><span style="color: #990000">(</span>Graphics <span style="color: #990000">&amp;</span>graphics<span style="color: #990000">,</span> <span style="font-weight: bold"><span style="color: #0000FF">const</span></span> Coordinates <span style="color: #990000">&amp;</span>location<span style="color: #990000">)</span> <span style="color: #FF0000">{</span>
+    <span style="font-weight: bold"><span style="color: #0000FF">if</span></span> <span style="color: #990000">(</span><span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>surface <span style="color: #990000">!</span><span style="color: #990000">=</span> NULL<span style="color: #990000">)</span> <span style="color: #FF0000">{</span>
+        graphics<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">drawBitmap</span></span><span style="color: #990000">(</span><span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>surface<span style="color: #990000">,</span> location<span style="color: #990000">)</span><span style="color: #990000">;</span>
+    <span style="color: #FF0000">}</span>
+    <span style="font-weight: bold"><span style="color: #0000FF">else</span></span> <span style="font-weight: bold"><span style="color: #0000FF">if</span></span> <span style="color: #990000">(</span><span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>bitmapIndex <span style="color: #990000">&gt;</span><span style="color: #990000">=</span> <span style="color: #993399">0</span><span style="color: #990000">)</span> <span style="color: #FF0000">{</span>
+        graphics<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">drawAnimated</span></span><span style="color: #990000">(</span><span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>bitmapIndex<span style="color: #990000">,</span> location<span style="color: #990000">,</span> <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>phase<span style="color: #990000">)</span><span style="color: #990000">;</span>
+    <span style="color: #FF0000">}</span>
+<span style="color: #FF0000">}</span>
+
+<span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * Draws the sprite on screen. Screen coordinates.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> */</span></span>
+<span style="color: #009900">void</span> Sprite<span style="color: #990000">:</span><span style="color: #990000">:</span><span style="font-weight: bold"><span style="color: #000000">draw</span></span><span style="color: #990000">(</span>Graphics <span style="color: #990000">&amp;</span>graphics<span style="color: #990000">,</span> <span style="color: #009900">int</span> x<span style="color: #990000">,</span> <span style="color: #009900">int</span> y<span style="color: #990000">)</span> <span style="color: #FF0000">{</span>
+    <span style="font-weight: bold"><span style="color: #0000FF">if</span></span> <span style="color: #990000">(</span><span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>surface <span style="color: #990000">!</span><span style="color: #990000">=</span> NULL<span style="color: #990000">)</span> <span style="color: #FF0000">{</span>
+        graphics<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">drawBitmap</span></span><span style="color: #990000">(</span><span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>surface<span style="color: #990000">,</span> x<span style="color: #990000">,</span> y<span style="color: #990000">)</span><span style="color: #990000">;</span>
+    <span style="color: #FF0000">}</span> <span style="font-weight: bold"><span style="color: #0000FF">else</span></span> <span style="font-weight: bold"><span style="color: #0000FF">if</span></span> <span style="color: #990000">(</span><span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>bitmapIndex <span style="color: #990000">&gt;</span><span style="color: #990000">=</span> <span style="color: #993399">0</span><span style="color: #990000">)</span> <span style="color: #FF0000">{</span>
+        graphics<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">drawSprite</span></span><span style="color: #990000">(</span><span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>bitmapIndex<span style="color: #990000">,</span> x<span style="color: #990000">,</span> y<span style="color: #990000">)</span><span style="color: #990000">;</span>
+    <span style="color: #FF0000">}</span>
+<span style="color: #FF0000">}</span>
+
+<span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * Draws a rotated bitmap on screen. Angle can be set with setAngle(). For</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * larger bitmaps this can be a rather slow operation. If angle has not</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * changed, no re-rotation is done. Only rotation of common game graphics</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * is supported, i.e. you set the source bitmap with setBitmapIndex().</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> */</span></span>
+<span style="color: #009900">void</span> Sprite<span style="color: #990000">:</span><span style="color: #990000">:</span><span style="font-weight: bold"><span style="color: #000000">drawRotated</span></span><span style="color: #990000">(</span>Graphics <span style="color: #990000">&amp;</span>graphics<span style="color: #990000">,</span> <span style="font-weight: bold"><span style="color: #0000FF">const</span></span> Coordinates <span style="color: #990000">&amp;</span>location<span style="color: #990000">)</span> <span style="color: #FF0000">{</span>
+    <span style="font-weight: bold"><span style="color: #0000FF">if</span></span> <span style="color: #990000">(</span><span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>angle <span style="color: #990000">!</span><span style="color: #990000">=</span> <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>previousAngle<span style="color: #990000">)</span> <span style="color: #FF0000">{</span>
+        <span style="font-weight: bold"><span style="color: #000000">rotate</span></span><span style="color: #990000">(</span>graphics<span style="color: #990000">,</span> <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>angle<span style="color: #990000">)</span><span style="color: #990000">;</span>
+        <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>previousAngle <span style="color: #990000">=</span> <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>angle<span style="color: #990000">;</span>
+    <span style="color: #FF0000">}</span>
+    
+    graphics<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">drawBitmap</span></span><span style="color: #990000">(</span><span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>surface<span style="color: #990000">,</span> location<span style="color: #990000">)</span><span style="color: #990000">;</span>
+<span style="color: #FF0000">}</span>
+
+<span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * Takes a sprite from common game graphics, rotates it and stores the</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * result on a surface. Source sprite is set with with setBitamapIndex()</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * or constructor. </span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * @param angle angle in radians, ccw, 0 = east</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> */</span></span>
+<span style="color: #009900">void</span> Sprite<span style="color: #990000">:</span><span style="color: #990000">:</span><span style="font-weight: bold"><span style="color: #000000">rotate</span></span><span style="color: #990000">(</span>Graphics <span style="color: #990000">&amp;</span>graphics<span style="color: #990000">,</span> <span style="color: #009900">float</span> angle<span style="color: #990000">)</span> <span style="color: #FF0000">{</span>
+    <span style="font-weight: bold"><span style="color: #0000FF">const</span></span> SDL_Surface <span style="color: #990000">*</span>source<span style="color: #990000">;</span>
+    
+    source <span style="color: #990000">=</span> graphics<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">getSurface</span></span><span style="color: #990000">(</span><span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>bitmapIndex<span style="color: #990000">)</span><span style="color: #990000">;</span>
+    <span style="font-weight: bold"><span style="color: #0000FF">if</span></span> <span style="color: #990000">(</span>source <span style="color: #990000">=</span><span style="color: #990000">=</span> NULL<span style="color: #990000">)</span>
+        <span style="font-weight: bold"><span style="color: #0000FF">return</span></span><span style="color: #990000">;</span>
+    
+    <span style="font-style: italic"><span style="color: #9A1900">//Reset surface</span></span>
+    <span style="font-weight: bold"><span style="color: #000000">create</span></span><span style="color: #990000">(</span>source<span style="color: #990000">-</span><span style="color: #990000">&gt;</span>w<span style="color: #990000">,</span> source<span style="color: #990000">-</span><span style="color: #990000">&gt;</span>h<span style="color: #990000">)</span><span style="color: #990000">;</span>
+    
+    <span style="font-style: italic"><span style="color: #9A1900">//Update picture</span></span>
+    graphics<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">drawRotated</span></span><span style="color: #990000">(</span>source<span style="color: #990000">,</span> <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>surface<span style="color: #990000">,</span> angle<span style="color: #990000">)</span><span style="color: #990000">;</span>
+<span style="color: #FF0000">}</span>
+</tt></pre>

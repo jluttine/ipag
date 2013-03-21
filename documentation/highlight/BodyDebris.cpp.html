@@ -1,0 +1,36 @@
+<pre><tt><span style="font-weight: bold"><span style="color: #000080">#include</span></span> <span style="color: #FF0000">"BodyDebris.h"</span>
+<span style="font-weight: bold"><span style="color: #000080">#include</span></span> <span style="color: #FF0000">"images.h"</span>
+
+<span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * Constructor</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * @param x location, world coordinates</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * @param y location, world coordinates</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * @param fireAmount probablity that a single created particle is in fire.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> *                   [0..1] 0 means a dull gray debris field and 1 an explosion</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> */</span></span>
+BodyDebris<span style="color: #990000">:</span><span style="color: #990000">:</span><span style="font-weight: bold"><span style="color: #000000">BodyDebris</span></span><span style="color: #990000">(</span>World <span style="color: #990000">&amp;</span>world<span style="color: #990000">,</span> <span style="color: #009900">float</span> x<span style="color: #990000">,</span> <span style="color: #009900">float</span> y<span style="color: #990000">,</span> <span style="color: #009900">float</span> fireAmount<span style="color: #990000">)</span>
+    <span style="color: #990000">:</span> <span style="font-weight: bold"><span style="color: #000000">BodyMovable</span></span><span style="color: #990000">(</span>world<span style="color: #990000">,</span> x<span style="color: #990000">,</span> y<span style="color: #990000">,</span> <span style="color: #993399">4</span><span style="color: #990000">,</span> <span style="color: #993399">10</span><span style="color: #990000">,</span> <span style="font-weight: bold"><span style="color: #0000FF">false</span></span><span style="color: #990000">,</span> <span style="font-weight: bold"><span style="color: #0000FF">false</span></span><span style="color: #990000">,</span> <span style="font-weight: bold"><span style="color: #0000FF">true</span></span><span style="color: #990000">)</span>
+<span style="color: #FF0000">{</span>
+    <span style="font-weight: bold"><span style="color: #0000FF">if</span></span> <span style="color: #990000">(</span><span style="color: #990000">(</span><span style="color: #009900">float</span><span style="color: #990000">)</span><span style="font-weight: bold"><span style="color: #000000">rand</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span> <span style="color: #990000">/</span> RAND_MAX <span style="color: #990000">&gt;</span> fireAmount<span style="color: #990000">)</span> <span style="color: #FF0000">{</span>
+        <span style="font-style: italic"><span style="color: #9A1900">//Create a gray particle</span></span>
+        <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>sprite <span style="color: #990000">=</span> IMAGE_DEBRIS<span style="color: #990000">;</span>
+        
+        <span style="font-style: italic"><span style="color: #9A1900">//Select a random frame to add diversity</span></span>
+        <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>imagePhase <span style="color: #990000">=</span> <span style="color: #990000">(</span><span style="color: #009900">float</span><span style="color: #990000">)</span><span style="font-weight: bold"><span style="color: #000000">rand</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span> <span style="color: #990000">/</span> RAND_MAX<span style="color: #990000">;</span>
+    <span style="color: #FF0000">}</span> <span style="font-weight: bold"><span style="color: #0000FF">else</span></span> <span style="color: #FF0000">{</span>
+        <span style="font-style: italic"><span style="color: #9A1900">//Create a fireball</span></span>
+        <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>sprite <span style="color: #990000">=</span> IMAGE_EXPLOSION_GB<span style="color: #990000">;</span>
+        <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>imagePhase <span style="color: #990000">=</span> <span style="color: #993399">0</span><span style="color: #990000">;</span>
+    <span style="color: #FF0000">}</span>
+<span style="color: #FF0000">}</span>
+
+BodyDebris<span style="color: #990000">:</span><span style="color: #990000">:</span><span style="color: #990000">~</span><span style="font-weight: bold"><span style="color: #000000">BodyDebris</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span> <span style="color: #FF0000">{</span>
+<span style="color: #FF0000">}</span>
+
+<span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * Draws debris on screen.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> */</span></span>
+<span style="color: #009900">void</span> BodyDebris<span style="color: #990000">:</span><span style="color: #990000">:</span><span style="font-weight: bold"><span style="color: #000000">draw</span></span><span style="color: #990000">(</span>Graphics <span style="color: #990000">&amp;</span>graphics<span style="color: #990000">)</span> <span style="color: #FF0000">{</span>
+    graphics<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">drawAnimated</span></span><span style="color: #990000">(</span><span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>sprite<span style="color: #990000">,</span> <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>location<span style="color: #990000">,</span> <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>imagePhase<span style="color: #990000">)</span><span style="color: #990000">;</span>
+<span style="color: #FF0000">}</span>
+</tt></pre>

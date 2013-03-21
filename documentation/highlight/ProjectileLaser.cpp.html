@@ -1,0 +1,69 @@
+<pre><tt>
+<span style="font-weight: bold"><span style="color: #000080">#include</span></span> <span style="color: #FF0000">"ProjectileLaser.h"</span>
+
+<span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * Constructs a new projectile.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * @param name           Name of the projectile.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * @param description    Description of the projectile.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * @param price          Price of the projectile.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * @param spriteIndex    Index of the sprite.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * @param soundIndex     Index of the firing sound.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * @param explosionIndex Index of the explosion type.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * @param radius         Radius of the projectile.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * @param damage         Maximum damage of the projectile.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * @param damageRadius   Radius of the damage.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * @param lightSpeed     The speed that projectile moves.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> */</span></span>
+ProjectileLaser<span style="color: #990000">:</span><span style="color: #990000">:</span><span style="font-weight: bold"><span style="color: #000000">ProjectileLaser</span></span><span style="color: #990000">(</span> <span style="font-weight: bold"><span style="color: #0000FF">const</span></span> string <span style="color: #990000">&amp;</span>name<span style="color: #990000">,</span>
+                                  <span style="font-weight: bold"><span style="color: #0000FF">const</span></span> string <span style="color: #990000">&amp;</span>description<span style="color: #990000">,</span> <span style="color: #009900">int</span> price<span style="color: #990000">,</span>
+                                  <span style="color: #009900">int</span> spriteIndex<span style="color: #990000">,</span> <span style="color: #009900">int</span> soundIndex<span style="color: #990000">,</span>
+                                  BodyExplosion<span style="color: #990000">:</span><span style="color: #990000">:</span>EType explosionIndex<span style="color: #990000">,</span>
+                                  <span style="color: #009900">float</span> radius<span style="color: #990000">,</span> <span style="color: #009900">float</span> damage<span style="color: #990000">,</span>
+                                  <span style="color: #009900">float</span> damageRadius<span style="color: #990000">,</span> <span style="color: #009900">float</span> lightSpeed <span style="color: #990000">)</span>
+    <span style="color: #990000">:</span> <span style="font-weight: bold"><span style="color: #000000">Projectile</span></span><span style="color: #990000">(</span> name<span style="color: #990000">,</span> description<span style="color: #990000">,</span> price<span style="color: #990000">,</span> spriteIndex<span style="color: #990000">,</span> soundIndex<span style="color: #990000">,</span>
+                  explosionIndex<span style="color: #990000">,</span> radius<span style="color: #990000">,</span> <span style="color: #993399">0</span><span style="color: #990000">,</span> damage<span style="color: #990000">,</span> damageRadius <span style="color: #990000">)</span>
+<span style="color: #FF0000">{</span>
+
+    <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>lightSpeed <span style="color: #990000">=</span> lightSpeed<span style="color: #990000">;</span>
+    <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>speedCorrected <span style="color: #990000">=</span> <span style="font-weight: bold"><span style="color: #0000FF">false</span></span><span style="color: #990000">;</span>
+    
+<span style="color: #FF0000">}</span>
+
+<span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * Constructs a projectile with same properties.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * @param copy The projectile to use as a copy.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> */</span></span>
+ProjectileLaser<span style="color: #990000">:</span><span style="color: #990000">:</span><span style="font-weight: bold"><span style="color: #000000">ProjectileLaser</span></span><span style="color: #990000">(</span> <span style="font-weight: bold"><span style="color: #0000FF">const</span></span> ProjectileLaser <span style="color: #990000">&amp;</span>copy <span style="color: #990000">)</span>
+    <span style="color: #990000">:</span> <span style="font-weight: bold"><span style="color: #000000">Projectile</span></span><span style="color: #990000">(</span> copy <span style="color: #990000">)</span>
+<span style="color: #FF0000">{</span>
+    
+    <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>lightSpeed <span style="color: #990000">=</span> copy<span style="color: #990000">.</span>lightSpeed<span style="color: #990000">;</span>
+    <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>speedCorrected <span style="color: #990000">=</span> <span style="font-weight: bold"><span style="color: #0000FF">false</span></span><span style="color: #990000">;</span>
+
+<span style="color: #FF0000">}</span>
+    
+<span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * Simulates the timestep for the capsule.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * @param timestep The step length in ms.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * @param capsule  The capsule, that is the projectile in the world.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> */</span></span>
+<span style="color: #009900">void</span> ProjectileLaser<span style="color: #990000">:</span><span style="color: #990000">:</span><span style="font-weight: bold"><span style="color: #000000">step</span></span><span style="color: #990000">(</span> <span style="color: #009900">int</span> timestep<span style="color: #990000">,</span> BodyProjectile <span style="color: #990000">&amp;</span>capsule <span style="color: #990000">)</span>
+<span style="color: #FF0000">{</span>
+    
+    <span style="font-weight: bold"><span style="color: #0000FF">if</span></span> <span style="color: #990000">(</span> <span style="color: #990000">!</span><span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>speedCorrected <span style="color: #990000">)</span> <span style="color: #FF0000">{</span>
+        
+        Vector velocity <span style="color: #990000">=</span> capsule<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">getVelocity</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span><span style="color: #990000">;</span>
+        <span style="color: #009900">float</span> length <span style="color: #990000">=</span> velocity<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">getLength</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span><span style="color: #990000">;</span>
+
+        <span style="font-weight: bold"><span style="color: #0000FF">if</span></span> <span style="color: #990000">(</span> length <span style="color: #990000">&gt;</span> <span style="color: #993399">0</span> <span style="color: #990000">)</span> <span style="color: #FF0000">{</span>
+            velocity<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">scale</span></span><span style="color: #990000">(</span> <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>lightSpeed <span style="color: #990000">/</span> length <span style="color: #990000">)</span><span style="color: #990000">;</span>
+            capsule<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">setVelocity</span></span><span style="color: #990000">(</span> velocity<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">getX</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span><span style="color: #990000">,</span> velocity<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">getY</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span> <span style="color: #990000">)</span><span style="color: #990000">;</span>
+        <span style="color: #FF0000">}</span>
+    
+        <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>speedCorrected <span style="color: #990000">=</span> <span style="font-weight: bold"><span style="color: #0000FF">true</span></span><span style="color: #990000">;</span>
+        
+    <span style="color: #FF0000">}</span>
+    
+<span style="color: #FF0000">}</span>
+
+</tt></pre>

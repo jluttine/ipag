@@ -1,0 +1,585 @@
+<pre><tt><span style="font-style: italic"><span style="color: #9A1900">/*</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">    SDL_mixer:  An audio mixer library based on the SDL library</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">    Copyright (C) 1997-2004 Sam Lantinga</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"></span></span>
+<span style="font-style: italic"><span style="color: #9A1900">    This library is free software; you can redistribute it and/or</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">    modify it under the terms of the GNU Library General Public</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">    License as published by the Free Software Foundation; either</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">    version 2 of the License, or (at your option) any later version.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"></span></span>
+<span style="font-style: italic"><span style="color: #9A1900">    This library is distributed in the hope that it will be useful,</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">    but WITHOUT ANY WARRANTY; without even the implied warranty of</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">    Library General Public License for more details.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"></span></span>
+<span style="font-style: italic"><span style="color: #9A1900">    You should have received a copy of the GNU Library General Public</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">    License along with this library; if not, write to the Free</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">    Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"></span></span>
+<span style="font-style: italic"><span style="color: #9A1900">    Sam Lantinga</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">    slouken@libsdl.org</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">*/</span></span>
+
+<span style="font-style: italic"><span style="color: #9A1900">/* $Id: SDL_mixer.h,v 1.30 2004/01/04 17:37:04 slouken Exp $ */</span></span>
+
+<span style="font-weight: bold"><span style="color: #000080">#ifndef</span></span> _SDL_MIXER_H
+<span style="font-weight: bold"><span style="color: #000080">#define</span></span> _SDL_MIXER_H
+
+<span style="font-weight: bold"><span style="color: #000080">#include</span></span> <span style="color: #FF0000">"SDL_types.h"</span>
+<span style="font-weight: bold"><span style="color: #000080">#include</span></span> <span style="color: #FF0000">"SDL_rwops.h"</span>
+<span style="font-weight: bold"><span style="color: #000080">#include</span></span> <span style="color: #FF0000">"SDL_audio.h"</span>
+<span style="font-weight: bold"><span style="color: #000080">#include</span></span> <span style="color: #FF0000">"SDL_byteorder.h"</span>
+<span style="font-weight: bold"><span style="color: #000080">#include</span></span> <span style="color: #FF0000">"SDL_version.h"</span>
+<span style="font-weight: bold"><span style="color: #000080">#include</span></span> <span style="color: #FF0000">"begin_code.h"</span>
+
+<span style="font-style: italic"><span style="color: #9A1900">/* Set up for C function definitions, even when using C++ */</span></span>
+<span style="font-weight: bold"><span style="color: #000080">#ifdef</span></span> __cplusplus
+<span style="font-weight: bold"><span style="color: #0000FF">extern</span></span> <span style="color: #FF0000">"C"</span> <span style="color: #FF0000">{</span>
+<span style="font-weight: bold"><span style="color: #000080">#endif</span></span>
+
+<span style="font-style: italic"><span style="color: #9A1900">/* Printable format: "%d.%d.%d", MAJOR, MINOR, PATCHLEVEL</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">*/</span></span>
+<span style="font-weight: bold"><span style="color: #000080">#define</span></span> SDL_MIXER_MAJOR_VERSION <span style="color: #993399">1</span>
+<span style="font-weight: bold"><span style="color: #000080">#define</span></span> SDL_MIXER_MINOR_VERSION <span style="color: #993399">2</span>
+<span style="font-weight: bold"><span style="color: #000080">#define</span></span> SDL_MIXER_PATCHLEVEL    <span style="color: #993399">6</span>
+
+<span style="font-style: italic"><span style="color: #9A1900">/* This macro can be used to fill a version structure with the compile-time</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * version of the SDL_mixer library.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> */</span></span>
+<span style="font-weight: bold"><span style="color: #000080">#define</span></span> <span style="font-weight: bold"><span style="color: #000000">SDL_MIXER_VERSION</span></span><span style="color: #990000">(</span>X<span style="color: #990000">)</span>                        <span style="color: #990000">\</span>
+<span style="color: #FF0000">{</span>                                   <span style="color: #990000">\</span>
+    <span style="color: #990000">(</span>X<span style="color: #990000">)</span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>major <span style="color: #990000">=</span> SDL_MIXER_MAJOR_VERSION<span style="color: #990000">;</span>               <span style="color: #990000">\</span>
+    <span style="color: #990000">(</span>X<span style="color: #990000">)</span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>minor <span style="color: #990000">=</span> SDL_MIXER_MINOR_VERSION<span style="color: #990000">;</span>               <span style="color: #990000">\</span>
+    <span style="color: #990000">(</span>X<span style="color: #990000">)</span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>patch <span style="color: #990000">=</span> SDL_MIXER_PATCHLEVEL<span style="color: #990000">;</span>              <span style="color: #990000">\</span>
+<span style="color: #FF0000">}</span>
+
+<span style="font-style: italic"><span style="color: #9A1900">/* Backwards compatibility */</span></span>
+<span style="font-weight: bold"><span style="color: #000080">#define</span></span> MIX_MAJOR_VERSION   SDL_MIXER_MAJOR_VERSION
+<span style="font-weight: bold"><span style="color: #000080">#define</span></span> MIX_MINOR_VERSION   SDL_MIXER_MINOR_VERSION
+<span style="font-weight: bold"><span style="color: #000080">#define</span></span> MIX_PATCHLEVEL      SDL_MIXER_PATCHLEVEL
+<span style="font-weight: bold"><span style="color: #000080">#define</span></span> <span style="font-weight: bold"><span style="color: #000000">MIX_VERSION</span></span><span style="color: #990000">(</span>X<span style="color: #990000">)</span>      <span style="font-weight: bold"><span style="color: #000000">SDL_MIXER_VERSION</span></span><span style="color: #990000">(</span>X<span style="color: #990000">)</span>
+
+<span style="font-style: italic"><span style="color: #9A1900">/* This function gets the version of the dynamically linked SDL_mixer library.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">   it should NOT be used to fill a version structure, instead you should</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">   use the SDL_MIXER_VERSION() macro.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> */</span></span>
+<span style="font-weight: bold"><span style="color: #0000FF">extern</span></span> DECLSPEC <span style="font-weight: bold"><span style="color: #0000FF">const</span></span> SDL_version <span style="color: #990000">*</span> SDLCALL <span style="font-weight: bold"><span style="color: #000000">Mix_Linked_Version</span></span><span style="color: #990000">(</span><span style="color: #009900">void</span><span style="color: #990000">)</span><span style="color: #990000">;</span>
+
+
+<span style="font-style: italic"><span style="color: #9A1900">/* The default mixer has 8 simultaneous mixing channels */</span></span>
+<span style="font-weight: bold"><span style="color: #000080">#ifndef</span></span> MIX_CHANNELS
+<span style="font-weight: bold"><span style="color: #000080">#define</span></span> MIX_CHANNELS    <span style="color: #993399">8</span>
+<span style="font-weight: bold"><span style="color: #000080">#endif</span></span>
+
+<span style="font-style: italic"><span style="color: #9A1900">/* Good default values for a PC soundcard */</span></span>
+<span style="font-weight: bold"><span style="color: #000080">#define</span></span> MIX_DEFAULT_FREQUENCY   <span style="color: #993399">22050</span>
+<span style="font-weight: bold"><span style="color: #000080">#if</span></span> SDL_BYTEORDER <span style="color: #990000">=</span><span style="color: #990000">=</span> SDL_LIL_ENDIAN
+<span style="font-weight: bold"><span style="color: #000080">#define</span></span> MIX_DEFAULT_FORMAT  AUDIO_S16LSB
+<span style="font-weight: bold"><span style="color: #000080">#else</span></span>
+<span style="font-weight: bold"><span style="color: #000080">#define</span></span> MIX_DEFAULT_FORMAT  AUDIO_S16MSB
+<span style="font-weight: bold"><span style="color: #000080">#endif</span></span>
+<span style="font-weight: bold"><span style="color: #000080">#define</span></span> MIX_DEFAULT_CHANNELS    <span style="color: #993399">2</span>
+<span style="font-weight: bold"><span style="color: #000080">#define</span></span> MIX_MAX_VOLUME      <span style="color: #993399">128</span> <span style="font-style: italic"><span style="color: #9A1900">/* Volume of a chunk */</span></span>
+
+<span style="font-style: italic"><span style="color: #9A1900">/* The internal format for an audio chunk */</span></span>
+<span style="font-weight: bold"><span style="color: #0000FF">typedef</span></span> <span style="font-weight: bold"><span style="color: #0000FF">struct</span></span> <span style="color: #FF0000">{</span>
+    <span style="color: #009900">int</span> allocated<span style="color: #990000">;</span>
+    Uint8 <span style="color: #990000">*</span>abuf<span style="color: #990000">;</span>
+    Uint32 alen<span style="color: #990000">;</span>
+    Uint8 volume<span style="color: #990000">;</span>       <span style="font-style: italic"><span style="color: #9A1900">/* Per-sample volume, 0-128 */</span></span>
+<span style="color: #FF0000">}</span> Mix_Chunk<span style="color: #990000">;</span>
+
+<span style="font-style: italic"><span style="color: #9A1900">/* The different fading types supported */</span></span>
+<span style="font-weight: bold"><span style="color: #0000FF">typedef</span></span> <span style="font-weight: bold"><span style="color: #0000FF">enum</span></span> <span style="color: #FF0000">{</span>
+    MIX_NO_FADING<span style="color: #990000">,</span>
+    MIX_FADING_OUT<span style="color: #990000">,</span>
+    MIX_FADING_IN
+<span style="color: #FF0000">}</span> Mix_Fading<span style="color: #990000">;</span>
+
+<span style="font-weight: bold"><span style="color: #0000FF">typedef</span></span> <span style="font-weight: bold"><span style="color: #0000FF">enum</span></span> <span style="color: #FF0000">{</span>
+    MUS_NONE<span style="color: #990000">,</span>
+    MUS_CMD<span style="color: #990000">,</span>
+    MUS_WAV<span style="color: #990000">,</span>
+    MUS_MOD<span style="color: #990000">,</span>
+    MUS_MID<span style="color: #990000">,</span>
+    MUS_OGG<span style="color: #990000">,</span>
+    MUS_MP3
+<span style="color: #FF0000">}</span> Mix_MusicType<span style="color: #990000">;</span>
+
+<span style="font-style: italic"><span style="color: #9A1900">/* The internal format for a music chunk interpreted via mikmod */</span></span>
+<span style="font-weight: bold"><span style="color: #0000FF">typedef</span></span> <span style="font-weight: bold"><span style="color: #0000FF">struct</span></span> _Mix_Music Mix_Music<span style="color: #990000">;</span>
+
+<span style="font-style: italic"><span style="color: #9A1900">/* Open the mixer with a certain audio format */</span></span>
+<span style="font-weight: bold"><span style="color: #0000FF">extern</span></span> DECLSPEC <span style="color: #009900">int</span> SDLCALL <span style="font-weight: bold"><span style="color: #000000">Mix_OpenAudio</span></span><span style="color: #990000">(</span><span style="color: #009900">int</span> frequency<span style="color: #990000">,</span> Uint16 format<span style="color: #990000">,</span> <span style="color: #009900">int</span> channels<span style="color: #990000">,</span>
+                            <span style="color: #009900">int</span> chunksize<span style="color: #990000">)</span><span style="color: #990000">;</span>
+
+<span style="font-style: italic"><span style="color: #9A1900">/* Dynamically change the number of channels managed by the mixer.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">   If decreasing the number of channels, the upper channels are</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">   stopped.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">   This function returns the new number of allocated channels.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> */</span></span>
+<span style="font-weight: bold"><span style="color: #0000FF">extern</span></span> DECLSPEC <span style="color: #009900">int</span> SDLCALL <span style="font-weight: bold"><span style="color: #000000">Mix_AllocateChannels</span></span><span style="color: #990000">(</span><span style="color: #009900">int</span> numchans<span style="color: #990000">)</span><span style="color: #990000">;</span>
+
+<span style="font-style: italic"><span style="color: #9A1900">/* Find out what the actual audio device parameters are.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">   This function returns 1 if the audio has been opened, 0 otherwise.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> */</span></span>
+<span style="font-weight: bold"><span style="color: #0000FF">extern</span></span> DECLSPEC <span style="color: #009900">int</span> SDLCALL <span style="font-weight: bold"><span style="color: #000000">Mix_QuerySpec</span></span><span style="color: #990000">(</span><span style="color: #009900">int</span> <span style="color: #990000">*</span>frequency<span style="color: #990000">,</span>Uint16 <span style="color: #990000">*</span>format<span style="color: #990000">,</span><span style="color: #009900">int</span> <span style="color: #990000">*</span>channels<span style="color: #990000">)</span><span style="color: #990000">;</span>
+
+<span style="font-style: italic"><span style="color: #9A1900">/* Load a wave file or a music (.mod .s3m .it .xm) file */</span></span>
+<span style="font-weight: bold"><span style="color: #0000FF">extern</span></span> DECLSPEC Mix_Chunk <span style="color: #990000">*</span> SDLCALL <span style="font-weight: bold"><span style="color: #000000">Mix_LoadWAV_RW</span></span><span style="color: #990000">(</span>SDL_RWops <span style="color: #990000">*</span>src<span style="color: #990000">,</span> <span style="color: #009900">int</span> freesrc<span style="color: #990000">)</span><span style="color: #990000">;</span>
+<span style="font-weight: bold"><span style="color: #000080">#define</span></span> <span style="font-weight: bold"><span style="color: #000000">Mix_LoadWAV</span></span><span style="color: #990000">(</span>file<span style="color: #990000">)</span>   <span style="font-weight: bold"><span style="color: #000000">Mix_LoadWAV_RW</span></span><span style="color: #990000">(</span><span style="font-weight: bold"><span style="color: #000000">SDL_RWFromFile</span></span><span style="color: #990000">(</span>file<span style="color: #990000">,</span> <span style="color: #FF0000">"rb"</span><span style="color: #990000">)</span><span style="color: #990000">,</span> <span style="color: #993399">1</span><span style="color: #990000">)</span>
+<span style="font-weight: bold"><span style="color: #0000FF">extern</span></span> DECLSPEC Mix_Music <span style="color: #990000">*</span> SDLCALL <span style="font-weight: bold"><span style="color: #000000">Mix_LoadMUS</span></span><span style="color: #990000">(</span><span style="font-weight: bold"><span style="color: #0000FF">const</span></span> <span style="color: #009900">char</span> <span style="color: #990000">*</span>file<span style="color: #990000">)</span><span style="color: #990000">;</span>
+
+<span style="font-weight: bold"><span style="color: #000080">#ifdef</span></span> USE_RWOPS <span style="font-style: italic"><span style="color: #9A1900">/* This hasn't been hooked into music.c yet */</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">/* Load a music file from an SDL_RWop object (MikMod-specific currently)</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">   Matt Campbell (matt@campbellhome.dhs.org) April 2000 */</span></span>
+<span style="font-weight: bold"><span style="color: #0000FF">extern</span></span> DECLSPEC Mix_Music <span style="color: #990000">*</span> SDLCALL <span style="font-weight: bold"><span style="color: #000000">Mix_LoadMUS_RW</span></span><span style="color: #990000">(</span>SDL_RWops <span style="color: #990000">*</span>rw<span style="color: #990000">)</span><span style="color: #990000">;</span>
+<span style="font-weight: bold"><span style="color: #000080">#endif</span></span>
+
+<span style="font-style: italic"><span style="color: #9A1900">/* Load a wave file of the mixer format from a memory buffer */</span></span>
+<span style="font-weight: bold"><span style="color: #0000FF">extern</span></span> DECLSPEC Mix_Chunk <span style="color: #990000">*</span> SDLCALL <span style="font-weight: bold"><span style="color: #000000">Mix_QuickLoad_WAV</span></span><span style="color: #990000">(</span>Uint8 <span style="color: #990000">*</span>mem<span style="color: #990000">)</span><span style="color: #990000">;</span>
+
+<span style="font-style: italic"><span style="color: #9A1900">/* Load raw audio data of the mixer format from a memory buffer */</span></span>
+<span style="font-weight: bold"><span style="color: #0000FF">extern</span></span> DECLSPEC Mix_Chunk <span style="color: #990000">*</span> SDLCALL <span style="font-weight: bold"><span style="color: #000000">Mix_QuickLoad_RAW</span></span><span style="color: #990000">(</span>Uint8 <span style="color: #990000">*</span>mem<span style="color: #990000">,</span> Uint32 len<span style="color: #990000">)</span><span style="color: #990000">;</span>
+
+<span style="font-style: italic"><span style="color: #9A1900">/* Free an audio chunk previously loaded */</span></span>
+<span style="font-weight: bold"><span style="color: #0000FF">extern</span></span> DECLSPEC <span style="color: #009900">void</span> SDLCALL <span style="font-weight: bold"><span style="color: #000000">Mix_FreeChunk</span></span><span style="color: #990000">(</span>Mix_Chunk <span style="color: #990000">*</span>chunk<span style="color: #990000">)</span><span style="color: #990000">;</span>
+<span style="font-weight: bold"><span style="color: #0000FF">extern</span></span> DECLSPEC <span style="color: #009900">void</span> SDLCALL <span style="font-weight: bold"><span style="color: #000000">Mix_FreeMusic</span></span><span style="color: #990000">(</span>Mix_Music <span style="color: #990000">*</span>music<span style="color: #990000">)</span><span style="color: #990000">;</span>
+
+<span style="font-style: italic"><span style="color: #9A1900">/* Find out the music format of a mixer music, or the currently playing</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">   music, if 'music' is NULL.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">*/</span></span>
+<span style="font-weight: bold"><span style="color: #0000FF">extern</span></span> DECLSPEC Mix_MusicType SDLCALL <span style="font-weight: bold"><span style="color: #000000">Mix_GetMusicType</span></span><span style="color: #990000">(</span><span style="font-weight: bold"><span style="color: #0000FF">const</span></span> Mix_Music <span style="color: #990000">*</span>music<span style="color: #990000">)</span><span style="color: #990000">;</span>
+
+<span style="font-style: italic"><span style="color: #9A1900">/* Set a function that is called after all mixing is performed.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">   This can be used to provide real-time visual display of the audio stream</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">   or add a custom mixer filter for the stream data.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">*/</span></span>
+<span style="font-weight: bold"><span style="color: #0000FF">extern</span></span> DECLSPEC <span style="color: #009900">void</span> SDLCALL <span style="font-weight: bold"><span style="color: #000000">Mix_SetPostMix</span></span><span style="color: #990000">(</span><span style="color: #009900">void</span> <span style="color: #990000">(</span><span style="color: #990000">*</span>mix_func<span style="color: #990000">)</span>
+                             <span style="color: #990000">(</span><span style="color: #009900">void</span> <span style="color: #990000">*</span>udata<span style="color: #990000">,</span> Uint8 <span style="color: #990000">*</span>stream<span style="color: #990000">,</span> <span style="color: #009900">int</span> len<span style="color: #990000">)</span><span style="color: #990000">,</span> <span style="color: #009900">void</span> <span style="color: #990000">*</span>arg<span style="color: #990000">)</span><span style="color: #990000">;</span>
+
+<span style="font-style: italic"><span style="color: #9A1900">/* Add your own music player or additional mixer function.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">   If 'mix_func' is NULL, the default music player is re-enabled.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> */</span></span>
+<span style="font-weight: bold"><span style="color: #0000FF">extern</span></span> DECLSPEC <span style="color: #009900">void</span> SDLCALL <span style="font-weight: bold"><span style="color: #000000">Mix_HookMusic</span></span><span style="color: #990000">(</span><span style="color: #009900">void</span> <span style="color: #990000">(</span><span style="color: #990000">*</span>mix_func<span style="color: #990000">)</span>
+                          <span style="color: #990000">(</span><span style="color: #009900">void</span> <span style="color: #990000">*</span>udata<span style="color: #990000">,</span> Uint8 <span style="color: #990000">*</span>stream<span style="color: #990000">,</span> <span style="color: #009900">int</span> len<span style="color: #990000">)</span><span style="color: #990000">,</span> <span style="color: #009900">void</span> <span style="color: #990000">*</span>arg<span style="color: #990000">)</span><span style="color: #990000">;</span>
+
+<span style="font-style: italic"><span style="color: #9A1900">/* Add your own callback when the music has finished playing.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">   This callback is only called if the music finishes naturally.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> */</span></span>
+<span style="font-weight: bold"><span style="color: #0000FF">extern</span></span> DECLSPEC <span style="color: #009900">void</span> SDLCALL <span style="font-weight: bold"><span style="color: #000000">Mix_HookMusicFinished</span></span><span style="color: #990000">(</span><span style="color: #009900">void</span> <span style="color: #990000">(</span><span style="color: #990000">*</span>music_finished<span style="color: #990000">)</span><span style="color: #990000">(</span><span style="color: #009900">void</span><span style="color: #990000">)</span><span style="color: #990000">)</span><span style="color: #990000">;</span>
+
+<span style="font-style: italic"><span style="color: #9A1900">/* Get a pointer to the user data for the current music hook */</span></span>
+<span style="font-weight: bold"><span style="color: #0000FF">extern</span></span> DECLSPEC <span style="color: #009900">void</span> <span style="color: #990000">*</span> SDLCALL <span style="font-weight: bold"><span style="color: #000000">Mix_GetMusicHookData</span></span><span style="color: #990000">(</span><span style="color: #009900">void</span><span style="color: #990000">)</span><span style="color: #990000">;</span>
+
+<span style="font-style: italic"><span style="color: #9A1900">/*</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * Add your own callback when a channel has finished playing. NULL</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> *  to disable callback. The callback may be called from the mixer's audio </span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> *  callback or it could be called as a result of Mix_HaltChannel(), etc.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> *  do not call SDL_LockAudio() from this callback; you will either be </span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> *  inside the audio callback, or SDL_mixer will explicitly lock the audio</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> *  before calling your callback.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> */</span></span>
+<span style="font-weight: bold"><span style="color: #0000FF">extern</span></span> DECLSPEC <span style="color: #009900">void</span> SDLCALL <span style="font-weight: bold"><span style="color: #000000">Mix_ChannelFinished</span></span><span style="color: #990000">(</span><span style="color: #009900">void</span> <span style="color: #990000">(</span><span style="color: #990000">*</span>channel_finished<span style="color: #990000">)</span><span style="color: #990000">(</span><span style="color: #009900">int</span> channel<span style="color: #990000">)</span><span style="color: #990000">)</span><span style="color: #990000">;</span>
+
+
+<span style="font-style: italic"><span style="color: #9A1900">/* Special Effects API by ryan c. gordon. (icculus@linuxgames.com) */</span></span>
+
+<span style="font-weight: bold"><span style="color: #000080">#define</span></span> MIX_CHANNEL_POST  <span style="color: #990000">-</span><span style="color: #993399">2</span>
+
+<span style="font-style: italic"><span style="color: #9A1900">/* This is the format of a special effect callback:</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> *</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> *   myeffect(int chan, void *stream, int len, void *udata);</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> *</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * (chan) is the channel number that your effect is affecting. (stream) is</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> *  the buffer of data to work upon. (len) is the size of (stream), and</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> *  (udata) is a user-defined bit of data, which you pass as the last arg of</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> *  Mix_RegisterEffect(), and is passed back unmolested to your callback.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> *  Your effect changes the contents of (stream) based on whatever parameters</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> *  are significant, or just leaves it be, if you prefer. You can do whatever</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> *  you like to the buffer, though, and it will continue in its changed state</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> *  down the mixing pipeline, through any other effect functions, then finally</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> *  to be mixed with the rest of the channels and music for the final output</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> *  stream.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> *</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * DO NOT EVER call SDL_LockAudio() from your callback function!</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> */</span></span>
+<span style="font-weight: bold"><span style="color: #0000FF">typedef</span></span> <span style="color: #009900">void</span> <span style="color: #990000">(</span><span style="color: #990000">*</span>Mix_EffectFunc_t<span style="color: #990000">)</span><span style="color: #990000">(</span><span style="color: #009900">int</span> chan<span style="color: #990000">,</span> <span style="color: #009900">void</span> <span style="color: #990000">*</span>stream<span style="color: #990000">,</span> <span style="color: #009900">int</span> len<span style="color: #990000">,</span> <span style="color: #009900">void</span> <span style="color: #990000">*</span>udata<span style="color: #990000">)</span><span style="color: #990000">;</span>
+
+<span style="font-style: italic"><span style="color: #9A1900">/*</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * This is a callback that signifies that a channel has finished all its</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> *  loops and has completed playback. This gets called if the buffer</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> *  plays out normally, or if you call Mix_HaltChannel(), implicitly stop</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> *  a channel via Mix_AllocateChannels(), or unregister a callback while</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> *  it's still playing.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> *</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * DO NOT EVER call SDL_LockAudio() from your callback function!</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> */</span></span>
+<span style="font-weight: bold"><span style="color: #0000FF">typedef</span></span> <span style="color: #009900">void</span> <span style="color: #990000">(</span><span style="color: #990000">*</span>Mix_EffectDone_t<span style="color: #990000">)</span><span style="color: #990000">(</span><span style="color: #009900">int</span> chan<span style="color: #990000">,</span> <span style="color: #009900">void</span> <span style="color: #990000">*</span>udata<span style="color: #990000">)</span><span style="color: #990000">;</span>
+
+
+<span style="font-style: italic"><span style="color: #9A1900">/* Register a special effect function. At mixing time, the channel data is</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> *  copied into a buffer and passed through each registered effect function.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> *  After it passes through all the functions, it is mixed into the final</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> *  output stream. The copy to buffer is performed once, then each effect</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> *  function performs on the output of the previous effect. Understand that</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> *  this extra copy to a buffer is not performed if there are no effects</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> *  registered for a given chunk, which saves CPU cycles, and any given</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> *  effect will be extra cycles, too, so it is crucial that your code run</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> *  fast. Also note that the data that your function is given is in the</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> *  format of the sound device, and not the format you gave to Mix_OpenAudio(),</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> *  although they may in reality be the same. This is an unfortunate but</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> *  necessary speed concern. Use Mix_QuerySpec() to determine if you can</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> *  handle the data before you register your effect, and take appropriate</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> *  actions.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * You may also specify a callback (Mix_EffectDone_t) that is called when</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> *  the channel finishes playing. This gives you a more fine-grained control</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> *  than Mix_ChannelFinished(), in case you need to free effect-specific</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> *  resources, etc. If you don't need this, you can specify NULL.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * You may set the callbacks before or after calling Mix_PlayChannel().</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * Things like Mix_SetPanning() are just internal special effect functions,</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> *  so if you are using that, you've already incurred the overhead of a copy</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> *  to a separate buffer, and that these effects will be in the queue with</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> *  any functions you've registered. The list of registered effects for a</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> *  channel is reset when a chunk finishes playing, so you need to explicitly</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> *  set them with each call to Mix_PlayChannel*().</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * You may also register a special effect function that is to be run after</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> *  final mixing occurs. The rules for these callbacks are identical to those</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> *  in Mix_RegisterEffect, but they are run after all the channels and the</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> *  music have been mixed into a single stream, whereas channel-specific</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> *  effects run on a given channel before any other mixing occurs. These</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> *  global effect callbacks are call "posteffects". Posteffects only have</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> *  their Mix_EffectDone_t function called when they are unregistered (since</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> *  the main output stream is never "done" in the same sense as a channel).</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> *  You must unregister them manually when you've had enough. Your callback</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> *  will be told that the channel being mixed is (MIX_CHANNEL_POST) if the</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> *  processing is considered a posteffect.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> *</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * After all these effects have finished processing, the callback registered</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> *  through Mix_SetPostMix() runs, and then the stream goes to the audio</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> *  device. </span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> *</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * DO NOT EVER call SDL_LockAudio() from your callback function!</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> *</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * returns zero if error (no such channel), nonzero if added.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> *  Error messages can be retrieved from Mix_GetError().</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> */</span></span>
+<span style="font-weight: bold"><span style="color: #0000FF">extern</span></span> DECLSPEC <span style="color: #009900">int</span> SDLCALL <span style="font-weight: bold"><span style="color: #000000">Mix_RegisterEffect</span></span><span style="color: #990000">(</span><span style="color: #009900">int</span> chan<span style="color: #990000">,</span> Mix_EffectFunc_t f<span style="color: #990000">,</span>
+                    Mix_EffectDone_t d<span style="color: #990000">,</span> <span style="color: #009900">void</span> <span style="color: #990000">*</span>arg<span style="color: #990000">)</span><span style="color: #990000">;</span>
+
+
+<span style="font-style: italic"><span style="color: #9A1900">/* You may not need to call this explicitly, unless you need to stop an</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> *  effect from processing in the middle of a chunk's playback.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * Posteffects are never implicitly unregistered as they are for channels,</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> *  but they may be explicitly unregistered through this function by</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> *  specifying MIX_CHANNEL_POST for a channel.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * returns zero if error (no such channel or effect), nonzero if removed.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> *  Error messages can be retrieved from Mix_GetError().</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> */</span></span>
+<span style="font-weight: bold"><span style="color: #0000FF">extern</span></span> DECLSPEC <span style="color: #009900">int</span> SDLCALL <span style="font-weight: bold"><span style="color: #000000">Mix_UnregisterEffect</span></span><span style="color: #990000">(</span><span style="color: #009900">int</span> channel<span style="color: #990000">,</span> Mix_EffectFunc_t f<span style="color: #990000">)</span><span style="color: #990000">;</span>
+
+
+<span style="font-style: italic"><span style="color: #9A1900">/* You may not need to call this explicitly, unless you need to stop all</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> *  effects from processing in the middle of a chunk's playback. Note that</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> *  this will also shut off some internal effect processing, since</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> *  Mix_SetPanning() and others may use this API under the hood. This is</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> *  called internally when a channel completes playback.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * Posteffects are never implicitly unregistered as they are for channels,</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> *  but they may be explicitly unregistered through this function by</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> *  specifying MIX_CHANNEL_POST for a channel.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * returns zero if error (no such channel), nonzero if all effects removed.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> *  Error messages can be retrieved from Mix_GetError().</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> */</span></span>
+<span style="font-weight: bold"><span style="color: #0000FF">extern</span></span> DECLSPEC <span style="color: #009900">int</span> SDLCALL <span style="font-weight: bold"><span style="color: #000000">Mix_UnregisterAllEffects</span></span><span style="color: #990000">(</span><span style="color: #009900">int</span> channel<span style="color: #990000">)</span><span style="color: #990000">;</span>
+
+
+<span style="font-weight: bold"><span style="color: #000080">#define</span></span> MIX_EFFECTSMAXSPEED  <span style="color: #FF0000">"MIX_EFFECTSMAXSPEED"</span>
+
+<span style="font-style: italic"><span style="color: #9A1900">/*</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * These are the internally-defined mixing effects. They use the same API that</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> *  effects defined in the application use, but are provided here as a</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> *  convenience. Some effects can reduce their quality or use more memory in</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> *  the name of speed; to enable this, make sure the environment variable</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> *  MIX_EFFECTSMAXSPEED (see above) is defined before you call</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> *  Mix_OpenAudio().</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> */</span></span>
+
+
+<span style="font-style: italic"><span style="color: #9A1900">/* Set the panning of a channel. The left and right channels are specified</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> *  as integers between 0 and 255, quietest to loudest, respectively.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> *</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * Technically, this is just individual volume control for a sample with</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> *  two (stereo) channels, so it can be used for more than just panning.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> *  If you want real panning, call it like this:</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> *</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> *   Mix_SetPanning(channel, left, 255 - left);</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> *</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * ...which isn't so hard.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> *</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * Setting (channel) to MIX_CHANNEL_POST registers this as a posteffect, and</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> *  the panning will be done to the final mixed stream before passing it on</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> *  to the audio device.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> *</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * This uses the Mix_RegisterEffect() API internally, and returns without</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> *  registering the effect function if the audio device is not configured</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> *  for stereo output. Setting both (left) and (right) to 255 causes this</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> *  effect to be unregistered, since that is the data's normal state.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> *</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * returns zero if error (no such channel or Mix_RegisterEffect() fails),</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> *  nonzero if panning effect enabled. Note that an audio device in mono</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> *  mode is a no-op, but this call will return successful in that case.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> *  Error messages can be retrieved from Mix_GetError().</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> */</span></span>
+<span style="font-weight: bold"><span style="color: #0000FF">extern</span></span> DECLSPEC <span style="color: #009900">int</span> SDLCALL <span style="font-weight: bold"><span style="color: #000000">Mix_SetPanning</span></span><span style="color: #990000">(</span><span style="color: #009900">int</span> channel<span style="color: #990000">,</span> Uint8 left<span style="color: #990000">,</span> Uint8 right<span style="color: #990000">)</span><span style="color: #990000">;</span>
+
+
+<span style="font-style: italic"><span style="color: #9A1900">/* Set the position of a channel. (angle) is an integer from 0 to 360, that</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> *  specifies the location of the sound in relation to the listener. (angle)</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> *  will be reduced as neccesary (540 becomes 180 degrees, -100 becomes 260).</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> *  Angle 0 is due north, and rotates clockwise as the value increases.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> *  For efficiency, the precision of this effect may be limited (angles 1</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> *  through 7 might all produce the same effect, 8 through 15 are equal, etc).</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> *  (distance) is an integer between 0 and 255 that specifies the space</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> *  between the sound and the listener. The larger the number, the further</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> *  away the sound is. Using 255 does not guarantee that the channel will be</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> *  culled from the mixing process or be completely silent. For efficiency,</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> *  the precision of this effect may be limited (distance 0 through 5 might</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> *  all produce the same effect, 6 through 10 are equal, etc). Setting (angle)</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> *  and (distance) to 0 unregisters this effect, since the data would be</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> *  unchanged.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> *</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * If you need more precise positional audio, consider using OpenAL for</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> *  spatialized effects instead of SDL_mixer. This is only meant to be a</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> *  basic effect for simple "3D" games.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> *</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * If the audio device is configured for mono output, then you won't get</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> *  any effectiveness from the angle; however, distance attenuation on the</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> *  channel will still occur. While this effect will function with stereo</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> *  voices, it makes more sense to use voices with only one channel of sound,</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> *  so when they are mixed through this effect, the positioning will sound</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> *  correct. You can convert them to mono through SDL before giving them to</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> *  the mixer in the first place if you like.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> *</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * Setting (channel) to MIX_CHANNEL_POST registers this as a posteffect, and</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> *  the positioning will be done to the final mixed stream before passing it</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> *  on to the audio device.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> *</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * This is a convenience wrapper over Mix_SetDistance() and Mix_SetPanning().</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> *</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * returns zero if error (no such channel or Mix_RegisterEffect() fails),</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> *  nonzero if position effect is enabled.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> *  Error messages can be retrieved from Mix_GetError().</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> */</span></span>
+<span style="font-weight: bold"><span style="color: #0000FF">extern</span></span> DECLSPEC <span style="color: #009900">int</span> SDLCALL <span style="font-weight: bold"><span style="color: #000000">Mix_SetPosition</span></span><span style="color: #990000">(</span><span style="color: #009900">int</span> channel<span style="color: #990000">,</span> Sint16 angle<span style="color: #990000">,</span> Uint8 distance<span style="color: #990000">)</span><span style="color: #990000">;</span>
+
+
+<span style="font-style: italic"><span style="color: #9A1900">/* Set the "distance" of a channel. (distance) is an integer from 0 to 255</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> *  that specifies the location of the sound in relation to the listener.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> *  Distance 0 is overlapping the listener, and 255 is as far away as possible</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> *  A distance of 255 does not guarantee silence; in such a case, you might</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> *  want to try changing the chunk's volume, or just cull the sample from the</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> *  mixing process with Mix_HaltChannel().</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * For efficiency, the precision of this effect may be limited (distances 1</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> *  through 7 might all produce the same effect, 8 through 15 are equal, etc).</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> *  (distance) is an integer between 0 and 255 that specifies the space</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> *  between the sound and the listener. The larger the number, the further</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> *  away the sound is.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * Setting (distance) to 0 unregisters this effect, since the data would be</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> *  unchanged.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * If you need more precise positional audio, consider using OpenAL for</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> *  spatialized effects instead of SDL_mixer. This is only meant to be a</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> *  basic effect for simple "3D" games.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> *</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * Setting (channel) to MIX_CHANNEL_POST registers this as a posteffect, and</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> *  the distance attenuation will be done to the final mixed stream before</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> *  passing it on to the audio device.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> *</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * This uses the Mix_RegisterEffect() API internally.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> *</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * returns zero if error (no such channel or Mix_RegisterEffect() fails),</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> *  nonzero if position effect is enabled.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> *  Error messages can be retrieved from Mix_GetError().</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> */</span></span>
+<span style="font-weight: bold"><span style="color: #0000FF">extern</span></span> DECLSPEC <span style="color: #009900">int</span> SDLCALL <span style="font-weight: bold"><span style="color: #000000">Mix_SetDistance</span></span><span style="color: #990000">(</span><span style="color: #009900">int</span> channel<span style="color: #990000">,</span> Uint8 distance<span style="color: #990000">)</span><span style="color: #990000">;</span>
+
+
+<span style="font-style: italic"><span style="color: #9A1900">/*</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * !!! FIXME : Haven't implemented, since the effect goes past the</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> *              end of the sound buffer. Will have to think about this.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> *               --ryan.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> */</span></span>
+<span style="font-weight: bold"><span style="color: #000080">#if</span></span> <span style="color: #993399">0</span>
+<span style="font-style: italic"><span style="color: #9A1900">/* Causes an echo effect to be mixed into a sound. (echo) is the amount</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> *  of echo to mix. 0 is no echo, 255 is infinite (and probably not</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> *  what you want).</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> *</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * Setting (channel) to MIX_CHANNEL_POST registers this as a posteffect, and</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> *  the reverbing will be done to the final mixed stream before passing it on</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> *  to the audio device.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> *</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * This uses the Mix_RegisterEffect() API internally. If you specify an echo</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> *  of zero, the effect is unregistered, as the data is already in that state.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> *</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * returns zero if error (no such channel or Mix_RegisterEffect() fails),</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> *  nonzero if reversing effect is enabled.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> *  Error messages can be retrieved from Mix_GetError().</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> */</span></span>
+<span style="font-weight: bold"><span style="color: #0000FF">extern</span></span> no_parse_DECLSPEC <span style="color: #009900">int</span> SDLCALL <span style="font-weight: bold"><span style="color: #000000">Mix_SetReverb</span></span><span style="color: #990000">(</span><span style="color: #009900">int</span> channel<span style="color: #990000">,</span> Uint8 echo<span style="color: #990000">)</span><span style="color: #990000">;</span>
+<span style="font-weight: bold"><span style="color: #000080">#endif</span></span>
+
+<span style="font-style: italic"><span style="color: #9A1900">/* Causes a channel to reverse its stereo. This is handy if the user has his</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> *  speakers hooked up backwards, or you would like to have a minor bit of</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> *  psychedelia in your sound code.  :)  Calling this function with (flip)</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> *  set to non-zero reverses the chunks's usual channels. If (flip) is zero,</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> *  the effect is unregistered.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> *</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * This uses the Mix_RegisterEffect() API internally, and thus is probably</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> *  more CPU intensive than having the user just plug in his speakers</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> *  correctly. Mix_SetReverseStereo() returns without registering the effect</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> *  function if the audio device is not configured for stereo output.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> *</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * If you specify MIX_CHANNEL_POST for (channel), then this the effect is used</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> *  on the final mixed stream before sending it on to the audio device (a</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> *  posteffect).</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> *</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * returns zero if error (no such channel or Mix_RegisterEffect() fails),</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> *  nonzero if reversing effect is enabled. Note that an audio device in mono</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> *  mode is a no-op, but this call will return successful in that case.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> *  Error messages can be retrieved from Mix_GetError().</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> */</span></span>
+<span style="font-weight: bold"><span style="color: #0000FF">extern</span></span> DECLSPEC <span style="color: #009900">int</span> SDLCALL <span style="font-weight: bold"><span style="color: #000000">Mix_SetReverseStereo</span></span><span style="color: #990000">(</span><span style="color: #009900">int</span> channel<span style="color: #990000">,</span> <span style="color: #009900">int</span> flip<span style="color: #990000">)</span><span style="color: #990000">;</span>
+
+<span style="font-style: italic"><span style="color: #9A1900">/* end of effects API. --ryan. */</span></span>
+
+
+<span style="font-style: italic"><span style="color: #9A1900">/* Reserve the first channels (0 -&gt; n-1) for the application, i.e. don't allocate</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">   them dynamically to the next sample if requested with a -1 value below.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">   Returns the number of reserved channels.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> */</span></span>
+<span style="font-weight: bold"><span style="color: #0000FF">extern</span></span> DECLSPEC <span style="color: #009900">int</span> SDLCALL <span style="font-weight: bold"><span style="color: #000000">Mix_ReserveChannels</span></span><span style="color: #990000">(</span><span style="color: #009900">int</span> num<span style="color: #990000">)</span><span style="color: #990000">;</span>
+
+<span style="font-style: italic"><span style="color: #9A1900">/* Channel grouping functions */</span></span>
+
+<span style="font-style: italic"><span style="color: #9A1900">/* Attach a tag to a channel. A tag can be assigned to several mixer</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">   channels, to form groups of channels.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">   If 'tag' is -1, the tag is removed (actually -1 is the tag used to</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">   represent the group of all the channels).</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">   Returns true if everything was OK.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> */</span></span>
+<span style="font-weight: bold"><span style="color: #0000FF">extern</span></span> DECLSPEC <span style="color: #009900">int</span> SDLCALL <span style="font-weight: bold"><span style="color: #000000">Mix_GroupChannel</span></span><span style="color: #990000">(</span><span style="color: #009900">int</span> which<span style="color: #990000">,</span> <span style="color: #009900">int</span> tag<span style="color: #990000">)</span><span style="color: #990000">;</span>
+<span style="font-style: italic"><span style="color: #9A1900">/* Assign several consecutive channels to a group */</span></span>
+<span style="font-weight: bold"><span style="color: #0000FF">extern</span></span> DECLSPEC <span style="color: #009900">int</span> SDLCALL <span style="font-weight: bold"><span style="color: #000000">Mix_GroupChannels</span></span><span style="color: #990000">(</span><span style="color: #009900">int</span> from<span style="color: #990000">,</span> <span style="color: #009900">int</span> to<span style="color: #990000">,</span> <span style="color: #009900">int</span> tag<span style="color: #990000">)</span><span style="color: #990000">;</span>
+<span style="font-style: italic"><span style="color: #9A1900">/* Finds the first available channel in a group of channels,</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">   returning -1 if none are available.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> */</span></span>
+<span style="font-weight: bold"><span style="color: #0000FF">extern</span></span> DECLSPEC <span style="color: #009900">int</span> SDLCALL <span style="font-weight: bold"><span style="color: #000000">Mix_GroupAvailable</span></span><span style="color: #990000">(</span><span style="color: #009900">int</span> tag<span style="color: #990000">)</span><span style="color: #990000">;</span>
+<span style="font-style: italic"><span style="color: #9A1900">/* Returns the number of channels in a group. This is also a subtle</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">   way to get the total number of channels when 'tag' is -1</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> */</span></span>
+<span style="font-weight: bold"><span style="color: #0000FF">extern</span></span> DECLSPEC <span style="color: #009900">int</span> SDLCALL <span style="font-weight: bold"><span style="color: #000000">Mix_GroupCount</span></span><span style="color: #990000">(</span><span style="color: #009900">int</span> tag<span style="color: #990000">)</span><span style="color: #990000">;</span>
+<span style="font-style: italic"><span style="color: #9A1900">/* Finds the "oldest" sample playing in a group of channels */</span></span>
+<span style="font-weight: bold"><span style="color: #0000FF">extern</span></span> DECLSPEC <span style="color: #009900">int</span> SDLCALL <span style="font-weight: bold"><span style="color: #000000">Mix_GroupOldest</span></span><span style="color: #990000">(</span><span style="color: #009900">int</span> tag<span style="color: #990000">)</span><span style="color: #990000">;</span>
+<span style="font-style: italic"><span style="color: #9A1900">/* Finds the "most recent" (i.e. last) sample playing in a group of channels */</span></span>
+<span style="font-weight: bold"><span style="color: #0000FF">extern</span></span> DECLSPEC <span style="color: #009900">int</span> SDLCALL <span style="font-weight: bold"><span style="color: #000000">Mix_GroupNewer</span></span><span style="color: #990000">(</span><span style="color: #009900">int</span> tag<span style="color: #990000">)</span><span style="color: #990000">;</span>
+
+<span style="font-style: italic"><span style="color: #9A1900">/* Play an audio chunk on a specific channel.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">   If the specified channel is -1, play on the first free channel.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">   If 'loops' is greater than zero, loop the sound that many times.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">   If 'loops' is -1, loop inifinitely (~65000 times).</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">   Returns which channel was used to play the sound.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">*/</span></span>
+<span style="font-weight: bold"><span style="color: #000080">#define</span></span> <span style="font-weight: bold"><span style="color: #000000">Mix_PlayChannel</span></span><span style="color: #990000">(</span>channel<span style="color: #990000">,</span>chunk<span style="color: #990000">,</span>loops<span style="color: #990000">)</span> <span style="font-weight: bold"><span style="color: #000000">Mix_PlayChannelTimed</span></span><span style="color: #990000">(</span>channel<span style="color: #990000">,</span>chunk<span style="color: #990000">,</span>loops<span style="color: #990000">,</span><span style="color: #990000">-</span><span style="color: #993399">1</span><span style="color: #990000">)</span>
+<span style="font-style: italic"><span style="color: #9A1900">/* The same as above, but the sound is played at most 'ticks' milliseconds */</span></span>
+<span style="font-weight: bold"><span style="color: #0000FF">extern</span></span> DECLSPEC <span style="color: #009900">int</span> SDLCALL <span style="font-weight: bold"><span style="color: #000000">Mix_PlayChannelTimed</span></span><span style="color: #990000">(</span><span style="color: #009900">int</span> channel<span style="color: #990000">,</span> Mix_Chunk <span style="color: #990000">*</span>chunk<span style="color: #990000">,</span> <span style="color: #009900">int</span> loops<span style="color: #990000">,</span> <span style="color: #009900">int</span> ticks<span style="color: #990000">)</span><span style="color: #990000">;</span>
+<span style="font-weight: bold"><span style="color: #0000FF">extern</span></span> DECLSPEC <span style="color: #009900">int</span> SDLCALL <span style="font-weight: bold"><span style="color: #000000">Mix_PlayMusic</span></span><span style="color: #990000">(</span>Mix_Music <span style="color: #990000">*</span>music<span style="color: #990000">,</span> <span style="color: #009900">int</span> loops<span style="color: #990000">)</span><span style="color: #990000">;</span>
+
+<span style="font-style: italic"><span style="color: #9A1900">/* Fade in music or a channel over "ms" milliseconds, same semantics as the "Play" functions */</span></span>
+<span style="font-weight: bold"><span style="color: #0000FF">extern</span></span> DECLSPEC <span style="color: #009900">int</span> SDLCALL <span style="font-weight: bold"><span style="color: #000000">Mix_FadeInMusic</span></span><span style="color: #990000">(</span>Mix_Music <span style="color: #990000">*</span>music<span style="color: #990000">,</span> <span style="color: #009900">int</span> loops<span style="color: #990000">,</span> <span style="color: #009900">int</span> ms<span style="color: #990000">)</span><span style="color: #990000">;</span>
+<span style="font-weight: bold"><span style="color: #0000FF">extern</span></span> DECLSPEC <span style="color: #009900">int</span> SDLCALL <span style="font-weight: bold"><span style="color: #000000">Mix_FadeInMusicPos</span></span><span style="color: #990000">(</span>Mix_Music <span style="color: #990000">*</span>music<span style="color: #990000">,</span> <span style="color: #009900">int</span> loops<span style="color: #990000">,</span> <span style="color: #009900">int</span> ms<span style="color: #990000">,</span> <span style="color: #009900">double</span> position<span style="color: #990000">)</span><span style="color: #990000">;</span>
+<span style="font-weight: bold"><span style="color: #000080">#define</span></span> <span style="font-weight: bold"><span style="color: #000000">Mix_FadeInChannel</span></span><span style="color: #990000">(</span>channel<span style="color: #990000">,</span>chunk<span style="color: #990000">,</span>loops<span style="color: #990000">,</span>ms<span style="color: #990000">)</span> <span style="font-weight: bold"><span style="color: #000000">Mix_FadeInChannelTimed</span></span><span style="color: #990000">(</span>channel<span style="color: #990000">,</span>chunk<span style="color: #990000">,</span>loops<span style="color: #990000">,</span>ms<span style="color: #990000">,</span><span style="color: #990000">-</span><span style="color: #993399">1</span><span style="color: #990000">)</span>
+<span style="font-weight: bold"><span style="color: #0000FF">extern</span></span> DECLSPEC <span style="color: #009900">int</span> SDLCALL <span style="font-weight: bold"><span style="color: #000000">Mix_FadeInChannelTimed</span></span><span style="color: #990000">(</span><span style="color: #009900">int</span> channel<span style="color: #990000">,</span> Mix_Chunk <span style="color: #990000">*</span>chunk<span style="color: #990000">,</span> <span style="color: #009900">int</span> loops<span style="color: #990000">,</span> <span style="color: #009900">int</span> ms<span style="color: #990000">,</span> <span style="color: #009900">int</span> ticks<span style="color: #990000">)</span><span style="color: #990000">;</span>
+
+<span style="font-style: italic"><span style="color: #9A1900">/* Set the volume in the range of 0-128 of a specific channel or chunk.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">   If the specified channel is -1, set volume for all channels.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">   Returns the original volume.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">   If the specified volume is -1, just return the current volume.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">*/</span></span>
+<span style="font-weight: bold"><span style="color: #0000FF">extern</span></span> DECLSPEC <span style="color: #009900">int</span> SDLCALL <span style="font-weight: bold"><span style="color: #000000">Mix_Volume</span></span><span style="color: #990000">(</span><span style="color: #009900">int</span> channel<span style="color: #990000">,</span> <span style="color: #009900">int</span> volume<span style="color: #990000">)</span><span style="color: #990000">;</span>
+<span style="font-weight: bold"><span style="color: #0000FF">extern</span></span> DECLSPEC <span style="color: #009900">int</span> SDLCALL <span style="font-weight: bold"><span style="color: #000000">Mix_VolumeChunk</span></span><span style="color: #990000">(</span>Mix_Chunk <span style="color: #990000">*</span>chunk<span style="color: #990000">,</span> <span style="color: #009900">int</span> volume<span style="color: #990000">)</span><span style="color: #990000">;</span>
+<span style="font-weight: bold"><span style="color: #0000FF">extern</span></span> DECLSPEC <span style="color: #009900">int</span> SDLCALL <span style="font-weight: bold"><span style="color: #000000">Mix_VolumeMusic</span></span><span style="color: #990000">(</span><span style="color: #009900">int</span> volume<span style="color: #990000">)</span><span style="color: #990000">;</span>
+
+<span style="font-style: italic"><span style="color: #9A1900">/* Halt playing of a particular channel */</span></span>
+<span style="font-weight: bold"><span style="color: #0000FF">extern</span></span> DECLSPEC <span style="color: #009900">int</span> SDLCALL <span style="font-weight: bold"><span style="color: #000000">Mix_HaltChannel</span></span><span style="color: #990000">(</span><span style="color: #009900">int</span> channel<span style="color: #990000">)</span><span style="color: #990000">;</span>
+<span style="font-weight: bold"><span style="color: #0000FF">extern</span></span> DECLSPEC <span style="color: #009900">int</span> SDLCALL <span style="font-weight: bold"><span style="color: #000000">Mix_HaltGroup</span></span><span style="color: #990000">(</span><span style="color: #009900">int</span> tag<span style="color: #990000">)</span><span style="color: #990000">;</span>
+<span style="font-weight: bold"><span style="color: #0000FF">extern</span></span> DECLSPEC <span style="color: #009900">int</span> SDLCALL <span style="font-weight: bold"><span style="color: #000000">Mix_HaltMusic</span></span><span style="color: #990000">(</span><span style="color: #009900">void</span><span style="color: #990000">)</span><span style="color: #990000">;</span>
+
+<span style="font-style: italic"><span style="color: #9A1900">/* Change the expiration delay for a particular channel.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">   The sample will stop playing after the 'ticks' milliseconds have elapsed,</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">   or remove the expiration if 'ticks' is -1</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">*/</span></span>
+<span style="font-weight: bold"><span style="color: #0000FF">extern</span></span> DECLSPEC <span style="color: #009900">int</span> SDLCALL <span style="font-weight: bold"><span style="color: #000000">Mix_ExpireChannel</span></span><span style="color: #990000">(</span><span style="color: #009900">int</span> channel<span style="color: #990000">,</span> <span style="color: #009900">int</span> ticks<span style="color: #990000">)</span><span style="color: #990000">;</span>
+
+<span style="font-style: italic"><span style="color: #9A1900">/* Halt a channel, fading it out progressively till it's silent</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">   The ms parameter indicates the number of milliseconds the fading</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">   will take.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> */</span></span>
+<span style="font-weight: bold"><span style="color: #0000FF">extern</span></span> DECLSPEC <span style="color: #009900">int</span> SDLCALL <span style="font-weight: bold"><span style="color: #000000">Mix_FadeOutChannel</span></span><span style="color: #990000">(</span><span style="color: #009900">int</span> which<span style="color: #990000">,</span> <span style="color: #009900">int</span> ms<span style="color: #990000">)</span><span style="color: #990000">;</span>
+<span style="font-weight: bold"><span style="color: #0000FF">extern</span></span> DECLSPEC <span style="color: #009900">int</span> SDLCALL <span style="font-weight: bold"><span style="color: #000000">Mix_FadeOutGroup</span></span><span style="color: #990000">(</span><span style="color: #009900">int</span> tag<span style="color: #990000">,</span> <span style="color: #009900">int</span> ms<span style="color: #990000">)</span><span style="color: #990000">;</span>
+<span style="font-weight: bold"><span style="color: #0000FF">extern</span></span> DECLSPEC <span style="color: #009900">int</span> SDLCALL <span style="font-weight: bold"><span style="color: #000000">Mix_FadeOutMusic</span></span><span style="color: #990000">(</span><span style="color: #009900">int</span> ms<span style="color: #990000">)</span><span style="color: #990000">;</span>
+
+<span style="font-style: italic"><span style="color: #9A1900">/* Query the fading status of a channel */</span></span>
+<span style="font-weight: bold"><span style="color: #0000FF">extern</span></span> DECLSPEC Mix_Fading SDLCALL <span style="font-weight: bold"><span style="color: #000000">Mix_FadingMusic</span></span><span style="color: #990000">(</span><span style="color: #009900">void</span><span style="color: #990000">)</span><span style="color: #990000">;</span>
+<span style="font-weight: bold"><span style="color: #0000FF">extern</span></span> DECLSPEC Mix_Fading SDLCALL <span style="font-weight: bold"><span style="color: #000000">Mix_FadingChannel</span></span><span style="color: #990000">(</span><span style="color: #009900">int</span> which<span style="color: #990000">)</span><span style="color: #990000">;</span>
+
+<span style="font-style: italic"><span style="color: #9A1900">/* Pause/Resume a particular channel */</span></span>
+<span style="font-weight: bold"><span style="color: #0000FF">extern</span></span> DECLSPEC <span style="color: #009900">void</span> SDLCALL <span style="font-weight: bold"><span style="color: #000000">Mix_Pause</span></span><span style="color: #990000">(</span><span style="color: #009900">int</span> channel<span style="color: #990000">)</span><span style="color: #990000">;</span>
+<span style="font-weight: bold"><span style="color: #0000FF">extern</span></span> DECLSPEC <span style="color: #009900">void</span> SDLCALL <span style="font-weight: bold"><span style="color: #000000">Mix_Resume</span></span><span style="color: #990000">(</span><span style="color: #009900">int</span> channel<span style="color: #990000">)</span><span style="color: #990000">;</span>
+<span style="font-weight: bold"><span style="color: #0000FF">extern</span></span> DECLSPEC <span style="color: #009900">int</span> SDLCALL <span style="font-weight: bold"><span style="color: #000000">Mix_Paused</span></span><span style="color: #990000">(</span><span style="color: #009900">int</span> channel<span style="color: #990000">)</span><span style="color: #990000">;</span>
+
+<span style="font-style: italic"><span style="color: #9A1900">/* Pause/Resume the music stream */</span></span>
+<span style="font-weight: bold"><span style="color: #0000FF">extern</span></span> DECLSPEC <span style="color: #009900">void</span> SDLCALL <span style="font-weight: bold"><span style="color: #000000">Mix_PauseMusic</span></span><span style="color: #990000">(</span><span style="color: #009900">void</span><span style="color: #990000">)</span><span style="color: #990000">;</span>
+<span style="font-weight: bold"><span style="color: #0000FF">extern</span></span> DECLSPEC <span style="color: #009900">void</span> SDLCALL <span style="font-weight: bold"><span style="color: #000000">Mix_ResumeMusic</span></span><span style="color: #990000">(</span><span style="color: #009900">void</span><span style="color: #990000">)</span><span style="color: #990000">;</span>
+<span style="font-weight: bold"><span style="color: #0000FF">extern</span></span> DECLSPEC <span style="color: #009900">void</span> SDLCALL <span style="font-weight: bold"><span style="color: #000000">Mix_RewindMusic</span></span><span style="color: #990000">(</span><span style="color: #009900">void</span><span style="color: #990000">)</span><span style="color: #990000">;</span>
+<span style="font-weight: bold"><span style="color: #0000FF">extern</span></span> DECLSPEC <span style="color: #009900">int</span> SDLCALL <span style="font-weight: bold"><span style="color: #000000">Mix_PausedMusic</span></span><span style="color: #990000">(</span><span style="color: #009900">void</span><span style="color: #990000">)</span><span style="color: #990000">;</span>
+
+<span style="font-style: italic"><span style="color: #9A1900">/* Set the current position in the music stream.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">   This returns 0 if successful, or -1 if it failed or isn't implemented.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">   This function is only implemented for MOD music formats (set pattern</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">   order number) and for OGG music (set position in seconds), at the</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">   moment.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">*/</span></span>
+<span style="font-weight: bold"><span style="color: #0000FF">extern</span></span> DECLSPEC <span style="color: #009900">int</span> SDLCALL <span style="font-weight: bold"><span style="color: #000000">Mix_SetMusicPosition</span></span><span style="color: #990000">(</span><span style="color: #009900">double</span> position<span style="color: #990000">)</span><span style="color: #990000">;</span>
+
+<span style="font-style: italic"><span style="color: #9A1900">/* Check the status of a specific channel.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">   If the specified channel is -1, check all channels.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">*/</span></span>
+<span style="font-weight: bold"><span style="color: #0000FF">extern</span></span> DECLSPEC <span style="color: #009900">int</span> SDLCALL <span style="font-weight: bold"><span style="color: #000000">Mix_Playing</span></span><span style="color: #990000">(</span><span style="color: #009900">int</span> channel<span style="color: #990000">)</span><span style="color: #990000">;</span>
+<span style="font-weight: bold"><span style="color: #0000FF">extern</span></span> DECLSPEC <span style="color: #009900">int</span> SDLCALL <span style="font-weight: bold"><span style="color: #000000">Mix_PlayingMusic</span></span><span style="color: #990000">(</span><span style="color: #009900">void</span><span style="color: #990000">)</span><span style="color: #990000">;</span>
+
+<span style="font-style: italic"><span style="color: #9A1900">/* Stop music and set external music playback command */</span></span>
+<span style="font-weight: bold"><span style="color: #0000FF">extern</span></span> DECLSPEC <span style="color: #009900">int</span> SDLCALL <span style="font-weight: bold"><span style="color: #000000">Mix_SetMusicCMD</span></span><span style="color: #990000">(</span><span style="font-weight: bold"><span style="color: #0000FF">const</span></span> <span style="color: #009900">char</span> <span style="color: #990000">*</span>command<span style="color: #990000">)</span><span style="color: #990000">;</span>
+
+<span style="font-style: italic"><span style="color: #9A1900">/* Synchro value is set by MikMod from modules while playing */</span></span>
+<span style="font-weight: bold"><span style="color: #0000FF">extern</span></span> DECLSPEC <span style="color: #009900">int</span> SDLCALL <span style="font-weight: bold"><span style="color: #000000">Mix_SetSynchroValue</span></span><span style="color: #990000">(</span><span style="color: #009900">int</span> value<span style="color: #990000">)</span><span style="color: #990000">;</span>
+<span style="font-weight: bold"><span style="color: #0000FF">extern</span></span> DECLSPEC <span style="color: #009900">int</span> SDLCALL <span style="font-weight: bold"><span style="color: #000000">Mix_GetSynchroValue</span></span><span style="color: #990000">(</span><span style="color: #009900">void</span><span style="color: #990000">)</span><span style="color: #990000">;</span>
+
+<span style="font-style: italic"><span style="color: #9A1900">/* Get the Mix_Chunk currently associated with a mixer channel</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">    Returns NULL if it's an invalid channel, or there's no chunk associated.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">*/</span></span>
+<span style="font-weight: bold"><span style="color: #0000FF">extern</span></span> DECLSPEC Mix_Chunk <span style="color: #990000">*</span> SDLCALL <span style="font-weight: bold"><span style="color: #000000">Mix_GetChunk</span></span><span style="color: #990000">(</span><span style="color: #009900">int</span> channel<span style="color: #990000">)</span><span style="color: #990000">;</span>
+
+<span style="font-style: italic"><span style="color: #9A1900">/* Close the mixer, halting all playing audio */</span></span>
+<span style="font-weight: bold"><span style="color: #0000FF">extern</span></span> DECLSPEC <span style="color: #009900">void</span> SDLCALL <span style="font-weight: bold"><span style="color: #000000">Mix_CloseAudio</span></span><span style="color: #990000">(</span><span style="color: #009900">void</span><span style="color: #990000">)</span><span style="color: #990000">;</span>
+
+<span style="font-style: italic"><span style="color: #9A1900">/* We'll use SDL for reporting errors */</span></span>
+<span style="font-weight: bold"><span style="color: #000080">#define</span></span> Mix_SetError    SDL_SetError
+<span style="font-weight: bold"><span style="color: #000080">#define</span></span> Mix_GetError    SDL_GetError
+
+<span style="font-style: italic"><span style="color: #9A1900">/* Ends C function definitions when using C++ */</span></span>
+<span style="font-weight: bold"><span style="color: #000080">#ifdef</span></span> __cplusplus
+<span style="color: #FF0000">}</span>
+<span style="font-weight: bold"><span style="color: #000080">#endif</span></span>
+<span style="font-weight: bold"><span style="color: #000080">#include</span></span> <span style="color: #FF0000">"close_code.h"</span>
+
+<span style="font-weight: bold"><span style="color: #000080">#endif</span></span> <span style="font-style: italic"><span style="color: #9A1900">/* _SDL_MIXER_H */</span></span>
+</tt></pre>

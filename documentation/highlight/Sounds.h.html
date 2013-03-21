@@ -1,0 +1,111 @@
+<pre><tt><span style="font-weight: bold"><span style="color: #000080">#ifndef</span></span> _SOUNDS_H_
+<span style="font-weight: bold"><span style="color: #000080">#define</span></span> _SOUNDS_H_
+
+<span style="font-style: italic"><span style="color: #9A1900">//SOUNDS ON</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">//#define SOUND</span></span>
+
+<span style="font-weight: bold"><span style="color: #000080">#include</span></span> <span style="color: #FF0000">&lt;stdio.h&gt;</span>
+<span style="font-weight: bold"><span style="color: #000080">#include</span></span> <span style="color: #FF0000">&lt;stdlib.h&gt;</span>
+<span style="font-weight: bold"><span style="color: #000080">#include</span></span> <span style="color: #FF0000">&lt;vector&gt;</span>
+<span style="font-weight: bold"><span style="color: #000080">#include</span></span> <span style="color: #FF0000">&lt;SDL/SDL.h&gt;</span>
+
+<span style="font-weight: bold"><span style="color: #000080">#ifdef</span></span> SOUND
+<span style="font-style: italic"><span style="color: #9A1900">//    #include "SDL_mixer.h"</span></span>
+    <span style="font-weight: bold"><span style="color: #000080">#include</span></span> <span style="color: #FF0000">&lt;SDL/SDL_mixer.h&gt;</span>
+<span style="font-weight: bold"><span style="color: #000080">#endif</span></span>
+
+<span style="font-weight: bold"><span style="color: #0000FF">using</span></span> std<span style="color: #990000">:</span><span style="color: #990000">:</span>vector<span style="color: #990000">;</span>
+
+ 
+<span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * Class Sounds.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * Plays all audio.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * @author Lasse Hakulinen</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> */</span></span>
+
+<span style="font-weight: bold"><span style="color: #0000FF">class</span></span> Sounds <span style="color: #FF0000">{</span>
+
+<span style="font-weight: bold"><span style="color: #0000FF">public</span></span><span style="color: #990000">:</span>
+
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Constructor.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @param rate - audio rate</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @param format - audio format</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @param channels - number of channels (mono or stereo)</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @param buffers - size of buffer</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="font-weight: bold"><span style="color: #000000">Sounds</span></span><span style="color: #990000">(</span><span style="color: #009900">int</span> rate<span style="color: #990000">,</span> Uint16 format<span style="color: #990000">,</span> <span style="color: #009900">int</span> channels<span style="color: #990000">,</span> <span style="color: #009900">int</span> buffers<span style="color: #990000">)</span><span style="color: #990000">;</span>
+    
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Frees all memory allocated for audio</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="color: #990000">~</span><span style="font-weight: bold"><span style="color: #000000">Sounds</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span><span style="color: #990000">;</span>
+    
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Plays a sound of a certain index</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @param index - index of the sound</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="color: #009900">void</span> <span style="font-weight: bold"><span style="color: #0000FF">const</span></span> <span style="font-weight: bold"><span style="color: #000000">playSound</span></span><span style="color: #990000">(</span><span style="color: #009900">int</span> index<span style="color: #990000">)</span><span style="color: #990000">;</span>
+    
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Disables all sounds</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="color: #009900">void</span> <span style="font-weight: bold"><span style="color: #000000">disableSounds</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span><span style="color: #990000">;</span>
+    
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Enables all sounds</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="color: #009900">void</span> <span style="font-weight: bold"><span style="color: #000000">enableSounds</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span><span style="color: #990000">;</span>
+    
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Sets the general volume of the played sounds</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Minimum volume = 0, maximum = 128</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @param volume - new volume</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="color: #009900">void</span> <span style="font-weight: bold"><span style="color: #000000">setVolume</span></span><span style="color: #990000">(</span><span style="color: #009900">int</span> volume<span style="color: #990000">)</span><span style="color: #990000">;</span>
+    
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Increases the volume (or decreases if amount &lt; 0)</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @param amount - amount that the volume is increased</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span> 
+    <span style="color: #009900">void</span> <span style="font-weight: bold"><span style="color: #000000">increaseVolume</span></span><span style="color: #990000">(</span><span style="color: #009900">int</span> amount<span style="color: #990000">)</span><span style="color: #990000">;</span>
+
+
+<span style="font-weight: bold"><span style="color: #0000FF">private</span></span><span style="color: #990000">:</span>
+
+    <span style="font-weight: bold"><span style="color: #000080">#ifdef</span></span> SOUND
+    vector<span style="color: #990000">&lt;</span>Mix_Chunk <span style="color: #990000">*</span><span style="color: #990000">&gt;</span> sounds<span style="color: #990000">;</span>
+    <span style="font-weight: bold"><span style="color: #000080">#endif</span></span>
+    
+    <span style="color: #009900">bool</span> soundsOn<span style="color: #990000">;</span>
+    <span style="color: #009900">int</span> volume<span style="color: #990000">;</span>
+    
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Initializes sounds</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @return true if successful.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="color: #009900">bool</span> <span style="font-weight: bold"><span style="color: #000000">init</span></span><span style="color: #990000">(</span><span style="color: #009900">int</span> audio_rate<span style="color: #990000">,</span> Uint16 audio_format<span style="color: #990000">,</span>
+              <span style="color: #009900">int</span> audio_channels<span style="color: #990000">,</span> <span style="color: #009900">int</span> audio_buffers<span style="color: #990000">)</span><span style="color: #990000">;</span>
+    
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Loads audio from files to vector sounds</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="color: #009900">void</span> <span style="font-weight: bold"><span style="color: #000000">loadAudio</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span><span style="color: #990000">;</span>
+    
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Plays a sound</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @param *sound - pointer to the sound that is played</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="font-weight: bold"><span style="color: #000080">#ifdef</span></span> SOUND
+    <span style="color: #009900">void</span> <span style="font-weight: bold"><span style="color: #0000FF">const</span></span> <span style="font-weight: bold"><span style="color: #000000">playSound</span></span><span style="color: #990000">(</span>Mix_Chunk <span style="color: #990000">*</span>sound<span style="color: #990000">)</span><span style="color: #990000">;</span>
+    <span style="font-weight: bold"><span style="color: #000080">#endif</span></span>
+    
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Frees all memory allocated for sounds</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="color: #009900">void</span> <span style="font-weight: bold"><span style="color: #000000">destroySounds</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span><span style="color: #990000">;</span>
+
+<span style="color: #FF0000">}</span><span style="color: #990000">;</span>
+
+<span style="font-weight: bold"><span style="color: #000080">#endif</span></span> <span style="font-style: italic"><span style="color: #9A1900">//_SOUNDS_H_</span></span>
+</tt></pre>

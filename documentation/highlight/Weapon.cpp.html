@@ -1,0 +1,82 @@
+<pre><tt>
+<span style="font-weight: bold"><span style="color: #000080">#include</span></span> <span style="color: #FF0000">&lt;iostream&gt;</span>
+<span style="font-weight: bold"><span style="color: #000080">#include</span></span> <span style="color: #FF0000">"Weapon.h"</span>
+
+<span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * Class Weapon.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * Weapon has a shot type and parameters for it, and also a shotcount.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * @author Lasse Hakulinen</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> */</span></span>
+
+
+<span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * Constructor.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * @param shot - index of the projectile template</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * @param &amp;parameters - reference to parameters</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * @param shotcount - number of shots</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * @infiniteShots - true if there is infinite shots</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> */</span></span>
+Weapon<span style="color: #990000">:</span><span style="color: #990000">:</span><span style="font-weight: bold"><span style="color: #000000">Weapon</span></span><span style="color: #990000">(</span><span style="color: #009900">int</span> shot<span style="color: #990000">,</span> <span style="font-weight: bold"><span style="color: #0000FF">const</span></span> ParameterList <span style="color: #990000">&amp;</span>parameters<span style="color: #990000">,</span> <span style="color: #009900">int</span> shotcount<span style="color: #990000">,</span>
+               <span style="color: #009900">bool</span> infinite<span style="color: #990000">)</span> <span style="color: #990000">:</span> <span style="font-weight: bold"><span style="color: #000000">parameters</span></span><span style="color: #990000">(</span>parameters<span style="color: #990000">)</span> <span style="color: #FF0000">{</span>
+        
+    <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>shot <span style="color: #990000">=</span> shot<span style="color: #990000">;</span>
+    <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>shotcount <span style="color: #990000">=</span> shotcount<span style="color: #990000">;</span>        
+    <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>infiniteShots <span style="color: #990000">=</span> <span style="font-weight: bold"><span style="color: #0000FF">false</span></span><span style="color: #990000">;</span>
+    <span style="font-weight: bold"><span style="color: #0000FF">if</span></span> <span style="color: #990000">(</span>infinite<span style="color: #990000">)</span><span style="color: #FF0000">{</span>
+        <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span><span style="font-weight: bold"><span style="color: #000000">addInfiniteShots</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span><span style="color: #990000">;</span>
+    <span style="color: #FF0000">}</span>
+<span style="color: #FF0000">}</span>
+
+<span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * Shoots one shot.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * @return - shot which was fired</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> */</span></span>
+<span style="color: #009900">int</span> Weapon<span style="color: #990000">:</span><span style="color: #990000">:</span><span style="font-weight: bold"><span style="color: #000000">shoot</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span> <span style="color: #FF0000">{</span>
+
+    <span style="font-weight: bold"><span style="color: #0000FF">if</span></span> <span style="color: #990000">(</span><span style="color: #990000">!</span><span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>infiniteShots <span style="color: #990000">&amp;</span><span style="color: #990000">&amp;</span> <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span><span style="font-weight: bold"><span style="color: #000000">addShots</span></span><span style="color: #990000">(</span><span style="color: #990000">-</span><span style="color: #993399">1</span><span style="color: #990000">)</span> <span style="color: #990000">!</span><span style="color: #990000">=</span> <span style="color: #990000">-</span><span style="color: #993399">1</span><span style="color: #990000">)</span><span style="color: #FF0000">{</span>
+        std<span style="color: #990000">:</span><span style="color: #990000">:</span>cerr <span style="color: #990000">&lt;</span><span style="color: #990000">&lt;</span> <span style="color: #FF0000">"Weapon::shoot You don't have any shots\n"</span><span style="color: #990000">;</span>
+    <span style="color: #FF0000">}</span>
+
+    <span style="font-weight: bold"><span style="color: #0000FF">return</span></span> <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>shot<span style="color: #990000">;</span>  
+<span style="color: #FF0000">}</span>
+
+<span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * Adds shots.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * @param amount - amount of added shots</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * @return - the amount of successfully added shots</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> */</span></span>
+<span style="color: #009900">int</span> Weapon<span style="color: #990000">:</span><span style="color: #990000">:</span><span style="font-weight: bold"><span style="color: #000000">addShots</span></span><span style="color: #990000">(</span><span style="color: #009900">int</span> amount<span style="color: #990000">)</span><span style="color: #FF0000">{</span>
+    
+    <span style="color: #009900">int</span> added<span style="color: #990000">;</span>
+    
+    <span style="font-weight: bold"><span style="color: #0000FF">if</span></span> <span style="color: #990000">(</span><span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>infiniteShots<span style="color: #990000">)</span><span style="color: #FF0000">{</span>
+        <span style="font-weight: bold"><span style="color: #0000FF">return</span></span> <span style="color: #993399">0</span><span style="color: #990000">;</span>
+    <span style="color: #FF0000">}</span>
+
+    <span style="font-weight: bold"><span style="color: #0000FF">if</span></span> <span style="color: #990000">(</span><span style="color: #990000">-</span>amount <span style="color: #990000">&gt;</span><span style="color: #990000">=</span> <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>shotcount<span style="color: #990000">)</span><span style="color: #FF0000">{</span>
+        added <span style="color: #990000">=</span> <span style="color: #990000">-</span><span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>shotcount<span style="color: #990000">;</span>
+        <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>shotcount <span style="color: #990000">=</span> <span style="color: #993399">0</span><span style="color: #990000">;</span>
+        <span style="font-weight: bold"><span style="color: #0000FF">return</span></span> added<span style="color: #990000">;</span>
+    <span style="color: #FF0000">}</span>
+    
+    <span style="font-weight: bold"><span style="color: #0000FF">if</span></span> <span style="color: #990000">(</span><span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>shotcount <span style="color: #990000">+</span> amount <span style="color: #990000">&gt;</span><span style="color: #990000">=</span> <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>maximumCount<span style="color: #990000">)</span><span style="color: #FF0000">{</span>
+        added <span style="color: #990000">=</span> <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>maximumCount <span style="color: #990000">-</span> <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>shotcount<span style="color: #990000">;</span>
+        <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>shotcount <span style="color: #990000">=</span> <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>maximumCount<span style="color: #990000">;</span>
+        <span style="font-weight: bold"><span style="color: #0000FF">return</span></span> added<span style="color: #990000">;</span>
+    <span style="color: #FF0000">}</span>
+    <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>shotcount <span style="color: #990000">+</span><span style="color: #990000">=</span> amount<span style="color: #990000">;</span>
+    <span style="font-weight: bold"><span style="color: #0000FF">return</span></span> amount<span style="color: #990000">;</span>
+<span style="color: #FF0000">}</span>
+
+<span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * Increases a parameter</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * @param index - index of the parameter</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * @param steps - steps to increase</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> */</span></span>
+<span style="color: #009900">void</span> Weapon<span style="color: #990000">:</span><span style="color: #990000">:</span><span style="font-weight: bold"><span style="color: #000000">increaseParameter</span></span><span style="color: #990000">(</span><span style="color: #009900">int</span> index<span style="color: #990000">,</span> <span style="color: #009900">int</span> steps<span style="color: #990000">)</span> <span style="color: #FF0000">{</span>
+    
+    <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>parameters<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">increaseParameterValue</span></span><span style="color: #990000">(</span>index<span style="color: #990000">,</span> steps<span style="color: #990000">)</span><span style="color: #990000">;</span>
+    
+<span style="color: #FF0000">}</span>
+
+</tt></pre>

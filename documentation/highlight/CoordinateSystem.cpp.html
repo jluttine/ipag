@@ -1,0 +1,19 @@
+<pre><tt>
+<span style="font-weight: bold"><span style="color: #000080">#include</span></span> <span style="color: #FF0000">&lt;iostream&gt;</span>
+<span style="font-weight: bold"><span style="color: #000080">#include</span></span> <span style="color: #FF0000">"CoordinateSystem.h"</span>
+
+<span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * Constructs a coordinate system with given width and height.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * @param width  The width of the coordinate system.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * @param height The height of the coordinate system.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> */</span></span>
+CoordinateSystem<span style="color: #990000">:</span><span style="color: #990000">:</span><span style="font-weight: bold"><span style="color: #000000">CoordinateSystem</span></span><span style="color: #990000">(</span> <span style="color: #009900">int</span> width<span style="color: #990000">,</span> <span style="color: #009900">int</span> height <span style="color: #990000">)</span>
+    <span style="color: #990000">:</span> <span style="font-weight: bold"><span style="color: #000000">width</span></span><span style="color: #990000">(</span> width <span style="color: #990000">)</span><span style="color: #990000">,</span> <span style="font-weight: bold"><span style="color: #000000">height</span></span><span style="color: #990000">(</span> height <span style="color: #990000">)</span>
+<span style="color: #FF0000">{</span>
+    
+    <span style="font-weight: bold"><span style="color: #0000FF">if</span></span> <span style="color: #990000">(</span> width <span style="color: #990000">&lt;</span><span style="color: #990000">=</span> <span style="color: #993399">0</span> <span style="color: #990000">|</span><span style="color: #990000">|</span> height <span style="color: #990000">&lt;</span><span style="color: #990000">=</span> <span style="color: #993399">0</span> <span style="color: #990000">)</span>
+        <span style="font-weight: bold"><span style="color: #000000">fprintf</span></span><span style="color: #990000">(</span> stderr<span style="color: #990000">,</span>
+                 <span style="color: #FF0000">"CoordinateSystem::CoordinateSystem: invalid axis length.\n"</span> <span style="color: #990000">)</span><span style="color: #990000">;</span>
+    
+<span style="color: #FF0000">}</span>
+</tt></pre>

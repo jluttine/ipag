@@ -1,0 +1,152 @@
+<pre><tt><span style="font-weight: bold"><span style="color: #000080">#include</span></span> <span style="color: #FF0000">&lt;SDL/SDL.h&gt;</span>
+<span style="font-weight: bold"><span style="color: #000080">#include</span></span> <span style="color: #FF0000">&lt;iostream&gt;</span>
+
+<span style="font-weight: bold"><span style="color: #000080">#include</span></span> <span style="color: #FF0000">"WindowMainMenu.h"</span>
+<span style="font-weight: bold"><span style="color: #000080">#include</span></span> <span style="color: #FF0000">"WindowPlayers.h"</span>
+<span style="font-weight: bold"><span style="color: #000080">#include</span></span> <span style="color: #FF0000">"WindowCreateWorld.h"</span>
+<span style="font-weight: bold"><span style="color: #000080">#include</span></span> <span style="color: #FF0000">"WindowLocations.h"</span>
+<span style="font-weight: bold"><span style="color: #000080">#include</span></span> <span style="color: #FF0000">"WindowShop.h"</span>
+<span style="font-weight: bold"><span style="color: #000080">#include</span></span> <span style="color: #FF0000">"WindowGame.h"</span>
+<span style="font-weight: bold"><span style="color: #000080">#include</span></span> <span style="color: #FF0000">"WindowGameOver.h"</span>
+
+<span style="font-weight: bold"><span style="color: #000080">#include</span></span> <span style="color: #FF0000">"GameEngine.h"</span>
+<span style="font-weight: bold"><span style="color: #000080">#include</span></span> <span style="color: #FF0000">"Graphics.h"</span>
+<span style="font-weight: bold"><span style="color: #000080">#include</span></span> <span style="color: #FF0000">"Sounds.h"</span>
+<span style="font-weight: bold"><span style="color: #000080">#include</span></span> <span style="color: #FF0000">"World.h"</span>
+
+<span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * Starter.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * @author Tapio Auvinen (alustavasti)</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> */</span></span>
+
+<span style="color: #009900">int</span> <span style="font-weight: bold"><span style="color: #000000">main</span></span><span style="color: #990000">(</span> <span style="color: #009900">int</span> args<span style="color: #990000">,</span> <span style="color: #009900">char</span> <span style="color: #990000">*</span>argv<span style="color: #990000">[</span><span style="color: #990000">]</span><span style="color: #990000">)</span> <span style="color: #FF0000">{</span>
+
+    <span style="font-weight: bold"><span style="color: #000000">puts</span></span><span style="color: #990000">(</span><span style="color: #FF0000">"Interplanetary Artillery Game"</span><span style="color: #990000">)</span><span style="color: #990000">;</span>
+    
+    <span style="font-style: italic"><span style="color: #9A1900">//Initialize random number generator</span></span>
+    <span style="font-weight: bold"><span style="color: #000000">srand</span></span><span style="color: #990000">(</span> <span style="font-weight: bold"><span style="color: #000000">time</span></span><span style="color: #990000">(</span>NULL<span style="color: #990000">)</span> <span style="color: #990000">)</span><span style="color: #990000">;</span>
+    
+    
+    <span style="font-style: italic"><span style="color: #9A1900">//Initialize SDL</span></span>
+    <span style="font-weight: bold"><span style="color: #000000">fputs</span></span><span style="color: #990000">(</span><span style="color: #FF0000">"Initializing SDL\n"</span><span style="color: #990000">,</span> stderr<span style="color: #990000">)</span><span style="color: #990000">;</span>
+    <span style="font-weight: bold"><span style="color: #0000FF">if</span></span> <span style="color: #990000">(</span><span style="font-weight: bold"><span style="color: #000000">SDL_Init</span></span><span style="color: #990000">(</span>SDL_INIT_VIDEO<span style="color: #990000">)</span> <span style="color: #990000">&lt;</span> <span style="color: #993399">0</span><span style="color: #990000">)</span> <span style="color: #FF0000">{</span>
+        <span style="font-weight: bold"><span style="color: #000000">fprintf</span></span><span style="color: #990000">(</span>stderr<span style="color: #990000">,</span> <span style="color: #FF0000">"Could not initialize SDL: %s\n"</span><span style="color: #990000">,</span> <span style="font-weight: bold"><span style="color: #000000">SDL_GetError</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span><span style="color: #990000">)</span><span style="color: #990000">;</span>
+        <span style="font-weight: bold"><span style="color: #0000FF">return</span></span> EXIT_FAILURE<span style="color: #990000">;</span>
+    <span style="color: #FF0000">}</span>
+    
+    <span style="font-weight: bold"><span style="color: #000000">atexit</span></span><span style="color: #990000">(</span>SDL_Quit<span style="color: #990000">)</span><span style="color: #990000">;</span>
+    
+
+    <span style="font-style: italic"><span style="color: #9A1900">//Initialize Graphics</span></span>
+    <span style="font-weight: bold"><span style="color: #000000">fputs</span></span><span style="color: #990000">(</span><span style="color: #FF0000">"Initializing graphics\n"</span><span style="color: #990000">,</span> stderr<span style="color: #990000">)</span><span style="color: #990000">;</span>
+    Graphics <span style="color: #990000">*</span>graphics <span style="color: #990000">=</span> <span style="font-weight: bold"><span style="color: #0000FF">new</span></span> <span style="font-weight: bold"><span style="color: #000000">Graphics</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span><span style="color: #990000">;</span>
+    <span style="font-weight: bold"><span style="color: #0000FF">if</span></span> <span style="color: #990000">(</span><span style="color: #990000">!</span>graphics<span style="color: #990000">-</span><span style="color: #990000">&gt;</span><span style="font-weight: bold"><span style="color: #000000">init</span></span><span style="color: #990000">(</span><span style="color: #993399">1024</span><span style="color: #990000">,</span> <span style="color: #993399">768</span><span style="color: #990000">,</span> <span style="color: #993399">16</span><span style="color: #990000">)</span><span style="color: #990000">)</span> <span style="color: #FF0000">{</span>
+        <span style="font-weight: bold"><span style="color: #000000">fputs</span></span><span style="color: #990000">(</span><span style="color: #FF0000">"Failed to initialize graphics\n"</span><span style="color: #990000">,</span> stderr<span style="color: #990000">)</span><span style="color: #990000">;</span>
+        <span style="font-weight: bold"><span style="color: #0000FF">return</span></span> EXIT_FAILURE<span style="color: #990000">;</span>
+    <span style="color: #FF0000">}</span>
+    
+    <span style="font-style: italic"><span style="color: #9A1900">//Initialize Sound</span></span>
+    <span style="font-weight: bold"><span style="color: #000000">fputs</span></span><span style="color: #990000">(</span><span style="color: #FF0000">"Initializing sound\n"</span><span style="color: #990000">,</span> stderr<span style="color: #990000">)</span><span style="color: #990000">;</span>
+    Sounds <span style="color: #990000">*</span>sounds <span style="color: #990000">=</span> <span style="font-weight: bold"><span style="color: #0000FF">new</span></span> <span style="font-weight: bold"><span style="color: #000000">Sounds</span></span><span style="color: #990000">(</span><span style="color: #993399">22050</span><span style="color: #990000">,</span> AUDIO_S16<span style="color: #990000">,</span> <span style="color: #993399">2</span><span style="color: #990000">,</span> <span style="color: #993399">1024</span><span style="color: #990000">)</span><span style="color: #990000">;</span>
+
+    
+    Window <span style="color: #990000">*</span>window<span style="color: #990000">;</span>
+    GameEngine <span style="color: #990000">*</span>engine<span style="color: #990000">;</span>
+    
+    <span style="font-style: italic"><span style="color: #9A1900">//Open one window at a time. The return value tells us whether the user</span></span>
+    <span style="font-style: italic"><span style="color: #9A1900">//wants to quit or open the next window</span></span>
+    <span style="font-weight: bold"><span style="color: #0000FF">while</span></span> <span style="color: #990000">(</span><span style="color: #993399">1</span><span style="color: #990000">)</span> <span style="color: #FF0000">{</span>
+        <span style="font-style: italic"><span style="color: #9A1900">//Main Menu</span></span>
+        window <span style="color: #990000">=</span> <span style="font-weight: bold"><span style="color: #0000FF">new</span></span> <span style="font-weight: bold"><span style="color: #000000">WindowMainMenu</span></span><span style="color: #990000">(</span><span style="color: #990000">*</span>graphics<span style="color: #990000">,</span> <span style="color: #990000">*</span>sounds<span style="color: #990000">)</span><span style="color: #990000">;</span>
+        <span style="font-weight: bold"><span style="color: #0000FF">if</span></span> <span style="color: #990000">(</span>window <span style="color: #990000">=</span><span style="color: #990000">=</span> NULL<span style="color: #990000">)</span>
+            <span style="font-weight: bold"><span style="color: #0000FF">break</span></span><span style="color: #990000">;</span>
+        
+        <span style="font-weight: bold"><span style="color: #0000FF">if</span></span> <span style="color: #990000">(</span>window<span style="color: #990000">-</span><span style="color: #990000">&gt;</span><span style="font-weight: bold"><span style="color: #000000">open</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span> <span style="color: #990000">=</span><span style="color: #990000">=</span> <span style="color: #993399">0</span><span style="color: #990000">)</span> <span style="color: #FF0000">{</span>
+            <span style="font-weight: bold"><span style="color: #0000FF">delete</span></span> window<span style="color: #990000">;</span>
+            <span style="font-weight: bold"><span style="color: #0000FF">break</span></span><span style="color: #990000">;</span>
+        <span style="color: #FF0000">}</span> <span style="font-weight: bold"><span style="color: #0000FF">else</span></span> <span style="color: #FF0000">{</span>
+            <span style="font-weight: bold"><span style="color: #0000FF">delete</span></span> window<span style="color: #990000">;</span>
+        <span style="color: #FF0000">}</span>
+        
+        <span style="font-style: italic"><span style="color: #9A1900">//Game starts. Create game engine.</span></span>
+        engine <span style="color: #990000">=</span> <span style="font-weight: bold"><span style="color: #0000FF">new</span></span> <span style="font-weight: bold"><span style="color: #000000">GameEngine</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span><span style="color: #990000">;</span>
+        
+        <span style="font-style: italic"><span style="color: #9A1900">//Add players</span></span>
+        window <span style="color: #990000">=</span> <span style="font-weight: bold"><span style="color: #0000FF">new</span></span> <span style="font-weight: bold"><span style="color: #000000">WindowPlayers</span></span><span style="color: #990000">(</span><span style="color: #990000">*</span>graphics<span style="color: #990000">,</span> <span style="color: #990000">*</span>sounds<span style="color: #990000">,</span> <span style="color: #990000">*</span>engine<span style="color: #990000">)</span><span style="color: #990000">;</span>
+        <span style="font-weight: bold"><span style="color: #0000FF">if</span></span> <span style="color: #990000">(</span>window <span style="color: #990000">=</span><span style="color: #990000">=</span> NULL<span style="color: #990000">)</span>
+            <span style="font-weight: bold"><span style="color: #0000FF">break</span></span><span style="color: #990000">;</span>
+        
+        <span style="font-weight: bold"><span style="color: #0000FF">if</span></span> <span style="color: #990000">(</span>window<span style="color: #990000">-</span><span style="color: #990000">&gt;</span><span style="font-weight: bold"><span style="color: #000000">open</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span> <span style="color: #990000">=</span><span style="color: #990000">=</span> <span style="color: #993399">0</span><span style="color: #990000">)</span> <span style="color: #FF0000">{</span>
+            <span style="font-weight: bold"><span style="color: #0000FF">delete</span></span> window<span style="color: #990000">;</span>
+            <span style="font-weight: bold"><span style="color: #0000FF">continue</span></span><span style="color: #990000">;</span>
+        <span style="color: #FF0000">}</span> <span style="font-weight: bold"><span style="color: #0000FF">else</span></span> <span style="color: #FF0000">{</span>
+            <span style="font-weight: bold"><span style="color: #0000FF">delete</span></span> window<span style="color: #990000">;</span>
+        <span style="color: #FF0000">}</span>
+        
+        <span style="font-weight: bold"><span style="color: #0000FF">while</span></span> <span style="color: #990000">(</span><span style="color: #993399">1</span><span style="color: #990000">)</span> <span style="color: #FF0000">{</span>
+            <span style="font-style: italic"><span style="color: #9A1900">//Create world</span></span>
+            window <span style="color: #990000">=</span> <span style="font-weight: bold"><span style="color: #0000FF">new</span></span> <span style="font-weight: bold"><span style="color: #000000">WindowCreateWorld</span></span><span style="color: #990000">(</span><span style="color: #990000">*</span>graphics<span style="color: #990000">,</span> <span style="color: #990000">*</span>sounds<span style="color: #990000">,</span> <span style="color: #990000">*</span>engine<span style="color: #990000">)</span><span style="color: #990000">;</span>
+            <span style="font-weight: bold"><span style="color: #0000FF">if</span></span> <span style="color: #990000">(</span>window <span style="color: #990000">=</span><span style="color: #990000">=</span> NULL<span style="color: #990000">)</span>
+                <span style="font-weight: bold"><span style="color: #0000FF">break</span></span><span style="color: #990000">;</span>
+            
+            <span style="font-weight: bold"><span style="color: #0000FF">if</span></span> <span style="color: #990000">(</span>window<span style="color: #990000">-</span><span style="color: #990000">&gt;</span><span style="font-weight: bold"><span style="color: #000000">open</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span> <span style="color: #990000">=</span><span style="color: #990000">=</span> <span style="color: #993399">0</span><span style="color: #990000">)</span> <span style="color: #FF0000">{</span>
+                <span style="font-weight: bold"><span style="color: #0000FF">delete</span></span> window<span style="color: #990000">;</span>
+                <span style="font-weight: bold"><span style="color: #0000FF">break</span></span><span style="color: #990000">;</span>
+            <span style="color: #FF0000">}</span> <span style="font-weight: bold"><span style="color: #0000FF">else</span></span> <span style="color: #FF0000">{</span>
+                <span style="font-weight: bold"><span style="color: #0000FF">delete</span></span> window<span style="color: #990000">;</span>
+            <span style="color: #FF0000">}</span>
+            
+            <span style="font-style: italic"><span style="color: #9A1900">//Select locations</span></span>
+            window <span style="color: #990000">=</span> <span style="font-weight: bold"><span style="color: #0000FF">new</span></span> <span style="font-weight: bold"><span style="color: #000000">WindowLocations</span></span><span style="color: #990000">(</span><span style="color: #990000">*</span>graphics<span style="color: #990000">,</span> <span style="color: #990000">*</span>sounds<span style="color: #990000">,</span> <span style="color: #990000">*</span>engine<span style="color: #990000">)</span><span style="color: #990000">;</span>
+            <span style="font-weight: bold"><span style="color: #0000FF">if</span></span> <span style="color: #990000">(</span>window <span style="color: #990000">=</span><span style="color: #990000">=</span> NULL<span style="color: #990000">)</span>
+                <span style="font-weight: bold"><span style="color: #0000FF">break</span></span><span style="color: #990000">;</span>
+            
+            <span style="font-weight: bold"><span style="color: #0000FF">if</span></span> <span style="color: #990000">(</span>window<span style="color: #990000">-</span><span style="color: #990000">&gt;</span><span style="font-weight: bold"><span style="color: #000000">open</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span> <span style="color: #990000">=</span><span style="color: #990000">=</span> <span style="color: #993399">0</span><span style="color: #990000">)</span> <span style="color: #FF0000">{</span>
+                <span style="font-weight: bold"><span style="color: #0000FF">delete</span></span> window<span style="color: #990000">;</span>
+                <span style="font-weight: bold"><span style="color: #0000FF">break</span></span><span style="color: #990000">;</span>
+            <span style="color: #FF0000">}</span> <span style="font-weight: bold"><span style="color: #0000FF">else</span></span> <span style="color: #FF0000">{</span>
+                <span style="font-weight: bold"><span style="color: #0000FF">delete</span></span> window<span style="color: #990000">;</span>
+            <span style="color: #FF0000">}</span>
+            
+            <span style="font-style: italic"><span style="color: #9A1900">//Shop window</span></span>
+            window <span style="color: #990000">=</span> <span style="font-weight: bold"><span style="color: #0000FF">new</span></span> <span style="font-weight: bold"><span style="color: #000000">WindowShop</span></span><span style="color: #990000">(</span><span style="color: #990000">*</span>graphics<span style="color: #990000">,</span> <span style="color: #990000">*</span>sounds<span style="color: #990000">,</span> <span style="color: #990000">*</span>engine<span style="color: #990000">)</span><span style="color: #990000">;</span>
+            <span style="font-weight: bold"><span style="color: #0000FF">if</span></span> <span style="color: #990000">(</span>window <span style="color: #990000">=</span><span style="color: #990000">=</span> NULL<span style="color: #990000">)</span>
+                <span style="font-weight: bold"><span style="color: #0000FF">break</span></span><span style="color: #990000">;</span>
+            
+            <span style="font-weight: bold"><span style="color: #0000FF">if</span></span> <span style="color: #990000">(</span>window<span style="color: #990000">-</span><span style="color: #990000">&gt;</span><span style="font-weight: bold"><span style="color: #000000">open</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span> <span style="color: #990000">=</span><span style="color: #990000">=</span> <span style="color: #993399">0</span><span style="color: #990000">)</span> <span style="color: #FF0000">{</span>
+                <span style="font-weight: bold"><span style="color: #0000FF">delete</span></span> window<span style="color: #990000">;</span>
+                <span style="font-weight: bold"><span style="color: #0000FF">break</span></span><span style="color: #990000">;</span>
+            <span style="color: #FF0000">}</span> <span style="font-weight: bold"><span style="color: #0000FF">else</span></span> <span style="color: #FF0000">{</span>
+                <span style="font-weight: bold"><span style="color: #0000FF">delete</span></span> window<span style="color: #990000">;</span>
+            <span style="color: #FF0000">}</span>
+            
+            <span style="font-style: italic"><span style="color: #9A1900">//Game window</span></span>
+            window <span style="color: #990000">=</span> <span style="font-weight: bold"><span style="color: #0000FF">new</span></span> <span style="font-weight: bold"><span style="color: #000000">WindowGame</span></span><span style="color: #990000">(</span><span style="color: #990000">*</span>graphics<span style="color: #990000">,</span> <span style="color: #990000">*</span>sounds<span style="color: #990000">,</span> <span style="color: #990000">*</span>engine<span style="color: #990000">)</span><span style="color: #990000">;</span>
+            <span style="font-weight: bold"><span style="color: #0000FF">if</span></span> <span style="color: #990000">(</span>window <span style="color: #990000">=</span><span style="color: #990000">=</span> NULL<span style="color: #990000">)</span>
+                <span style="font-weight: bold"><span style="color: #0000FF">break</span></span><span style="color: #990000">;</span>
+            
+            window<span style="color: #990000">-</span><span style="color: #990000">&gt;</span><span style="font-weight: bold"><span style="color: #000000">open</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span><span style="color: #990000">;</span>
+            <span style="font-weight: bold"><span style="color: #0000FF">delete</span></span> window<span style="color: #990000">;</span>
+            
+            <span style="font-style: italic"><span style="color: #9A1900">//Score window</span></span>
+            window <span style="color: #990000">=</span> <span style="font-weight: bold"><span style="color: #0000FF">new</span></span> <span style="font-weight: bold"><span style="color: #000000">WindowGameOver</span></span><span style="color: #990000">(</span><span style="color: #990000">*</span>graphics<span style="color: #990000">,</span> <span style="color: #990000">*</span>sounds<span style="color: #990000">,</span> <span style="color: #990000">*</span>engine<span style="color: #990000">)</span><span style="color: #990000">;</span>
+            <span style="font-weight: bold"><span style="color: #0000FF">if</span></span> <span style="color: #990000">(</span>window <span style="color: #990000">=</span><span style="color: #990000">=</span> NULL<span style="color: #990000">)</span>
+                <span style="font-weight: bold"><span style="color: #0000FF">break</span></span><span style="color: #990000">;</span>
+            
+            <span style="font-weight: bold"><span style="color: #0000FF">if</span></span> <span style="color: #990000">(</span>window<span style="color: #990000">-</span><span style="color: #990000">&gt;</span><span style="font-weight: bold"><span style="color: #000000">open</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span> <span style="color: #990000">=</span><span style="color: #990000">=</span> <span style="color: #993399">0</span><span style="color: #990000">)</span> <span style="color: #FF0000">{</span>
+                <span style="font-weight: bold"><span style="color: #0000FF">delete</span></span> window<span style="color: #990000">;</span>
+                <span style="font-weight: bold"><span style="color: #0000FF">break</span></span><span style="color: #990000">;</span>
+            <span style="color: #FF0000">}</span> <span style="font-weight: bold"><span style="color: #0000FF">else</span></span> <span style="color: #FF0000">{</span>
+                <span style="font-weight: bold"><span style="color: #0000FF">delete</span></span> window<span style="color: #990000">;</span>
+            <span style="color: #FF0000">}</span>
+        <span style="color: #FF0000">}</span>
+        
+        <span style="font-weight: bold"><span style="color: #0000FF">delete</span></span> engine<span style="color: #990000">;</span>
+    <span style="color: #FF0000">}</span>
+    
+    <span style="font-weight: bold"><span style="color: #0000FF">delete</span></span> graphics<span style="color: #990000">;</span>
+    <span style="font-weight: bold"><span style="color: #0000FF">delete</span></span> sounds<span style="color: #990000">;</span>
+    
+    <span style="font-weight: bold"><span style="color: #0000FF">return</span></span> EXIT_SUCCESS<span style="color: #990000">;</span>
+<span style="color: #FF0000">}</span>
+</tt></pre>

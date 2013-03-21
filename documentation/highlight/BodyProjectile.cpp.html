@@ -1,0 +1,93 @@
+<pre><tt>
+<span style="font-weight: bold"><span style="color: #000080">#include</span></span> <span style="color: #FF0000">"BodyProjectile.h"</span>
+<span style="font-weight: bold"><span style="color: #000080">#include</span></span> <span style="color: #FF0000">"images.h"</span>
+
+<span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * Constructs a new projectile in the world.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * @param world The world for the projectile.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * @param x     X-coordinate.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * @param y     Y-coordinate.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * @param shot  The actual shot.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> */</span></span>
+BodyProjectile<span style="color: #990000">:</span><span style="color: #990000">:</span><span style="font-weight: bold"><span style="color: #000000">BodyProjectile</span></span><span style="color: #990000">(</span> World <span style="color: #990000">&amp;</span>world<span style="color: #990000">,</span> <span style="color: #009900">float</span> x<span style="color: #990000">,</span> <span style="color: #009900">float</span> y<span style="color: #990000">,</span>
+                                Projectile <span style="color: #990000">&amp;</span>shot <span style="color: #990000">)</span>
+    <span style="color: #990000">:</span> <span style="font-weight: bold"><span style="color: #000000">BodyMovable</span></span><span style="color: #990000">(</span> world<span style="color: #990000">,</span> x<span style="color: #990000">,</span> y<span style="color: #990000">,</span> shot<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">getRadius</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span><span style="color: #990000">,</span> shot<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">getMass</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span><span style="color: #990000">,</span> <span style="font-weight: bold"><span style="color: #0000FF">false</span></span><span style="color: #990000">,</span>
+                   <span style="font-weight: bold"><span style="color: #0000FF">false</span></span><span style="color: #990000">,</span> <span style="font-weight: bold"><span style="color: #0000FF">false</span></span> <span style="color: #990000">)</span>
+<span style="color: #FF0000">{</span>
+    
+    <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>shot <span style="color: #990000">=</span> <span style="color: #990000">&amp;</span>shot<span style="color: #990000">;</span>
+    
+    <span style="font-weight: bold"><span style="color: #0000FF">if</span></span> <span style="color: #990000">(</span> <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>shot<span style="color: #990000">-</span><span style="color: #990000">&gt;</span><span style="font-weight: bold"><span style="color: #000000">getSprite</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span> <span style="color: #990000">&gt;</span><span style="color: #990000">=</span> <span style="color: #993399">0</span> <span style="color: #990000">)</span>
+        <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>image <span style="color: #990000">=</span> <span style="font-weight: bold"><span style="color: #0000FF">new</span></span> <span style="font-weight: bold"><span style="color: #000000">Sprite</span></span><span style="color: #990000">(</span> <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>shot<span style="color: #990000">-</span><span style="color: #990000">&gt;</span><span style="font-weight: bold"><span style="color: #000000">getSprite</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span> <span style="color: #990000">)</span><span style="color: #990000">;</span>
+    <span style="font-weight: bold"><span style="color: #0000FF">else</span></span>
+        <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>image <span style="color: #990000">=</span> NULL<span style="color: #990000">;</span>
+    
+<span style="color: #FF0000">}</span>
+
+<span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * Destructs the projectile.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> */</span></span>
+BodyProjectile<span style="color: #990000">:</span><span style="color: #990000">:</span><span style="color: #990000">~</span><span style="font-weight: bold"><span style="color: #000000">BodyProjectile</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span>
+<span style="color: #FF0000">{</span>
+    
+    <span style="font-style: italic"><span style="color: #9A1900">//Projectile clears the memory allocation of the shot "inside".</span></span>
+    <span style="font-weight: bold"><span style="color: #0000FF">delete</span></span> <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>shot<span style="color: #990000">;</span>
+
+    <span style="font-weight: bold"><span style="color: #0000FF">if</span></span> <span style="color: #990000">(</span><span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>image<span style="color: #990000">)</span><span style="color: #FF0000">{</span>
+      <span style="font-weight: bold"><span style="color: #0000FF">delete</span></span> <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>image<span style="color: #990000">;</span>
+    <span style="color: #FF0000">}</span>
+    
+<span style="color: #FF0000">}</span>
+
+<span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * Tells the phase of the projectile. That is the angle of the velocity in</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * scale 0-1.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * @return The phase (0-1).</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> */</span></span>
+<span style="color: #009900">float</span> BodyProjectile<span style="color: #990000">:</span><span style="color: #990000">:</span><span style="font-weight: bold"><span style="color: #000000">getPhase</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span> <span style="font-weight: bold"><span style="color: #0000FF">const</span></span>
+<span style="color: #FF0000">{</span>
+    
+    <span style="font-weight: bold"><span style="color: #0000FF">return</span></span> <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span><span style="font-weight: bold"><span style="color: #000000">getVelocity</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span><span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">getAngle</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span> <span style="color: #990000">/</span> <span style="color: #990000">(</span> <span style="color: #993399">2</span> <span style="color: #990000">*</span> M_PI <span style="color: #990000">)</span><span style="color: #990000">;</span>
+    
+<span style="color: #FF0000">}</span>
+
+<span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * Projectile takes a step.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * @param timestep Length of the step in ms.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> */</span></span>
+<span style="color: #009900">void</span> BodyProjectile<span style="color: #990000">:</span><span style="color: #990000">:</span><span style="font-weight: bold"><span style="color: #000000">step</span></span><span style="color: #990000">(</span> <span style="color: #009900">unsigned</span> <span style="color: #009900">int</span> timestep <span style="color: #990000">)</span>
+<span style="color: #FF0000">{</span>
+    
+    <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>shot<span style="color: #990000">-</span><span style="color: #990000">&gt;</span><span style="font-weight: bold"><span style="color: #000000">step</span></span><span style="color: #990000">(</span> timestep<span style="color: #990000">,</span> <span style="color: #990000">*</span><span style="font-weight: bold"><span style="color: #0000FF">this</span></span> <span style="color: #990000">)</span><span style="color: #990000">;</span>
+    
+    BodyMovable<span style="color: #990000">:</span><span style="color: #990000">:</span><span style="font-weight: bold"><span style="color: #000000">step</span></span><span style="color: #990000">(</span> timestep <span style="color: #990000">)</span><span style="color: #990000">;</span>
+    
+<span style="color: #FF0000">}</span>
+
+<span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * Simulates the collision.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * @param collidingBody The body to collide with.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> */</span></span>
+<span style="color: #009900">void</span> BodyProjectile<span style="color: #990000">:</span><span style="color: #990000">:</span><span style="font-weight: bold"><span style="color: #000000">collide</span></span><span style="color: #990000">(</span> Body <span style="color: #990000">&amp;</span>collidingBody <span style="color: #990000">)</span>
+<span style="color: #FF0000">{</span>
+    
+    <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>shot<span style="color: #990000">-</span><span style="color: #990000">&gt;</span><span style="font-weight: bold"><span style="color: #000000">collide</span></span><span style="color: #990000">(</span> <span style="color: #990000">*</span><span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">,</span> collidingBody <span style="color: #990000">)</span><span style="color: #990000">;</span>
+
+<span style="color: #FF0000">}</span>
+
+<span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * Does drawing.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * @param graphics The graphics object to draw to.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> */</span></span>
+<span style="color: #009900">void</span> BodyProjectile<span style="color: #990000">:</span><span style="color: #990000">:</span><span style="font-weight: bold"><span style="color: #000000">draw</span></span><span style="color: #990000">(</span> Graphics <span style="color: #990000">&amp;</span>graphics <span style="color: #990000">)</span>
+<span style="color: #FF0000">{</span>
+    
+    <span style="font-weight: bold"><span style="color: #0000FF">if</span></span> <span style="color: #990000">(</span> <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>image <span style="color: #990000">)</span> <span style="color: #FF0000">{</span>
+        
+        <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>image<span style="color: #990000">-</span><span style="color: #990000">&gt;</span><span style="font-weight: bold"><span style="color: #000000">setAngle</span></span><span style="color: #990000">(</span><span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span><span style="font-weight: bold"><span style="color: #000000">getVelocity</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span><span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">getAngle</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span><span style="color: #990000">)</span><span style="color: #990000">;</span>
+        <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>image<span style="color: #990000">-</span><span style="color: #990000">&gt;</span><span style="font-weight: bold"><span style="color: #000000">drawRotated</span></span><span style="color: #990000">(</span>graphics<span style="color: #990000">,</span> <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>location<span style="color: #990000">)</span><span style="color: #990000">;</span>
+        
+    <span style="color: #FF0000">}</span>
+    
+<span style="color: #FF0000">}</span>
+</tt></pre>

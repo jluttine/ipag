@@ -1,0 +1,324 @@
+<pre><tt>
+<span style="font-weight: bold"><span style="color: #000080">#include</span></span> <span style="color: #FF0000">&lt;math.h&gt;</span>
+<span style="font-weight: bold"><span style="color: #000080">#include</span></span> <span style="color: #FF0000">&lt;iostream&gt;</span>
+<span style="font-weight: bold"><span style="color: #000080">#include</span></span> <span style="color: #FF0000">"BodyCannon.h"</span>
+<span style="font-weight: bold"><span style="color: #000080">#include</span></span> <span style="color: #FF0000">"BodyProjectile.h"</span>
+<span style="font-weight: bold"><span style="color: #000080">#include</span></span> <span style="color: #FF0000">"BodyDebris.h"</span>
+<span style="font-weight: bold"><span style="color: #000080">#include</span></span> <span style="color: #FF0000">"Angle.h"</span>
+
+<span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * Constructs a new cannon.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * @param planet The planet which the cannon will be put on.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * @param angle  The angle on the planet.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * @param owner  The player to own the cannon. Note, the cannon is not given</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> *               to player by this function.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> */</span></span>
+BodyCannon<span style="color: #990000">:</span><span style="color: #990000">:</span><span style="font-weight: bold"><span style="color: #000000">BodyCannon</span></span><span style="color: #990000">(</span> BodyPlanet <span style="color: #990000">&amp;</span>planet<span style="color: #990000">,</span> <span style="color: #009900">float</span> angle<span style="color: #990000">,</span> Player <span style="color: #990000">&amp;</span>owner <span style="color: #990000">)</span>
+    <span style="color: #990000">:</span> <span style="font-weight: bold"><span style="color: #000000">Body</span></span><span style="color: #990000">(</span> planet<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">getWorld</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span><span style="color: #990000">,</span>
+            <span style="font-weight: bold"><span style="color: #000000">getLocationX</span></span><span style="color: #990000">(</span> planet<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">getLocation</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span><span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">getX</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span><span style="color: #990000">,</span> planet<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">getRadius</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span><span style="color: #990000">,</span>
+                          planet<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">getAngle</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span> <span style="color: #990000">+</span> angle <span style="color: #990000">)</span><span style="color: #990000">,</span>
+            <span style="font-weight: bold"><span style="color: #000000">getLocationY</span></span><span style="color: #990000">(</span> planet<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">getLocation</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span><span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">getY</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span><span style="color: #990000">,</span> planet<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">getRadius</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span><span style="color: #990000">,</span>
+                          planet<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">getAngle</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span> <span style="color: #990000">+</span> angle <span style="color: #990000">)</span><span style="color: #990000">,</span>
+            <span style="color: #990000">.</span><span style="color: #993399">0</span><span style="color: #990000">,</span> <span style="color: #990000">.</span><span style="color: #993399">0</span><span style="color: #990000">,</span> <span style="font-weight: bold"><span style="color: #0000FF">false</span></span><span style="color: #990000">,</span> <span style="font-weight: bold"><span style="color: #0000FF">true</span></span> <span style="color: #990000">)</span><span style="color: #990000">,</span>
+    <span style="font-weight: bold"><span style="color: #000000">owner</span></span><span style="color: #990000">(</span> owner <span style="color: #990000">)</span>
+<span style="color: #FF0000">{</span>
+
+    <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>planet <span style="color: #990000">=</span> <span style="color: #990000">&amp;</span>planet<span style="color: #990000">;</span>
+    <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>ruined <span style="color: #990000">=</span> <span style="font-weight: bold"><span style="color: #0000FF">false</span></span><span style="color: #990000">;</span>
+    <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>angleOnPlanet <span style="color: #990000">=</span> angle<span style="color: #990000">;</span>
+    <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>aimingAngle <span style="color: #990000">=</span> <span style="color: #993399">0</span><span style="color: #990000">;</span>
+    <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>aimingPower <span style="color: #990000">=</span> BodyCannon<span style="color: #990000">:</span><span style="color: #990000">:</span>minimumPower<span style="color: #990000">;</span>
+    <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>active <span style="color: #990000">=</span> <span style="font-weight: bold"><span style="color: #0000FF">false</span></span><span style="color: #990000">;</span>
+    
+<span style="color: #FF0000">}</span>
+
+<span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * Destructs the cannon.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> */</span></span>
+BodyCannon<span style="color: #990000">:</span><span style="color: #990000">:</span><span style="color: #990000">~</span><span style="font-weight: bold"><span style="color: #000000">BodyCannon</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span>
+<span style="color: #FF0000">{</span>
+    
+    <span style="font-style: italic"><span style="color: #9A1900">//Remove references to this cannon.</span></span>
+    <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>owner<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">removeCannon</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span><span style="color: #990000">;</span>
+    <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>planet<span style="color: #990000">-</span><span style="color: #990000">&gt;</span><span style="font-weight: bold"><span style="color: #000000">removeCannon</span></span><span style="color: #990000">(</span> <span style="color: #990000">*</span><span style="font-weight: bold"><span style="color: #0000FF">this</span></span> <span style="color: #990000">)</span><span style="color: #990000">;</span>
+
+<span style="color: #FF0000">}</span>
+
+<span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * Sets the planet of the cannon. If the planet is not from the same world</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * as the cannon, the request is ignored.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * @param planet The new planet for cannon.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> */</span></span>
+<span style="color: #009900">void</span> BodyCannon<span style="color: #990000">:</span><span style="color: #990000">:</span><span style="font-weight: bold"><span style="color: #000000">setPlanet</span></span><span style="color: #990000">(</span> BodyPlanet <span style="color: #990000">&amp;</span>planet <span style="color: #990000">)</span>
+<span style="color: #FF0000">{</span>
+    
+    <span style="font-weight: bold"><span style="color: #0000FF">if</span></span> <span style="color: #990000">(</span> <span style="color: #990000">&amp;</span>planet<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">getWorld</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span> <span style="color: #990000">=</span><span style="color: #990000">=</span> <span style="color: #990000">&amp;</span><span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>world <span style="color: #990000">)</span> <span style="color: #FF0000">{</span>
+        
+        <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>planet<span style="color: #990000">-</span><span style="color: #990000">&gt;</span><span style="font-weight: bold"><span style="color: #000000">removeCannon</span></span><span style="color: #990000">(</span> <span style="color: #990000">*</span><span style="font-weight: bold"><span style="color: #0000FF">this</span></span> <span style="color: #990000">)</span><span style="color: #990000">;</span>
+        <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>planet <span style="color: #990000">=</span> <span style="color: #990000">&amp;</span>planet<span style="color: #990000">;</span>
+        <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>planet<span style="color: #990000">-</span><span style="color: #990000">&gt;</span><span style="font-weight: bold"><span style="color: #000000">addCannon</span></span><span style="color: #990000">(</span> <span style="color: #990000">*</span><span style="font-weight: bold"><span style="color: #0000FF">this</span></span> <span style="color: #990000">)</span><span style="color: #990000">;</span>
+        <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span><span style="font-weight: bold"><span style="color: #000000">updateLocation</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span><span style="color: #990000">;</span>
+        
+    <span style="color: #FF0000">}</span>
+    
+<span style="color: #FF0000">}</span>
+
+<span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * Sets the angle of the cannon on the planet.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * @param angle Angle on planet (radius).</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> */</span></span>
+<span style="color: #009900">void</span> BodyCannon<span style="color: #990000">:</span><span style="color: #990000">:</span><span style="font-weight: bold"><span style="color: #000000">setAngleOnPlanet</span></span><span style="color: #990000">(</span> <span style="color: #009900">float</span> angle <span style="color: #990000">)</span>
+<span style="color: #FF0000">{</span>
+    
+    Angle<span style="color: #990000">:</span><span style="color: #990000">:</span><span style="font-weight: bold"><span style="color: #000000">fix</span></span><span style="color: #990000">(</span> angle <span style="color: #990000">)</span><span style="color: #990000">;</span>
+    <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>angleOnPlanet <span style="color: #990000">=</span> angle<span style="color: #990000">;</span>
+    <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span><span style="font-weight: bold"><span style="color: #000000">updateLocation</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span><span style="color: #990000">;</span>
+    
+<span style="color: #FF0000">}</span>
+
+<span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * Sets aiming angle (0-Pi).</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * @param angle The aiming angle.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> */</span></span>   
+<span style="color: #009900">void</span> BodyCannon<span style="color: #990000">:</span><span style="color: #990000">:</span><span style="font-weight: bold"><span style="color: #000000">setAimingAngle</span></span><span style="color: #990000">(</span> <span style="color: #009900">float</span> angle <span style="color: #990000">)</span>
+<span style="color: #FF0000">{</span>
+    
+    <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>world<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">playSound</span></span><span style="color: #990000">(</span>SOUND_TICK<span style="color: #990000">)</span><span style="color: #990000">;</span>
+    <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>aimingAngle <span style="color: #990000">=</span> angle<span style="color: #990000">;</span>
+    <span style="font-weight: bold"><span style="color: #000000">fix</span></span><span style="color: #990000">(</span> <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>aimingAngle<span style="color: #990000">,</span> M_PI <span style="color: #990000">)</span><span style="color: #990000">;</span>
+    
+<span style="color: #FF0000">}</span>
+
+<span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * Sets aiming power (minimumPower-maximumPower).</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * @param power The aiming power.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> */</span></span>
+<span style="color: #009900">void</span> BodyCannon<span style="color: #990000">:</span><span style="color: #990000">:</span><span style="font-weight: bold"><span style="color: #000000">setAimingPower</span></span><span style="color: #990000">(</span> <span style="color: #009900">float</span> power <span style="color: #990000">)</span>
+<span style="color: #FF0000">{</span>
+    
+    <span style="font-weight: bold"><span style="color: #0000FF">if</span></span> <span style="color: #990000">(</span> power <span style="color: #990000">&lt;</span> BodyCannon<span style="color: #990000">:</span><span style="color: #990000">:</span>minimumPower <span style="color: #990000">)</span>
+        power <span style="color: #990000">=</span> BodyCannon<span style="color: #990000">:</span><span style="color: #990000">:</span>minimumPower<span style="color: #990000">;</span>
+    <span style="font-weight: bold"><span style="color: #0000FF">else</span></span> <span style="font-weight: bold"><span style="color: #0000FF">if</span></span> <span style="color: #990000">(</span> power <span style="color: #990000">&gt;</span> BodyCannon<span style="color: #990000">:</span><span style="color: #990000">:</span>maximumPower <span style="color: #990000">)</span>
+        power <span style="color: #990000">=</span> BodyCannon<span style="color: #990000">:</span><span style="color: #990000">:</span>maximumPower<span style="color: #990000">;</span>
+
+    <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>world<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">playSound</span></span><span style="color: #990000">(</span>SOUND_TICK<span style="color: #990000">)</span><span style="color: #990000">;</span>
+    <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>aimingPower <span style="color: #990000">=</span> power<span style="color: #990000">;</span>
+    
+<span style="color: #FF0000">}</span>
+
+<span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * Shoots the given shot with the angle and power that has been set. The</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * memory allocation of the bullet will be freed by BodyProjectile.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * @param bullet The projectile to shoot.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> */</span></span>
+<span style="color: #009900">void</span> BodyCannon<span style="color: #990000">:</span><span style="color: #990000">:</span><span style="font-weight: bold"><span style="color: #000000">shoot</span></span><span style="color: #990000">(</span> Projectile <span style="color: #990000">&amp;</span>bullet <span style="color: #990000">)</span>
+<span style="color: #FF0000">{</span>
+    
+    <span style="font-weight: bold"><span style="color: #0000FF">const</span></span> Coordinates <span style="color: #990000">&amp;</span>location <span style="color: #990000">=</span> <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>planet<span style="color: #990000">-</span><span style="color: #990000">&gt;</span><span style="font-weight: bold"><span style="color: #000000">getLocation</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span><span style="color: #990000">;</span>
+    <span style="color: #009900">float</span> radius <span style="color: #990000">=</span> bullet<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">getRadius</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span> <span style="color: #990000">+</span> <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>planet<span style="color: #990000">-</span><span style="color: #990000">&gt;</span><span style="font-weight: bold"><span style="color: #000000">getRadius</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span><span style="color: #990000">;</span>
+    <span style="color: #009900">float</span> angle <span style="color: #990000">=</span> <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>angleOnPlanet <span style="color: #990000">+</span> <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>planet<span style="color: #990000">-</span><span style="color: #990000">&gt;</span><span style="font-weight: bold"><span style="color: #000000">getAngle</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span><span style="color: #990000">;</span>
+    
+    <span style="font-style: italic"><span style="color: #9A1900">//Make the shooting sound.</span></span>
+    <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>world<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">playSound</span></span><span style="color: #990000">(</span> bullet<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">getSound</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span> <span style="color: #990000">)</span><span style="color: #990000">;</span>
+    
+    <span style="font-style: italic"><span style="color: #9A1900">//Create the shot.</span></span>
+    BodyProjectile <span style="color: #990000">*</span>shot <span style="color: #990000">=</span>
+        <span style="font-weight: bold"><span style="color: #0000FF">new</span></span> <span style="font-weight: bold"><span style="color: #000000">BodyProjectile</span></span><span style="color: #990000">(</span> <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>world<span style="color: #990000">,</span>
+                          BodyCannon<span style="color: #990000">:</span><span style="color: #990000">:</span><span style="font-weight: bold"><span style="color: #000000">getLocationX</span></span><span style="color: #990000">(</span> location<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">getX</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span><span style="color: #990000">,</span> radius<span style="color: #990000">,</span>
+                                                    angle <span style="color: #990000">)</span><span style="color: #990000">,</span>
+                          BodyCannon<span style="color: #990000">:</span><span style="color: #990000">:</span><span style="font-weight: bold"><span style="color: #000000">getLocationY</span></span><span style="color: #990000">(</span> location<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">getY</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span><span style="color: #990000">,</span> radius<span style="color: #990000">,</span>
+                                                    angle <span style="color: #990000">)</span><span style="color: #990000">,</span>
+                          bullet <span style="color: #990000">)</span><span style="color: #990000">;</span>
+
+    <span style="font-style: italic"><span style="color: #9A1900">//Set the velocity of the shot.</span></span>
+    angle <span style="color: #990000">+</span><span style="color: #990000">=</span> <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>aimingAngle <span style="color: #990000">-</span> M_PI <span style="color: #990000">/</span> <span style="color: #993399">2</span><span style="color: #990000">;</span>
+    shot<span style="color: #990000">-</span><span style="color: #990000">&gt;</span><span style="font-weight: bold"><span style="color: #000000">setVelocity</span></span><span style="color: #990000">(</span> <span style="font-weight: bold"><span style="color: #000000">cos</span></span><span style="color: #990000">(</span> angle <span style="color: #990000">)</span> <span style="color: #990000">*</span> <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>aimingPower<span style="color: #990000">,</span>
+                       <span style="font-weight: bold"><span style="color: #000000">sin</span></span><span style="color: #990000">(</span> angle <span style="color: #990000">)</span> <span style="color: #990000">*</span> <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>aimingPower <span style="color: #990000">)</span><span style="color: #990000">;</span>
+    
+    <span style="font-style: italic"><span style="color: #9A1900">//Add action body into world.</span></span>
+    shot<span style="color: #990000">-</span><span style="color: #990000">&gt;</span><span style="font-weight: bold"><span style="color: #000000">setActionFlag</span></span><span style="color: #990000">(</span> <span style="font-weight: bold"><span style="color: #0000FF">true</span></span> <span style="color: #990000">)</span><span style="color: #990000">;</span>
+    <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>world<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">addBody</span></span><span style="color: #990000">(</span> <span style="color: #990000">*</span>shot <span style="color: #990000">)</span><span style="color: #990000">;</span>
+    
+<span style="color: #FF0000">}</span>
+
+<span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * Updates the location of the cannon using the location of the planet and</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * cannon's angle on the planet.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> */</span></span>
+<span style="color: #009900">void</span> BodyCannon<span style="color: #990000">:</span><span style="color: #990000">:</span><span style="font-weight: bold"><span style="color: #000000">updateLocation</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span>
+<span style="color: #FF0000">{</span>
+
+    <span style="font-weight: bold"><span style="color: #0000FF">if</span></span> <span style="color: #990000">(</span> <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>planet<span style="color: #990000">-</span><span style="color: #990000">&gt;</span><span style="font-weight: bold"><span style="color: #000000">isDestroyed</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span> <span style="color: #990000">)</span> <span style="color: #FF0000">{</span>
+        
+        <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span><span style="font-weight: bold"><span style="color: #000000">destroy</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span><span style="color: #990000">;</span>
+        
+    <span style="color: #FF0000">}</span>
+    <span style="font-weight: bold"><span style="color: #0000FF">else</span></span> <span style="color: #FF0000">{</span>
+        
+        BodyCannon<span style="color: #990000">:</span><span style="color: #990000">:</span><span style="font-weight: bold"><span style="color: #000000">calculateLocation</span></span><span style="color: #990000">(</span> <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>location<span style="color: #990000">,</span> <span style="color: #990000">*</span><span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>planet<span style="color: #990000">,</span>
+                                       <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>angleOnPlanet <span style="color: #990000">)</span><span style="color: #990000">;</span>
+    
+    <span style="color: #FF0000">}</span>
+    
+<span style="color: #FF0000">}</span>
+
+<span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * Ruins the cannon.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> */</span></span>
+<span style="color: #009900">void</span> BodyCannon<span style="color: #990000">:</span><span style="color: #990000">:</span><span style="font-weight: bold"><span style="color: #000000">ruin</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span>
+<span style="color: #FF0000">{</span>
+    
+    <span style="font-weight: bold"><span style="color: #0000FF">if</span></span> <span style="color: #990000">(</span> <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>ruined <span style="color: #990000">)</span>
+        <span style="font-weight: bold"><span style="color: #0000FF">return</span></span><span style="color: #990000">;</span>
+    
+    <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>ruined <span style="color: #990000">=</span> <span style="font-weight: bold"><span style="color: #0000FF">true</span></span><span style="color: #990000">;</span>
+    
+    <span style="font-style: italic"><span style="color: #9A1900">//Shoot some debris in the air</span></span>
+    <span style="font-weight: bold"><span style="color: #0000FF">const</span></span> Coordinates <span style="color: #990000">&amp;</span>location <span style="color: #990000">=</span> <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>planet<span style="color: #990000">-</span><span style="color: #990000">&gt;</span><span style="font-weight: bold"><span style="color: #000000">getLocation</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span><span style="color: #990000">;</span>
+    <span style="color: #009900">float</span> radius <span style="color: #990000">=</span> <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>planet<span style="color: #990000">-</span><span style="color: #990000">&gt;</span><span style="font-weight: bold"><span style="color: #000000">getRadius</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span> <span style="color: #990000">+</span> <span style="color: #993399">5</span><span style="color: #990000">;</span>
+    <span style="color: #009900">float</span> baseAngle <span style="color: #990000">=</span> <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>angleOnPlanet <span style="color: #990000">+</span> <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>planet<span style="color: #990000">-</span><span style="color: #990000">&gt;</span><span style="font-weight: bold"><span style="color: #000000">getAngle</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span><span style="color: #990000">;</span>
+    <span style="color: #009900">float</span> angle<span style="color: #990000">,</span> power<span style="color: #990000">;</span>
+    
+    <span style="font-weight: bold"><span style="color: #0000FF">for</span></span> <span style="color: #990000">(</span><span style="color: #009900">int</span> i<span style="color: #990000">=</span><span style="color: #993399">0</span><span style="color: #990000">;</span> i<span style="color: #990000">&lt;</span><span style="color: #993399">20</span><span style="color: #990000">;</span> i<span style="color: #990000">+</span><span style="color: #990000">+</span><span style="color: #990000">)</span> <span style="color: #FF0000">{</span>
+        
+        BodyDebris <span style="color: #990000">*</span>debris <span style="color: #990000">=</span>
+            <span style="font-weight: bold"><span style="color: #0000FF">new</span></span> <span style="font-weight: bold"><span style="color: #000000">BodyDebris</span></span><span style="color: #990000">(</span> <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>world<span style="color: #990000">,</span>
+                          <span style="font-weight: bold"><span style="color: #000000">getLocationX</span></span><span style="color: #990000">(</span>location<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">getX</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span><span style="color: #990000">,</span> radius<span style="color: #990000">,</span> baseAngle<span style="color: #990000">)</span><span style="color: #990000">,</span>
+                          <span style="font-weight: bold"><span style="color: #000000">getLocationY</span></span><span style="color: #990000">(</span> location<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">getY</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span><span style="color: #990000">,</span> radius<span style="color: #990000">,</span> baseAngle<span style="color: #990000">)</span><span style="color: #990000">,</span>
+                          <span style="color: #990000">.</span><span style="color: #993399">5</span><span style="color: #990000">)</span><span style="color: #990000">;</span>          
+                                             
+        angle <span style="color: #990000">=</span> baseAngle <span style="color: #990000">+</span> <span style="color: #990000">(</span><span style="color: #009900">float</span><span style="color: #990000">)</span><span style="font-weight: bold"><span style="color: #000000">rand</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span> <span style="color: #990000">/</span> RAND_MAX <span style="color: #990000">*</span> M_PI <span style="color: #990000">-</span> M_PI <span style="color: #990000">/</span> <span style="color: #993399">2</span><span style="color: #990000">;</span>
+        power <span style="color: #990000">=</span> <span style="color: #990000">.</span><span style="color: #993399">20</span> <span style="color: #990000">+</span> <span style="color: #990000">(</span><span style="color: #009900">float</span><span style="color: #990000">)</span><span style="font-weight: bold"><span style="color: #000000">rand</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span> <span style="color: #990000">/</span> RAND_MAX <span style="color: #990000">*</span> <span style="color: #990000">.</span><span style="color: #993399">20</span><span style="color: #990000">;</span>
+        
+        debris<span style="color: #990000">-</span><span style="color: #990000">&gt;</span><span style="font-weight: bold"><span style="color: #000000">setVelocity</span></span><span style="color: #990000">(</span><span style="font-weight: bold"><span style="color: #000000">cos</span></span><span style="color: #990000">(</span>angle<span style="color: #990000">)</span> <span style="color: #990000">*</span> power<span style="color: #990000">,</span> <span style="font-weight: bold"><span style="color: #000000">sin</span></span><span style="color: #990000">(</span>angle<span style="color: #990000">)</span> <span style="color: #990000">*</span> power<span style="color: #990000">)</span><span style="color: #990000">;</span>
+        debris<span style="color: #990000">-</span><span style="color: #990000">&gt;</span><span style="font-weight: bold"><span style="color: #000000">setActionFlag</span></span><span style="color: #990000">(</span><span style="font-weight: bold"><span style="color: #0000FF">true</span></span><span style="color: #990000">)</span><span style="color: #990000">;</span>
+        
+        <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>world<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">addBody</span></span><span style="color: #990000">(</span><span style="color: #990000">*</span>debris<span style="color: #990000">)</span><span style="color: #990000">;</span>
+        
+    <span style="color: #FF0000">}</span>
+    
+<span style="color: #FF0000">}</span>
+
+<span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * Visualizes the cannon to the given graphics system. Also draws energy bar</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * and sight if active.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * @param graphics The graphics system.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> */</span></span>
+<span style="color: #009900">void</span> BodyCannon<span style="color: #990000">:</span><span style="color: #990000">:</span><span style="font-weight: bold"><span style="color: #000000">draw</span></span><span style="color: #990000">(</span>Graphics <span style="color: #990000">&amp;</span>graphics<span style="color: #990000">)</span>
+<span style="color: #FF0000">{</span>
+    <span style="font-weight: bold"><span style="color: #0000FF">if</span></span> <span style="color: #990000">(</span> <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>ruined <span style="color: #990000">)</span>
+        graphics<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">drawRect</span></span><span style="color: #990000">(</span>location<span style="color: #990000">,</span> <span style="color: #993399">7</span><span style="color: #990000">,</span> <span style="color: #993399">7</span><span style="color: #990000">,</span> <span style="color: #993399">64</span><span style="color: #990000">,</span> <span style="color: #993399">64</span><span style="color: #990000">,</span> <span style="color: #993399">64</span><span style="color: #990000">)</span><span style="color: #990000">;</span>
+    <span style="font-weight: bold"><span style="color: #0000FF">else</span></span> <span style="color: #FF0000">{</span>
+        
+        <span style="color: #009900">unsigned</span> <span style="color: #009900">char</span> r<span style="color: #990000">,</span> g<span style="color: #990000">,</span> b<span style="color: #990000">;</span>
+        
+        <span style="font-style: italic"><span style="color: #9A1900">//The cannon itself</span></span>
+        <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>owner<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">getColor</span></span><span style="color: #990000">(</span> r<span style="color: #990000">,</span> g<span style="color: #990000">,</span> b <span style="color: #990000">)</span><span style="color: #990000">;</span>
+        graphics<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">drawRect</span></span><span style="color: #990000">(</span>location<span style="color: #990000">,</span> <span style="color: #993399">7</span><span style="color: #990000">,</span> <span style="color: #993399">7</span><span style="color: #990000">,</span> r<span style="color: #990000">,</span> g<span style="color: #990000">,</span> b<span style="color: #990000">)</span><span style="color: #990000">;</span>
+        
+        <span style="font-style: italic"><span style="color: #9A1900">//Enegry bar location</span></span>
+        <span style="color: #009900">float</span> angle <span style="color: #990000">=</span> <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>angleOnPlanet <span style="color: #990000">+</span> <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>planet<span style="color: #990000">-</span><span style="color: #990000">&gt;</span><span style="font-weight: bold"><span style="color: #000000">getAngle</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span> <span style="color: #990000">+</span> M_PI<span style="color: #990000">;</span>
+        Coordinates <span style="font-weight: bold"><span style="color: #000000">energyBar</span></span><span style="color: #990000">(</span><span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>location<span style="color: #990000">)</span><span style="color: #990000">;</span>
+        energyBar<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">add</span></span><span style="color: #990000">(</span><span style="font-weight: bold"><span style="color: #000000">cos</span></span><span style="color: #990000">(</span>angle<span style="color: #990000">)</span> <span style="color: #990000">*</span> <span style="color: #993399">10</span><span style="color: #990000">,</span> <span style="font-weight: bold"><span style="color: #000000">sin</span></span><span style="color: #990000">(</span>angle<span style="color: #990000">)</span> <span style="color: #990000">*</span> <span style="color: #993399">10</span><span style="color: #990000">)</span><span style="color: #990000">;</span>
+        
+        <span style="font-style: italic"><span style="color: #9A1900">//Energy bar color</span></span>
+        <span style="color: #009900">int</span> red<span style="color: #990000">,</span> green<span style="color: #990000">;</span>
+        <span style="color: #009900">float</span> i <span style="color: #990000">=</span> owner<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">getIntegrity</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span><span style="color: #990000">;</span>
+        red <span style="color: #990000">=</span> <span style="color: #990000">(</span><span style="color: #009900">int</span><span style="color: #990000">)</span><span style="color: #990000">(</span><span style="color: #993399">512</span> <span style="color: #990000">-</span> i <span style="color: #990000">*</span> <span style="color: #993399">5.12</span><span style="color: #990000">)</span><span style="color: #990000">;</span>
+        green <span style="color: #990000">=</span> <span style="color: #990000">(</span><span style="color: #009900">int</span><span style="color: #990000">)</span><span style="color: #990000">(</span>i <span style="color: #990000">*</span> <span style="color: #993399">5.12</span><span style="color: #990000">)</span><span style="color: #990000">;</span>
+        
+        red <span style="color: #990000">=</span> red <span style="color: #990000">&gt;</span> <span style="color: #993399">255</span> <span style="color: #990000">?</span> <span style="color: #993399">255</span> <span style="color: #990000">:</span> red<span style="color: #990000">;</span>  <span style="font-style: italic"><span style="color: #9A1900">//R max = 255</span></span>
+        red <span style="color: #990000">=</span> red <span style="color: #990000">&lt;</span> <span style="color: #993399">0</span> <span style="color: #990000">?</span> <span style="color: #993399">0</span> <span style="color: #990000">:</span> red<span style="color: #990000">;</span>      <span style="font-style: italic"><span style="color: #9A1900">//R min = 0</span></span>
+        green <span style="color: #990000">=</span> green <span style="color: #990000">&gt;</span> <span style="color: #993399">255</span> <span style="color: #990000">?</span> <span style="color: #993399">255</span> <span style="color: #990000">:</span> green<span style="color: #990000">;</span>  <span style="font-style: italic"><span style="color: #9A1900">//G max = 255</span></span>
+        green <span style="color: #990000">=</span> green <span style="color: #990000">&lt;</span> <span style="color: #993399">0</span> <span style="color: #990000">?</span> <span style="color: #993399">0</span> <span style="color: #990000">:</span> green<span style="color: #990000">;</span>      <span style="font-style: italic"><span style="color: #9A1900">//G min = 0</span></span>
+        
+        <span style="font-style: italic"><span style="color: #9A1900">//Draw energy bar</span></span>
+        graphics<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">drawRect</span></span><span style="color: #990000">(</span>energyBar<span style="color: #990000">,</span> <span style="color: #993399">4</span><span style="color: #990000">,</span> <span style="color: #993399">4</span><span style="color: #990000">,</span> red<span style="color: #990000">,</span> green<span style="color: #990000">,</span> <span style="color: #993399">0</span><span style="color: #990000">)</span><span style="color: #990000">;</span>
+    <span style="color: #FF0000">}</span>
+    
+    
+    <span style="font-weight: bold"><span style="color: #0000FF">if</span></span> <span style="color: #990000">(</span> <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>active <span style="color: #990000">)</span> <span style="color: #FF0000">{</span>
+    
+        <span style="color: #009900">float</span> angle <span style="color: #990000">=</span> <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>aimingAngle <span style="color: #990000">+</span> <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>angleOnPlanet
+                      <span style="color: #990000">+</span> <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>planet<span style="color: #990000">-</span><span style="color: #990000">&gt;</span><span style="font-weight: bold"><span style="color: #000000">getAngle</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span> <span style="color: #990000">-</span> M_PI <span style="color: #990000">/</span> <span style="color: #993399">2</span><span style="color: #990000">;</span>
+        
+        Coordinates <span style="font-weight: bold"><span style="color: #000000">aim1</span></span><span style="color: #990000">(</span><span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>location<span style="color: #990000">)</span><span style="color: #990000">;</span>
+        Coordinates <span style="font-weight: bold"><span style="color: #000000">aim2</span></span><span style="color: #990000">(</span><span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>location<span style="color: #990000">)</span><span style="color: #990000">;</span>
+        aim1<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">add</span></span><span style="color: #990000">(</span><span style="font-weight: bold"><span style="color: #000000">cos</span></span><span style="color: #990000">(</span>angle<span style="color: #990000">)</span> <span style="color: #990000">*</span> aimingPower <span style="color: #990000">*</span> <span style="color: #993399">60</span><span style="color: #990000">,</span> <span style="font-weight: bold"><span style="color: #000000">sin</span></span><span style="color: #990000">(</span>angle<span style="color: #990000">)</span> <span style="color: #990000">*</span> aimingPower <span style="color: #990000">*</span> <span style="color: #993399">60</span><span style="color: #990000">)</span><span style="color: #990000">;</span>
+        aim2<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">add</span></span><span style="color: #990000">(</span><span style="font-weight: bold"><span style="color: #000000">cos</span></span><span style="color: #990000">(</span>angle<span style="color: #990000">)</span> <span style="color: #990000">*</span> aimingPower <span style="color: #990000">*</span> <span style="color: #993399">120</span><span style="color: #990000">,</span> <span style="font-weight: bold"><span style="color: #000000">sin</span></span><span style="color: #990000">(</span>angle<span style="color: #990000">)</span> <span style="color: #990000">*</span> aimingPower <span style="color: #990000">*</span><span style="color: #993399">120</span><span style="color: #990000">)</span><span style="color: #990000">;</span>
+        
+        graphics<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">drawSprite</span></span><span style="color: #990000">(</span>IMAGE_CROSSHAIR<span style="color: #990000">,</span> aim1<span style="color: #990000">)</span><span style="color: #990000">;</span>
+        graphics<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">drawSprite</span></span><span style="color: #990000">(</span>IMAGE_CROSSHAIR<span style="color: #990000">,</span> aim2<span style="color: #990000">)</span><span style="color: #990000">;</span>
+    <span style="color: #FF0000">}</span>
+<span style="color: #FF0000">}</span>
+
+
+
+<span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * Returns the x-coordinate of the cannon. x is the x-coordinate of circle's</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * center point. radius is the radius of the circle. angle is the angle of</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * cannon's location. </span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * @param x      X-coordinate of the circle.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * @param radius Radius of the circle.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * @param angle  Angle to point on surface.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> */</span></span>
+<span style="color: #009900">float</span> BodyCannon<span style="color: #990000">:</span><span style="color: #990000">:</span><span style="font-weight: bold"><span style="color: #000000">getLocationX</span></span><span style="color: #990000">(</span> <span style="color: #009900">float</span> x<span style="color: #990000">,</span> <span style="color: #009900">float</span> radius<span style="color: #990000">,</span> <span style="color: #009900">float</span> angle <span style="color: #990000">)</span>
+<span style="color: #FF0000">{</span>
+    
+    <span style="font-weight: bold"><span style="color: #0000FF">return</span></span> x <span style="color: #990000">+</span> <span style="font-weight: bold"><span style="color: #000000">cos</span></span><span style="color: #990000">(</span> angle <span style="color: #990000">)</span> <span style="color: #990000">*</span> radius<span style="color: #990000">;</span>
+    
+<span style="color: #FF0000">}</span>
+
+<span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * Returns the y-coordinate of the cannon. y is the y-coordinate of circle's</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * center point. radius is the radius of the circle. angle is the angle of</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * cannon's location. </span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * @param y      Y-coordinate of the circle.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * @param radius Radius of the circle.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * @param angle  Angle to point on surface.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> */</span></span>
+<span style="color: #009900">float</span> BodyCannon<span style="color: #990000">:</span><span style="color: #990000">:</span><span style="font-weight: bold"><span style="color: #000000">getLocationY</span></span><span style="color: #990000">(</span> <span style="color: #009900">float</span> y<span style="color: #990000">,</span> <span style="color: #009900">float</span> radius<span style="color: #990000">,</span> <span style="color: #009900">float</span> angle <span style="color: #990000">)</span>
+<span style="color: #FF0000">{</span>
+    
+    <span style="font-weight: bold"><span style="color: #0000FF">return</span></span> y <span style="color: #990000">+</span> <span style="font-weight: bold"><span style="color: #000000">sin</span></span><span style="color: #990000">(</span> angle <span style="color: #990000">)</span> <span style="color: #990000">*</span> radius<span style="color: #990000">;</span>
+    
+<span style="color: #FF0000">}</span>
+
+<span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * Fixes the number to 0-max. For example, -2 -&gt; max-2, 2*max+1 -&gt; 1.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> */</span></span>
+<span style="color: #009900">void</span> BodyCannon<span style="color: #990000">:</span><span style="color: #990000">:</span><span style="font-weight: bold"><span style="color: #000000">fix</span></span><span style="color: #990000">(</span> <span style="color: #009900">float</span> <span style="color: #990000">&amp;</span>number<span style="color: #990000">,</span> <span style="color: #009900">float</span> max <span style="color: #990000">)</span>
+<span style="color: #FF0000">{</span>   
+
+    number <span style="color: #990000">=</span> <span style="font-weight: bold"><span style="color: #000000">fmod</span></span><span style="color: #990000">(</span> number<span style="color: #990000">,</span> max <span style="color: #990000">)</span><span style="color: #990000">;</span>   
+
+    <span style="font-weight: bold"><span style="color: #0000FF">if</span></span> <span style="color: #990000">(</span>number <span style="color: #990000">&lt;</span> <span style="color: #993399">0</span> <span style="color: #990000">)</span>
+        number <span style="color: #990000">+</span><span style="color: #990000">=</span> max<span style="color: #990000">;</span>
+
+<span style="color: #FF0000">}</span>
+
+<span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * Calculates the coordinates on the surface of a planet. The angle is</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * given.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * @param location      The coordinates to store the location.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * @param planet        The planet.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * @param angleOnPlanet Angle on planet (radius).</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> */</span></span>
+<span style="color: #009900">void</span> BodyCannon<span style="color: #990000">:</span><span style="color: #990000">:</span><span style="font-weight: bold"><span style="color: #000000">calculateLocation</span></span><span style="color: #990000">(</span> Coordinates <span style="color: #990000">&amp;</span>location<span style="color: #990000">,</span>
+                                    <span style="font-weight: bold"><span style="color: #0000FF">const</span></span> BodyPlanet <span style="color: #990000">&amp;</span>planet<span style="color: #990000">,</span>
+                                    <span style="color: #009900">float</span> angleOnPlanet <span style="color: #990000">)</span>
+<span style="color: #FF0000">{</span>
+    
+    location <span style="color: #990000">=</span> planet<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">getLocation</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span><span style="color: #990000">;</span>
+    <span style="color: #009900">float</span> angle <span style="color: #990000">=</span> angleOnPlanet <span style="color: #990000">+</span> planet<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">getAngle</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span><span style="color: #990000">;</span>
+        
+    location<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">set</span></span><span style="color: #990000">(</span> BodyCannon<span style="color: #990000">:</span><span style="color: #990000">:</span><span style="font-weight: bold"><span style="color: #000000">getLocationX</span></span><span style="color: #990000">(</span> location<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">getX</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span><span style="color: #990000">,</span>
+                                            planet<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">getRadius</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span><span style="color: #990000">,</span>
+                                            angle <span style="color: #990000">)</span><span style="color: #990000">,</span>
+                  BodyCannon<span style="color: #990000">:</span><span style="color: #990000">:</span><span style="font-weight: bold"><span style="color: #000000">getLocationY</span></span><span style="color: #990000">(</span> location<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">getY</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span><span style="color: #990000">,</span>
+                                            planet<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">getRadius</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span><span style="color: #990000">,</span>
+                                            angle <span style="color: #990000">)</span> <span style="color: #990000">)</span><span style="color: #990000">;</span>
+    
+<span style="color: #FF0000">}</span>
+
+</tt></pre>

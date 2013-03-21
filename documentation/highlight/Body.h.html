@@ -1,0 +1,249 @@
+<pre><tt>
+<span style="font-weight: bold"><span style="color: #000080">#ifndef</span></span> _BODY_H_
+<span style="font-weight: bold"><span style="color: #000080">#define</span></span> _BODY_H_
+
+<span style="font-weight: bold"><span style="color: #0000FF">class</span></span> Body<span style="color: #990000">;</span>
+
+<span style="font-weight: bold"><span style="color: #000080">#include</span></span> <span style="color: #FF0000">"Coordinates.h"</span>
+<span style="font-weight: bold"><span style="color: #000080">#include</span></span> <span style="color: #FF0000">"World.h"</span>
+<span style="font-weight: bold"><span style="color: #000080">#include</span></span> <span style="color: #FF0000">"Graphics.h"</span>
+
+<span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * Author: Jaakko Luttinen</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * Body is a class for all the bodies in the world. All bodies are</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * considered as circle shaped. Bodies can have mass and they can emit</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * gravitational field. Body is always in some world and it cannot be</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * changed. World will clean the memory allocation of the body. Body has a</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * visualization.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> */</span></span>
+<span style="font-weight: bold"><span style="color: #0000FF">class</span></span> Body
+<span style="color: #FF0000">{</span>
+
+<span style="font-weight: bold"><span style="color: #0000FF">public</span></span><span style="color: #990000">:</span>
+
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Constructs a new body.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @param world           The world which the body will be put into. Note,</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     *                        constructor does NOT add the body into the world</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     *                        automatically.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @param x               X-coordinate of the body's center in the world.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @param y               Y-coordinate of the body's center in the world.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @param radius          The radius of the body.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @param mass            The mass of the body.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @param emitGravitation Tells whether body emits gravitational field.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @param collidable      Tells whether body is collidable.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="font-weight: bold"><span style="color: #000000">Body</span></span><span style="color: #990000">(</span> World <span style="color: #990000">&amp;</span>world<span style="color: #990000">,</span> <span style="color: #009900">float</span> x<span style="color: #990000">,</span> <span style="color: #009900">float</span> y<span style="color: #990000">,</span> <span style="color: #009900">float</span> radius<span style="color: #990000">,</span> <span style="color: #009900">float</span> mass<span style="color: #990000">,</span>
+          <span style="color: #009900">bool</span> emitGravitation<span style="color: #990000">,</span> <span style="color: #009900">bool</span> collidable <span style="color: #990000">)</span><span style="color: #990000">;</span>
+    
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Destructs the body.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="font-weight: bold"><span style="color: #0000FF">virtual</span></span> <span style="color: #990000">~</span><span style="font-weight: bold"><span style="color: #000000">Body</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span><span style="color: #990000">;</span>
+    
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Body cannot remove itself from the world, so it must raise a flag which</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * will be read by the world. World then removes the body and frees body's</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * memory allocation.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="font-weight: bold"><span style="color: #0000FF">inline</span></span> <span style="font-weight: bold"><span style="color: #0000FF">virtual</span></span> <span style="color: #009900">void</span> <span style="font-weight: bold"><span style="color: #000000">destroy</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span>  <span style="color: #FF0000">{</span> <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>destroyed <span style="color: #990000">=</span> <span style="font-weight: bold"><span style="color: #0000FF">true</span></span><span style="color: #990000">;</span> <span style="color: #FF0000">}</span><span style="color: #990000">;</span>
+
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Tells whether the body is destroyed and should be removed from the</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * world.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @return Tells whether the body is destroyed.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>   
+    <span style="font-weight: bold"><span style="color: #0000FF">inline</span></span> <span style="color: #009900">bool</span> <span style="font-weight: bold"><span style="color: #000000">isDestroyed</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span> <span style="font-weight: bold"><span style="color: #0000FF">const</span></span>  <span style="color: #FF0000">{</span> <span style="font-weight: bold"><span style="color: #0000FF">return</span></span> <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>destroyed<span style="color: #990000">;</span> <span style="color: #FF0000">}</span><span style="color: #990000">;</span>
+
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Game engine may use action flag to determine whether the body is an</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * action body and should be waited to finish its action. After all action</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * bodies are destroyed the game itself will continue.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @param action Tells whether the body is an action body.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="font-weight: bold"><span style="color: #0000FF">inline</span></span> <span style="color: #009900">void</span> <span style="font-weight: bold"><span style="color: #000000">setActionFlag</span></span><span style="color: #990000">(</span> <span style="color: #009900">bool</span> action <span style="color: #990000">)</span>  <span style="color: #FF0000">{</span> <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>actionFlag <span style="color: #990000">=</span> action<span style="color: #990000">;</span> <span style="color: #FF0000">}</span><span style="color: #990000">;</span>
+    
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Tells whether the body has action flag set.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @return Tells whether body has action flag set.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="font-weight: bold"><span style="color: #0000FF">inline</span></span> <span style="color: #009900">bool</span> <span style="font-weight: bold"><span style="color: #000000">getActionFlag</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span> <span style="font-weight: bold"><span style="color: #0000FF">const</span></span>  <span style="color: #FF0000">{</span> <span style="font-weight: bold"><span style="color: #0000FF">return</span></span> <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>actionFlag<span style="color: #990000">;</span> <span style="color: #FF0000">}</span><span style="color: #990000">;</span>
+
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Two bodies may collide only if the other or both bodies are collidable.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * No collision will occur if both are non-collidable.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @param collidable Tells whether the body is collidable.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="font-weight: bold"><span style="color: #0000FF">inline</span></span> <span style="color: #009900">void</span> <span style="font-weight: bold"><span style="color: #000000">setCollidable</span></span><span style="color: #990000">(</span> <span style="color: #009900">bool</span> collidable <span style="color: #990000">)</span>
+        <span style="color: #FF0000">{</span> <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>collidable <span style="color: #990000">=</span> collidable<span style="color: #990000">;</span> <span style="color: #FF0000">}</span><span style="color: #990000">;</span>
+    
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Tells whether the body is collidable.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @return Tells whether the body is collidable.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="font-weight: bold"><span style="color: #0000FF">inline</span></span> <span style="color: #009900">bool</span> <span style="font-weight: bold"><span style="color: #000000">isCollidable</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span> <span style="font-weight: bold"><span style="color: #0000FF">const</span></span>  <span style="color: #FF0000">{</span> <span style="font-weight: bold"><span style="color: #0000FF">return</span></span> <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>collidable<span style="color: #990000">;</span> <span style="color: #FF0000">}</span><span style="color: #990000">;</span>
+    
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Sets the radius of the body.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @param radius The radius of the body.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="font-weight: bold"><span style="color: #0000FF">inline</span></span> <span style="color: #009900">void</span> <span style="font-weight: bold"><span style="color: #000000">setRadius</span></span><span style="color: #990000">(</span> <span style="color: #009900">float</span> radius <span style="color: #990000">)</span>  <span style="color: #FF0000">{</span> <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>radius <span style="color: #990000">=</span> radius<span style="color: #990000">;</span> <span style="color: #FF0000">}</span><span style="color: #990000">;</span>
+    
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Tells the radius of the body.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @return The radius of the body.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="font-weight: bold"><span style="color: #0000FF">inline</span></span> <span style="color: #009900">float</span> <span style="font-weight: bold"><span style="color: #000000">getRadius</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span> <span style="font-weight: bold"><span style="color: #0000FF">const</span></span>  <span style="color: #FF0000">{</span> <span style="font-weight: bold"><span style="color: #0000FF">return</span></span> <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>radius<span style="color: #990000">;</span> <span style="color: #FF0000">}</span><span style="color: #990000">;</span>
+    
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Sets the mass of the body. If mass is zero, no gravitational field will</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * affect the body.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @param mass The mass of the body.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="font-weight: bold"><span style="color: #0000FF">inline</span></span> <span style="color: #009900">void</span> <span style="font-weight: bold"><span style="color: #000000">setMass</span></span><span style="color: #990000">(</span> <span style="color: #009900">float</span> mass <span style="color: #990000">)</span>  <span style="color: #FF0000">{</span> <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>mass <span style="color: #990000">=</span> mass<span style="color: #990000">;</span> <span style="color: #FF0000">}</span><span style="color: #990000">;</span>
+    
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Tells the mass of the body.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @return The mass of the body.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="font-weight: bold"><span style="color: #0000FF">inline</span></span> <span style="color: #009900">float</span> <span style="font-weight: bold"><span style="color: #000000">getMass</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span> <span style="font-weight: bold"><span style="color: #0000FF">const</span></span>  <span style="color: #FF0000">{</span> <span style="font-weight: bold"><span style="color: #0000FF">return</span></span> <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>mass<span style="color: #990000">;</span> <span style="color: #FF0000">}</span><span style="color: #990000">;</span>
+
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Tells whether the body emits gravitational field.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @return Tells whether the body emits gravitational field.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="font-weight: bold"><span style="color: #0000FF">inline</span></span> <span style="color: #009900">bool</span> <span style="font-weight: bold"><span style="color: #000000">emitsGravitation</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span> <span style="color: #FF0000">{</span> <span style="font-weight: bold"><span style="color: #0000FF">return</span></span> <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>emitGravitation<span style="color: #990000">;</span> <span style="color: #FF0000">}</span><span style="color: #990000">;</span>
+
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Tells the phase of the body (0-1). What the phase exactly tells, is</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * undefined and may be used differently by subclasses. Phase will be used</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * in drawing the sprite.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @return The phase of the body (0-1).</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="font-weight: bold"><span style="color: #0000FF">virtual</span></span> <span style="font-weight: bold"><span style="color: #0000FF">inline</span></span> <span style="color: #009900">float</span> <span style="font-weight: bold"><span style="color: #000000">getPhase</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span> <span style="font-weight: bold"><span style="color: #0000FF">const</span></span>  <span style="color: #FF0000">{</span> <span style="font-weight: bold"><span style="color: #0000FF">return</span></span> <span style="color: #990000">.</span><span style="color: #993399">0</span><span style="color: #990000">;</span> <span style="color: #FF0000">}</span><span style="color: #990000">;</span>
+
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Tells the world which the body is in.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @return Tells the world which the body is in.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="font-weight: bold"><span style="color: #0000FF">inline</span></span> World<span style="color: #990000">&amp;</span> <span style="font-weight: bold"><span style="color: #000000">getWorld</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span> <span style="font-weight: bold"><span style="color: #0000FF">const</span></span>  <span style="color: #FF0000">{</span> <span style="font-weight: bold"><span style="color: #0000FF">return</span></span> <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>world<span style="color: #990000">;</span> <span style="color: #FF0000">}</span><span style="color: #990000">;</span>
+
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Sets the location of the body.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @param x X-coordinate.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @param y Y-coordinate.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>   
+    <span style="font-weight: bold"><span style="color: #0000FF">inline</span></span> <span style="color: #009900">void</span> <span style="font-weight: bold"><span style="color: #000000">setLocation</span></span><span style="color: #990000">(</span> <span style="color: #009900">float</span> x<span style="color: #990000">,</span> <span style="color: #009900">float</span> y <span style="color: #990000">)</span>
+        <span style="color: #FF0000">{</span> <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>location<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">set</span></span><span style="color: #990000">(</span> x<span style="color: #990000">,</span> y <span style="color: #990000">)</span><span style="color: #990000">;</span> <span style="color: #FF0000">}</span><span style="color: #990000">;</span>
+    
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Tells the location of the body.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @return Location of the body.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="font-weight: bold"><span style="color: #0000FF">inline</span></span> <span style="font-weight: bold"><span style="color: #0000FF">const</span></span> Coordinates<span style="color: #990000">&amp;</span> <span style="font-weight: bold"><span style="color: #000000">getLocation</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span> <span style="font-weight: bold"><span style="color: #0000FF">const</span></span>  <span style="color: #FF0000">{</span> <span style="font-weight: bold"><span style="color: #0000FF">return</span></span> <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>location<span style="color: #990000">;</span> <span style="color: #FF0000">}</span><span style="color: #990000">;</span>
+    
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Tells whether the body and given body collide. Two bodies will collide</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * if all the following circumstances are met:</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * 1) Bodies are in the same world.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * 2) At least one of the bodies is collidable.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * 3) None of the bodies is destroyed.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * 4) The circles of the bodies collide in the world.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @param testBody The body to determine the collision with.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @return Tells whether the bodies collide.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="color: #009900">bool</span> <span style="font-weight: bold"><span style="color: #000000">collisionDetection</span></span><span style="color: #990000">(</span> Body <span style="color: #990000">&amp;</span>testBody <span style="color: #990000">)</span> <span style="font-weight: bold"><span style="color: #0000FF">const</span></span><span style="color: #990000">;</span>
+
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * When two bodies collide (determined by collisionDetection function)</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * their collide functions are called to simulate the collision.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @param collidingBody The other body in collision.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="font-weight: bold"><span style="color: #0000FF">virtual</span></span> <span style="color: #009900">void</span> <span style="font-weight: bold"><span style="color: #000000">collide</span></span><span style="color: #990000">(</span> Body <span style="color: #990000">&amp;</span>collidingBody <span style="color: #990000">)</span>  <span style="color: #FF0000">{</span> <span style="color: #FF0000">}</span><span style="color: #990000">;</span>
+    
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Tells the gravitational field the body creates in a specific location.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @param vector The vector to store the gravitational field.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @param x      The x-coordinate of the location.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @param y      The y-coordinate of the location.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="color: #009900">void</span> <span style="font-weight: bold"><span style="color: #000000">getGravitationalField</span></span><span style="color: #990000">(</span> Vector <span style="color: #990000">&amp;</span>vector<span style="color: #990000">,</span> <span style="color: #009900">float</span> x<span style="color: #990000">,</span> <span style="color: #009900">float</span> y <span style="color: #990000">)</span><span style="color: #990000">;</span>
+    
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * This function will be called with short delays to simulate the body in</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * the world.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @param timestep Delay since last call in milliseconds.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="font-weight: bold"><span style="color: #0000FF">virtual</span></span> <span style="color: #009900">void</span> <span style="font-weight: bold"><span style="color: #000000">step</span></span><span style="color: #990000">(</span> <span style="color: #009900">unsigned</span> <span style="color: #009900">int</span> timestep <span style="color: #990000">)</span>  <span style="color: #FF0000">{</span>   <span style="color: #FF0000">}</span><span style="color: #990000">;</span>
+    
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * This function will be called after a round in game. Body may do its</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * procedures.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @param step The step length (0-1). This function may called many times</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     *             to make simulation fluent. For example, four calls with</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     *             parameters 0.2, 0.2, 0.3 and 0.3 will make a whole 1.0 end</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     *             of round.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="font-weight: bold"><span style="color: #0000FF">virtual</span></span> <span style="color: #009900">void</span> <span style="font-weight: bold"><span style="color: #000000">endOfRound</span></span><span style="color: #990000">(</span> <span style="color: #009900">float</span> step <span style="color: #990000">)</span>  <span style="color: #FF0000">{</span> <span style="color: #FF0000">}</span><span style="color: #990000">;</span>
+    
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Visualizes the body to the given graphics system.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @param graphics The graphics system.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="font-weight: bold"><span style="color: #0000FF">virtual</span></span> <span style="color: #009900">void</span> <span style="font-weight: bold"><span style="color: #000000">draw</span></span><span style="color: #990000">(</span> Graphics <span style="color: #990000">&amp;</span>graphics <span style="color: #990000">)</span><span style="color: #990000">;</span>
+
+<span style="font-weight: bold"><span style="color: #0000FF">protected</span></span><span style="color: #990000">:</span>
+
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * The index of the sprite.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="color: #009900">int</span> sprite<span style="color: #990000">;</span>
+
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * The world which the body is in.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    World <span style="color: #990000">&amp;</span>world<span style="color: #990000">;</span>
+    
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * The location of the body.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    Coordinates location<span style="color: #990000">;</span>
+
+<span style="font-weight: bold"><span style="color: #0000FF">private</span></span><span style="color: #990000">:</span>
+
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * The mass of the body.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="color: #009900">float</span> mass<span style="color: #990000">;</span>
+    
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * The radius of the body.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="color: #009900">float</span> radius<span style="color: #990000">;</span>
+
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * As long as at least one action body is in the world, action phase</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * continues.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="color: #009900">bool</span> actionFlag<span style="color: #990000">;</span>
+    
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Tells whether body emits gravtitational field.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="color: #009900">bool</span> emitGravitation<span style="color: #990000">;</span>
+    
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Tells whether body is collidable. Two bodies may collide if the other</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * or both bodies are collidable.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="color: #009900">bool</span> collidable<span style="color: #990000">;</span>
+    
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Tells whether body is destroyed and should be removed from the world.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="color: #009900">bool</span> destroyed<span style="color: #990000">;</span>
+
+<span style="color: #FF0000">}</span><span style="color: #990000">;</span>
+
+<span style="font-weight: bold"><span style="color: #000080">#endif</span></span> <span style="font-style: italic"><span style="color: #9A1900">//_BODY_H_</span></span>
+</tt></pre>

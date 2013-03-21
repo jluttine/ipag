@@ -1,0 +1,458 @@
+<pre><tt><span style="font-weight: bold"><span style="color: #000080">#ifndef</span></span> PLAYER_H
+<span style="font-weight: bold"><span style="color: #000080">#define</span></span> PLAYER_H
+
+<span style="font-weight: bold"><span style="color: #0000FF">class</span></span> Player<span style="color: #990000">;</span>
+
+<span style="font-weight: bold"><span style="color: #000080">#include</span></span> <span style="color: #FF0000">"BodyCannon.h"</span>
+<span style="font-weight: bold"><span style="color: #000080">#include</span></span> <span style="color: #FF0000">"GameEngine.h"</span>
+<span style="font-weight: bold"><span style="color: #000080">#include</span></span> <span style="color: #FF0000">"Ai.h"</span>
+<span style="font-weight: bold"><span style="color: #000080">#include</span></span> <span style="color: #FF0000">"WeaponSelection.h"</span>
+<span style="font-weight: bold"><span style="color: #000080">#include</span></span> <span style="color: #FF0000">"Shield.h"</span>
+
+<span style="font-weight: bold"><span style="color: #0000FF">using</span></span> std<span style="color: #990000">:</span><span style="color: #990000">:</span>string<span style="color: #990000">;</span>
+
+<span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * @author Jaakko Luttinen</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * Player is a class for a player in the game. Player has name, color,</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * points, ranking, money, integrity and a cannon.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> */</span></span>
+<span style="font-weight: bold"><span style="color: #0000FF">class</span></span> Player <span style="color: #FF0000">{</span>
+    
+<span style="font-weight: bold"><span style="color: #0000FF">public</span></span><span style="color: #990000">:</span>
+
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Points for each damage unit.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="font-weight: bold"><span style="color: #0000FF">static</span></span> <span style="font-weight: bold"><span style="color: #0000FF">const</span></span> <span style="color: #009900">int</span> pointsPerDamage <span style="color: #990000">=</span> <span style="color: #993399">1</span><span style="color: #990000">;</span>
+    
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Points for each kill.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="font-weight: bold"><span style="color: #0000FF">static</span></span> <span style="font-weight: bold"><span style="color: #0000FF">const</span></span> <span style="color: #009900">int</span> pointsPerKill <span style="color: #990000">=</span> <span style="color: #993399">100</span><span style="color: #990000">;</span>
+    
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Points for being the last man standing.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="font-weight: bold"><span style="color: #0000FF">static</span></span> <span style="font-weight: bold"><span style="color: #0000FF">const</span></span> <span style="color: #009900">int</span> pointsPerLastManStanding <span style="color: #990000">=</span> <span style="color: #993399">200</span><span style="color: #990000">;</span>
+    
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Minimum distance between two alive cannons on same planet.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="font-weight: bold"><span style="color: #0000FF">static</span></span> <span style="font-weight: bold"><span style="color: #0000FF">const</span></span> <span style="color: #009900">int</span> minimumDistance <span style="color: #990000">=</span> <span style="color: #993399">40</span><span style="color: #990000">;</span>
+
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Constructs a new player.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @param name   Name of the player.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @param engine The game to be in.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="font-weight: bold"><span style="color: #000000">Player</span></span><span style="color: #990000">(</span><span style="font-weight: bold"><span style="color: #0000FF">const</span></span> string <span style="color: #990000">&amp;</span>name<span style="color: #990000">,</span> GameEngine <span style="color: #990000">&amp;</span>engine<span style="color: #990000">)</span><span style="color: #990000">;</span>
+    
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Destructs the player.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="color: #990000">~</span><span style="font-weight: bold"><span style="color: #000000">Player</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span><span style="color: #990000">;</span>
+    
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Sets the name of the player.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @param name New name.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="font-weight: bold"><span style="color: #0000FF">inline</span></span> <span style="color: #009900">void</span> <span style="font-weight: bold"><span style="color: #000000">setName</span></span><span style="color: #990000">(</span> <span style="font-weight: bold"><span style="color: #0000FF">const</span></span> string <span style="color: #990000">&amp;</span>name <span style="color: #990000">)</span>  <span style="color: #FF0000">{</span> <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>name <span style="color: #990000">=</span> name<span style="color: #990000">;</span> <span style="color: #FF0000">}</span><span style="color: #990000">;</span>
+    
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Returns the name of the player.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @return Name of the player.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="font-weight: bold"><span style="color: #0000FF">inline</span></span> <span style="font-weight: bold"><span style="color: #0000FF">const</span></span> <span style="color: #009900">char</span><span style="color: #990000">*</span> <span style="font-weight: bold"><span style="color: #000000">getName</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span> <span style="font-weight: bold"><span style="color: #0000FF">const</span></span>  <span style="color: #FF0000">{</span> <span style="font-weight: bold"><span style="color: #0000FF">return</span></span> <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>name<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">c_str</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span><span style="color: #990000">;</span> <span style="color: #FF0000">}</span><span style="color: #990000">;</span>
+    
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Returns the game which the player is in.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @return The game.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="font-weight: bold"><span style="color: #0000FF">inline</span></span> GameEngine<span style="color: #990000">&amp;</span> <span style="font-weight: bold"><span style="color: #000000">getGameEngine</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span> <span style="font-weight: bold"><span style="color: #0000FF">const</span></span>  <span style="color: #FF0000">{</span> <span style="font-weight: bold"><span style="color: #0000FF">return</span></span> <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>engine<span style="color: #990000">;</span> <span style="color: #FF0000">}</span><span style="color: #990000">;</span>
+
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Sets the cannon for the player. World will clean the memory.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @param newCannon A cannon for the player.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>   
+    <span style="color: #009900">void</span> <span style="font-weight: bold"><span style="color: #000000">setCannon</span></span><span style="color: #990000">(</span> BodyCannon <span style="color: #990000">&amp;</span>newCannon <span style="color: #990000">)</span><span style="color: #990000">;</span>
+    
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Removes the cannon from player.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="color: #009900">void</span> <span style="font-weight: bold"><span style="color: #000000">removeCannon</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span><span style="color: #990000">;</span>
+
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Returns the cannon of the player. Note that it may be NULL.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @return Player's cannon.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="font-weight: bold"><span style="color: #0000FF">const</span></span> BodyCannon<span style="color: #990000">*</span> <span style="font-weight: bold"><span style="color: #000000">getCannon</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span> <span style="font-weight: bold"><span style="color: #0000FF">const</span></span>  <span style="color: #FF0000">{</span> <span style="font-weight: bold"><span style="color: #0000FF">return</span></span> <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>cannon<span style="color: #990000">;</span> <span style="color: #FF0000">}</span><span style="color: #990000">;</span>
+
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Sets the AI for the player. Player will free the memory allocation.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @param newAI AI for the player.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>   
+    <span style="color: #009900">void</span> <span style="font-weight: bold"><span style="color: #000000">setAI</span></span><span style="color: #990000">(</span> Ai <span style="color: #990000">&amp;</span>newAI <span style="color: #990000">)</span><span style="color: #990000">;</span>
+    
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Removes the AI from player.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="color: #009900">void</span> <span style="font-weight: bold"><span style="color: #000000">removeAI</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span><span style="color: #990000">;</span>
+
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Returns the AI (may be NULL).</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @return AI (or NULL).</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="font-weight: bold"><span style="color: #0000FF">inline</span></span> Ai<span style="color: #990000">*</span> <span style="font-weight: bold"><span style="color: #000000">getAI</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span>  <span style="color: #FF0000">{</span> <span style="font-weight: bold"><span style="color: #0000FF">return</span></span> <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>computerAI<span style="color: #990000">;</span> <span style="color: #FF0000">}</span><span style="color: #990000">;</span>
+    
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Sets the color of the player.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @param r Red component.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @param g Green component.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @param b Blue component.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="color: #009900">void</span> <span style="font-weight: bold"><span style="color: #000000">setColor</span></span><span style="color: #990000">(</span> <span style="color: #009900">unsigned</span> <span style="color: #009900">char</span> r<span style="color: #990000">,</span> <span style="color: #009900">unsigned</span> <span style="color: #009900">char</span> g<span style="color: #990000">,</span> <span style="color: #009900">unsigned</span> <span style="color: #009900">char</span> b <span style="color: #990000">)</span><span style="color: #990000">;</span>
+    
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Tells the color of the player.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @param r Red component.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @param g Green component.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @param b Blue component.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="color: #009900">void</span> <span style="font-weight: bold"><span style="color: #000000">getColor</span></span><span style="color: #990000">(</span><span style="color: #009900">unsigned</span> <span style="color: #009900">char</span> <span style="color: #990000">&amp;</span>r<span style="color: #990000">,</span> <span style="color: #009900">unsigned</span> <span style="color: #009900">char</span> <span style="color: #990000">&amp;</span>g<span style="color: #990000">,</span> <span style="color: #009900">unsigned</span> <span style="color: #009900">char</span> <span style="color: #990000">&amp;</span>b<span style="color: #990000">)</span> <span style="font-weight: bold"><span style="color: #0000FF">const</span></span><span style="color: #990000">;</span>
+    
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Sets player's integrity.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @param integrity The integrity of the player.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="color: #009900">void</span> <span style="font-weight: bold"><span style="color: #000000">setIntegrity</span></span><span style="color: #990000">(</span> <span style="color: #009900">float</span> integrity <span style="color: #990000">)</span><span style="color: #990000">;</span>
+    
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Sets player's money.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @param money The money for the player.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="font-weight: bold"><span style="color: #0000FF">inline</span></span> <span style="color: #009900">void</span> <span style="font-weight: bold"><span style="color: #000000">setMoney</span></span><span style="color: #990000">(</span> <span style="color: #009900">int</span> money <span style="color: #990000">)</span>  <span style="color: #FF0000">{</span> <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>money <span style="color: #990000">=</span> money<span style="color: #990000">;</span> <span style="color: #FF0000">}</span><span style="color: #990000">;</span>
+    
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Returns the integrity of the player.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @return The integrity of the player.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="font-weight: bold"><span style="color: #0000FF">inline</span></span> <span style="color: #009900">float</span> <span style="font-weight: bold"><span style="color: #000000">getIntegrity</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span> <span style="font-weight: bold"><span style="color: #0000FF">const</span></span>  <span style="color: #FF0000">{</span> <span style="font-weight: bold"><span style="color: #0000FF">return</span></span> <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>integrity<span style="color: #990000">;</span> <span style="color: #FF0000">}</span><span style="color: #990000">;</span>
+    
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Returns the money of the player.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @return The money of the player.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="font-weight: bold"><span style="color: #0000FF">inline</span></span> <span style="color: #009900">int</span> <span style="font-weight: bold"><span style="color: #000000">getMoney</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span> <span style="font-weight: bold"><span style="color: #0000FF">const</span></span>  <span style="color: #FF0000">{</span> <span style="font-weight: bold"><span style="color: #0000FF">return</span></span> <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>money<span style="color: #990000">;</span> <span style="color: #FF0000">}</span><span style="color: #990000">;</span>
+
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Player takes the given damage. Damage may have a player as a source.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Calculates damage points as well.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @param shooter Source of the damage. May be NULL.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @param damage  The damage.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>   
+    <span style="color: #009900">void</span> <span style="font-weight: bold"><span style="color: #000000">doDamage</span></span><span style="color: #990000">(</span> Player <span style="color: #990000">*</span>shooter<span style="color: #990000">,</span> <span style="color: #009900">float</span> damage <span style="color: #990000">)</span><span style="color: #990000">;</span>
+    
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Zeroes points.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="font-weight: bold"><span style="color: #0000FF">inline</span></span> <span style="color: #009900">void</span> <span style="font-weight: bold"><span style="color: #000000">clearPoints</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span>  <span style="color: #FF0000">{</span> <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>points <span style="color: #990000">=</span> <span style="color: #993399">0</span><span style="color: #990000">;</span> <span style="color: #FF0000">}</span><span style="color: #990000">;</span>
+    
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Returns player's points.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @return Player's points.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="font-weight: bold"><span style="color: #0000FF">inline</span></span> <span style="color: #009900">int</span> <span style="font-weight: bold"><span style="color: #000000">getPoints</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span> <span style="font-weight: bold"><span style="color: #0000FF">const</span></span>  <span style="color: #FF0000">{</span> <span style="font-weight: bold"><span style="color: #0000FF">return</span></span> <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>points<span style="color: #990000">;</span> <span style="color: #FF0000">}</span><span style="color: #990000">;</span>
+    
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Tells whether the player is dead. Player is dead if at least one of the</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * following conditions is met: 1) player has no cannon; 2) player's</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * cannon is ruined; 3) player's integrity is zero; 4) player has no</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * ammunition left.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="color: #009900">bool</span> <span style="font-weight: bold"><span style="color: #000000">isDead</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span><span style="color: #990000">;</span>
+    
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Calculates "Last man standing" points for the player, if not calculated</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * already.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="color: #009900">void</span> <span style="font-weight: bold"><span style="color: #000000">calculatePoints</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span><span style="color: #990000">;</span>
+    
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Calculates the ranking points for the player.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="color: #009900">void</span> <span style="font-weight: bold"><span style="color: #000000">calculateRanking</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span><span style="color: #990000">;</span>
+    
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Returns the ranking of the player.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @return The ranking of the player.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="font-weight: bold"><span style="color: #0000FF">inline</span></span> <span style="color: #009900">int</span> <span style="font-weight: bold"><span style="color: #000000">getRanking</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span> <span style="font-weight: bold"><span style="color: #0000FF">const</span></span>  <span style="color: #FF0000">{</span> <span style="font-weight: bold"><span style="color: #0000FF">return</span></span> <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>ranking<span style="color: #990000">;</span> <span style="color: #FF0000">}</span><span style="color: #990000">;</span>
+    
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Shoots with selected weapon.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="color: #009900">void</span> <span style="font-weight: bold"><span style="color: #000000">shoot</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span><span style="color: #990000">;</span>
+    
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Simulates a shot. Does not do any permanent changes.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="color: #009900">void</span> <span style="font-weight: bold"><span style="color: #000000">shootSimulation</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span><span style="color: #990000">;</span>
+    
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Increases the aiming angle of the cannon.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @param angle The angle to add.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="color: #009900">void</span> <span style="font-weight: bold"><span style="color: #000000">increaseAimingAngle</span></span><span style="color: #990000">(</span><span style="color: #009900">float</span> angle<span style="color: #990000">)</span><span style="color: #990000">;</span>
+    
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Increases aiming power of the cannon.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @param power The power to add.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="color: #009900">void</span> <span style="font-weight: bold"><span style="color: #000000">increaseAimingPower</span></span><span style="color: #990000">(</span><span style="color: #009900">float</span> power<span style="color: #990000">)</span><span style="color: #990000">;</span>
+    
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Sets the aiming angle of the cannon.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @param angle The angle in radians.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="color: #009900">void</span> <span style="font-weight: bold"><span style="color: #000000">setAimingAngle</span></span><span style="color: #990000">(</span><span style="color: #009900">float</span> angle<span style="color: #990000">)</span><span style="color: #990000">;</span>
+    
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Sets the aiming power of the cannon.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @param power The power.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="color: #009900">void</span> <span style="font-weight: bold"><span style="color: #000000">setAimingPower</span></span><span style="color: #990000">(</span><span style="color: #009900">float</span> power<span style="color: #990000">)</span><span style="color: #990000">;</span>
+
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Game engine will call this to notify the player of a starting</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * simulation. Not for others!</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>   
+    <span style="color: #009900">void</span> <span style="font-weight: bold"><span style="color: #000000">startSimulation</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span><span style="color: #990000">;</span>
+    
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Game engine will call this to notify the player that the simulation has</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * ended. Not for others!</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="color: #009900">void</span> <span style="font-weight: bold"><span style="color: #000000">endSimulation</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span><span style="color: #990000">;</span>
+
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Tells the points the player got in the simulation.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @return The points player got in simulation.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>   
+    <span style="color: #009900">int</span> <span style="font-weight: bold"><span style="color: #000000">getSimulationPoints</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span> <span style="font-weight: bold"><span style="color: #0000FF">const</span></span>  <span style="color: #FF0000">{</span> <span style="font-weight: bold"><span style="color: #0000FF">return</span></span> <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>simulationPoints<span style="color: #990000">;</span> <span style="color: #FF0000">}</span><span style="color: #990000">;</span>
+    
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Tells the damage the player received in the simulation.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @return The damage player received in simulation.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="color: #009900">float</span> <span style="font-weight: bold"><span style="color: #000000">getSimulationDamage</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span> <span style="font-weight: bold"><span style="color: #0000FF">const</span></span>  <span style="color: #FF0000">{</span> <span style="font-weight: bold"><span style="color: #0000FF">return</span></span> <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>simulationDamage<span style="color: #990000">;</span> <span style="color: #FF0000">}</span><span style="color: #990000">;</span>
+    
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Tells whether player died in the simulation. Returns false if the</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * player was dead already. Only death in simulation matters.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @return Whether player died in simulation.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="color: #009900">bool</span> <span style="font-weight: bold"><span style="color: #000000">getSimulationDeath</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span> 
+        <span style="color: #FF0000">{</span> <span style="font-weight: bold"><span style="color: #0000FF">return</span></span> <span style="color: #990000">!</span><span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span><span style="font-weight: bold"><span style="color: #000000">isDead</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span> <span style="color: #990000">&amp;</span><span style="color: #990000">&amp;</span> <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>simulationDamage <span style="color: #990000">&gt;</span><span style="color: #990000">=</span> <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>integrity<span style="color: #990000">;</span><span style="color: #FF0000">}</span><span style="color: #990000">;</span>
+    
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Tries to set the location for the player's cannon. Selects the nearest</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * planet and its nearest point on its surface.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @param x X-coordinate.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @param y Y-coordinate.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @return Return values are following:</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     *         0: success.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     *         -1: world does not exist.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     *         -2: didn't find a planet.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     *         -3: too close to other player, please try again.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="color: #009900">int</span> <span style="font-weight: bold"><span style="color: #000000">setLocation</span></span><span style="color: #990000">(</span> <span style="color: #009900">float</span> x<span style="color: #990000">,</span> <span style="color: #009900">float</span> y <span style="color: #990000">)</span><span style="color: #990000">;</span>
+
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Selects a weapon.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @param change How many steps to take in weapon selection.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @return Returns the selected weapon, or NULL.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>   
+    <span style="font-weight: bold"><span style="color: #0000FF">const</span></span> Weapon<span style="color: #990000">*</span> <span style="font-weight: bold"><span style="color: #000000">selectWeapon</span></span><span style="color: #990000">(</span> <span style="color: #009900">int</span> change <span style="color: #990000">)</span><span style="color: #990000">;</span>
+    
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Sets the weapon of given index as the selected weapon.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @param index Index of the weapon in player's weapon selection.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @return The selected weapon, or NULL.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="font-weight: bold"><span style="color: #0000FF">const</span></span> Weapon<span style="color: #990000">*</span> <span style="font-weight: bold"><span style="color: #000000">setSelectedWeapon</span></span><span style="color: #990000">(</span><span style="color: #009900">int</span> index<span style="color: #990000">)</span>
+        <span style="color: #FF0000">{</span> <span style="font-weight: bold"><span style="color: #0000FF">return</span></span> <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>weaponSelection<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">setSelectedWeapon</span></span><span style="color: #990000">(</span>index<span style="color: #990000">)</span><span style="color: #990000">;</span> <span style="color: #FF0000">}</span><span style="color: #990000">;</span>
+    
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Buys given projectiles.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @param projectile Shot to buy.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @param count      Number of shots to buy.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @return True for successful shopping.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="color: #009900">bool</span> <span style="font-weight: bold"><span style="color: #000000">buyShots</span></span><span style="color: #990000">(</span> <span style="color: #009900">int</span> projectile<span style="color: #990000">,</span> <span style="color: #009900">int</span> count <span style="color: #990000">)</span><span style="color: #990000">;</span>
+    
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Gives the player infinite shots of given projectile.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @param projectile The projectile to give infinitely.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="color: #009900">void</span> <span style="font-weight: bold"><span style="color: #000000">addInfiniteShots</span></span><span style="color: #990000">(</span> <span style="color: #009900">int</span> projectile <span style="color: #990000">)</span><span style="color: #990000">;</span>
+    
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Returns the weapon selection of the player.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @return The weapon selection.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="font-weight: bold"><span style="color: #0000FF">const</span></span> WeaponSelection<span style="color: #990000">&amp;</span> <span style="font-weight: bold"><span style="color: #000000">getWeaponSelection</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span> <span style="font-weight: bold"><span style="color: #0000FF">const</span></span>
+        <span style="color: #FF0000">{</span> <span style="font-weight: bold"><span style="color: #0000FF">return</span></span> <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>weaponSelection<span style="color: #990000">;</span> <span style="color: #FF0000">}</span><span style="color: #990000">;</span>
+        
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Clears the weapon selection.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="font-weight: bold"><span style="color: #0000FF">inline</span></span> <span style="color: #009900">void</span> <span style="font-weight: bold"><span style="color: #000000">clearWeaponSelection</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span>  <span style="color: #FF0000">{</span> <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>weaponSelection<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">clear</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span><span style="color: #990000">;</span> <span style="color: #FF0000">}</span><span style="color: #990000">;</span>
+    
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Returns the shield of the player.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @return Player's shield.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="font-weight: bold"><span style="color: #0000FF">const</span></span> Shield<span style="color: #990000">&amp;</span> <span style="font-weight: bold"><span style="color: #000000">getShield</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span> <span style="font-weight: bold"><span style="color: #0000FF">const</span></span>  <span style="color: #FF0000">{</span> <span style="font-weight: bold"><span style="color: #0000FF">return</span></span> <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>shield<span style="color: #990000">;</span> <span style="color: #FF0000">}</span><span style="color: #990000">;</span>
+    
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Tries to buy armor for the shield.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @param armor Armors to buy.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @return True for successful shopping.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="color: #009900">bool</span> <span style="font-weight: bold"><span style="color: #000000">buyShieldArmor</span></span><span style="color: #990000">(</span> <span style="color: #009900">int</span> armor <span style="color: #990000">)</span><span style="color: #990000">;</span>
+    
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Clears all armor.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="color: #009900">void</span> <span style="font-weight: bold"><span style="color: #000000">clearArmor</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span>  <span style="color: #FF0000">{</span> <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>shield<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">clear</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span><span style="color: #990000">;</span> <span style="color: #FF0000">}</span><span style="color: #990000">;</span>
+
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Increases the parameter of the selected weapon.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @param index Index of the parameter.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @param steps The steps to increase.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="color: #009900">void</span> <span style="font-weight: bold"><span style="color: #000000">increaseParameter</span></span><span style="color: #990000">(</span> <span style="color: #009900">int</span> index<span style="color: #990000">,</span> <span style="color: #009900">int</span> steps <span style="color: #990000">)</span><span style="color: #990000">;</span>
+
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Sets the player active or passive. That is, the cannon will be shown</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * differently when the player has turn.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @param active Active=true, passive=false.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="color: #009900">void</span> <span style="font-weight: bold"><span style="color: #000000">setActive</span></span><span style="color: #990000">(</span><span style="color: #009900">bool</span> active<span style="color: #990000">)</span><span style="color: #990000">;</span>
+    
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Raises a flag to tell that the player wants to quit the game.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="color: #009900">void</span> <span style="font-weight: bold"><span style="color: #000000">quit</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span><span style="color: #990000">;</span>
+    
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Tells whether the player has requested to quit the game.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="font-weight: bold"><span style="color: #0000FF">inline</span></span> <span style="color: #009900">bool</span> <span style="font-weight: bold"><span style="color: #000000">hasQuitted</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span> <span style="font-weight: bold"><span style="color: #0000FF">const</span></span>  <span style="color: #FF0000">{</span> <span style="font-weight: bold"><span style="color: #0000FF">return</span></span> <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>quitted<span style="color: #990000">;</span> <span style="color: #FF0000">}</span><span style="color: #990000">;</span>
+    
+<span style="font-weight: bold"><span style="color: #0000FF">private</span></span><span style="color: #990000">:</span>
+
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Gives points for killing a player.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @param dead The killed player.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="color: #009900">void</span> <span style="font-weight: bold"><span style="color: #000000">pointsKill</span></span><span style="color: #990000">(</span> <span style="font-weight: bold"><span style="color: #0000FF">const</span></span> Player <span style="color: #990000">&amp;</span>dead <span style="color: #990000">)</span><span style="color: #990000">;</span>
+    
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Might give minus points for death, suicide for example.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @param</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="color: #009900">void</span> <span style="font-weight: bold"><span style="color: #000000">pointsDeath</span></span><span style="color: #990000">(</span> <span style="font-weight: bold"><span style="color: #0000FF">const</span></span> Player <span style="color: #990000">&amp;</span>killer <span style="color: #990000">)</span><span style="color: #990000">;</span>
+    
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Calculates player's relative death rank.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * RDR = ( players died before him ) / ( players in the game - 1 ).</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="color: #009900">void</span> <span style="font-weight: bold"><span style="color: #000000">calculateRelativeDeathRank</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span><span style="color: #990000">;</span>
+
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Player's cannon. Player does NOT clean the memory allocation, World</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * will.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    BodyCannon <span style="color: #990000">*</span>cannon<span style="color: #990000">;</span>
+    
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Player's AI. Player frees the memory allocation.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    Ai <span style="color: #990000">*</span>computerAI<span style="color: #990000">;</span>
+    
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Player's integrity.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="color: #009900">float</span> integrity<span style="color: #990000">;</span>
+    
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Damage received in the last simulation.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="color: #009900">float</span> simulationDamage<span style="color: #990000">;</span>
+    
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Points received in the last simulation.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="color: #009900">int</span> simulationPoints<span style="color: #990000">;</span>
+    
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Tells whether simulation is on.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="color: #009900">bool</span> simulating<span style="color: #990000">;</span>
+
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Player's shield.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    Shield shield<span style="color: #990000">;</span>
+    
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * The game the player is in.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    GameEngine <span style="color: #990000">&amp;</span>engine<span style="color: #990000">;</span>
+    
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Weapon selection of the player.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    WeaponSelection weaponSelection<span style="color: #990000">;</span>
+    
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Player's name.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    string name<span style="color: #990000">;</span>
+    
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Player's points.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="color: #009900">int</span> points<span style="color: #990000">;</span>
+    
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Player's ranking.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="color: #009900">int</span> ranking<span style="color: #990000">;</span>
+    
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Player's money.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="color: #009900">int</span> money<span style="color: #990000">;</span>
+    
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Player's relative death rank.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * RDR = (players died before him)/(players-1).</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="color: #009900">float</span> relativeDeathRank<span style="color: #990000">;</span>
+    
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Components of player's color.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="color: #009900">unsigned</span> <span style="color: #009900">char</span> colorR<span style="color: #990000">,</span> colorG<span style="color: #990000">,</span> colorB<span style="color: #990000">;</span>
+    
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Flag to indicate that player wants to leave the game.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>   
+    <span style="color: #009900">bool</span> quitted<span style="color: #990000">;</span>
+    
+<span style="color: #FF0000">}</span><span style="color: #990000">;</span>
+
+<span style="font-weight: bold"><span style="color: #000080">#endif</span></span> 
+</tt></pre>

@@ -1,0 +1,90 @@
+<pre><tt>
+<span style="font-weight: bold"><span style="color: #000080">#ifndef</span></span> _BODYMOVABLE_H_
+<span style="font-weight: bold"><span style="color: #000080">#define</span></span> _BODYMOVABLE_H_
+
+<span style="font-weight: bold"><span style="color: #000080">#ifndef</span></span> M_PI
+<span style="font-weight: bold"><span style="color: #000080">#define</span></span> M_PI <span style="color: #993399">3.14159265358979323846</span>
+<span style="font-weight: bold"><span style="color: #000080">#endif</span></span>
+
+<span style="font-weight: bold"><span style="color: #000080">#include</span></span> <span style="color: #FF0000">"Vector.h"</span>
+<span style="font-weight: bold"><span style="color: #000080">#include</span></span> <span style="color: #FF0000">"Body.h"</span>
+
+<span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * Author: Jaakko Luttinen</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * BodyMovable is class for moving bodies. Body has a velocity and if it has</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * mass it will be affected by gravitational field. Body may also be set to</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * destroy on collision.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> */</span></span>
+<span style="font-weight: bold"><span style="color: #0000FF">class</span></span> BodyMovable <span style="color: #990000">:</span> <span style="font-weight: bold"><span style="color: #0000FF">public</span></span> Body
+<span style="color: #FF0000">{</span>
+    
+<span style="font-weight: bold"><span style="color: #0000FF">public</span></span><span style="color: #990000">:</span>
+
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Constructs a new body.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @param world              The world which the body will be put into.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     *                           Note, constructor does NOT add the body into</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     *                           the world automatically.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @param x                  X-coordinate of the body's center in the</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     *                           world.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @param y                  Y-coordinate of the body's center in the</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     *                           world.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @param radius             The radius of the body.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @param mass               The mass of the body.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @param emitGravitation    Tells whether body emits gravitational field.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @param collidable         Tells whether body is collidable.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @param destroyOnCollision Tells whether body should destroy on</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     *                           collision.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="font-weight: bold"><span style="color: #000000">BodyMovable</span></span><span style="color: #990000">(</span> World <span style="color: #990000">&amp;</span>world<span style="color: #990000">,</span> <span style="color: #009900">float</span> x<span style="color: #990000">,</span> <span style="color: #009900">float</span> y<span style="color: #990000">,</span> <span style="color: #009900">float</span> radius<span style="color: #990000">,</span> <span style="color: #009900">float</span> mass<span style="color: #990000">,</span>
+                 <span style="color: #009900">bool</span> emitGrav<span style="color: #990000">,</span> <span style="color: #009900">bool</span> collidable<span style="color: #990000">,</span> <span style="color: #009900">bool</span> destroyOnCollision <span style="color: #990000">)</span><span style="color: #990000">;</span>
+
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Sets velocity.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @param x x-component of the velocity.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @param y y-component of the velocity.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="font-weight: bold"><span style="color: #0000FF">inline</span></span> <span style="color: #009900">void</span> <span style="font-weight: bold"><span style="color: #000000">setVelocity</span></span><span style="color: #990000">(</span> <span style="color: #009900">float</span> x<span style="color: #990000">,</span> <span style="color: #009900">float</span> y <span style="color: #990000">)</span>
+        <span style="color: #FF0000">{</span> <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>velocity<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">set</span></span><span style="color: #990000">(</span> x<span style="color: #990000">,</span> y <span style="color: #990000">)</span><span style="color: #990000">;</span> <span style="color: #FF0000">}</span><span style="color: #990000">;</span>
+    
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Tells the velocity of the body.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @return The velocity of the body.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="font-weight: bold"><span style="color: #0000FF">inline</span></span> <span style="font-weight: bold"><span style="color: #0000FF">const</span></span> Vector<span style="color: #990000">&amp;</span> <span style="font-weight: bold"><span style="color: #000000">getVelocity</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span> <span style="font-weight: bold"><span style="color: #0000FF">const</span></span>  <span style="color: #FF0000">{</span> <span style="font-weight: bold"><span style="color: #0000FF">return</span></span> <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>velocity<span style="color: #990000">;</span> <span style="color: #FF0000">}</span><span style="color: #990000">;</span>
+
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Simulates the collision. Either destroys the body or sets the velocity</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * to zero.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @collidingBody The body to collide with.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="font-weight: bold"><span style="color: #0000FF">virtual</span></span> <span style="color: #009900">void</span> <span style="font-weight: bold"><span style="color: #000000">collide</span></span><span style="color: #990000">(</span> Body <span style="color: #990000">&amp;</span>collidingBody <span style="color: #990000">)</span><span style="color: #990000">;</span>
+
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Returns the direction angle as phase (0-1).</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @return The phase is direction of the velocity scaled to 0-1.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="font-weight: bold"><span style="color: #0000FF">virtual</span></span> <span style="color: #009900">float</span> <span style="font-weight: bold"><span style="color: #000000">getPhase</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span> <span style="font-weight: bold"><span style="color: #0000FF">const</span></span><span style="color: #990000">;</span>
+    
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Moves body by the given timestep. Simulates the collisions.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @param timestep The timestep to simulate in milliseconds.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="font-weight: bold"><span style="color: #0000FF">virtual</span></span> <span style="color: #009900">void</span> <span style="font-weight: bold"><span style="color: #000000">step</span></span><span style="color: #990000">(</span> <span style="color: #009900">unsigned</span> <span style="color: #009900">int</span> timestep <span style="color: #990000">)</span><span style="color: #990000">;</span>
+    
+<span style="font-weight: bold"><span style="color: #0000FF">private</span></span><span style="color: #990000">:</span>
+
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * The velocity of the body.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    Vector velocity<span style="color: #990000">;</span>
+    
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Tells whether the body destroys on collision.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="color: #009900">bool</span> destroyOnCollision<span style="color: #990000">;</span>
+
+<span style="color: #FF0000">}</span><span style="color: #990000">;</span>
+
+<span style="font-weight: bold"><span style="color: #000080">#endif</span></span> <span style="font-style: italic"><span style="color: #9A1900">//_PARTICLEMOVABLE_H_</span></span>
+</tt></pre>

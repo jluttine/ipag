@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="no"?>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<style type="text/css">
+		h2 { margin-top: 2em; }
+		h3 { margin-top: 2em; }
+	</style>
+	<title>AS-0.101 Project document</title>
+</head>
+
+<body>
+
+<p>
+	<a href="index.html">Front page</a> -
+	<a href="manual.html">Manual</a> -
+	<a href="arch.html">Architecture</a> -
+	<a href="algorithms.html">Algorithms</a> -
+	<a href="bugs.html">Bugs</a> -
+	<a href="tasks.html">Tasks sharing</a> -
+	<a href="diff.html">Differences</a> -
+	<a href="sources.html">Sources</a> -
+	<a href="doxygen/index.html">Doxygen</a> -
+	<a href="references.html">References</a>
+</p>
+<hr />
+
+
+<h2>Known bugs</h2>
+<p>Out of memory situations are not taken into account.</p>
+
+<h3>Memory leaks</h3>
+<p>We have used valgrind to detect memory leaks. If we initialize SDL and quit immediately without loading any of our own classes, there are about a thousand missing frees. If we play the game for a while and quit, there are about 20.000 news and about a thousand missing frees, actually a bit fewer than if we only load SDL and quit. It's impossible to say if there are any memory leaks of our own. Valgrind gives a few errors when the game starts but they all concern SDL and there is nothing we can do about it.</p>
+
+
+<h2>What could have been done better</h2>
+<p>The current architecture is a bit messy and it doesn't allow us to add multiplayer network game. Graphics and sound should be separated better from game functionality and we should consider some kind of a client/server architecture to make network play possible. If we would have included network play from the start, it would have forced us to design the architecture better. The feature was seriously considered but it was dropped because of the tight schedule.</p>
+
+<p>Projectiles were vey problematic. Players have lots of similar weapons but we don't want to have a unique object for each one. We chose to have GameEngine keep one instance of each projectile type in store and clone it when necessary. This isn't too elegant but it works pretty well. There could be a switch which would create a new object of selected type but that wouldn't be scalable. Think of loading the projectile types from a resource file. A better projectile system would be welcome but it is difficult to come up with one.</p>
+
+<p>All game features were kept in and the game turned out exactly as we planned. Destructible planets might be a nice feature, but it would bring some problems too. Graphics can always be improved. There could be lots of different explosion types, and an efficient particle engine would allow us to add exhaust gases for missiles. There could be fonts of different sizes and colored text, not to mention cool buttons.</p>
+
+
+<hr />
+<p>
+	<a href="index.html">Front page</a> -
+	<a href="manual.html">Manual</a> -
+	<a href="arch.html">Architecture</a> -
+	<a href="algorithms.html">Algorithms</a> -
+	<a href="bugs.html">Bugs</a> -
+	<a href="tasks.html">Tasks sharing</a> -
+	<a href="diff.html">Differences</a> -
+	<a href="sources.html">Sources</a> -
+	<a href="doxygen/index.html">Doxygen</a> -
+	<a href="references.html">References</a>
+</p>
+
+
+</body>
+</html>

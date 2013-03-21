@@ -1,0 +1,120 @@
+<pre><tt>
+<span style="font-weight: bold"><span style="color: #000080">#include</span></span> <span style="color: #FF0000">&lt;iostream&gt;</span>
+<span style="font-weight: bold"><span style="color: #000080">#include</span></span> <span style="color: #FF0000">&lt;stdio.h&gt;</span>
+<span style="font-weight: bold"><span style="color: #000080">#include</span></span> <span style="color: #FF0000">"Body.h"</span>
+<span style="font-weight: bold"><span style="color: #000080">#include</span></span> <span style="color: #FF0000">"math.h"</span>
+
+<span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * Constructs a new body.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * @param world           The world which the body will be put into. Note,</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> *                        constructor does NOT add the body into the world</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> *                        automatically.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * @param x               X-coordinate of the body's center in the world.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * @param y               Y-coordinate of the body's center in the world.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * @param radius          The radius of the body.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * @param mass            The mass of the body.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * @param emitGravitation Tells whether body emits gravitational field.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * @param collidable      Tells whether body is collidable.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> */</span></span>
+Body<span style="color: #990000">:</span><span style="color: #990000">:</span><span style="font-weight: bold"><span style="color: #000000">Body</span></span><span style="color: #990000">(</span> World <span style="color: #990000">&amp;</span>world<span style="color: #990000">,</span> <span style="color: #009900">float</span> x<span style="color: #990000">,</span> <span style="color: #009900">float</span> y<span style="color: #990000">,</span> <span style="color: #009900">float</span> radius<span style="color: #990000">,</span> <span style="color: #009900">float</span> mass<span style="color: #990000">,</span>
+            <span style="color: #009900">bool</span> emitGravitation<span style="color: #990000">,</span> <span style="color: #009900">bool</span> collidable <span style="color: #990000">)</span>
+    <span style="color: #990000">:</span> <span style="font-weight: bold"><span style="color: #000000">world</span></span><span style="color: #990000">(</span> world <span style="color: #990000">)</span><span style="color: #990000">,</span> <span style="font-weight: bold"><span style="color: #000000">location</span></span><span style="color: #990000">(</span> world<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">getCoordinateSystem</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span><span style="color: #990000">,</span> x<span style="color: #990000">,</span> y <span style="color: #990000">)</span>
+<span style="color: #FF0000">{</span>
+
+    <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>radius <span style="color: #990000">=</span> radius<span style="color: #990000">;</span>
+    <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>mass <span style="color: #990000">=</span> mass<span style="color: #990000">;</span>
+    <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>emitGravitation <span style="color: #990000">=</span> emitGravitation<span style="color: #990000">;</span>
+    <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>destroyed <span style="color: #990000">=</span> <span style="font-weight: bold"><span style="color: #0000FF">false</span></span><span style="color: #990000">;</span>
+    <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>collidable <span style="color: #990000">=</span> collidable<span style="color: #990000">;</span>
+    <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>actionFlag <span style="color: #990000">=</span> <span style="font-weight: bold"><span style="color: #0000FF">false</span></span><span style="color: #990000">;</span>
+    <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>sprite <span style="color: #990000">=</span> <span style="color: #990000">-</span><span style="color: #993399">1</span><span style="color: #990000">;</span>  <span style="font-style: italic"><span style="color: #9A1900">//Default, no sprite.</span></span>
+
+<span style="color: #FF0000">}</span>
+
+<span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * Destructs the body.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> */</span></span>
+Body<span style="color: #990000">:</span><span style="color: #990000">:</span><span style="color: #990000">~</span><span style="font-weight: bold"><span style="color: #000000">Body</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span> <span style="color: #FF0000">{</span>
+
+<span style="color: #FF0000">}</span>
+
+
+<span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * Tells whether the body and given body collide. Two bodies will collide</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * if all the following circumstances are met:</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * 1) Bodies are in the same world.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * 2) At least one of the bodies is collidable.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * 3) None of the bodies is destroyed.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * 4) The circles of the bodies collide in the world.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * @param testBody The body to determine the collision with.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * @return Tells whether the bodies collide.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> */</span></span>
+<span style="color: #009900">bool</span> Body<span style="color: #990000">:</span><span style="color: #990000">:</span><span style="font-weight: bold"><span style="color: #000000">collisionDetection</span></span><span style="color: #990000">(</span> Body <span style="color: #990000">&amp;</span>testBody <span style="color: #990000">)</span> <span style="font-weight: bold"><span style="color: #0000FF">const</span></span>
+<span style="color: #FF0000">{</span>
+
+    <span style="font-weight: bold"><span style="color: #0000FF">if</span></span> <span style="color: #990000">(</span> <span style="color: #990000">&amp;</span><span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>world <span style="color: #990000">=</span><span style="color: #990000">=</span> <span style="color: #990000">&amp;</span>testBody<span style="color: #990000">.</span>world <span style="color: #990000">&amp;</span><span style="color: #990000">&amp;</span>
+         <span style="color: #990000">(</span> <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>collidable <span style="color: #990000">|</span><span style="color: #990000">|</span> testBody<span style="color: #990000">.</span>collidable <span style="color: #990000">)</span> <span style="color: #990000">&amp;</span><span style="color: #990000">&amp;</span>
+         <span style="color: #990000">!</span><span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>destroyed <span style="color: #990000">&amp;</span><span style="color: #990000">&amp;</span> <span style="color: #990000">!</span>testBody<span style="color: #990000">.</span>destroyed <span style="color: #990000">)</span>
+    <span style="color: #FF0000">{</span>
+        <span style="font-weight: bold"><span style="color: #0000FF">return</span></span> <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>location<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">getDistance</span></span><span style="color: #990000">(</span> testBody<span style="color: #990000">.</span>location<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">getX</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span><span style="color: #990000">,</span>
+                                           testBody<span style="color: #990000">.</span>location<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">getY</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span> <span style="color: #990000">)</span>
+               <span style="color: #990000">&lt;</span><span style="color: #990000">=</span> <span style="color: #990000">(</span> <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>radius <span style="color: #990000">+</span> testBody<span style="color: #990000">.</span>radius <span style="color: #990000">)</span><span style="color: #990000">;</span>
+    <span style="color: #FF0000">}</span>
+    <span style="font-weight: bold"><span style="color: #0000FF">else</span></span> <span style="color: #FF0000">{</span>
+        <span style="font-weight: bold"><span style="color: #0000FF">return</span></span> <span style="font-weight: bold"><span style="color: #0000FF">false</span></span><span style="color: #990000">;</span>
+    <span style="color: #FF0000">}</span>
+    
+<span style="color: #FF0000">}</span>
+
+<span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * Tells the gravitational field the body creates in a specific location.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * @param vector The vector to store the gravitational field.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * @param x      The x-coordinate of the location.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * @param y      The y-coordinate of the location.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> */</span></span>
+<span style="color: #009900">void</span> Body<span style="color: #990000">:</span><span style="color: #990000">:</span><span style="font-weight: bold"><span style="color: #000000">getGravitationalField</span></span><span style="color: #990000">(</span> Vector <span style="color: #990000">&amp;</span>vector<span style="color: #990000">,</span> <span style="color: #009900">float</span> x<span style="color: #990000">,</span> <span style="color: #009900">float</span> y <span style="color: #990000">)</span>
+<span style="color: #FF0000">{</span>
+
+    <span style="color: #009900">int</span> i<span style="color: #990000">,</span> j<span style="color: #990000">;</span>
+    <span style="color: #009900">float</span> distance<span style="color: #990000">,</span> dx<span style="color: #990000">,</span> dy<span style="color: #990000">;</span>
+    <span style="color: #009900">float</span> field<span style="color: #990000">,</span> fx<span style="color: #990000">,</span> fy<span style="color: #990000">;</span>
+
+    vector<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">set</span></span><span style="color: #990000">(</span> <span style="color: #993399">0.0</span><span style="color: #990000">,</span> <span style="color: #993399">0.0</span> <span style="color: #990000">)</span><span style="color: #990000">;</span>
+    
+    <span style="font-weight: bold"><span style="color: #0000FF">if</span></span> <span style="color: #990000">(</span> <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>emitGravitation <span style="color: #990000">&amp;</span><span style="color: #990000">&amp;</span> <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>mass <span style="color: #990000">!</span><span style="color: #990000">=</span> <span style="color: #990000">.</span><span style="color: #993399">0</span> <span style="color: #990000">)</span> <span style="color: #FF0000">{</span>
+    
+        <span style="font-style: italic"><span style="color: #9A1900">//The gravitational field will be calculated from four closest versions.</span></span>
+        <span style="font-weight: bold"><span style="color: #0000FF">for</span></span> <span style="color: #990000">(</span> i <span style="color: #990000">=</span> <span style="color: #990000">-</span><span style="color: #993399">1</span><span style="color: #990000">;</span> i <span style="color: #990000">&lt;</span><span style="color: #990000">=</span> <span style="color: #993399">1</span><span style="color: #990000">;</span> i <span style="color: #990000">+</span><span style="color: #990000">=</span> <span style="color: #993399">2</span> <span style="color: #990000">)</span> <span style="color: #FF0000">{</span>
+
+            <span style="font-weight: bold"><span style="color: #0000FF">for</span></span> <span style="color: #990000">(</span> j <span style="color: #990000">=</span> <span style="color: #990000">-</span><span style="color: #993399">1</span><span style="color: #990000">;</span> j <span style="color: #990000">&lt;</span><span style="color: #990000">=</span> <span style="color: #993399">1</span><span style="color: #990000">;</span> j<span style="color: #990000">+</span><span style="color: #990000">=</span> <span style="color: #993399">2</span> <span style="color: #990000">)</span> <span style="color: #FF0000">{</span>
+            
+                dx <span style="color: #990000">=</span> <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>location<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">getDistanceX</span></span><span style="color: #990000">(</span> x<span style="color: #990000">,</span> i <span style="color: #990000">)</span><span style="color: #990000">;</span>
+                dy <span style="color: #990000">=</span> <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>location<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">getDistanceY</span></span><span style="color: #990000">(</span> y<span style="color: #990000">,</span> j <span style="color: #990000">)</span><span style="color: #990000">;</span>
+                distance <span style="color: #990000">=</span> <span style="font-weight: bold"><span style="color: #000000">sqrt</span></span><span style="color: #990000">(</span> dx <span style="color: #990000">*</span> dx <span style="color: #990000">+</span> dy <span style="color: #990000">*</span> dy <span style="color: #990000">)</span><span style="color: #990000">;</span>
+                
+                field <span style="color: #990000">=</span> <span style="color: #990000">-</span><span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>world<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">getGravitationConst</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span> <span style="color: #990000">*</span> mass
+                        <span style="color: #990000">/</span> <span style="color: #990000">(</span> distance <span style="color: #990000">*</span> distance <span style="color: #990000">)</span><span style="color: #990000">;</span>
+                fx <span style="color: #990000">=</span> field <span style="color: #990000">*</span> dx <span style="color: #990000">/</span> distance<span style="color: #990000">;</span>
+                fy <span style="color: #990000">=</span> field <span style="color: #990000">*</span> dy <span style="color: #990000">/</span> distance<span style="color: #990000">;</span>
+                
+                vector<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">add</span></span><span style="color: #990000">(</span> fx<span style="color: #990000">,</span> fy <span style="color: #990000">)</span><span style="color: #990000">;</span>
+            
+            <span style="color: #FF0000">}</span>
+        
+        <span style="color: #FF0000">}</span>
+    
+    <span style="color: #FF0000">}</span>
+    
+<span style="color: #FF0000">}</span>
+
+<span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * Visualizes the body to the given graphics system.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * @param graphics The graphics system.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> */</span></span>
+<span style="color: #009900">void</span> Body<span style="color: #990000">:</span><span style="color: #990000">:</span><span style="font-weight: bold"><span style="color: #000000">draw</span></span><span style="color: #990000">(</span>Graphics <span style="color: #990000">&amp;</span>graphics<span style="color: #990000">)</span> <span style="color: #FF0000">{</span>
+
+    <span style="font-weight: bold"><span style="color: #0000FF">if</span></span> <span style="color: #990000">(</span> <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>sprite <span style="color: #990000">&gt;</span><span style="color: #990000">=</span> <span style="color: #993399">0</span> <span style="color: #990000">)</span>
+        graphics<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">drawAnimated</span></span><span style="color: #990000">(</span> <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>sprite<span style="color: #990000">,</span> <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>location<span style="color: #990000">,</span> <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span><span style="font-weight: bold"><span style="color: #000000">getPhase</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span> <span style="color: #990000">)</span><span style="color: #990000">;</span>
+
+<span style="color: #FF0000">}</span>
+</tt></pre>

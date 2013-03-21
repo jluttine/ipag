@@ -1,0 +1,220 @@
+<pre><tt>
+<span style="font-weight: bold"><span style="color: #000080">#ifndef</span></span> _COORDINATES_H_
+<span style="font-weight: bold"><span style="color: #000080">#define</span></span> _COORDINATES_H_
+
+<span style="font-weight: bold"><span style="color: #000080">#include</span></span> <span style="color: #FF0000">&lt;iostream&gt;</span>
+<span style="font-weight: bold"><span style="color: #000080">#include</span></span> <span style="color: #FF0000">"CoordinateSystem.h"</span>
+
+<span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * Author: Jaakko Luttinen</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * Coordinates is a class for a point in a continuous coordinate system.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * It means that every x is between 0-width and y is between 0-height, where</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * width and height are the width and height of the coordinate system.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * Continuity means that x=x+n*width and y=y+n*height, where n is an</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * integer. In order to be able to use this class correctly you must</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * understand some of the effects of continuity. For example, the distance</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * from (x1,y1) to (x2,y2) cannot be determined, because distance has</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * endlessly options. But we can determine shortest distance. Also, x0 is</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * always between x1 and x2 (if x1 is not equal to x2), but we can ask is in</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * the range from x1 to positive direction until x2. Class will return only</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * coordinate values in the range 0 - axis length. It will also translate</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * all parameters into that range, so any value as a parameter is valid.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> */</span></span>
+<span style="font-weight: bold"><span style="color: #0000FF">class</span></span> Coordinates
+<span style="color: #FF0000">{</span>
+    
+<span style="font-weight: bold"><span style="color: #0000FF">public</span></span><span style="color: #990000">:</span>
+
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Constructs a new point (x,y) in given coordinate system.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @param coordSystem Coordinate system for the point.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @param x           X-coordinate.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @param y           Y-coordinate.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="font-weight: bold"><span style="color: #000000">Coordinates</span></span><span style="color: #990000">(</span><span style="font-weight: bold"><span style="color: #0000FF">const</span></span> CoordinateSystem <span style="color: #990000">&amp;</span>coordSystem<span style="color: #990000">,</span> <span style="color: #009900">float</span> x<span style="color: #990000">=</span><span style="color: #993399">0</span><span style="color: #990000">,</span> <span style="color: #009900">float</span> y<span style="color: #990000">=</span><span style="color: #993399">0</span><span style="color: #990000">)</span><span style="color: #990000">;</span>
+    
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Constructs a new point to same coordinate system and same coordinates</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * as coords.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @param coords The coordinates to use as a copy.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="font-weight: bold"><span style="color: #000000">Coordinates</span></span><span style="color: #990000">(</span> <span style="font-weight: bold"><span style="color: #0000FF">const</span></span> Coordinates <span style="color: #990000">&amp;</span>coords <span style="color: #990000">)</span><span style="color: #990000">;</span>
+    
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Returns the coordinate system of the point.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @return Coordinate system of the point.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="font-weight: bold"><span style="color: #0000FF">inline</span></span> <span style="font-weight: bold"><span style="color: #0000FF">const</span></span> CoordinateSystem<span style="color: #990000">&amp;</span>  <span style="font-weight: bold"><span style="color: #000000">getCoordinateSystem</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span> <span style="font-weight: bold"><span style="color: #0000FF">const</span></span>
+        <span style="color: #FF0000">{</span> <span style="font-weight: bold"><span style="color: #0000FF">return</span></span> <span style="color: #990000">*</span><span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>system<span style="color: #990000">;</span> <span style="color: #FF0000">}</span><span style="color: #990000">;</span>
+    
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Returns the x-coordinate of the point.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @return X-coordinate of the point.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="font-weight: bold"><span style="color: #0000FF">inline</span></span> <span style="color: #009900">float</span> <span style="font-weight: bold"><span style="color: #000000">getX</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span> <span style="font-weight: bold"><span style="color: #0000FF">const</span></span>  <span style="color: #FF0000">{</span> <span style="font-weight: bold"><span style="color: #0000FF">return</span></span> <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>x<span style="color: #990000">;</span> <span style="color: #FF0000">}</span><span style="color: #990000">;</span>
+    
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Returns the y-coordinate of the point.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @return Y-coordinate of the point.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="font-weight: bold"><span style="color: #0000FF">inline</span></span> <span style="color: #009900">float</span> <span style="font-weight: bold"><span style="color: #000000">getY</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span> <span style="font-weight: bold"><span style="color: #0000FF">const</span></span>  <span style="color: #FF0000">{</span> <span style="font-weight: bold"><span style="color: #0000FF">return</span></span> <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>y<span style="color: #990000">;</span> <span style="color: #FF0000">}</span><span style="color: #990000">;</span>
+    
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Sets the coordinates of the point.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @param x X-coordinate.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @param y Y-coordinate.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="color: #009900">void</span> <span style="font-weight: bold"><span style="color: #000000">set</span></span><span style="color: #990000">(</span> <span style="color: #009900">float</span> x<span style="color: #990000">,</span> <span style="color: #009900">float</span> y <span style="color: #990000">)</span><span style="color: #990000">;</span>
+    
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Adds the values to coordinates.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @param dx Addition to x-coordinate.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @param dy Addition to y-coordinate.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="color: #009900">void</span> <span style="font-weight: bold"><span style="color: #000000">add</span></span><span style="color: #990000">(</span> <span style="color: #009900">float</span> dx<span style="color: #990000">,</span> <span style="color: #009900">float</span> dy <span style="color: #990000">)</span><span style="color: #990000">;</span>
+
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Returns the shortest distance in x-axis to the given x-coordinate in</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * given direction. If direction &lt; 0, negative direction is used. If</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * direction &gt; 0, positive direction is used. If direction = 0, shortest</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * distance is returned. The sign of the return value tells the direction</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * also.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @param x         X-coordinate which the distance is being determined.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @param direction Tells which direction to use.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @return The distance in the axis. Note that the sign tells the</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     *         direction.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="color: #009900">float</span> <span style="font-weight: bold"><span style="color: #000000">getDistanceX</span></span><span style="color: #990000">(</span> <span style="color: #009900">float</span> x<span style="color: #990000">,</span> <span style="color: #009900">int</span> direction <span style="color: #990000">=</span> <span style="color: #993399">0</span> <span style="color: #990000">)</span> <span style="font-weight: bold"><span style="color: #0000FF">const</span></span><span style="color: #990000">;</span>
+
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Returns the shortest distance in y-axis to the given y-coordinate in</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * given direction. If direction &lt; 0, negative direction is used. If</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * direction &gt; 0, positive direction is used. If direction = 0, shortest</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * distance is returned. The sign of the return value tells the direction</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * also.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @param y         Y-coordinate which the distance is being determined.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @param direction Tells which direction to use.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @return The distance in the axis. Note that the sign tells the</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     *         direction.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="color: #009900">float</span> <span style="font-weight: bold"><span style="color: #000000">getDistanceY</span></span><span style="color: #990000">(</span> <span style="color: #009900">float</span> y<span style="color: #990000">,</span> <span style="color: #009900">int</span> direction <span style="color: #990000">=</span> <span style="color: #993399">0</span> <span style="color: #990000">)</span> <span style="font-weight: bold"><span style="color: #0000FF">const</span></span><span style="color: #990000">;</span>
+    
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Returns the shortest distance between the coordinates.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @param x X-coordinate of the point.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @param y Y-coordinate of the point.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="color: #009900">float</span> <span style="font-weight: bold"><span style="color: #000000">getDistance</span></span><span style="color: #990000">(</span> <span style="color: #009900">float</span> x<span style="color: #990000">,</span> <span style="color: #009900">float</span> y <span style="color: #990000">)</span> <span style="font-weight: bold"><span style="color: #0000FF">const</span></span><span style="color: #990000">;</span>
+    
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Tells relative coordinates. It means resulting point will be in the</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * same coordinate system as this and its coordinates are (x+addX,y+addY).</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @param result Object to store the resulting coordinates.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @param addX   Addition in x-component.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @param addY   Addition in y-component.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="color: #009900">void</span> <span style="font-weight: bold"><span style="color: #000000">getRelativeCoordinates</span></span><span style="color: #990000">(</span> Coordinates <span style="color: #990000">&amp;</span>result<span style="color: #990000">,</span>
+                                 <span style="color: #009900">float</span> addX<span style="color: #990000">,</span> <span style="color: #009900">float</span> addY<span style="color: #990000">)</span> <span style="font-weight: bold"><span style="color: #0000FF">const</span></span><span style="color: #990000">;</span>
+    
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Tells whether the coordinates have same coordinate system. Two points</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * are comparable only if they are in the same coordinate system.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @param coords Point, whose coordinate system is compared.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="font-weight: bold"><span style="color: #0000FF">inline</span></span> <span style="color: #009900">bool</span> <span style="font-weight: bold"><span style="color: #000000">isSameSystem</span></span><span style="color: #990000">(</span> <span style="font-weight: bold"><span style="color: #0000FF">const</span></span> Coordinates <span style="color: #990000">&amp;</span>coords <span style="color: #990000">)</span> <span style="font-weight: bold"><span style="color: #0000FF">const</span></span>
+        <span style="color: #FF0000">{</span> <span style="font-weight: bold"><span style="color: #0000FF">return</span></span> <span style="color: #990000">&amp;</span><span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>system <span style="color: #990000">=</span><span style="color: #990000">=</span> <span style="color: #990000">&amp;</span>coords<span style="color: #990000">.</span>system<span style="color: #990000">;</span> <span style="color: #FF0000">}</span><span style="color: #990000">;</span>
+        
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Tells whether the point is between start and end x-coordinates. The</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * range to positive direction from start to end. If start=end, then it</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * will tell whether the point's x-coordinate is equal to start=end. Note</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * that if start is not equal to end, then the point is either in range</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * start-end or end-start. Or possibly both, because the ending points are</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * included. Note also, that start and end are fixed to range 0 - axis</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * length.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @param start The starting point of the range.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @param end   The ending point of the range.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="color: #009900">bool</span> <span style="font-weight: bold"><span style="color: #000000">isBetweenX</span></span><span style="color: #990000">(</span> <span style="color: #009900">float</span> start<span style="color: #990000">,</span> <span style="color: #009900">float</span> end <span style="color: #990000">)</span> <span style="font-weight: bold"><span style="color: #0000FF">const</span></span><span style="color: #990000">;</span>
+
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Tells whether the point is between start and end x-coordinates. The</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * range to positive direction from start to end. If start=end, then it</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * will tell whether the point's x-coordinate is equal to start=end. Note</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * that if start is not equal to end, then the point is either in range</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * start-end or end-start. Or possibly both, because the ending points are</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * included. Note also, that start and end are fixed to range 0 - axis</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * length.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @param start The starting point of the range.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @param end   The ending point of the range.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="color: #009900">bool</span> <span style="font-weight: bold"><span style="color: #000000">isBetweenY</span></span><span style="color: #990000">(</span> <span style="color: #009900">float</span> start<span style="color: #990000">,</span> <span style="color: #009900">float</span> end <span style="color: #990000">)</span> <span style="font-weight: bold"><span style="color: #0000FF">const</span></span><span style="color: #990000">;</span>
+    
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Prints the point in format "(x, y)" to os.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @param os       Output stream.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @param location The coordinates to print.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @return The output stream.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="font-weight: bold"><span style="color: #0000FF">friend</span></span> std<span style="color: #990000">:</span><span style="color: #990000">:</span>ostream<span style="color: #990000">&amp;</span> <span style="font-weight: bold"><span style="color: #0000FF">operator</span></span><span style="color: #990000">&lt;</span><span style="color: #990000">&lt;</span><span style="color: #990000">(</span> std<span style="color: #990000">:</span><span style="color: #990000">:</span>ostream <span style="color: #990000">&amp;</span>os<span style="color: #990000">,</span>
+                                     <span style="font-weight: bold"><span style="color: #0000FF">const</span></span> Coordinates <span style="color: #990000">&amp;</span>location <span style="color: #990000">)</span><span style="color: #990000">;</span>
+    
+<span style="font-weight: bold"><span style="color: #0000FF">protected</span></span><span style="color: #990000">:</span>
+    
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Returns the shortest distance to given direction from from-coordinate</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * to to-coordinate in axis, whose length is max. If direction &lt; 0,</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * negative direction is used. If direction &gt; 0, positive direction is</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * used. If direction = 0, shortest direction is returned. The coordinate</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * values must be fixed! Sign of the return value tells direction.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @param from The coordinate from which the distance is determined.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @param to   The coordinate to which the distance is determined.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @param max  The length of the axis.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @param direction The direction.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @return The distance.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="font-weight: bold"><span style="color: #0000FF">static</span></span> <span style="color: #009900">float</span> <span style="font-weight: bold"><span style="color: #000000">getCoordinateDistance</span></span><span style="color: #990000">(</span> <span style="color: #009900">float</span> from<span style="color: #990000">,</span> <span style="color: #009900">float</span> to<span style="color: #990000">,</span> <span style="color: #009900">int</span> max<span style="color: #990000">,</span>
+                                        <span style="color: #009900">int</span> direction <span style="color: #990000">)</span><span style="color: #990000">;</span>
+
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Tells whether the coord-coordinate is between start and end</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * coordinates. Ending points are included. If start=end, tells whether</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * coord=start=end. Range is to positive direction from start to end. All</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * coordinate values must be fixed!</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @param coord The coordinate to check.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @param start The starting coordinate of the range.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @param end   The ending coordinate of the range.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @return True if coord is between start and end, false otherwise.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="font-weight: bold"><span style="color: #0000FF">static</span></span> <span style="color: #009900">bool</span> <span style="font-weight: bold"><span style="color: #000000">isBetweenCoordinates</span></span><span style="color: #990000">(</span> <span style="color: #009900">float</span> coord<span style="color: #990000">,</span> <span style="color: #009900">float</span> start<span style="color: #990000">,</span> <span style="color: #009900">float</span> end <span style="color: #990000">)</span><span style="color: #990000">;</span>
+    
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Fixes the coord to range 0-max. For example, if coord=-1, coord will be</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * fixed to coord=max-1. That is, coord=coord+n*max, where n is an integer</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * so that coord will be in the range 0-max.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @param coord The coordinate to fix.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @param max   The length of the axis.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="font-weight: bold"><span style="color: #0000FF">static</span></span> <span style="color: #009900">void</span> <span style="font-weight: bold"><span style="color: #000000">fixCoordinate</span></span><span style="color: #990000">(</span> <span style="color: #009900">float</span> <span style="color: #990000">&amp;</span>coord<span style="color: #990000">,</span> <span style="color: #009900">int</span> max <span style="color: #990000">)</span><span style="color: #990000">;</span>
+
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Fixes both coordinates to base range (0 - axis length).</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="color: #009900">void</span> <span style="font-weight: bold"><span style="color: #000000">fix</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span><span style="color: #990000">;</span>
+    
+<span style="font-weight: bold"><span style="color: #0000FF">private</span></span><span style="color: #990000">:</span>
+
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * The coordinate system for the point. Class does NOT free the memory!</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="font-weight: bold"><span style="color: #0000FF">const</span></span> CoordinateSystem <span style="color: #990000">*</span>system<span style="color: #990000">;</span>
+    
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * The coordinates.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="color: #009900">float</span> x<span style="color: #990000">,</span> y<span style="color: #990000">;</span>
+    
+<span style="color: #FF0000">}</span><span style="color: #990000">;</span>
+
+<span style="font-weight: bold"><span style="color: #000080">#endif</span></span> <span style="font-style: italic"><span style="color: #9A1900">//_COORDINATES_H_</span></span>
+</tt></pre>

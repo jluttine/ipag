@@ -1,0 +1,91 @@
+<pre><tt><span style="font-weight: bold"><span style="color: #000080">#ifndef</span></span> _WINDOW_CREATEWORLD_H_
+<span style="font-weight: bold"><span style="color: #000080">#define</span></span> _WINDOW_CREATEWORLD_H_
+
+<span style="font-weight: bold"><span style="color: #000080">#include</span></span> <span style="color: #FF0000">"Window.h"</span>
+<span style="font-weight: bold"><span style="color: #000080">#include</span></span> <span style="color: #FF0000">"GameEngine.h"</span>
+<span style="font-weight: bold"><span style="color: #000080">#include</span></span> <span style="color: #FF0000">"UIText.h"</span>
+<span style="font-weight: bold"><span style="color: #000080">#include</span></span> <span style="color: #FF0000">"UIButton.h"</span>
+
+<span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * WindowCreateWorld is a window where user creates the world and ajusts</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * it's parameters.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> *</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * @author Tapio Auvinen</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> */</span></span>
+
+<span style="font-weight: bold"><span style="color: #0000FF">class</span></span> WindowCreateWorld  <span style="color: #990000">:</span>  <span style="font-weight: bold"><span style="color: #0000FF">public</span></span> Window <span style="color: #FF0000">{</span>
+<span style="font-weight: bold"><span style="color: #0000FF">public</span></span><span style="color: #990000">:</span>
+
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Constructor</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @param &amp;graphics Reference to graphics</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @param &amp;sounds Reference to sound engine</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @param &amp;engine Reference to game engine</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="font-weight: bold"><span style="color: #000000">WindowCreateWorld</span></span><span style="color: #990000">(</span>Graphics <span style="color: #990000">&amp;</span>graphics<span style="color: #990000">,</span> Sounds <span style="color: #990000">&amp;</span>sounds<span style="color: #990000">,</span>
+                      GameEngine <span style="color: #990000">&amp;</span>engine<span style="color: #990000">)</span><span style="color: #990000">;</span>
+    
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Destructor</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="color: #990000">~</span><span style="font-weight: bold"><span style="color: #000000">WindowCreateWorld</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span><span style="color: #990000">;</span>
+    
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Called priodically by Window::open(). Updates stuff that has to be</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * updated regularly.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @param timestep timestep in milliseconds</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="color: #009900">void</span> <span style="font-weight: bold"><span style="color: #000000">step</span></span><span style="color: #990000">(</span><span style="color: #009900">int</span> timestep<span style="color: #990000">)</span><span style="color: #990000">;</span>
+    
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Called when window is opened.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="color: #009900">void</span> <span style="font-weight: bold"><span style="color: #000000">show</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span><span style="color: #990000">;</span>
+    
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Handles key down events</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="color: #009900">void</span> <span style="font-weight: bold"><span style="color: #000000">keyDown</span></span><span style="color: #990000">(</span>SDL_keysym keysym<span style="color: #990000">)</span><span style="color: #990000">;</span>
+    
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Handles mouse move events</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="color: #009900">void</span> <span style="font-weight: bold"><span style="color: #000000">mouseMove</span></span><span style="color: #990000">(</span>SDL_MouseMotionEvent motion<span style="color: #990000">)</span><span style="color: #990000">;</span>
+    
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Handles mouse down events</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="color: #009900">void</span> <span style="font-weight: bold"><span style="color: #000000">mouseDown</span></span><span style="color: #990000">(</span>SDL_MouseButtonEvent button<span style="color: #990000">)</span><span style="color: #990000">;</span>
+    
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Handles mouse up events</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="color: #009900">void</span> <span style="font-weight: bold"><span style="color: #000000">mouseUp</span></span><span style="color: #990000">(</span>SDL_MouseButtonEvent button<span style="color: #990000">)</span><span style="color: #990000">;</span>
+    
+<span style="font-weight: bold"><span style="color: #0000FF">private</span></span><span style="color: #990000">:</span>
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Creates a random world</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="color: #009900">void</span> <span style="font-weight: bold"><span style="color: #000000">createWorld</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span><span style="color: #990000">;</span>
+
+    
+    <span style="color: #009900">bool</span> scrollMode<span style="color: #990000">;</span> <span style="font-style: italic"><span style="color: #9A1900">//Tells whether we are scrolling or not</span></span>
+    
+    GameEngine <span style="color: #990000">&amp;</span>gameEngine<span style="color: #990000">;</span> <span style="font-style: italic"><span style="color: #9A1900">//Reference to game engine</span></span>
+    World <span style="color: #990000">*</span>world<span style="color: #990000">;</span>           <span style="font-style: italic"><span style="color: #9A1900">//The new world</span></span>
+    
+    <span style="color: #009900">int</span> numPlanets<span style="color: #990000">;</span>         <span style="font-style: italic"><span style="color: #9A1900">//Number of planets currently</span></span>
+    
+    <span style="font-style: italic"><span style="color: #9A1900">//UI components:</span></span>
+    UIText <span style="color: #990000">*</span>textPlanets<span style="color: #990000">;</span>
+    UIText <span style="color: #990000">*</span>textNumPlanets<span style="color: #990000">;</span>
+    UIButton <span style="color: #990000">*</span>butMorePlanets<span style="color: #990000">;</span>
+    UIButton <span style="color: #990000">*</span>butLessPlanets<span style="color: #990000">;</span>
+    UIButton <span style="color: #990000">*</span>butCreate<span style="color: #990000">;</span>
+    UIButton <span style="color: #990000">*</span>butStart<span style="color: #990000">;</span>
+    UIButton <span style="color: #990000">*</span>butQuit<span style="color: #990000">;</span>
+
+<span style="color: #FF0000">}</span><span style="color: #990000">;</span>
+
+<span style="font-weight: bold"><span style="color: #000080">#endif</span></span> <span style="font-style: italic"><span style="color: #9A1900">//_WINDOW_CREATEWORLD_H_</span></span>
+</tt></pre>

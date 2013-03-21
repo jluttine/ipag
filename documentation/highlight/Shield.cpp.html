@@ -1,0 +1,51 @@
+<pre><tt>
+<span style="font-weight: bold"><span style="color: #000080">#include</span></span> <span style="color: #FF0000">"Shield.h"</span>
+
+<span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * Returns the price of an armor increment.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * @param increase Armor increment.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * @return Price of the increment.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> */</span></span>
+<span style="color: #009900">int</span> Shield<span style="color: #990000">:</span><span style="color: #990000">:</span><span style="font-weight: bold"><span style="color: #000000">getIncreasePrice</span></span><span style="color: #990000">(</span> <span style="color: #009900">int</span> increase <span style="color: #990000">)</span> <span style="font-weight: bold"><span style="color: #0000FF">const</span></span>
+<span style="color: #FF0000">{</span>
+    
+    <span style="font-weight: bold"><span style="color: #0000FF">if</span></span> <span style="color: #990000">(</span> <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>armor <span style="color: #990000">+</span> increase <span style="color: #990000">&lt;</span> <span style="color: #993399">0</span> <span style="color: #990000">)</span>
+        increase <span style="color: #990000">=</span> <span style="color: #990000">-</span><span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>armor<span style="color: #990000">;</span>
+
+    <span style="font-weight: bold"><span style="color: #0000FF">return</span></span> increase <span style="color: #990000">*</span> Shield<span style="color: #990000">:</span><span style="color: #990000">:</span>armorPrice<span style="color: #990000">;</span>
+<span style="color: #FF0000">}</span>
+
+<span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * Returns absorption.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * @return Absorption (0-1).</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> */</span></span>
+<span style="color: #009900">float</span> Shield<span style="color: #990000">:</span><span style="color: #990000">:</span><span style="font-weight: bold"><span style="color: #000000">getAbsorption</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span> <span style="font-weight: bold"><span style="color: #0000FF">const</span></span>
+<span style="color: #FF0000">{</span>
+    
+    <span style="font-weight: bold"><span style="color: #0000FF">if</span></span> <span style="color: #990000">(</span> <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>armor <span style="color: #990000">&gt;</span> <span style="color: #993399">0</span> <span style="color: #990000">)</span>
+    <span style="color: #FF0000">{</span>
+        <span style="font-weight: bold"><span style="color: #0000FF">return</span></span> Shield<span style="color: #990000">:</span><span style="color: #990000">:</span>maximumAbsorption
+               <span style="color: #990000">*</span> <span style="color: #990000">(</span> <span style="color: #993399">1</span> <span style="color: #990000">-</span> <span style="font-weight: bold"><span style="color: #000000">pow</span></span><span style="color: #990000">(</span> <span style="color: #993399">1</span><span style="color: #990000">-</span>Shield<span style="color: #990000">:</span><span style="color: #990000">:</span>armorStepAbsorption<span style="color: #990000">,</span> <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>armor <span style="color: #990000">)</span> <span style="color: #990000">)</span><span style="color: #990000">;</span>
+    <span style="color: #FF0000">}</span>
+    <span style="font-weight: bold"><span style="color: #0000FF">else</span></span>
+        <span style="font-weight: bold"><span style="color: #0000FF">return</span></span> <span style="color: #993399">0</span><span style="color: #990000">;</span>
+    
+<span style="color: #FF0000">}</span>
+
+<span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * Increases the armor and returns the cost.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * @param increase Armor increment.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * @return Cost of the increment.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> */</span></span>
+<span style="color: #009900">int</span> Shield<span style="color: #990000">:</span><span style="color: #990000">:</span><span style="font-weight: bold"><span style="color: #000000">increase</span></span><span style="color: #990000">(</span> <span style="color: #009900">int</span> increase <span style="color: #990000">)</span>
+<span style="color: #FF0000">{</span>
+    
+    <span style="font-weight: bold"><span style="color: #0000FF">if</span></span> <span style="color: #990000">(</span> <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>armor <span style="color: #990000">+</span> increase <span style="color: #990000">&lt;</span> <span style="color: #993399">0</span> <span style="color: #990000">)</span>
+        increase <span style="color: #990000">=</span> <span style="color: #990000">-</span><span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>armor<span style="color: #990000">;</span>
+        
+    <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>armor <span style="color: #990000">+</span><span style="color: #990000">=</span> increase<span style="color: #990000">;</span>
+    
+    <span style="font-weight: bold"><span style="color: #0000FF">return</span></span> increase <span style="color: #990000">*</span> Shield<span style="color: #990000">:</span><span style="color: #990000">:</span>armorPrice<span style="color: #990000">;</span>
+    
+<span style="color: #FF0000">}</span>
+</tt></pre>

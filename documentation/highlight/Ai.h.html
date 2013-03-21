@@ -1,0 +1,73 @@
+<pre><tt>
+<span style="font-weight: bold"><span style="color: #000080">#ifndef</span></span> _AI_H_
+<span style="font-weight: bold"><span style="color: #000080">#define</span></span> _AI_H_
+    
+<span style="font-weight: bold"><span style="color: #0000FF">class</span></span> Ai<span style="color: #990000">;</span>
+
+<span style="font-weight: bold"><span style="color: #000080">#include</span></span> <span style="color: #FF0000">"Player.h"</span>
+
+<span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * Class Ai.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * Artifical intelligence for computer players.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * @author Lasse Hakulinen</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> */</span></span>
+
+<span style="font-weight: bold"><span style="color: #0000FF">class</span></span> Ai <span style="color: #FF0000">{</span>
+    
+<span style="font-weight: bold"><span style="color: #0000FF">public</span></span><span style="color: #990000">:</span>
+
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Constructor.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @param &amp;player - reference to player whose AI this is.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @param skill - level of skill.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="font-weight: bold"><span style="color: #000000">Ai</span></span><span style="color: #990000">(</span>Player <span style="color: #990000">&amp;</span>player<span style="color: #990000">,</span> <span style="color: #009900">int</span> skill <span style="color: #990000">=</span> <span style="color: #993399">1</span><span style="color: #990000">)</span><span style="color: #990000">;</span>
+    
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Destructs the AI</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="color: #990000">~</span><span style="font-weight: bold"><span style="color: #000000">Ai</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span><span style="color: #990000">;</span>
+    
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Initializes variables for thinking</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>    
+    <span style="color: #009900">void</span> <span style="font-weight: bold"><span style="color: #000000">startThinking</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span><span style="color: #990000">;</span>
+    
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Calculates the best shot for computer player.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Tests one shot and checks if it is better than the current best one.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * This function is called numerous times in one turn.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * When Ai is done with thinking, it automatically fires a shot.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="color: #009900">void</span> <span style="font-weight: bold"><span style="color: #000000">think</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span><span style="color: #990000">;</span>
+    
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Does the shopping for computer player.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="color: #009900">void</span> <span style="font-weight: bold"><span style="color: #000000">doShopping</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span><span style="color: #990000">;</span>
+    
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Selects the starting location for computer player.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="color: #009900">void</span> <span style="font-weight: bold"><span style="color: #000000">selectStartingLocation</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span><span style="color: #990000">;</span>
+    
+<span style="font-weight: bold"><span style="color: #0000FF">private</span></span><span style="color: #990000">:</span>
+
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Sets the levels how many simulation shots can be fired in one turn.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @param skill - Ai's level of skill (min = 0, max = 2)</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">    */</span></span>
+    <span style="color: #009900">void</span> <span style="font-weight: bold"><span style="color: #000000">setThinkingLevels</span></span><span style="color: #990000">(</span><span style="color: #009900">int</span> skill<span style="color: #990000">)</span><span style="color: #990000">;</span>
+
+    Player <span style="color: #990000">&amp;</span>player<span style="color: #990000">;</span>
+    
+    <span style="color: #009900">int</span> thinkStepCount<span style="color: #990000">,</span> thinkStepsTaken<span style="color: #990000">,</span> randomStepCount<span style="color: #990000">,</span> spesifyingSteps<span style="color: #990000">;</span>
+    
+    <span style="color: #009900">float</span> bestAngle<span style="color: #990000">,</span> bestPower<span style="color: #990000">,</span> bestDamage<span style="color: #990000">;</span>
+    <span style="color: #009900">float</span> currentAngle<span style="color: #990000">,</span> currentPower<span style="color: #990000">;</span>
+    <span style="color: #009900">int</span> bestWeapon<span style="color: #990000">;</span>
+    
+<span style="color: #FF0000">}</span><span style="color: #990000">;</span>
+
+<span style="font-weight: bold"><span style="color: #000080">#endif</span></span> <span style="font-style: italic"><span style="color: #9A1900">//_AI_H_</span></span>
+</tt></pre>

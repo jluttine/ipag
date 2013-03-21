@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="no"?>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<style type="text/css">
+		h2 { margin-top: 2em; }
+		h3 { margin-top: 2em; }
+	</style>
+	<title>AS-0.101 Project document</title>
+</head>
+
+<body>
+
+<p>
+	<a href="index.html">Front page</a> -
+	<a href="manual.html">Manual</a> -
+	<a href="arch.html">Architecture</a> -
+	<a href="algorithms.html">Algorithms</a> -
+	<a href="bugs.html">Bugs</a> -
+	<a href="tasks.html">Tasks sharing</a> -
+	<a href="diff.html">Differences</a> -
+	<a href="sources.html">Sources</a> -
+	<a href="doxygen/index.html">Doxygen</a> -
+	<a href="references.html">References</a>
+</p>
+<hr />
+
+
+<h2>Data structures</h2>
+<p>There are no special data structures. We use STL vectors for variable size arrays and traditional arrays otherwise. In the game world objects are always added to the end of the list so vector is as good a data structure as any.</p>
+
+
+
+<h2>Algorithms</h2>
+
+<h3>AI</h3>
+
+<p>AI fires simulated shots with random angles and powers. It chooses the shot that causes most damage to other players and least damage to itself and iterates this shot by firing more simulated shots with slighly altered angle and power. It again chooses the best shot and fires it for real. If AI doesn't find a shot that causes any damage, it relocates it's cannon.</p>
+
+<p>If necessary, thinking can be stopped any time and AI shoots the best shot found so far. This feature is, however, disabled from the UI for the sake of fair play. Intelligense of an AI can be easily adjusted by adjusting the number of simulation shots it's allowed to shoot. AI can be made unbeatable without increasing thinking time too much. Even a stupid AI uses some weapons much more efficiently than a human because it can see every consequence. For example bouncing weapons are very unpredictable for human players but not for AIs.</p>
+
+<p>Simulation shots are a service provided by game engine and they do not differ from real shots in any way. AIs have exactly the same interface to the weapons as human players. At this point, however, AIs don't know how to use weapon parameters. Random adjustments would make parameters only worse in most cases.</p>
+
+<p>AI purcases a reasonable amount of shields with a slight random variance. Rest of the money goes to randomly selected weapons. An AI selects it's location randomly.</p>
+
+
+<h3>Intelligent weapons</h3>
+
+<p>Seeking missiles try to eliminate velocity component that is perpendicular to the line drawn between the weapon and the target. Efficiency can be adjusted by limiting the power of thrusters. On visualization we use missile's velocity vector to determine orientation of the sprite.</p>
+
+<h3>Continuous world</h3>
+<p>World size is selected so that an object can appear on up to four places on the screen. Every sprite is automatically drawn four times. If an object crosses world border, it is automatically transported to the other side of the world. Scrolling works exactly the same way, i.e. cordinates of window center are never bigger that world width. Gravities are calculated so that four closest instances of an object are taken into account.</p>
+
+<h3>Points</h3>
+<p>Points come from damage caused to others. Shooting the own cannon takes some points away. Killing bring lots of bonus points. When game ends, some extra points are delivered according to how long the player survived. The exact formulas are:</p>
+
+<ul>
+	<li>1p / damage unit</li>
+	<li>100p / kill</li>
+	<li>200p * ((number of players that died before the player) / (number of players - 1)) ^ 2</li>
+</ul>
+
+
+<hr />
+<p>
+	<a href="index.html">Front page</a> -
+	<a href="manual.html">Manual</a> -
+	<a href="arch.html">Architecture</a> -
+	<a href="algorithms.html">Algorithms</a> -
+	<a href="bugs.html">Bugs</a> -
+	<a href="tasks.html">Tasks sharing</a> -
+	<a href="diff.html">Differences</a> -
+	<a href="sources.html">Sources</a> -
+	<a href="doxygen/index.html">Doxygen</a> -
+	<a href="references.html">References</a>
+</p>
+
+</body>
+</html>

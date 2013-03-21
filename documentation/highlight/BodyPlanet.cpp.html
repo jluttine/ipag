@@ -1,0 +1,212 @@
+<pre><tt>
+<span style="font-weight: bold"><span style="color: #000080">#include</span></span> <span style="color: #FF0000">&lt;vector&gt;</span>
+<span style="font-weight: bold"><span style="color: #000080">#include</span></span> <span style="color: #FF0000">&lt;math.h&gt;</span>
+<span style="font-weight: bold"><span style="color: #000080">#include</span></span> <span style="color: #FF0000">"BodyPlanet.h"</span> 
+<span style="font-weight: bold"><span style="color: #000080">#include</span></span> <span style="color: #FF0000">"BodyCannon.h"</span>
+<span style="font-weight: bold"><span style="color: #000080">#include</span></span> <span style="color: #FF0000">"Body.h"</span>
+
+<span style="font-weight: bold"><span style="color: #000080">#include</span></span> <span style="color: #FF0000">"images.h"</span>
+<span style="font-weight: bold"><span style="color: #000080">#include</span></span> <span style="color: #FF0000">"Graphics.h"</span>
+
+<span style="font-weight: bold"><span style="color: #0000FF">using</span></span> std<span style="color: #990000">:</span><span style="color: #990000">:</span>cerr<span style="color: #990000">;</span>
+<span style="font-weight: bold"><span style="color: #0000FF">using</span></span> std<span style="color: #990000">:</span><span style="color: #990000">:</span>endl<span style="color: #990000">;</span>
+
+<span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * Constructs a new planet.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * @param world           The world which the planet is created into.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * @param x               X-coordinate in the world.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * @param y               Y-coordinate in the world.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * @param size            One of the three sizes.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * @param type            One of the four types.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * @param angularVelocity Tells the "End of round" angle rotation.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> */</span></span>
+BodyPlanet<span style="color: #990000">:</span><span style="color: #990000">:</span><span style="font-weight: bold"><span style="color: #000000">BodyPlanet</span></span><span style="color: #990000">(</span> World <span style="color: #990000">&amp;</span>world<span style="color: #990000">,</span> <span style="color: #009900">float</span> x<span style="color: #990000">,</span> <span style="color: #009900">float</span> y<span style="color: #990000">,</span> ESize size<span style="color: #990000">,</span>
+                        EType type<span style="color: #990000">,</span> <span style="color: #009900">float</span> angularVelocity <span style="color: #990000">)</span>
+<span style="color: #990000">:</span> <span style="font-weight: bold"><span style="color: #000000">Body</span></span><span style="color: #990000">(</span> world<span style="color: #990000">,</span> x<span style="color: #990000">,</span> y<span style="color: #990000">,</span> <span style="color: #993399">0</span><span style="color: #990000">,</span> <span style="color: #993399">0</span><span style="color: #990000">,</span> <span style="font-weight: bold"><span style="color: #0000FF">true</span></span><span style="color: #990000">,</span> <span style="font-weight: bold"><span style="color: #0000FF">true</span></span> <span style="color: #990000">)</span>
+<span style="color: #FF0000">{</span>
+    <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>image <span style="color: #990000">=</span> NULL<span style="color: #990000">;</span>
+    
+    <span style="font-weight: bold"><span style="color: #0000FF">switch</span></span> <span style="color: #990000">(</span>size<span style="color: #990000">)</span> <span style="color: #FF0000">{</span>
+        <span style="font-weight: bold"><span style="color: #0000FF">case</span></span> SMALL<span style="color: #990000">:</span> 
+            <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span><span style="font-weight: bold"><span style="color: #000000">setRadius</span></span><span style="color: #990000">(</span><span style="color: #993399">40</span><span style="color: #990000">)</span><span style="color: #990000">;</span>
+            <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span><span style="font-weight: bold"><span style="color: #000000">setMass</span></span><span style="color: #990000">(</span><span style="color: #993399">40</span><span style="color: #990000">)</span><span style="color: #990000">;</span>
+            
+            <span style="font-weight: bold"><span style="color: #0000FF">if</span></span> <span style="color: #990000">(</span>type <span style="color: #990000">=</span><span style="color: #990000">=</span> MARS<span style="color: #990000">)</span>
+                <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>image <span style="color: #990000">=</span> <span style="font-weight: bold"><span style="color: #0000FF">new</span></span> <span style="font-weight: bold"><span style="color: #000000">Sprite</span></span><span style="color: #990000">(</span>IMAGE_PLANET_01S<span style="color: #990000">)</span><span style="color: #990000">;</span>
+            <span style="font-weight: bold"><span style="color: #0000FF">else</span></span> <span style="font-weight: bold"><span style="color: #0000FF">if</span></span> <span style="color: #990000">(</span>type <span style="color: #990000">=</span><span style="color: #990000">=</span> ALIEN<span style="color: #990000">)</span>
+                <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>image <span style="color: #990000">=</span> <span style="font-weight: bold"><span style="color: #0000FF">new</span></span> <span style="font-weight: bold"><span style="color: #000000">Sprite</span></span><span style="color: #990000">(</span>IMAGE_PLANET_02S<span style="color: #990000">)</span><span style="color: #990000">;</span>
+            <span style="font-weight: bold"><span style="color: #0000FF">else</span></span> <span style="font-weight: bold"><span style="color: #0000FF">if</span></span> <span style="color: #990000">(</span>type <span style="color: #990000">=</span><span style="color: #990000">=</span> EARTH<span style="color: #990000">)</span>
+                <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>image <span style="color: #990000">=</span> <span style="font-weight: bold"><span style="color: #0000FF">new</span></span> <span style="font-weight: bold"><span style="color: #000000">Sprite</span></span><span style="color: #990000">(</span>IMAGE_PLANET_03S<span style="color: #990000">)</span><span style="color: #990000">;</span>
+            <span style="font-weight: bold"><span style="color: #0000FF">else</span></span> <span style="font-weight: bold"><span style="color: #0000FF">if</span></span> <span style="color: #990000">(</span>type <span style="color: #990000">=</span><span style="color: #990000">=</span> ICE<span style="color: #990000">)</span>
+                <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>image <span style="color: #990000">=</span> <span style="font-weight: bold"><span style="color: #0000FF">new</span></span> <span style="font-weight: bold"><span style="color: #000000">Sprite</span></span><span style="color: #990000">(</span>IMAGE_PLANET_04S<span style="color: #990000">)</span><span style="color: #990000">;</span>
+            
+            <span style="font-weight: bold"><span style="color: #0000FF">break</span></span><span style="color: #990000">;</span>
+        
+        <span style="font-weight: bold"><span style="color: #0000FF">case</span></span> MEDIUM<span style="color: #990000">:</span> 
+            <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span><span style="font-weight: bold"><span style="color: #000000">setRadius</span></span><span style="color: #990000">(</span><span style="color: #993399">50</span><span style="color: #990000">)</span><span style="color: #990000">;</span>
+            <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span><span style="font-weight: bold"><span style="color: #000000">setMass</span></span><span style="color: #990000">(</span><span style="color: #993399">60</span><span style="color: #990000">)</span><span style="color: #990000">;</span>
+            
+            <span style="font-weight: bold"><span style="color: #0000FF">if</span></span> <span style="color: #990000">(</span>type <span style="color: #990000">=</span><span style="color: #990000">=</span> MARS<span style="color: #990000">)</span>
+                <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>image <span style="color: #990000">=</span> <span style="font-weight: bold"><span style="color: #0000FF">new</span></span> <span style="font-weight: bold"><span style="color: #000000">Sprite</span></span><span style="color: #990000">(</span>IMAGE_PLANET_01M<span style="color: #990000">)</span><span style="color: #990000">;</span>
+            <span style="font-weight: bold"><span style="color: #0000FF">else</span></span> <span style="font-weight: bold"><span style="color: #0000FF">if</span></span> <span style="color: #990000">(</span>type <span style="color: #990000">=</span><span style="color: #990000">=</span> ALIEN<span style="color: #990000">)</span>
+                <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>image <span style="color: #990000">=</span> <span style="font-weight: bold"><span style="color: #0000FF">new</span></span> <span style="font-weight: bold"><span style="color: #000000">Sprite</span></span><span style="color: #990000">(</span>IMAGE_PLANET_02M<span style="color: #990000">)</span><span style="color: #990000">;</span>
+            <span style="font-weight: bold"><span style="color: #0000FF">else</span></span> <span style="font-weight: bold"><span style="color: #0000FF">if</span></span> <span style="color: #990000">(</span>type <span style="color: #990000">=</span><span style="color: #990000">=</span> EARTH<span style="color: #990000">)</span>
+                <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>image <span style="color: #990000">=</span> <span style="font-weight: bold"><span style="color: #0000FF">new</span></span> <span style="font-weight: bold"><span style="color: #000000">Sprite</span></span><span style="color: #990000">(</span>IMAGE_PLANET_03M<span style="color: #990000">)</span><span style="color: #990000">;</span>
+            <span style="font-weight: bold"><span style="color: #0000FF">else</span></span> <span style="font-weight: bold"><span style="color: #0000FF">if</span></span> <span style="color: #990000">(</span>type <span style="color: #990000">=</span><span style="color: #990000">=</span> ICE<span style="color: #990000">)</span>
+                <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>image <span style="color: #990000">=</span> <span style="font-weight: bold"><span style="color: #0000FF">new</span></span> <span style="font-weight: bold"><span style="color: #000000">Sprite</span></span><span style="color: #990000">(</span>IMAGE_PLANET_04M<span style="color: #990000">)</span><span style="color: #990000">;</span>
+
+            <span style="font-weight: bold"><span style="color: #0000FF">break</span></span><span style="color: #990000">;</span>
+        
+        <span style="font-weight: bold"><span style="color: #0000FF">case</span></span> LARGE<span style="color: #990000">:</span> 
+            <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span><span style="font-weight: bold"><span style="color: #000000">setRadius</span></span><span style="color: #990000">(</span><span style="color: #993399">60</span><span style="color: #990000">)</span><span style="color: #990000">;</span>
+            <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span><span style="font-weight: bold"><span style="color: #000000">setMass</span></span><span style="color: #990000">(</span><span style="color: #993399">80</span><span style="color: #990000">)</span><span style="color: #990000">;</span>
+            
+            <span style="font-weight: bold"><span style="color: #0000FF">if</span></span> <span style="color: #990000">(</span>type <span style="color: #990000">=</span><span style="color: #990000">=</span> MARS<span style="color: #990000">)</span>
+                <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>image <span style="color: #990000">=</span> <span style="font-weight: bold"><span style="color: #0000FF">new</span></span> <span style="font-weight: bold"><span style="color: #000000">Sprite</span></span><span style="color: #990000">(</span>IMAGE_PLANET_01L<span style="color: #990000">)</span><span style="color: #990000">;</span>
+            <span style="font-weight: bold"><span style="color: #0000FF">else</span></span> <span style="font-weight: bold"><span style="color: #0000FF">if</span></span> <span style="color: #990000">(</span>type <span style="color: #990000">=</span><span style="color: #990000">=</span> ALIEN<span style="color: #990000">)</span>
+                <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>image <span style="color: #990000">=</span> <span style="font-weight: bold"><span style="color: #0000FF">new</span></span> <span style="font-weight: bold"><span style="color: #000000">Sprite</span></span><span style="color: #990000">(</span>IMAGE_PLANET_02L<span style="color: #990000">)</span><span style="color: #990000">;</span>
+            <span style="font-weight: bold"><span style="color: #0000FF">else</span></span> <span style="font-weight: bold"><span style="color: #0000FF">if</span></span> <span style="color: #990000">(</span>type <span style="color: #990000">=</span><span style="color: #990000">=</span> EARTH<span style="color: #990000">)</span>
+                <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>image <span style="color: #990000">=</span> <span style="font-weight: bold"><span style="color: #0000FF">new</span></span> <span style="font-weight: bold"><span style="color: #000000">Sprite</span></span><span style="color: #990000">(</span>IMAGE_PLANET_03L<span style="color: #990000">)</span><span style="color: #990000">;</span>
+            <span style="font-weight: bold"><span style="color: #0000FF">else</span></span> <span style="font-weight: bold"><span style="color: #0000FF">if</span></span> <span style="color: #990000">(</span>type <span style="color: #990000">=</span><span style="color: #990000">=</span> ICE<span style="color: #990000">)</span>
+                <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>image <span style="color: #990000">=</span> <span style="font-weight: bold"><span style="color: #0000FF">new</span></span> <span style="font-weight: bold"><span style="color: #000000">Sprite</span></span><span style="color: #990000">(</span>IMAGE_PLANET_04L<span style="color: #990000">)</span><span style="color: #990000">;</span>
+            
+            <span style="font-weight: bold"><span style="color: #0000FF">break</span></span><span style="color: #990000">;</span>
+    <span style="color: #FF0000">}</span>
+    
+    <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>angle <span style="color: #990000">=</span> <span style="font-weight: bold"><span style="color: #000000">rand</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span> <span style="color: #990000">/</span> RAND_MAX <span style="color: #990000">*</span> M_PI <span style="color: #990000">*</span> <span style="color: #993399">2</span><span style="color: #990000">;</span>
+    <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>rotatingAngle <span style="color: #990000">=</span> angularVelocity<span style="color: #990000">;</span>
+<span style="color: #FF0000">}</span>
+
+<span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * Destructs the planet.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> */</span></span>
+BodyPlanet<span style="color: #990000">:</span><span style="color: #990000">:</span><span style="color: #990000">~</span><span style="font-weight: bold"><span style="color: #000000">BodyPlanet</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span>
+<span style="color: #FF0000">{</span>
+    
+    <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span><span style="font-weight: bold"><span style="color: #000000">removeAllCannons</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span><span style="color: #990000">;</span>
+    
+    <span style="font-weight: bold"><span style="color: #0000FF">if</span></span> <span style="color: #990000">(</span><span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>image <span style="color: #990000">!</span><span style="color: #990000">=</span> NULL<span style="color: #990000">)</span>
+        <span style="font-weight: bold"><span style="color: #0000FF">delete</span></span> <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>image<span style="color: #990000">;</span>
+    
+<span style="color: #FF0000">}</span>
+
+<span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * Rotates the planet. Also tells the cannons on its surface to update</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * their locations.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * @param angle The angle to rotate (radian).</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> */</span></span>   
+<span style="color: #009900">void</span> BodyPlanet<span style="color: #990000">:</span><span style="color: #990000">:</span><span style="font-weight: bold"><span style="color: #000000">rotate</span></span><span style="color: #990000">(</span> <span style="color: #009900">float</span> angle <span style="color: #990000">)</span>
+<span style="color: #FF0000">{</span>
+    
+    <span style="color: #009900">unsigned</span> <span style="color: #009900">int</span> i<span style="color: #990000">;</span>
+    
+    <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>angle <span style="color: #990000">+</span><span style="color: #990000">=</span> angle<span style="color: #990000">;</span>
+    
+    <span style="font-weight: bold"><span style="color: #0000FF">for</span></span> <span style="color: #990000">(</span> i <span style="color: #990000">=</span> <span style="color: #993399">0</span><span style="color: #990000">;</span> i <span style="color: #990000">&lt;</span> <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>cannons<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">size</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span><span style="color: #990000">;</span> i<span style="color: #990000">+</span><span style="color: #990000">+</span> <span style="color: #990000">)</span>
+        <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>cannons<span style="color: #990000">[</span>i<span style="color: #990000">]</span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span><span style="font-weight: bold"><span style="color: #000000">updateLocation</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span><span style="color: #990000">;</span>
+    
+    <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>image<span style="color: #990000">-</span><span style="color: #990000">&gt;</span><span style="font-weight: bold"><span style="color: #000000">setAngle</span></span><span style="color: #990000">(</span><span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>angle<span style="color: #990000">)</span><span style="color: #990000">;</span>
+<span style="color: #FF0000">}</span>
+
+<span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * Raises the flag to show that the planet is destroyed and should be</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * removed from the world. Will also destroy all the cannons on its</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * surface.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> */</span></span>   
+<span style="color: #009900">void</span> BodyPlanet<span style="color: #990000">:</span><span style="color: #990000">:</span><span style="font-weight: bold"><span style="color: #000000">destroy</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span>
+<span style="color: #FF0000">{</span>
+    
+    <span style="color: #009900">unsigned</span> <span style="color: #009900">int</span> i<span style="color: #990000">;</span>
+    
+    <span style="font-weight: bold"><span style="color: #0000FF">for</span></span> <span style="color: #990000">(</span> i <span style="color: #990000">=</span> <span style="color: #993399">0</span><span style="color: #990000">;</span> i <span style="color: #990000">&lt;</span> <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>cannons<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">size</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span><span style="color: #990000">;</span> i<span style="color: #990000">+</span><span style="color: #990000">+</span> <span style="color: #990000">)</span>
+        <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>cannons<span style="color: #990000">[</span>i<span style="color: #990000">]</span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span><span style="font-weight: bold"><span style="color: #000000">destroy</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span><span style="color: #990000">;</span>
+        
+    Body<span style="color: #990000">:</span><span style="color: #990000">:</span><span style="font-weight: bold"><span style="color: #000000">destroy</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span><span style="color: #990000">;</span>
+    
+<span style="color: #FF0000">}</span>
+
+<span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * Tells whether the planet has the given cannon on its surface.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * @param cannon A cannon to look for.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * @return Tells whether the planet has the given cannon on its surface.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> */</span></span>   
+<span style="color: #009900">bool</span> BodyPlanet<span style="color: #990000">:</span><span style="color: #990000">:</span><span style="font-weight: bold"><span style="color: #000000">hasCannon</span></span><span style="color: #990000">(</span>BodyCannon <span style="color: #990000">&amp;</span>cannon<span style="color: #990000">)</span> <span style="font-weight: bold"><span style="color: #0000FF">const</span></span>
+<span style="color: #FF0000">{</span>
+    
+    <span style="color: #009900">unsigned</span> <span style="color: #009900">int</span> i<span style="color: #990000">;</span>
+    
+    <span style="font-weight: bold"><span style="color: #0000FF">for</span></span> <span style="color: #990000">(</span>i<span style="color: #990000">=</span><span style="color: #993399">0</span><span style="color: #990000">;</span> i <span style="color: #990000">&lt;</span> <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>cannons<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">size</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span><span style="color: #990000">;</span> i<span style="color: #990000">+</span><span style="color: #990000">+</span><span style="color: #990000">)</span><span style="color: #FF0000">{</span>
+        <span style="font-weight: bold"><span style="color: #0000FF">if</span></span> <span style="color: #990000">(</span><span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>cannons<span style="color: #990000">[</span>i<span style="color: #990000">]</span> <span style="color: #990000">=</span><span style="color: #990000">=</span> <span style="color: #990000">&amp;</span>cannon<span style="color: #990000">)</span><span style="color: #FF0000">{</span>
+            <span style="font-weight: bold"><span style="color: #0000FF">return</span></span> <span style="font-weight: bold"><span style="color: #0000FF">true</span></span><span style="color: #990000">;</span>
+        <span style="color: #FF0000">}</span>
+    <span style="color: #FF0000">}</span>
+    <span style="font-weight: bold"><span style="color: #0000FF">return</span></span> <span style="font-weight: bold"><span style="color: #0000FF">false</span></span><span style="color: #990000">;</span>
+<span style="color: #FF0000">}</span>
+
+<span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * Adds the given cannon to planet's surface.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * @param cannon A cannon to add.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> */</span></span>
+<span style="color: #009900">void</span> BodyPlanet<span style="color: #990000">:</span><span style="color: #990000">:</span><span style="font-weight: bold"><span style="color: #000000">addCannon</span></span><span style="color: #990000">(</span>BodyCannon <span style="color: #990000">&amp;</span>cannon<span style="color: #990000">)</span>
+<span style="color: #FF0000">{</span>
+    
+    <span style="font-weight: bold"><span style="color: #0000FF">if</span></span> <span style="color: #990000">(</span><span style="color: #990000">!</span><span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span><span style="font-weight: bold"><span style="color: #000000">hasCannon</span></span><span style="color: #990000">(</span>cannon<span style="color: #990000">)</span><span style="color: #990000">)</span><span style="color: #FF0000">{</span>
+        <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>cannons<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">push_back</span></span><span style="color: #990000">(</span><span style="color: #990000">&amp;</span>cannon<span style="color: #990000">)</span><span style="color: #990000">;</span>
+    <span style="color: #FF0000">}</span>
+<span style="color: #FF0000">}</span>
+
+<span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * Removes a cannon from planet by index.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * @param index Index of the cannon to remove.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> */</span></span>
+<span style="color: #009900">void</span> BodyPlanet<span style="color: #990000">:</span><span style="color: #990000">:</span><span style="font-weight: bold"><span style="color: #000000">removeCannon</span></span><span style="color: #990000">(</span><span style="color: #009900">int</span> index<span style="color: #990000">)</span>
+<span style="color: #FF0000">{</span>
+
+    <span style="font-weight: bold"><span style="color: #0000FF">if</span></span> <span style="color: #990000">(</span>index <span style="color: #990000">&lt;</span> <span style="color: #993399">0</span> <span style="color: #990000">|</span><span style="color: #990000">|</span> index <span style="color: #990000">&gt;</span><span style="color: #990000">=</span> <span style="color: #990000">(</span><span style="color: #009900">int</span><span style="color: #990000">)</span><span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>cannons<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">size</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span><span style="color: #990000">)</span> <span style="color: #FF0000">{</span>
+        std<span style="color: #990000">:</span><span style="color: #990000">:</span>cerr <span style="color: #990000">&lt;</span><span style="color: #990000">&lt;</span> <span style="color: #FF0000">"BodyPlanet::removeCannon: Invalid index "</span> <span style="color: #990000">&lt;</span><span style="color: #990000">&lt;</span> index
+                  <span style="color: #990000">&lt;</span><span style="color: #990000">&lt;</span> std<span style="color: #990000">:</span><span style="color: #990000">:</span>endl<span style="color: #990000">;</span>
+    <span style="color: #FF0000">}</span>
+    <span style="font-weight: bold"><span style="color: #0000FF">else</span></span> <span style="color: #FF0000">{</span>
+        <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>cannons<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">erase</span></span><span style="color: #990000">(</span><span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>cannons<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">begin</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span> <span style="color: #990000">+</span> index<span style="color: #990000">)</span><span style="color: #990000">;</span>
+    <span style="color: #FF0000">}</span>
+<span style="color: #FF0000">}</span>   
+
+<span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * Removes the cannon from planet.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * @param cannon The cannon to remove.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> */</span></span>
+<span style="color: #009900">void</span> BodyPlanet<span style="color: #990000">:</span><span style="color: #990000">:</span><span style="font-weight: bold"><span style="color: #000000">removeCannon</span></span><span style="color: #990000">(</span> BodyCannon <span style="color: #990000">&amp;</span>cannon<span style="color: #990000">)</span>
+<span style="color: #FF0000">{</span>
+    
+    <span style="color: #009900">unsigned</span> <span style="color: #009900">int</span> i<span style="color: #990000">;</span>
+    
+    <span style="font-weight: bold"><span style="color: #0000FF">for</span></span> <span style="color: #990000">(</span>i<span style="color: #990000">=</span><span style="color: #993399">0</span><span style="color: #990000">;</span> i <span style="color: #990000">&lt;</span> <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>cannons<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">size</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span><span style="color: #990000">;</span> i<span style="color: #990000">+</span><span style="color: #990000">+</span><span style="color: #990000">)</span><span style="color: #FF0000">{</span>
+        <span style="font-weight: bold"><span style="color: #0000FF">if</span></span> <span style="color: #990000">(</span><span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>cannons<span style="color: #990000">[</span>i<span style="color: #990000">]</span> <span style="color: #990000">=</span><span style="color: #990000">=</span> <span style="color: #990000">&amp;</span>cannon<span style="color: #990000">)</span><span style="color: #FF0000">{</span>
+            <span style="font-weight: bold"><span style="color: #0000FF">return</span></span> <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span><span style="font-weight: bold"><span style="color: #000000">removeCannon</span></span><span style="color: #990000">(</span>i<span style="color: #990000">)</span><span style="color: #990000">;</span>
+        <span style="color: #FF0000">}</span>
+    <span style="color: #FF0000">}</span>
+<span style="color: #FF0000">}</span>
+
+<span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * Removes all cannons from the planet.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> */</span></span>
+<span style="color: #009900">void</span> BodyPlanet<span style="color: #990000">:</span><span style="color: #990000">:</span><span style="font-weight: bold"><span style="color: #000000">removeAllCannons</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span>
+<span style="color: #FF0000">{</span>
+    
+    <span style="color: #009900">int</span> i<span style="color: #990000">;</span>
+    
+    <span style="font-weight: bold"><span style="color: #0000FF">for</span></span> <span style="color: #990000">(</span>i <span style="color: #990000">=</span> <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>cannons<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">size</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span> <span style="color: #990000">-</span> <span style="color: #993399">1</span><span style="color: #990000">;</span> i <span style="color: #990000">&gt;</span><span style="color: #990000">=</span> <span style="color: #993399">0</span><span style="color: #990000">;</span> i<span style="color: #990000">-</span><span style="color: #990000">-</span><span style="color: #990000">)</span><span style="color: #FF0000">{</span>
+        <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span><span style="font-weight: bold"><span style="color: #000000">removeCannon</span></span><span style="color: #990000">(</span>i<span style="color: #990000">)</span><span style="color: #990000">;</span>
+    <span style="color: #FF0000">}</span>
+<span style="color: #FF0000">}</span>
+
+<span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * Does drawing procedures.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * @param graphics The graphics object to draw to.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> */</span></span>
+<span style="color: #009900">void</span> BodyPlanet<span style="color: #990000">:</span><span style="color: #990000">:</span><span style="font-weight: bold"><span style="color: #000000">draw</span></span><span style="color: #990000">(</span>Graphics <span style="color: #990000">&amp;</span>graphics<span style="color: #990000">)</span>
+<span style="color: #FF0000">{</span>
+    
+    <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>image<span style="color: #990000">-</span><span style="color: #990000">&gt;</span><span style="font-weight: bold"><span style="color: #000000">drawRotated</span></span><span style="color: #990000">(</span>graphics<span style="color: #990000">,</span> <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>location<span style="color: #990000">)</span><span style="color: #990000">;</span>
+<span style="color: #FF0000">}</span>
+</tt></pre>

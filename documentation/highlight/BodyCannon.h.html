@@ -1,0 +1,222 @@
+<pre><tt>
+<span style="font-weight: bold"><span style="color: #000080">#ifndef</span></span> _BODYCANNON_H_
+<span style="font-weight: bold"><span style="color: #000080">#define</span></span> _BODYCANNON_H_
+
+<span style="font-weight: bold"><span style="color: #0000FF">class</span></span> BodyCannon<span style="color: #990000">;</span>
+
+<span style="font-weight: bold"><span style="color: #000080">#include</span></span> <span style="color: #FF0000">"Body.h"</span>
+<span style="font-weight: bold"><span style="color: #000080">#include</span></span> <span style="color: #FF0000">"Player.h"</span>
+<span style="font-weight: bold"><span style="color: #000080">#include</span></span> <span style="color: #FF0000">"BodyPlanet.h"</span>
+<span style="font-weight: bold"><span style="color: #000080">#include</span></span> <span style="color: #FF0000">"Projectile.h"</span>
+
+<span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * Author: Jaakko Luttinen</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * BodyCannon is a class for players' cannons. Cannons are on the surface of</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * a planet. Cannon's aiming power and angle may be set and then the cannon</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * may be ordered to shoot a given projectile. BodyCannon is owned by a</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * player. When player is killed the cannon is not destroyed but ruined.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> */</span></span>
+<span style="font-weight: bold"><span style="color: #0000FF">class</span></span> BodyCannon  <span style="color: #990000">:</span>  <span style="font-weight: bold"><span style="color: #0000FF">public</span></span> Body
+<span style="color: #FF0000">{</span>
+    
+<span style="font-weight: bold"><span style="color: #0000FF">public</span></span><span style="color: #990000">:</span>
+
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * The minimum aiming power.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="font-weight: bold"><span style="color: #0000FF">static</span></span> <span style="font-weight: bold"><span style="color: #0000FF">const</span></span> <span style="color: #009900">float</span> minimumPower <span style="color: #990000">=</span> <span style="color: #993399">0.2</span><span style="color: #990000">;</span>
+    
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * The maximum aiming power.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="font-weight: bold"><span style="color: #0000FF">static</span></span> <span style="font-weight: bold"><span style="color: #0000FF">const</span></span> <span style="color: #009900">float</span> maximumPower <span style="color: #990000">=</span> <span style="color: #993399">0.7</span><span style="color: #990000">;</span>
+    
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Calculates the coordinates on the surface of a planet. The angle is</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * given.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @param location      The coordinates to store the location.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @param planet        The planet.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @param angleOnPlanet Angle on planet (radius).</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="font-weight: bold"><span style="color: #0000FF">static</span></span> <span style="color: #009900">void</span> <span style="font-weight: bold"><span style="color: #000000">calculateLocation</span></span><span style="color: #990000">(</span> Coordinates <span style="color: #990000">&amp;</span>location<span style="color: #990000">,</span>
+                                   <span style="font-weight: bold"><span style="color: #0000FF">const</span></span> BodyPlanet <span style="color: #990000">&amp;</span>planet<span style="color: #990000">,</span>
+                                   <span style="color: #009900">float</span> angleOnPlanet <span style="color: #990000">)</span><span style="color: #990000">;</span>
+
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Constructs a new cannon.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @param planet The planet which the cannon will be put on.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @param angle  The angle on the planet.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @param owner  The player to own the cannon. Note, the cannon is not</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     *               given to player by this function.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="font-weight: bold"><span style="color: #000000">BodyCannon</span></span><span style="color: #990000">(</span> BodyPlanet <span style="color: #990000">&amp;</span>planet<span style="color: #990000">,</span> <span style="color: #009900">float</span> angle<span style="color: #990000">,</span> Player <span style="color: #990000">&amp;</span>owner <span style="color: #990000">)</span><span style="color: #990000">;</span>
+    
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Destructs the cannon.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="font-weight: bold"><span style="color: #0000FF">virtual</span></span> <span style="color: #990000">~</span><span style="font-weight: bold"><span style="color: #000000">BodyCannon</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span><span style="color: #990000">;</span>
+    
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Sets the planet of the cannon. If the planet is not from the same world</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * as the cannon, the request is ignored.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @param planet The new planet for cannon.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="color: #009900">void</span> <span style="font-weight: bold"><span style="color: #000000">setPlanet</span></span><span style="color: #990000">(</span> BodyPlanet <span style="color: #990000">&amp;</span>planet <span style="color: #990000">)</span><span style="color: #990000">;</span>
+    
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Sets the angle of the cannon on the planet.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @param angle Angle on planet (radius).</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="color: #009900">void</span> <span style="font-weight: bold"><span style="color: #000000">setAngleOnPlanet</span></span><span style="color: #990000">(</span> <span style="color: #009900">float</span> angle <span style="color: #990000">)</span><span style="color: #990000">;</span>
+    
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Tells the planet cannon is on.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @return The planet which the cannon is on.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="font-weight: bold"><span style="color: #0000FF">inline</span></span> <span style="font-weight: bold"><span style="color: #0000FF">const</span></span> BodyPlanet<span style="color: #990000">&amp;</span> <span style="font-weight: bold"><span style="color: #000000">getPlanet</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span> <span style="font-weight: bold"><span style="color: #0000FF">const</span></span>  <span style="color: #FF0000">{</span> <span style="font-weight: bold"><span style="color: #0000FF">return</span></span> <span style="color: #990000">*</span><span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>planet<span style="color: #990000">;</span> <span style="color: #FF0000">}</span><span style="color: #990000">;</span>
+    
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Tells the cannon's angle on the planet.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @return The angle on the planet.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="font-weight: bold"><span style="color: #0000FF">inline</span></span> <span style="color: #009900">float</span> <span style="font-weight: bold"><span style="color: #000000">getAngleOnPlanet</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span> <span style="font-weight: bold"><span style="color: #0000FF">const</span></span>  <span style="color: #FF0000">{</span> <span style="font-weight: bold"><span style="color: #0000FF">return</span></span> <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>angleOnPlanet<span style="color: #990000">;</span> <span style="color: #FF0000">}</span><span style="color: #990000">;</span>
+    
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Tells the player who owns the cannon.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @return The player who owns the cannon.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="font-weight: bold"><span style="color: #0000FF">inline</span></span> Player<span style="color: #990000">&amp;</span> <span style="font-weight: bold"><span style="color: #000000">getOwner</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span>  <span style="color: #FF0000">{</span> <span style="font-weight: bold"><span style="color: #0000FF">return</span></span> <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>owner<span style="color: #990000">;</span> <span style="color: #FF0000">}</span><span style="color: #990000">;</span>
+
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Sets aiming angle (0-Pi).</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @param angle The aiming angle.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>   
+    <span style="color: #009900">void</span> <span style="font-weight: bold"><span style="color: #000000">setAimingAngle</span></span><span style="color: #990000">(</span> <span style="color: #009900">float</span> angle <span style="color: #990000">)</span><span style="color: #990000">;</span>
+    
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Sets aiming power (minimumPower-maximumPower).</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @param power The aiming power.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="color: #009900">void</span> <span style="font-weight: bold"><span style="color: #000000">setAimingPower</span></span><span style="color: #990000">(</span> <span style="color: #009900">float</span> power <span style="color: #990000">)</span><span style="color: #990000">;</span>
+    
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Tells aiming angle.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @return The aiming angle.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="font-weight: bold"><span style="color: #0000FF">inline</span></span> <span style="color: #009900">float</span> <span style="font-weight: bold"><span style="color: #000000">getAimingAngle</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span> <span style="font-weight: bold"><span style="color: #0000FF">const</span></span>  <span style="color: #FF0000">{</span> <span style="font-weight: bold"><span style="color: #0000FF">return</span></span> <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>aimingAngle<span style="color: #990000">;</span> <span style="color: #FF0000">}</span><span style="color: #990000">;</span>
+    
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Tells aiming power.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @return The aiming power.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="font-weight: bold"><span style="color: #0000FF">inline</span></span> <span style="color: #009900">float</span> <span style="font-weight: bold"><span style="color: #000000">getAimingPower</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span> <span style="font-weight: bold"><span style="color: #0000FF">const</span></span>  <span style="color: #FF0000">{</span> <span style="font-weight: bold"><span style="color: #0000FF">return</span></span> <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>aimingPower<span style="color: #990000">;</span> <span style="color: #FF0000">}</span><span style="color: #990000">;</span>
+
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Shoots the given shot with the angle and power that has been set. The</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * memory allocation of the bullet will be freed by BodyProjectile.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @param bullet The projectile to shoot.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="color: #009900">void</span> <span style="font-weight: bold"><span style="color: #000000">shoot</span></span><span style="color: #990000">(</span> Projectile <span style="color: #990000">&amp;</span>bullet <span style="color: #990000">)</span><span style="color: #990000">;</span>
+    
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Sets the cannon active state. Active cannon has sight drawn.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @param active Tells whether the cannon is active.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="font-weight: bold"><span style="color: #0000FF">inline</span></span> <span style="color: #009900">void</span> <span style="font-weight: bold"><span style="color: #000000">setActive</span></span><span style="color: #990000">(</span> <span style="color: #009900">bool</span> active <span style="color: #990000">)</span>  <span style="color: #FF0000">{</span> <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>active <span style="color: #990000">=</span> active<span style="color: #990000">;</span> <span style="color: #FF0000">}</span><span style="color: #990000">;</span>
+    
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Updates the location of the cannon using the location of the planet and</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * cannon's angle on the planet.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="color: #009900">void</span> <span style="font-weight: bold"><span style="color: #000000">updateLocation</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span><span style="color: #990000">;</span>
+    
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Ruins the cannon.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="color: #009900">void</span> <span style="font-weight: bold"><span style="color: #000000">ruin</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span><span style="color: #990000">;</span>
+    
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Tells whether the cannon is ruined.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @return Tells whether the cannon is ruined.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="font-weight: bold"><span style="color: #0000FF">inline</span></span> <span style="color: #009900">bool</span> <span style="font-weight: bold"><span style="color: #000000">isRuined</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span> <span style="font-weight: bold"><span style="color: #0000FF">const</span></span>  <span style="color: #FF0000">{</span> <span style="font-weight: bold"><span style="color: #0000FF">return</span></span> <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>ruined<span style="color: #990000">;</span> <span style="color: #FF0000">}</span><span style="color: #990000">;</span>
+
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Visualizes the cannon to the given graphics system. Also draws energy</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * bar and sight if active.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @param graphics The graphics system.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="font-weight: bold"><span style="color: #0000FF">virtual</span></span> <span style="color: #009900">void</span> <span style="font-weight: bold"><span style="color: #000000">draw</span></span><span style="color: #990000">(</span>Graphics <span style="color: #990000">&amp;</span>graphics<span style="color: #990000">)</span><span style="color: #990000">;</span>
+
+<span style="font-weight: bold"><span style="color: #0000FF">private</span></span><span style="color: #990000">:</span>
+
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * The player who owns the cannon.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    Player <span style="color: #990000">&amp;</span>owner<span style="color: #990000">;</span>
+    
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * The planet whose surface the cannon is on. Do NOT free the memory.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * World will do that.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    BodyPlanet <span style="color: #990000">*</span>planet<span style="color: #990000">;</span>
+    
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * The angle on planet.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="color: #009900">float</span> angleOnPlanet<span style="color: #990000">;</span>
+    
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * The aiming angle (0-Pi).</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="color: #009900">float</span> aimingAngle<span style="color: #990000">;</span>
+    
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * The aiming power (minimumPower-maximumPower).</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="color: #009900">float</span> aimingPower<span style="color: #990000">;</span>
+    
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Tells whether the cannon is ruined.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="color: #009900">bool</span> ruined<span style="color: #990000">;</span>
+    
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Tells whether the cannon is active.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="color: #009900">bool</span> active<span style="color: #990000">;</span>
+
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * The sprite index of the crosshair.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="color: #009900">int</span> crosshair<span style="color: #990000">;</span>
+    
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Returns the x-coordinate of the cannon. x is the x-coordinate of</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * circle's center point. radius is the radius of the circle. angle is the</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * angle of cannon's location. </span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @param x      X-coordinate of the circle.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @param radius Radius of the circle.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @param angle  Angle to point on surface.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="font-weight: bold"><span style="color: #0000FF">static</span></span> <span style="color: #009900">float</span> <span style="font-weight: bold"><span style="color: #000000">getLocationX</span></span><span style="color: #990000">(</span> <span style="color: #009900">float</span> x<span style="color: #990000">,</span> <span style="color: #009900">float</span> radius<span style="color: #990000">,</span> <span style="color: #009900">float</span> angle <span style="color: #990000">)</span><span style="color: #990000">;</span>
+
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Returns the y-coordinate of the cannon. y is the y-coordinate of</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * circle's center point. radius is the radius of the circle. angle is the</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * angle of cannon's location. </span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @param y      Y-coordinate of the circle.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @param radius Radius of the circle.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @param angle  Angle to point on surface.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="font-weight: bold"><span style="color: #0000FF">static</span></span> <span style="color: #009900">float</span> <span style="font-weight: bold"><span style="color: #000000">getLocationY</span></span><span style="color: #990000">(</span> <span style="color: #009900">float</span> y<span style="color: #990000">,</span> <span style="color: #009900">float</span> radius<span style="color: #990000">,</span> <span style="color: #009900">float</span> angle <span style="color: #990000">)</span><span style="color: #990000">;</span>
+    
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Fixes the number to 0-max. For example, -2 -&gt; max-2, 2*max+1 -&gt; 1.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="font-weight: bold"><span style="color: #0000FF">static</span></span> <span style="color: #009900">void</span> <span style="font-weight: bold"><span style="color: #000000">fix</span></span><span style="color: #990000">(</span> <span style="color: #009900">float</span> <span style="color: #990000">&amp;</span>number<span style="color: #990000">,</span> <span style="color: #009900">float</span> max <span style="color: #990000">)</span><span style="color: #990000">;</span>
+
+<span style="color: #FF0000">}</span><span style="color: #990000">;</span>
+
+<span style="font-weight: bold"><span style="color: #000080">#endif</span></span> <span style="font-style: italic"><span style="color: #9A1900">//_BODYCANNON_H_</span></span>
+</tt></pre>

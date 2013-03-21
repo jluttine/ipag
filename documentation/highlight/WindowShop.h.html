@@ -1,0 +1,110 @@
+<pre><tt><span style="font-weight: bold"><span style="color: #000080">#ifndef</span></span> _WINDOWSHOP_H_
+<span style="font-weight: bold"><span style="color: #000080">#define</span></span> _WINDOWSHOP_H_
+
+<span style="font-weight: bold"><span style="color: #000080">#include</span></span> <span style="color: #FF0000">"Window.h"</span>
+<span style="font-weight: bold"><span style="color: #000080">#include</span></span> <span style="color: #FF0000">"UIButton.h"</span>
+<span style="font-weight: bold"><span style="color: #000080">#include</span></span> <span style="color: #FF0000">"UIText.h"</span>
+<span style="font-weight: bold"><span style="color: #000080">#include</span></span> <span style="color: #FF0000">"GameEngine.h"</span>
+
+
+<span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * Class WindowShop.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * Lets every player to buy weapons and shields for the game.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * @author Lasse Hakulinen</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> */</span></span>
+
+<span style="font-weight: bold"><span style="color: #0000FF">class</span></span> WindowShop <span style="color: #990000">:</span> <span style="font-weight: bold"><span style="color: #0000FF">public</span></span> Window <span style="color: #FF0000">{</span>
+    
+<span style="font-weight: bold"><span style="color: #0000FF">public</span></span><span style="color: #990000">:</span>
+
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @param &amp;graphics - reference to the graphics</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @param &amp;sounds - reference to the sounds</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @param &amp;gameEngine - reference to the gameEngine</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="font-weight: bold"><span style="color: #000000">WindowShop</span></span><span style="color: #990000">(</span>Graphics <span style="color: #990000">&amp;</span>graphics<span style="color: #990000">,</span> Sounds <span style="color: #990000">&amp;</span>sounds<span style="color: #990000">,</span> GameEngine <span style="color: #990000">&amp;</span>gameEngine<span style="color: #990000">)</span><span style="color: #990000">;</span>
+    
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Frees all memory allocated by WindowShop</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="color: #990000">~</span><span style="font-weight: bold"><span style="color: #000000">WindowShop</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span><span style="color: #990000">;</span>
+
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Shows the windowShop</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="color: #009900">void</span> <span style="font-weight: bold"><span style="color: #000000">show</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span><span style="color: #990000">;</span>
+    
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Redraws the screen</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="color: #009900">void</span> <span style="font-weight: bold"><span style="color: #000000">redraw</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span><span style="color: #990000">;</span>
+    
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Takes one timestep</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @param timestep - timestep to take</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="font-weight: bold"><span style="color: #0000FF">virtual</span></span> <span style="color: #009900">void</span> <span style="font-weight: bold"><span style="color: #000000">step</span></span><span style="color: #990000">(</span><span style="color: #009900">int</span> timestep<span style="color: #990000">)</span><span style="color: #990000">;</span>
+    
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Handles key down events</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @param keysym - Event information.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="font-weight: bold"><span style="color: #0000FF">virtual</span></span> <span style="color: #009900">void</span> <span style="font-weight: bold"><span style="color: #000000">keyDown</span></span><span style="color: #990000">(</span>SDL_keysym keysym<span style="color: #990000">)</span><span style="color: #990000">;</span>
+    
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Handles mouse up events</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @param button - Event information.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="font-weight: bold"><span style="color: #0000FF">virtual</span></span> <span style="color: #009900">void</span> <span style="font-weight: bold"><span style="color: #000000">mouseUp</span></span><span style="color: #990000">(</span>SDL_MouseButtonEvent button<span style="color: #990000">)</span><span style="color: #990000">;</span>
+    
+<span style="font-weight: bold"><span style="color: #0000FF">private</span></span><span style="color: #990000">:</span>
+
+    <span style="font-weight: bold"><span style="color: #000080">#define</span></span> STARTINGMONEY <span style="color: #993399">100000</span>
+        
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Updates all fields in windowShop</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="color: #009900">void</span> <span style="font-weight: bold"><span style="color: #000000">updateFields</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span><span style="color: #990000">;</span>
+    
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Updates descriptionField</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @param projectile - index of the projectile which</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     *                     description is wanted</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="color: #009900">void</span> <span style="font-weight: bold"><span style="color: #000000">updateDescriptionField</span></span><span style="color: #990000">(</span><span style="color: #009900">int</span> projectile<span style="color: #990000">)</span><span style="color: #990000">;</span>
+
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Closes windowShop</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>   
+    <span style="color: #009900">void</span> <span style="font-weight: bold"><span style="color: #000000">startGame</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span><span style="color: #990000">;</span>
+    
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Resets all properties of a player</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @param player - player whose properties is reseted</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="color: #009900">void</span> <span style="font-weight: bold"><span style="color: #000000">resetPlayerProperties</span></span><span style="color: #990000">(</span>Player<span style="color: #990000">*</span> player<span style="color: #990000">)</span><span style="color: #990000">;</span>
+
+    GameEngine <span style="color: #990000">&amp;</span>gameEngine<span style="color: #990000">;</span> 
+    <span style="color: #009900">unsigned</span> <span style="color: #009900">int</span> activePlayerIndex<span style="color: #990000">;</span>
+    <span style="color: #009900">int</span> projectileCount<span style="color: #990000">;</span>
+    
+    <span style="font-style: italic"><span style="color: #9A1900">//UI components</span></span>
+    UIText <span style="color: #990000">*</span>textTitle<span style="color: #990000">;</span>
+    UIText <span style="color: #990000">*</span>textPlayer<span style="color: #990000">;</span>
+    UIText <span style="color: #990000">*</span>textMoney<span style="color: #990000">;</span>
+    UIText <span style="color: #990000">*</span>textDescription<span style="color: #990000">,</span> <span style="color: #990000">*</span>textDescriptionTitle<span style="color: #990000">,</span> <span style="color: #990000">*</span>textDescriptionName<span style="color: #990000">;</span>
+    UIText <span style="color: #990000">*</span>textDescriptionPrice<span style="color: #990000">,</span> <span style="color: #990000">*</span>textDescriptionDamage<span style="color: #990000">;</span>
+    UIText <span style="color: #990000">*</span>textArmor<span style="color: #990000">,</span> <span style="color: #990000">*</span>textArmorPrice<span style="color: #990000">,</span> <span style="color: #990000">*</span>textArmorAbsorption<span style="color: #990000">;</span>
+    UIText <span style="color: #990000">*</span><span style="color: #990000">*</span>textsProjectileCount<span style="color: #990000">,</span> <span style="color: #990000">*</span><span style="color: #990000">*</span>textsProjectilePrice<span style="color: #990000">;</span>
+
+    UIButton <span style="color: #990000">*</span>buttonBuyArmor<span style="color: #990000">,</span> <span style="color: #990000">*</span>buttonSellArmor<span style="color: #990000">;</span>
+    UIButton <span style="color: #990000">*</span><span style="color: #990000">*</span>buttonsBuy<span style="color: #990000">;</span>
+    UIButton <span style="color: #990000">*</span><span style="color: #990000">*</span>buttonsSell<span style="color: #990000">;</span>
+    UIButton <span style="color: #990000">*</span><span style="color: #990000">*</span>buttonsProjectile<span style="color: #990000">;</span>
+    UIButton <span style="color: #990000">*</span>buttonNextPlayer<span style="color: #990000">;</span>
+    UIButton <span style="color: #990000">*</span>buttonQuit<span style="color: #990000">;</span>
+    UIButton <span style="color: #990000">*</span>buttonRandomWeapons<span style="color: #990000">,</span> <span style="color: #990000">*</span>buttonClearAll<span style="color: #990000">;</span>
+<span style="color: #FF0000">}</span><span style="color: #990000">;</span>
+
+<span style="font-weight: bold"><span style="color: #000080">#endif</span></span> <span style="font-style: italic"><span style="color: #9A1900">//_WINDOWSHOP_H_</span></span>
+</tt></pre>

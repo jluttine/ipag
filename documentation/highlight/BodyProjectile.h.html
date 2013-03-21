@@ -1,0 +1,79 @@
+<pre><tt>
+<span style="font-weight: bold"><span style="color: #000080">#ifndef</span></span> _BODYPROJECTILE_H_
+<span style="font-weight: bold"><span style="color: #000080">#define</span></span> _BODYPROJECTILE_H_
+
+<span style="font-weight: bold"><span style="color: #0000FF">class</span></span> BodyProjectile<span style="color: #990000">;</span>
+
+<span style="font-weight: bold"><span style="color: #000080">#include</span></span> <span style="color: #FF0000">"BodyMovable.h"</span>
+<span style="font-weight: bold"><span style="color: #000080">#include</span></span> <span style="color: #FF0000">"Projectile.h"</span>
+<span style="font-weight: bold"><span style="color: #000080">#include</span></span> <span style="color: #FF0000">"Sprite.h"</span>
+
+<span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * Author: Jaakko Luttinen</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * BodyProjectile is a class for projectiles in the world. Because bodies</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * must always be in some world, but projectiles must exist outside the</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * world too, we have a separate Projectile class. This class is only a</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * "capsule" for the projectile to be in the world. Almost everything is</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * still done in the Projectile class.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> */</span></span>
+<span style="font-weight: bold"><span style="color: #0000FF">class</span></span> BodyProjectile  <span style="color: #990000">:</span>  <span style="font-weight: bold"><span style="color: #0000FF">public</span></span> BodyMovable
+<span style="color: #FF0000">{</span>
+    
+<span style="font-weight: bold"><span style="color: #0000FF">public</span></span><span style="color: #990000">:</span>
+
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Constructs a new projectile in the world.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @param world The world for the projectile.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @param x     X-coordinate.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @param y     Y-coordinate.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @param shot  The actual shot.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="font-weight: bold"><span style="color: #000000">BodyProjectile</span></span><span style="color: #990000">(</span> World <span style="color: #990000">&amp;</span>world<span style="color: #990000">,</span> <span style="color: #009900">float</span> x<span style="color: #990000">,</span> <span style="color: #009900">float</span> y<span style="color: #990000">,</span> Projectile <span style="color: #990000">&amp;</span>shot <span style="color: #990000">)</span><span style="color: #990000">;</span>
+    
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Destructs the projectile.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="font-weight: bold"><span style="color: #0000FF">virtual</span></span> <span style="color: #990000">~</span><span style="font-weight: bold"><span style="color: #000000">BodyProjectile</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span><span style="color: #990000">;</span>
+
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Tells the phase of the projectile. That is the angle of the velocity in</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * scale 0-1.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @return The phase (0-1).</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="font-weight: bold"><span style="color: #0000FF">virtual</span></span> <span style="color: #009900">float</span> <span style="font-weight: bold"><span style="color: #000000">getPhase</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span> <span style="font-weight: bold"><span style="color: #0000FF">const</span></span><span style="color: #990000">;</span>
+    
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Projectile takes a step.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @param timestep Length of the step in ms.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="font-weight: bold"><span style="color: #0000FF">virtual</span></span> <span style="color: #009900">void</span> <span style="font-weight: bold"><span style="color: #000000">step</span></span><span style="color: #990000">(</span> <span style="color: #009900">unsigned</span> <span style="color: #009900">int</span> timestep <span style="color: #990000">)</span><span style="color: #990000">;</span>
+    
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Simulates the collision.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @param collidingBody The body to collide with.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="font-weight: bold"><span style="color: #0000FF">virtual</span></span> <span style="color: #009900">void</span> <span style="font-weight: bold"><span style="color: #000000">collide</span></span><span style="color: #990000">(</span> Body <span style="color: #990000">&amp;</span>collidingBody <span style="color: #990000">)</span><span style="color: #990000">;</span>
+
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Does drawing.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @param graphics The graphics object to draw to.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="font-weight: bold"><span style="color: #0000FF">virtual</span></span> <span style="color: #009900">void</span> <span style="font-weight: bold"><span style="color: #000000">draw</span></span><span style="color: #990000">(</span> Graphics <span style="color: #990000">&amp;</span>graphics <span style="color: #990000">)</span><span style="color: #990000">;</span>
+    
+<span style="font-weight: bold"><span style="color: #0000FF">private</span></span><span style="color: #990000">:</span>
+
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * The actual projectile. Pointer is never NULL and its memory allocation</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * must be freed.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    Projectile <span style="color: #990000">*</span>shot<span style="color: #990000">;</span>
+    
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * The sprite.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    Sprite <span style="color: #990000">*</span>image<span style="color: #990000">;</span>
+    
+<span style="color: #FF0000">}</span><span style="color: #990000">;</span>
+
+<span style="font-weight: bold"><span style="color: #000080">#endif</span></span> <span style="font-style: italic"><span style="color: #9A1900">//_BODYPROJECTILE_H_</span></span>
+</tt></pre>

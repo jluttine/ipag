@@ -1,0 +1,135 @@
+<pre><tt>
+<span style="font-weight: bold"><span style="color: #000080">#include</span></span> <span style="color: #FF0000">&lt;iostream&gt;</span>
+<span style="font-weight: bold"><span style="color: #000080">#include</span></span> <span style="color: #FF0000">"ProjectileBouncing.h"</span>
+
+<span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * Constructs a new projectile.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * @param name           Name of the projectile.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * @param description    Description of the projectile.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * @param price          Price of the projectile.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * @param spriteIndex    Index of the sprite.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * @param soundIndex     Index of the firing sound.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * @param explosionIndex Index of the explosion type.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * @param radius         Radius of the projectile.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * @param mass           Mass of the projectile.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * @param damage         Maximum damage of the projectile.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * @param damageRadius   Radius of the damage.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * @param bounceCount    Number of jumps to take before destruction.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * @param elasticity     Percentage (0-1) of remaining energy.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> */</span></span>
+ProjectileBouncing<span style="color: #990000">:</span><span style="color: #990000">:</span><span style="font-weight: bold"><span style="color: #000000">ProjectileBouncing</span></span><span style="color: #990000">(</span> <span style="font-weight: bold"><span style="color: #0000FF">const</span></span> string <span style="color: #990000">&amp;</span>name<span style="color: #990000">,</span>
+                                        <span style="font-weight: bold"><span style="color: #0000FF">const</span></span> string <span style="color: #990000">&amp;</span>description<span style="color: #990000">,</span>
+                                        <span style="color: #009900">int</span> price<span style="color: #990000">,</span> <span style="color: #009900">int</span> spriteIndex<span style="color: #990000">,</span>
+                                        <span style="color: #009900">int</span> soundIndex<span style="color: #990000">,</span>
+                                        BodyExplosion<span style="color: #990000">:</span><span style="color: #990000">:</span>EType explosionIndex<span style="color: #990000">,</span>
+                                        <span style="color: #009900">float</span> radius<span style="color: #990000">,</span>
+                                        <span style="color: #009900">float</span> mass<span style="color: #990000">,</span> <span style="color: #009900">float</span> damage<span style="color: #990000">,</span>
+                                        <span style="color: #009900">float</span> damageRadius<span style="color: #990000">,</span> <span style="color: #009900">int</span> bounceCount<span style="color: #990000">,</span>
+                                        <span style="color: #009900">float</span> elasticity <span style="color: #990000">)</span>
+    <span style="color: #990000">:</span> <span style="font-weight: bold"><span style="color: #000000">Projectile</span></span><span style="color: #990000">(</span> name<span style="color: #990000">,</span> description<span style="color: #990000">,</span> price<span style="color: #990000">,</span> spriteIndex<span style="color: #990000">,</span> soundIndex<span style="color: #990000">,</span>
+                  explosionIndex<span style="color: #990000">,</span> radius<span style="color: #990000">,</span> mass<span style="color: #990000">,</span> damage<span style="color: #990000">,</span> damageRadius <span style="color: #990000">)</span>
+<span style="color: #FF0000">{</span>
+
+    <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>bouncesDone <span style="color: #990000">=</span> <span style="color: #993399">0</span><span style="color: #990000">;</span>  
+    <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>indexBounceCount <span style="color: #990000">=</span>
+        <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>parameters<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">addParameter</span></span><span style="color: #990000">(</span> ParameterList<span style="color: #990000">:</span><span style="color: #990000">:</span>NUMBER<span style="color: #990000">,</span> <span style="color: #FF0000">"Bounces"</span><span style="color: #990000">,</span> <span style="color: #993399">0</span><span style="color: #990000">,</span> <span style="color: #993399">1</span><span style="color: #990000">,</span>
+                                       ProjectileBouncing<span style="color: #990000">:</span><span style="color: #990000">:</span>maximumBounces <span style="color: #990000">+</span> <span style="color: #993399">1</span><span style="color: #990000">,</span>
+                                       <span style="font-weight: bold"><span style="color: #0000FF">false</span></span> <span style="color: #990000">)</span><span style="color: #990000">;</span>
+    <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>indexElasticity <span style="color: #990000">=</span>
+        <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>parameters<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">addParameter</span></span><span style="color: #990000">(</span> ParameterList<span style="color: #990000">:</span><span style="color: #990000">:</span>NUMBER<span style="color: #990000">,</span> <span style="color: #FF0000">"Elasticity"</span><span style="color: #990000">,</span> <span style="color: #993399">30</span><span style="color: #990000">,</span>
+                                       <span style="color: #993399">5</span><span style="color: #990000">,</span> <span style="color: #993399">15</span><span style="color: #990000">,</span> <span style="font-weight: bold"><span style="color: #0000FF">false</span></span> <span style="color: #990000">)</span><span style="color: #990000">;</span>
+    
+    <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>parameters<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">setParameterValue</span></span><span style="color: #990000">(</span> <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>indexBounceCount<span style="color: #990000">,</span> bounceCount <span style="color: #990000">)</span><span style="color: #990000">;</span>
+    <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>parameters<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">setParameterValue</span></span><span style="color: #990000">(</span> <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>indexElasticity<span style="color: #990000">,</span>
+                                        <span style="color: #990000">(</span> <span style="color: #009900">int</span> <span style="color: #990000">)</span><span style="color: #990000">(</span> elasticity <span style="color: #990000">*</span> <span style="color: #993399">100</span> <span style="color: #990000">)</span> <span style="color: #990000">)</span><span style="color: #990000">;</span>
+<span style="color: #FF0000">}</span>
+
+<span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * Constructs a projectile with same properties.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * @param copy The projectile to use as a copy.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> */</span></span>
+ProjectileBouncing<span style="color: #990000">:</span><span style="color: #990000">:</span><span style="font-weight: bold"><span style="color: #000000">ProjectileBouncing</span></span><span style="color: #990000">(</span> <span style="font-weight: bold"><span style="color: #0000FF">const</span></span> ProjectileBouncing <span style="color: #990000">&amp;</span>copy <span style="color: #990000">)</span>
+    <span style="color: #990000">:</span> <span style="font-weight: bold"><span style="color: #000000">Projectile</span></span><span style="color: #990000">(</span> copy <span style="color: #990000">)</span>
+<span style="color: #FF0000">{</span>
+    
+    <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>bouncesDone <span style="color: #990000">=</span> <span style="color: #993399">0</span><span style="color: #990000">;</span>  
+    <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>indexBounceCount <span style="color: #990000">=</span> copy<span style="color: #990000">.</span>indexBounceCount<span style="color: #990000">;</span>
+    <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>indexElasticity <span style="color: #990000">=</span> copy<span style="color: #990000">.</span>indexElasticity<span style="color: #990000">;</span>
+    
+<span style="color: #FF0000">}</span>
+
+<span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * Simulates the collision between the capsule and colliding body.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * That is, if jumps are left it will bounce, otherwise it will destruct.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * @param capsule       The capsule.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * @param collidingBody The body to collide with.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> */</span></span>
+<span style="color: #009900">void</span> ProjectileBouncing<span style="color: #990000">:</span><span style="color: #990000">:</span><span style="font-weight: bold"><span style="color: #000000">collide</span></span><span style="color: #990000">(</span> BodyProjectile <span style="color: #990000">&amp;</span>capsule<span style="color: #990000">,</span>
+                                  Body <span style="color: #990000">&amp;</span>collidingBody <span style="color: #990000">)</span>
+<span style="color: #FF0000">{</span>
+
+    Vector velocityPerpendicularComponent<span style="color: #990000">;</span>
+    Vector velocity <span style="color: #990000">=</span> capsule<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">getVelocity</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span><span style="color: #990000">;</span>
+    
+    <span style="font-weight: bold"><span style="color: #0000FF">if</span></span> <span style="color: #990000">(</span> <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>bouncesDone
+         <span style="color: #990000">&lt;</span> <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>parameters<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">getParameterValue</span></span><span style="color: #990000">(</span> <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>indexBounceCount <span style="color: #990000">)</span> <span style="color: #990000">)</span>
+    <span style="color: #FF0000">{</span>
+
+        Vector <span style="font-weight: bold"><span style="color: #000000">collidingVector</span></span><span style="color: #990000">(</span>
+         collidingBody<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">getLocation</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span><span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">getDistanceX</span></span><span style="color: #990000">(</span>capsule<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">getLocation</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span><span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">getX</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span><span style="color: #990000">)</span><span style="color: #990000">,</span>
+         collidingBody<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">getLocation</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span><span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">getDistanceY</span></span><span style="color: #990000">(</span>capsule<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">getLocation</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span><span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">getY</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span><span style="color: #990000">)</span><span style="color: #990000">)</span><span style="color: #990000">;</span>
+                            
+        velocity<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">getProjectVector</span></span><span style="color: #990000">(</span> velocityPerpendicularComponent<span style="color: #990000">,</span>
+                                   collidingVector <span style="color: #990000">)</span><span style="color: #990000">;</span>
+
+        <span style="font-style: italic"><span style="color: #9A1900">//K‰‰nnet‰‰n kohtisuorakomponentti vastakkaiseksi ottaen kimmoisuus</span></span>
+        <span style="font-style: italic"><span style="color: #9A1900">//huomioon.</span></span>
+        <span style="font-style: italic"><span style="color: #9A1900">//Turn the perpendicular component to opposite direction and let</span></span>
+        <span style="font-style: italic"><span style="color: #9A1900">//the elasticity affect.</span></span>
+        <span style="color: #009900">float</span> elasticity <span style="color: #990000">=</span>
+            <span style="font-weight: bold"><span style="color: #000000">sqrt</span></span><span style="color: #990000">(</span> <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>parameters<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">getParameterValue</span></span><span style="color: #990000">(</span> <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>indexElasticity <span style="color: #990000">)</span>
+                                                      <span style="color: #990000">/</span> <span style="color: #993399">100.0</span> <span style="color: #990000">)</span><span style="color: #990000">;</span>
+        velocityPerpendicularComponent<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">scale</span></span><span style="color: #990000">(</span> <span style="color: #990000">-</span><span style="color: #990000">(</span> <span style="color: #993399">1</span> <span style="color: #990000">+</span> elasticity <span style="color: #990000">)</span> <span style="color: #990000">)</span><span style="color: #990000">;</span>
+        velocity <span style="color: #990000">+</span><span style="color: #990000">=</span> velocityPerpendicularComponent<span style="color: #990000">;</span>
+
+        capsule<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">setVelocity</span></span><span style="color: #990000">(</span> velocity<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">getX</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span><span style="color: #990000">,</span> velocity<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">getY</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span> <span style="color: #990000">)</span><span style="color: #990000">;</span>
+
+        <span style="font-style: italic"><span style="color: #9A1900">//Correct location so, that it won't hit the same body immediately</span></span>
+        <span style="font-style: italic"><span style="color: #9A1900">//again.</span></span>
+        collidingVector<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">scale</span></span><span style="color: #990000">(</span> <span style="color: #990000">(</span>capsule<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">getRadius</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span> <span style="color: #990000">+</span> collidingBody<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">getRadius</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span><span style="color: #990000">)</span>
+                               <span style="color: #990000">/</span> collidingVector<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">getLength</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span> <span style="color: #990000">)</span><span style="color: #990000">;</span>
+        Coordinates <span style="font-weight: bold"><span style="color: #000000">location</span></span><span style="color: #990000">(</span> collidingBody<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">getLocation</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span> <span style="color: #990000">)</span><span style="color: #990000">;</span>
+        location<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">add</span></span><span style="color: #990000">(</span> collidingVector<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">getX</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span><span style="color: #990000">,</span> collidingVector<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">getY</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span> <span style="color: #990000">)</span><span style="color: #990000">;</span>
+        capsule<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">setLocation</span></span><span style="color: #990000">(</span> location<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">getX</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span><span style="color: #990000">,</span> location<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">getY</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span> <span style="color: #990000">)</span><span style="color: #990000">;</span>
+        
+        <span style="font-style: italic"><span style="color: #9A1900">//Do damages and explode.</span></span>
+        Coordinates <span style="font-weight: bold"><span style="color: #000000">collidingLocation</span></span><span style="color: #990000">(</span> capsule<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">getLocation</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span> <span style="color: #990000">)</span><span style="color: #990000">;</span>
+        <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span><span style="font-weight: bold"><span style="color: #000000">getCollidingLocation</span></span><span style="color: #990000">(</span> collidingLocation<span style="color: #990000">,</span> capsule<span style="color: #990000">,</span> collidingBody <span style="color: #990000">)</span><span style="color: #990000">;</span>
+        <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span><span style="font-weight: bold"><span style="color: #000000">doDamages</span></span><span style="color: #990000">(</span> capsule<span style="color: #990000">,</span> collidingLocation <span style="color: #990000">)</span><span style="color: #990000">;</span>
+        <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span><span style="font-weight: bold"><span style="color: #000000">explode</span></span><span style="color: #990000">(</span> capsule<span style="color: #990000">,</span> collidingLocation <span style="color: #990000">)</span><span style="color: #990000">;</span>
+        
+        <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>bouncesDone<span style="color: #990000">+</span><span style="color: #990000">+</span><span style="color: #990000">;</span>
+    
+    <span style="color: #FF0000">}</span>
+    <span style="font-weight: bold"><span style="color: #0000FF">else</span></span> <span style="color: #FF0000">{</span>
+        
+        Projectile<span style="color: #990000">:</span><span style="color: #990000">:</span><span style="font-weight: bold"><span style="color: #000000">collide</span></span><span style="color: #990000">(</span> capsule<span style="color: #990000">,</span> collidingBody <span style="color: #990000">)</span><span style="color: #990000">;</span>
+        
+    <span style="color: #FF0000">}</span>
+    
+<span style="color: #FF0000">}</span>
+
+<span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * Returns the damage the projectile does to a given distance.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * @param distance The distance of the damage.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * @return The damage.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> */</span></span>
+<span style="color: #009900">float</span> ProjectileBouncing<span style="color: #990000">:</span><span style="color: #990000">:</span><span style="font-weight: bold"><span style="color: #000000">getDamage</span></span><span style="color: #990000">(</span> <span style="color: #009900">float</span> distance <span style="color: #990000">)</span>
+<span style="color: #FF0000">{</span>
+    
+    <span style="color: #009900">float</span> dam <span style="color: #990000">=</span> Projectile<span style="color: #990000">:</span><span style="color: #990000">:</span><span style="font-weight: bold"><span style="color: #000000">getDamage</span></span><span style="color: #990000">(</span> distance <span style="color: #990000">)</span><span style="color: #990000">;</span>
+    <span style="font-weight: bold"><span style="color: #0000FF">return</span></span> dam
+           <span style="color: #990000">/</span> <span style="color: #990000">(</span><span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>parameters<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">getParameterValue</span></span><span style="color: #990000">(</span><span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>indexBounceCount<span style="color: #990000">)</span> <span style="color: #990000">+</span> <span style="color: #993399">1</span><span style="color: #990000">)</span><span style="color: #990000">;</span>
+    
+<span style="color: #FF0000">}</span>
+</tt></pre>

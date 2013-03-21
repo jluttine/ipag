@@ -1,0 +1,201 @@
+<pre><tt>
+<span style="font-weight: bold"><span style="color: #000080">#include</span></span> <span style="color: #FF0000">"ProjectileShooting.h"</span>
+
+<span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * Constructs a new projectile.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * @param name           Name of the projectile.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * @param description    Description of the projectile.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * @param price          Price of the projectile.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * @param spriteIndex    Index of the sprite.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * @param soundIndex     Index of the firing sound.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * @param explosionIndex Index of the explosion type.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * @param radius         Radius of the projectile.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * @param mass           Mass of the projectile.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * @param damage         Maximum damage of the projectile.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * @param damageRadius   Radius of the damage.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * @param ammunition     Projectile template to shoot.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * @param shotCount      Maximum ammunition. After all ammunition has been</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> *                       fired, projectile will destruct.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * @param shotDelay      Delay between two shots in ms.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * @param shotVelocity   Shooting velocity for shots.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> */</span></span>
+ProjectileShooting
+    <span style="color: #990000">:</span><span style="color: #990000">:</span><span style="font-weight: bold"><span style="color: #000000">ProjectileShooting</span></span><span style="color: #990000">(</span> <span style="font-weight: bold"><span style="color: #0000FF">const</span></span> string <span style="color: #990000">&amp;</span>name<span style="color: #990000">,</span> <span style="font-weight: bold"><span style="color: #0000FF">const</span></span> string <span style="color: #990000">&amp;</span>description<span style="color: #990000">,</span>
+                          <span style="color: #009900">int</span> price<span style="color: #990000">,</span> <span style="color: #009900">int</span> spriteIndex<span style="color: #990000">,</span> <span style="color: #009900">int</span> soundIndex<span style="color: #990000">,</span>
+                          BodyExplosion<span style="color: #990000">:</span><span style="color: #990000">:</span>EType explosionIndex<span style="color: #990000">,</span> <span style="color: #009900">float</span> radius<span style="color: #990000">,</span>
+                          <span style="color: #009900">float</span> mass<span style="color: #990000">,</span> <span style="color: #009900">float</span> damage<span style="color: #990000">,</span> <span style="color: #009900">float</span> damageRadius<span style="color: #990000">,</span>
+                          <span style="font-weight: bold"><span style="color: #0000FF">const</span></span> Projectile <span style="color: #990000">&amp;</span>ammunition<span style="color: #990000">,</span> <span style="color: #009900">int</span> shotCount<span style="color: #990000">,</span>
+                          <span style="color: #009900">int</span> shotDelay<span style="color: #990000">,</span> <span style="color: #009900">float</span> shotVelocity <span style="color: #990000">)</span>
+    <span style="color: #990000">:</span> <span style="font-weight: bold"><span style="color: #000000">Projectile</span></span><span style="color: #990000">(</span> name<span style="color: #990000">,</span> description<span style="color: #990000">,</span> price<span style="color: #990000">,</span> spriteIndex<span style="color: #990000">,</span> soundIndex<span style="color: #990000">,</span>
+                  explosionIndex<span style="color: #990000">,</span> radius<span style="color: #990000">,</span> mass<span style="color: #990000">,</span> damage<span style="color: #990000">,</span> damageRadius <span style="color: #990000">)</span><span style="color: #990000">,</span>
+      <span style="font-weight: bold"><span style="color: #000000">ammunition</span></span><span style="color: #990000">(</span> ammunition <span style="color: #990000">)</span>
+<span style="color: #FF0000">{</span>
+
+    <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>shotCount <span style="color: #990000">=</span> shotCount<span style="color: #990000">;</span>
+    <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>shotsFired <span style="color: #990000">=</span> <span style="color: #993399">0</span><span style="color: #990000">;</span>
+    <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>shotDelay <span style="color: #990000">=</span> shotDelay<span style="color: #990000">;</span>
+    <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>shotVelocity <span style="color: #990000">=</span> shotVelocity<span style="color: #990000">;</span>
+    <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>timeElapsed <span style="color: #990000">=</span> <span style="color: #993399">0</span><span style="color: #990000">;</span>  
+    
+<span style="color: #FF0000">}</span>
+
+<span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * Constructs a projectile with same properties.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * @param copy The projectile to use as a copy.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> */</span></span>
+ProjectileShooting<span style="color: #990000">:</span><span style="color: #990000">:</span><span style="font-weight: bold"><span style="color: #000000">ProjectileShooting</span></span><span style="color: #990000">(</span> <span style="font-weight: bold"><span style="color: #0000FF">const</span></span> ProjectileShooting <span style="color: #990000">&amp;</span>copy <span style="color: #990000">)</span>
+    <span style="color: #990000">:</span> <span style="font-weight: bold"><span style="color: #000000">Projectile</span></span><span style="color: #990000">(</span> copy <span style="color: #990000">)</span><span style="color: #990000">,</span> <span style="font-weight: bold"><span style="color: #000000">ammunition</span></span><span style="color: #990000">(</span> copy<span style="color: #990000">.</span>ammunition <span style="color: #990000">)</span>
+<span style="color: #FF0000">{</span>
+    
+    <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>shotCount <span style="color: #990000">=</span> copy<span style="color: #990000">.</span>shotCount<span style="color: #990000">;</span>
+    <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>shotsFired <span style="color: #990000">=</span> <span style="color: #993399">0</span><span style="color: #990000">;</span>
+    <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>shotDelay <span style="color: #990000">=</span> copy<span style="color: #990000">.</span>shotDelay<span style="color: #990000">;</span>
+    <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>shotVelocity <span style="color: #990000">=</span> copy<span style="color: #990000">.</span>shotVelocity<span style="color: #990000">;</span>
+    <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>timeElapsed <span style="color: #990000">=</span> <span style="color: #993399">0</span><span style="color: #990000">;</span>  
+    
+<span style="color: #FF0000">}</span>
+    
+<span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * Simulates the timestep for the capsule.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * @param timestep The step length in ms.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * @param capsule  The capsule, that is the projectile in the world.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> */</span></span>
+<span style="color: #009900">void</span> ProjectileShooting<span style="color: #990000">:</span><span style="color: #990000">:</span><span style="font-weight: bold"><span style="color: #000000">step</span></span><span style="color: #990000">(</span> <span style="color: #009900">int</span> timestep<span style="color: #990000">,</span> BodyProjectile <span style="color: #990000">&amp;</span>capsule <span style="color: #990000">)</span>
+<span style="color: #FF0000">{</span>
+
+    <span style="font-weight: bold"><span style="color: #0000FF">const</span></span> Body <span style="color: #990000">*</span>target<span style="color: #990000">;</span>
+    Vector targetVector<span style="color: #990000">,</span> velocity<span style="color: #990000">,</span> firingVelocity<span style="color: #990000">;</span>
+    
+    <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>timeElapsed <span style="color: #990000">+</span><span style="color: #990000">=</span> timestep<span style="color: #990000">;</span>
+    
+    <span style="font-weight: bold"><span style="color: #0000FF">if</span></span> <span style="color: #990000">(</span> <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>timeElapsed <span style="color: #990000">&gt;</span><span style="color: #990000">=</span> <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>shotDelay <span style="color: #990000">)</span> <span style="color: #FF0000">{</span>
+        
+        target <span style="color: #990000">=</span> <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span><span style="font-weight: bold"><span style="color: #000000">selectTarget</span></span><span style="color: #990000">(</span> capsule <span style="color: #990000">)</span><span style="color: #990000">;</span>
+        
+        <span style="font-weight: bold"><span style="color: #0000FF">if</span></span> <span style="color: #990000">(</span> target <span style="color: #990000">!</span><span style="color: #990000">=</span> NULL <span style="color: #990000">)</span> <span style="color: #FF0000">{</span>
+            
+            targetVector<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">set</span></span><span style="color: #990000">(</span>
+                capsule<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">getLocation</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span><span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">getDistanceX</span></span><span style="color: #990000">(</span> target<span style="color: #990000">-</span><span style="color: #990000">&gt;</span><span style="font-weight: bold"><span style="color: #000000">getLocation</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span><span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">getX</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span> <span style="color: #990000">)</span><span style="color: #990000">,</span>
+                capsule<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">getLocation</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span><span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">getDistanceY</span></span><span style="color: #990000">(</span> target<span style="color: #990000">-</span><span style="color: #990000">&gt;</span><span style="font-weight: bold"><span style="color: #000000">getLocation</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span><span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">getY</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span> <span style="color: #990000">)</span> <span style="color: #990000">)</span><span style="color: #990000">;</span>
+                              
+            velocity <span style="color: #990000">=</span> capsule<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">getVelocity</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span><span style="color: #990000">;</span>
+
+            Vector velocityTargetPerpendicularComponent<span style="color: #990000">;</span>
+            Vector velocityTargetParallelComponent<span style="color: #990000">;</span>
+        
+            <span style="font-style: italic"><span style="color: #9A1900">//Velocity's parallel component to target.</span></span>
+            velocity<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">getProjectVector</span></span><span style="color: #990000">(</span> velocityTargetParallelComponent<span style="color: #990000">,</span>
+                                       targetVector <span style="color: #990000">)</span><span style="color: #990000">;</span>
+            <span style="font-style: italic"><span style="color: #9A1900">//Nopeuden kohdetta vastaan kohtisuora komponentti.</span></span>
+            <span style="font-style: italic"><span style="color: #9A1900">//Velocity's perpendicular component to target.</span></span>
+            velocityTargetPerpendicularComponent<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">set</span></span><span style="color: #990000">(</span>
+                velocity<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">getX</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span> <span style="color: #990000">-</span> velocityTargetParallelComponent<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">getX</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span><span style="color: #990000">,</span>
+                velocity<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">getY</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span> <span style="color: #990000">-</span> velocityTargetParallelComponent<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">getY</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span> <span style="color: #990000">)</span><span style="color: #990000">;</span>
+        
+            firingVelocity <span style="color: #990000">-</span><span style="color: #990000">=</span> velocityTargetPerpendicularComponent<span style="color: #990000">;</span>
+            <span style="color: #009900">float</span> perpendicularLength <span style="color: #990000">=</span>
+                velocityTargetPerpendicularComponent<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">getLength</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span><span style="color: #990000">;</span>   
+                               
+            <span style="font-style: italic"><span style="color: #9A1900">//Shoot only if undesired component's can be eliminated and so the</span></span>
+            <span style="font-style: italic"><span style="color: #9A1900">//projectile should fly exactlyt to target (if gravity's ignored).                 </span></span>
+            <span style="font-weight: bold"><span style="color: #0000FF">if</span></span> <span style="color: #990000">(</span> perpendicularLength <span style="color: #990000">&lt;</span> <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>shotVelocity <span style="color: #990000">)</span> <span style="color: #FF0000">{</span>
+                <span style="font-style: italic"><span style="color: #9A1900">//Shoot.</span></span>
+                targetVector<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">scale</span></span><span style="color: #990000">(</span> <span style="font-weight: bold"><span style="color: #000000">sqrt</span></span><span style="color: #990000">(</span> <span style="color: #990000">(</span><span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>shotVelocity <span style="color: #990000">*</span> <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>shotVelocity<span style="color: #990000">)</span>
+                                              <span style="color: #990000">-</span> <span style="color: #990000">(</span>perpendicularLength
+                                                 <span style="color: #990000">*</span> perpendicularLength<span style="color: #990000">)</span> <span style="color: #990000">)</span>
+                                    <span style="color: #990000">/</span> targetVector<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">getLength</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span> <span style="color: #990000">)</span><span style="color: #990000">;</span>
+                                    
+                firingVelocity <span style="color: #990000">+</span><span style="color: #990000">=</span> targetVector<span style="color: #990000">;</span>
+                <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>timeElapsed <span style="color: #990000">=</span> <span style="color: #993399">0</span><span style="color: #990000">;</span>
+                
+                Projectile <span style="color: #990000">*</span>model <span style="color: #990000">=</span> <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>ammunition<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">getCopy</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span><span style="color: #990000">;</span>
+                model<span style="color: #990000">-</span><span style="color: #990000">&gt;</span><span style="font-weight: bold"><span style="color: #000000">setShooter</span></span><span style="color: #990000">(</span> <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span><span style="font-weight: bold"><span style="color: #000000">getShooter</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span> <span style="color: #990000">)</span><span style="color: #990000">;</span>
+                
+                BodyProjectile <span style="color: #990000">*</span>newProjectile <span style="color: #990000">=</span>
+                    <span style="font-weight: bold"><span style="color: #0000FF">new</span></span> <span style="font-weight: bold"><span style="color: #000000">BodyProjectile</span></span><span style="color: #990000">(</span> capsule<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">getWorld</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span><span style="color: #990000">,</span>
+                                        capsule<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">getLocation</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span><span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">getX</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span><span style="color: #990000">,</span>
+                                        capsule<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">getLocation</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span><span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">getY</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span><span style="color: #990000">,</span> <span style="color: #990000">*</span>model <span style="color: #990000">)</span><span style="color: #990000">;</span> 
+        
+                velocity <span style="color: #990000">+</span><span style="color: #990000">=</span> firingVelocity<span style="color: #990000">;</span>
+                
+                newProjectile<span style="color: #990000">-</span><span style="color: #990000">&gt;</span><span style="font-weight: bold"><span style="color: #000000">setVelocity</span></span><span style="color: #990000">(</span> velocity<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">getX</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span><span style="color: #990000">,</span> velocity<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">getY</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span> <span style="color: #990000">)</span><span style="color: #990000">;</span>
+                newProjectile<span style="color: #990000">-</span><span style="color: #990000">&gt;</span><span style="font-weight: bold"><span style="color: #000000">setActionFlag</span></span><span style="color: #990000">(</span> capsule<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">getActionFlag</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span> <span style="color: #990000">)</span><span style="color: #990000">;</span>
+                capsule<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">getWorld</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span><span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">addBody</span></span><span style="color: #990000">(</span> <span style="color: #990000">*</span>newProjectile <span style="color: #990000">)</span><span style="color: #990000">;</span>
+                capsule<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">getWorld</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span><span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">playSound</span></span><span style="color: #990000">(</span> model<span style="color: #990000">-</span><span style="color: #990000">&gt;</span><span style="font-weight: bold"><span style="color: #000000">getSound</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span> <span style="color: #990000">)</span><span style="color: #990000">;</span>
+                
+                <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>shotsFired<span style="color: #990000">+</span><span style="color: #990000">+</span><span style="color: #990000">;</span>
+                
+                <span style="font-weight: bold"><span style="color: #0000FF">if</span></span> <span style="color: #990000">(</span> <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>shotsFired <span style="color: #990000">&gt;</span><span style="color: #990000">=</span> <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>shotCount <span style="color: #990000">)</span> <span style="color: #FF0000">{</span>
+                    <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span><span style="font-weight: bold"><span style="color: #000000">explode</span></span><span style="color: #990000">(</span> capsule<span style="color: #990000">,</span> capsule<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">getLocation</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span><span style="color: #990000">,</span>
+                                   <span style="color: #990000">&amp;</span>capsule<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">getVelocity</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span> <span style="color: #990000">)</span><span style="color: #990000">;</span>
+                    capsule<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">destroy</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span><span style="color: #990000">;</span>
+                <span style="color: #FF0000">}</span>
+            
+            <span style="color: #FF0000">}</span>
+            
+        <span style="color: #FF0000">}</span>
+        
+    <span style="color: #FF0000">}</span>   
+    
+    Projectile<span style="color: #990000">:</span><span style="color: #990000">:</span><span style="font-weight: bold"><span style="color: #000000">step</span></span><span style="color: #990000">(</span> timestep<span style="color: #990000">,</span> capsule <span style="color: #990000">)</span><span style="color: #990000">;</span>
+    
+<span style="color: #FF0000">}</span>
+
+
+<span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * Selects a new target. Target is the closest cannon not owned by the</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * owner.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * @param capsule The capsule.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * @return Selected target.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> */</span></span>
+<span style="font-weight: bold"><span style="color: #0000FF">const</span></span> Body<span style="color: #990000">*</span> ProjectileShooting<span style="color: #990000">:</span><span style="color: #990000">:</span><span style="font-weight: bold"><span style="color: #000000">selectTarget</span></span><span style="color: #990000">(</span> <span style="font-weight: bold"><span style="color: #0000FF">const</span></span> BodyProjectile <span style="color: #990000">&amp;</span>capsule <span style="color: #990000">)</span>
+<span style="color: #FF0000">{</span>
+    
+    Body <span style="color: #990000">*</span>body<span style="color: #990000">;</span>
+    BodyCannon <span style="color: #990000">*</span>cannon<span style="color: #990000">,</span> <span style="color: #990000">*</span>target <span style="color: #990000">=</span> NULL<span style="color: #990000">;</span>
+    <span style="color: #009900">int</span> i<span style="color: #990000">;</span>
+    <span style="color: #009900">float</span> distance<span style="color: #990000">,</span> shortestDistance <span style="color: #990000">=</span> <span style="color: #990000">-</span><span style="color: #993399">1</span><span style="color: #990000">;</span>
+    
+    <span style="font-weight: bold"><span style="color: #0000FF">for</span></span> <span style="color: #990000">(</span> i <span style="color: #990000">=</span> <span style="color: #993399">0</span><span style="color: #990000">;</span> <span style="color: #990000">(</span> body <span style="color: #990000">=</span> capsule<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">getWorld</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span><span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">getBody</span></span><span style="color: #990000">(</span> i <span style="color: #990000">)</span> <span style="color: #990000">)</span> <span style="color: #990000">!</span><span style="color: #990000">=</span> NULL<span style="color: #990000">;</span> i<span style="color: #990000">+</span><span style="color: #990000">+</span> <span style="color: #990000">)</span> <span style="color: #FF0000">{</span>
+        
+        cannon <span style="color: #990000">=</span> <span style="font-weight: bold"><span style="color: #0000FF">dynamic_cast</span></span><span style="color: #FF0000">&lt;BodyCannon*&gt;</span><span style="color: #990000">(</span>body<span style="color: #990000">)</span><span style="color: #990000">;</span>
+        <span style="font-weight: bold"><span style="color: #0000FF">if</span></span> <span style="color: #990000">(</span> cannon <span style="color: #990000">&amp;</span><span style="color: #990000">&amp;</span> <span style="color: #990000">&amp;</span>cannon<span style="color: #990000">-</span><span style="color: #990000">&gt;</span><span style="font-weight: bold"><span style="color: #000000">getOwner</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span> <span style="color: #990000">!</span><span style="color: #990000">=</span> <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span><span style="font-weight: bold"><span style="color: #000000">getShooter</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span>
+             <span style="color: #990000">&amp;</span><span style="color: #990000">&amp;</span> <span style="color: #990000">!</span>cannon<span style="color: #990000">-</span><span style="color: #990000">&gt;</span><span style="font-weight: bold"><span style="color: #000000">isRuined</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span> <span style="color: #990000">)</span>
+        <span style="color: #FF0000">{</span>
+            
+            distance <span style="color: #990000">=</span>
+                capsule<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">getLocation</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span><span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">getDistance</span></span><span style="color: #990000">(</span> cannon<span style="color: #990000">-</span><span style="color: #990000">&gt;</span><span style="font-weight: bold"><span style="color: #000000">getLocation</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span><span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">getX</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span><span style="color: #990000">,</span>
+                                                  cannon<span style="color: #990000">-</span><span style="color: #990000">&gt;</span><span style="font-weight: bold"><span style="color: #000000">getLocation</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span><span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">getY</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span> <span style="color: #990000">)</span><span style="color: #990000">;</span>
+                                                  
+            <span style="font-weight: bold"><span style="color: #0000FF">if</span></span> <span style="color: #990000">(</span> distance <span style="color: #990000">&lt;</span> shortestDistance <span style="color: #990000">|</span><span style="color: #990000">|</span> shortestDistance <span style="color: #990000">&lt;</span> <span style="color: #993399">0</span> <span style="color: #990000">)</span> <span style="color: #FF0000">{</span>
+                
+                shortestDistance <span style="color: #990000">=</span> distance<span style="color: #990000">;</span>
+                target <span style="color: #990000">=</span> cannon<span style="color: #990000">;</span>
+                
+            <span style="color: #FF0000">}</span>
+            
+        <span style="color: #FF0000">}</span>
+        
+    <span style="color: #FF0000">}</span>
+        
+    <span style="font-weight: bold"><span style="color: #0000FF">return</span></span> target<span style="color: #990000">;</span>
+    
+<span style="color: #FF0000">}</span>
+
+<span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * Forms a string to describe the damage of the projectile.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * @param text String to store the damage description.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> */</span></span>
+<span style="color: #009900">void</span> ProjectileShooting<span style="color: #990000">:</span><span style="color: #990000">:</span><span style="font-weight: bold"><span style="color: #000000">getDamageText</span></span><span style="color: #990000">(</span> std<span style="color: #990000">:</span><span style="color: #990000">:</span>string <span style="color: #990000">&amp;</span>text <span style="color: #990000">)</span> <span style="font-weight: bold"><span style="color: #0000FF">const</span></span>
+<span style="color: #FF0000">{</span>
+    
+    <span style="color: #009900">char</span> buffer<span style="color: #990000">[</span><span style="color: #993399">80</span><span style="color: #990000">]</span><span style="color: #990000">;</span>
+    std<span style="color: #990000">:</span><span style="color: #990000">:</span>string damage<span style="color: #990000">;</span>
+    <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>ammunition<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">getDamageText</span></span><span style="color: #990000">(</span> damage <span style="color: #990000">)</span><span style="color: #990000">;</span>
+    <span style="font-weight: bold"><span style="color: #000000">sprintf</span></span><span style="color: #990000">(</span> buffer<span style="color: #990000">,</span> <span style="color: #FF0000">"%s/shot"</span><span style="color: #990000">,</span> damage<span style="color: #990000">.</span><span style="font-weight: bold"><span style="color: #000000">c_str</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span> <span style="color: #990000">)</span><span style="color: #990000">;</span>
+    text <span style="color: #990000">=</span> buffer<span style="color: #990000">;</span>
+    
+<span style="color: #FF0000">}</span>
+
+
+</tt></pre>

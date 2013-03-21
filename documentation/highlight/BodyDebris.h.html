@@ -1,0 +1,44 @@
+<pre><tt><span style="font-weight: bold"><span style="color: #000080">#ifndef</span></span> _BODY_DEBRIS_H_
+<span style="font-weight: bold"><span style="color: #000080">#define</span></span> _BODY_DEBRIS_H_
+
+<span style="font-weight: bold"><span style="color: #000080">#include</span></span> <span style="color: #FF0000">"BodyMovable.h"</span>
+
+<span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * BodyDebris represents dirt flying in the air after an expolsion. It does</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * not interact with other particles. A single object is a single particle so</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * you probably want to create a few of these at once.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * @author Tapio Auvinen</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> */</span></span>
+
+<span style="font-weight: bold"><span style="color: #0000FF">class</span></span> BodyDebris <span style="color: #990000">:</span> <span style="font-weight: bold"><span style="color: #0000FF">public</span></span> BodyMovable <span style="color: #FF0000">{</span>
+<span style="font-weight: bold"><span style="color: #0000FF">public</span></span><span style="color: #990000">:</span>
+
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Constructor.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @param &amp;world Reference to game world</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @param x location, world coordinates</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @param y location, world coordinates</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @param fireAmount probablity that a single created particle is in</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     *                   fire. [0..1] 0 means a dull gray debris field and</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     *                   1 an explosion.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="font-weight: bold"><span style="color: #000000">BodyDebris</span></span><span style="color: #990000">(</span>World <span style="color: #990000">&amp;</span>world<span style="color: #990000">,</span> <span style="color: #009900">float</span> x<span style="color: #990000">,</span> <span style="color: #009900">float</span> y<span style="color: #990000">,</span> <span style="color: #009900">float</span> fireAmount<span style="color: #990000">)</span><span style="color: #990000">;</span>
+    
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Destructor</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="color: #990000">~</span><span style="font-weight: bold"><span style="color: #000000">BodyDebris</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span><span style="color: #990000">;</span>
+
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Draws it's own image on screen.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @param &amp;graphics Reference to graphics</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="color: #009900">void</span> <span style="font-weight: bold"><span style="color: #000000">draw</span></span><span style="color: #990000">(</span>Graphics <span style="color: #990000">&amp;</span>graphics<span style="color: #990000">)</span><span style="color: #990000">;</span>
+    
+<span style="font-weight: bold"><span style="color: #0000FF">private</span></span><span style="color: #990000">:</span>
+    <span style="color: #009900">float</span> imagePhase<span style="color: #990000">;</span>  <span style="font-style: italic"><span style="color: #9A1900">//A random frame is selected from the bitmap to add</span></span>
+                       <span style="font-style: italic"><span style="color: #9A1900">//diversity</span></span>
+<span style="color: #FF0000">}</span><span style="color: #990000">;</span>
+
+<span style="font-weight: bold"><span style="color: #000080">#endif</span></span>
+</tt></pre>

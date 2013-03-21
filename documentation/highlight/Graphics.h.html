@@ -1,0 +1,331 @@
+<pre><tt><span style="font-weight: bold"><span style="color: #000080">#ifndef</span></span> GRAPHICS_GAME_H
+<span style="font-weight: bold"><span style="color: #000080">#define</span></span> GRAPHICS_GAME_H
+
+<span style="font-weight: bold"><span style="color: #0000FF">class</span></span> Graphics<span style="color: #990000">;</span>
+
+<span style="font-weight: bold"><span style="color: #000080">#include</span></span> <span style="color: #FF0000">&lt;vector&gt;</span>
+<span style="font-weight: bold"><span style="color: #000080">#include</span></span> <span style="color: #FF0000">&lt;SDL/SDL.h&gt;</span>
+<span style="font-weight: bold"><span style="color: #000080">#include</span></span> <span style="color: #FF0000">"Coordinates.h"</span>
+
+<span style="font-weight: bold"><span style="color: #000080">#define</span></span> SIDEBAR_WIDTH  <span style="color: #993399">200</span>
+
+<span style="font-weight: bold"><span style="color: #0000FF">using</span></span> std<span style="color: #990000">:</span><span style="color: #990000">:</span>vector<span style="color: #990000">;</span>
+
+<span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * Class Graphics. Low level graphic functions + some game specific stuff.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * </span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * If a drawing function takes a Coordinates object as a reference, the</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * object is considered to be a part of the continuous world and it may</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * appear in up tp four different places on the screen and it is subject to</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * scrolling. If a function takes x and y coordinates, the object is drawn</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * on those screen coordinates and it is not scrolled.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> *</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * Common game graphics is loaded on init. Sprite indexes are defined in</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * images.h. Files are defined in resource file data/bitmpas.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> *</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * Only on graphics object may exist. It sould be created when the program</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * starts and deleted before just before it quits.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> *</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * @author Tapio Auvinen</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> */</span></span>
+
+<span style="font-weight: bold"><span style="color: #0000FF">class</span></span> Graphics <span style="color: #FF0000">{</span>
+<span style="font-weight: bold"><span style="color: #0000FF">public</span></span><span style="color: #990000">:</span>
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Constructor. init() must be called before anything can be drawn.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="font-weight: bold"><span style="color: #000000">Graphics</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span><span style="color: #990000">;</span>
+    
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Destructor</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="color: #990000">~</span><span style="font-weight: bold"><span style="color: #000000">Graphics</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span><span style="color: #990000">;</span>
+    
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Initializes the graphics engine. Nothing must be drawn before this</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * is done. If this fails, you should quit.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @param resX x-resolution</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @param resY y-resolution</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @param resX bit depth in bits usually 16, 24 or 32</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @return true if successful.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="color: #009900">bool</span> <span style="font-weight: bold"><span style="color: #000000">init</span></span><span style="color: #990000">(</span><span style="color: #009900">int</span> resX<span style="color: #990000">,</span> <span style="color: #009900">int</span> resY<span style="color: #990000">,</span> <span style="color: #009900">int</span> bitDepth<span style="color: #990000">)</span><span style="color: #990000">;</span>
+    
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Sets coordinate system so that grapchics becomes aware of the</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * dimensions of the world. This must be set before any game graphics</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * is drawn.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @param &amp;system new coordinate system</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="color: #009900">void</span> <span style="font-weight: bold"><span style="color: #000000">setCoordinateSystem</span></span><span style="color: #990000">(</span><span style="font-weight: bold"><span style="color: #0000FF">const</span></span> CoordinateSystem <span style="color: #990000">&amp;</span>system<span style="color: #990000">)</span><span style="color: #990000">;</span>
+    
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Converts screen coordinates to world coordinates.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @param x x location on screen</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @param y y location on screen</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @return Coordinates object. Remember to delete it afterwards.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    Coordinates <span style="color: #990000">*</span><span style="font-weight: bold"><span style="color: #000000">getWorldCoordinates</span></span><span style="color: #990000">(</span><span style="color: #009900">int</span> x<span style="color: #990000">,</span> <span style="color: #009900">int</span> y<span style="color: #990000">)</span><span style="color: #990000">;</span>
+    
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Updates screen so that user can see changes.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="color: #009900">void</span> <span style="font-weight: bold"><span style="color: #000000">update</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span><span style="color: #990000">;</span>
+    
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Clears backbuffer.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="color: #009900">void</span> <span style="font-weight: bold"><span style="color: #000000">clear</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span><span style="color: #990000">;</span>
+    
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Scrolls viewport by (x, y). Relative coordinates, world units.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @param x distance to be scrolled</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @param y distance to be scrolled</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="color: #009900">void</span> <span style="font-weight: bold"><span style="color: #000000">moveCamera</span></span><span style="color: #990000">(</span><span style="color: #009900">float</span> x<span style="color: #990000">,</span> <span style="color: #009900">float</span> y<span style="color: #990000">)</span><span style="color: #990000">;</span>
+    
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Moves camera so that point (x, y) is centerd. Absolute coordintes,</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * world units.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @param x new x coordinate, world units</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @param y new y coordinate, world units</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="color: #009900">void</span> <span style="font-weight: bold"><span style="color: #000000">setCamera</span></span><span style="color: #990000">(</span><span style="color: #009900">float</span> x<span style="color: #990000">,</span> <span style="color: #009900">float</span> y<span style="color: #990000">)</span><span style="color: #990000">;</span>
+
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Creates a random starfield. The field is stored in Graphics until a new</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * one is created.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="color: #009900">void</span> <span style="font-weight: bold"><span style="color: #000000">createStarfield</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span><span style="color: #990000">;</span>
+    
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Draws the starfield directly on the screen.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="color: #009900">void</span> <span style="font-weight: bold"><span style="color: #000000">drawStarfield</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span><span style="color: #990000">;</span>
+    
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Draws a bitmap on the screen. World coordinates.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @param *surface Surface to be copied on the screen</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @param &amp;location Location of the center of the object, world coordinates</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @param *sourceRect Defines the area of the source bitmap that is to</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     *                    be copied. NULL means that whole bitmap is copied.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="color: #009900">void</span> <span style="font-weight: bold"><span style="color: #000000">drawBitmap</span></span><span style="color: #990000">(</span>SDL_Surface <span style="color: #990000">*</span>surface<span style="color: #990000">,</span> <span style="font-weight: bold"><span style="color: #0000FF">const</span></span> Coordinates <span style="color: #990000">&amp;</span>location<span style="color: #990000">,</span> 
+                    SDL_Rect <span style="color: #990000">*</span>sourceRect <span style="color: #990000">=</span> NULL<span style="color: #990000">)</span><span style="color: #990000">;</span>
+    
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Draws a bitmap on the screen. Absolute screen coordinates.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @param *surface Surface to be copied on the screen</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @param x Location of the center, screen coordinates</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @param y Location of the center, screen coordinates</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @param *sourceRect Defines the area of the source bitmap that is to</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     *                    be copied. NULL means that whole bitmap is copied.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="color: #009900">void</span> <span style="font-weight: bold"><span style="color: #000000">drawBitmap</span></span><span style="color: #990000">(</span>SDL_Surface <span style="color: #990000">*</span>surface<span style="color: #990000">,</span> <span style="color: #009900">int</span> x<span style="color: #990000">,</span> <span style="color: #009900">int</span> y<span style="color: #990000">,</span>
+                    SDL_Rect <span style="color: #990000">*</span>sourceRect <span style="color: #990000">=</span> NULL<span style="color: #990000">)</span><span style="color: #990000">;</span>
+    
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Draws a sprite on the screen. World coordinates. For animated</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * sprites you should call drawAnimated().</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @param spriteIndex indexes are defined in images.h</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @param &amp;location Location of the center, world coordinates</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="color: #009900">void</span> <span style="font-weight: bold"><span style="color: #000000">drawSprite</span></span><span style="color: #990000">(</span><span style="color: #009900">int</span> spriteIndex<span style="color: #990000">,</span> <span style="font-weight: bold"><span style="color: #0000FF">const</span></span> Coordinates <span style="color: #990000">&amp;</span>location<span style="color: #990000">)</span><span style="color: #990000">;</span>
+    
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Draws a sprite on the screen. Absolute screen coordinates.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @param spriteIndex indexes are defined in images.h</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @param x Location of the center, screen coordinates</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @param y Location of the center, screen coordinates</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="color: #009900">void</span> <span style="font-weight: bold"><span style="color: #000000">drawSprite</span></span><span style="color: #990000">(</span><span style="color: #009900">int</span> spriteIndex<span style="color: #990000">,</span> <span style="color: #009900">int</span> x<span style="color: #990000">,</span> <span style="color: #009900">int</span> y<span style="color: #990000">)</span><span style="color: #990000">;</span>
+    
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Draws a sprite on the screen. Selects frame accoring to phase.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * 0 = first frame, .999 = last frame, 1 = first frame again... Phase</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * can be between (0, inf). This if useful for loopable animations. For</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * non-loopable animations make sure not to ever reach 'phase = 1'</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * because that's the first frame again.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @param spriteIndex indexes are defined in images.h</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @param &amp;location Location of the center, world coordinates</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @param phase Phase of animation, [0, 1] or [0, inf] (looping)</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="color: #009900">void</span> <span style="font-weight: bold"><span style="color: #000000">drawAnimated</span></span><span style="color: #990000">(</span><span style="color: #009900">int</span> spriteIndex<span style="color: #990000">,</span> <span style="font-weight: bold"><span style="color: #0000FF">const</span></span> Coordinates <span style="color: #990000">&amp;</span>location<span style="color: #990000">,</span>
+                      <span style="color: #009900">float</span> phase<span style="color: #990000">)</span><span style="color: #990000">;</span>
+    
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Rotates a bitmap and draws the result on a surface. Note that this</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * is a rather slow operation.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @param *source Bitmap to be rotated.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @param *target Surface that the result is drawn to</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @param rot angle in radians, 0 = east, ccw</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="color: #009900">void</span> <span style="font-weight: bold"><span style="color: #000000">drawRotated</span></span><span style="color: #990000">(</span><span style="font-weight: bold"><span style="color: #0000FF">const</span></span> SDL_Surface <span style="color: #990000">*</span>source<span style="color: #990000">,</span> SDL_Surface <span style="color: #990000">*</span>target<span style="color: #990000">,</span>
+                     <span style="color: #009900">float</span> angle<span style="color: #990000">)</span><span style="color: #990000">;</span>
+    
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Draws a filled rectangle on screen. World coordinates.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @param &amp;location Location of the top-left corner</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @param w Width in world units</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @param h Height in world units</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @param r r component, [0, 255]</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @param g g component, [0, 255]</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @param b b component, [0, 255]</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="color: #009900">void</span> <span style="font-weight: bold"><span style="color: #000000">drawRect</span></span><span style="color: #990000">(</span><span style="font-weight: bold"><span style="color: #0000FF">const</span></span> Coordinates <span style="color: #990000">&amp;</span>location<span style="color: #990000">,</span>
+                  <span style="color: #009900">unsigned</span> <span style="color: #009900">int</span> w<span style="color: #990000">,</span> <span style="color: #009900">unsigned</span> <span style="color: #009900">int</span> h<span style="color: #990000">,</span>
+                  Uint8 r<span style="color: #990000">,</span> Uint8 g<span style="color: #990000">,</span> Uint8 b<span style="color: #990000">)</span><span style="color: #990000">;</span>
+    
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Draws a filled rectangle on the screen. Screen units.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @param *target Target surface, NULL means screen</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @param x Location of the top-left corner</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @param y Location of the top-left corner</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @param w Width in pixels</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @param h Height in pixels</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @param r r component, [0, 255]</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @param g g component, [0, 255]</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @param b b component, [0, 255]</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="color: #009900">void</span> <span style="font-weight: bold"><span style="color: #000000">drawRect</span></span><span style="color: #990000">(</span>SDL_Surface <span style="color: #990000">*</span>target<span style="color: #990000">,</span> <span style="color: #009900">int</span> x<span style="color: #990000">,</span> <span style="color: #009900">int</span> y<span style="color: #990000">,</span>
+                  <span style="color: #009900">unsigned</span> <span style="color: #009900">int</span> w<span style="color: #990000">,</span> <span style="color: #009900">unsigned</span> <span style="color: #009900">int</span> h<span style="color: #990000">,</span>
+                  Uint8 r<span style="color: #990000">,</span> Uint8 g<span style="color: #990000">,</span> Uint8 b<span style="color: #990000">)</span><span style="color: #990000">;</span>
+    
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Draws text on a surface.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @param *target Target surface. If NULL, the text is rendered</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     *                directly on the screen.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @param *text Text to be drawn. It may contain '/n' characters.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @param x location of the top-left corner on screen</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @param y location of the top-left corner on screen</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="color: #009900">void</span> <span style="font-weight: bold"><span style="color: #000000">drawText</span></span><span style="color: #990000">(</span>SDL_Surface <span style="color: #990000">*</span>target<span style="color: #990000">,</span> <span style="font-weight: bold"><span style="color: #0000FF">const</span></span> <span style="color: #009900">char</span> <span style="color: #990000">*</span>text<span style="color: #990000">,</span> <span style="color: #009900">int</span> x<span style="color: #990000">,</span> <span style="color: #009900">int</span> y<span style="color: #990000">)</span><span style="color: #990000">;</span>
+
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Returns line height of text in pixels.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @return height in pixels</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="color: #009900">int</span> <span style="font-weight: bold"><span style="color: #000000">getLineHeight</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span><span style="color: #990000">;</span>
+
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Returns character width in pixels.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @return width in pixels</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="color: #009900">int</span> <span style="font-weight: bold"><span style="color: #000000">getCharWidth</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span><span style="color: #990000">;</span>
+    
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Returns the sdl-surface of a sprite. Note that many objects may use</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * the same sprite and sprites may not be modified.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @param spriteIndex indexes are defined in images.h</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @return NULL if there is no such sprite</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="font-weight: bold"><span style="color: #0000FF">const</span></span> SDL_Surface<span style="color: #990000">*</span> <span style="font-weight: bold"><span style="color: #000000">getSurface</span></span><span style="color: #990000">(</span><span style="color: #009900">int</span> spriteIndex<span style="color: #990000">)</span><span style="color: #990000">;</span>
+
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Returns a sprite index. This index can be used later to access the</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * sprite.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @param *name Name of the sprite. Names are defined in resource file</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     *              'data/bitmaps'.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @return sprite index, or -1 if there is no such sprite</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="color: #009900">int</span> <span style="font-weight: bold"><span style="color: #000000">getSpriteIndex</span></span><span style="color: #990000">(</span><span style="color: #009900">char</span> <span style="color: #990000">*</span>name<span style="color: #990000">)</span><span style="color: #990000">;</span>
+    
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Loads a bitmap and returns a pointer to the sdl-surface. Remember</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * to free it.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @param fileName file name</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @return pointer to the surface, NULL on failure</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    SDL_Surface<span style="color: #990000">*</span> <span style="font-weight: bold"><span style="color: #000000">loadBitmap</span></span><span style="color: #990000">(</span><span style="color: #009900">char</span> <span style="color: #990000">*</span>fileName<span style="color: #990000">)</span><span style="color: #990000">;</span>
+    
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Creates a unique surface that can be used to store any image data.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * The surface must be freed when it's not needed anymore.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @param w width in pixels</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @param h height in pixels</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @return pointer to the new surface, NULL on failure</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    SDL_Surface <span style="color: #990000">*</span><span style="font-weight: bold"><span style="color: #000000">createSurface</span></span><span style="color: #990000">(</span><span style="color: #009900">unsigned</span> <span style="color: #009900">int</span> w<span style="color: #990000">,</span> <span style="color: #009900">unsigned</span> <span style="color: #009900">int</span> h<span style="color: #990000">)</span><span style="color: #990000">;</span>
+    
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Frees a surface that was created with createSurface().</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @param *surface surface to be freed</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="color: #009900">void</span> <span style="font-weight: bold"><span style="color: #000000">freeSurface</span></span><span style="color: #990000">(</span>SDL_Surface <span style="color: #990000">*</span>surface<span style="color: #990000">)</span><span style="color: #990000">;</span>
+    
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Locks the screen to allow direct access. This is not necessary for</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * normal sprite blitting.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="color: #009900">void</span> <span style="font-weight: bold"><span style="color: #000000">lock</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span><span style="color: #990000">;</span>
+    
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Unlocks the screen if it was locked with lock().</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="color: #009900">void</span> <span style="font-weight: bold"><span style="color: #000000">unlock</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span><span style="color: #990000">;</span>
+    
+    
+<span style="font-weight: bold"><span style="color: #0000FF">private</span></span><span style="color: #990000">:</span>
+    
+    <span style="font-style: italic"><span style="color: #9A1900">//Structure to store common game graphics</span></span>
+    <span style="font-weight: bold"><span style="color: #0000FF">typedef</span></span> <span style="font-weight: bold"><span style="color: #0000FF">struct</span></span> <span style="color: #FF0000">{</span>
+        <span style="color: #009900">char</span> <span style="color: #990000">*</span>name<span style="color: #990000">;</span>
+        SDL_Surface <span style="color: #990000">*</span>surface<span style="color: #990000">;</span>
+        <span style="color: #009900">unsigned</span> <span style="color: #009900">int</span> columns<span style="color: #990000">;</span>
+        <span style="color: #009900">unsigned</span> <span style="color: #009900">int</span> rows<span style="color: #990000">;</span>
+        Uint32 colorKey<span style="color: #990000">;</span>
+    <span style="color: #FF0000">}</span> TSprite<span style="color: #990000">;</span>
+
+    <span style="font-style: italic"><span style="color: #9A1900">//Structure to store stars in the starfield</span></span>
+    <span style="font-weight: bold"><span style="color: #0000FF">typedef</span></span> <span style="font-weight: bold"><span style="color: #0000FF">struct</span></span> <span style="color: #FF0000">{</span>
+        <span style="color: #009900">int</span> x<span style="color: #990000">;</span>
+        <span style="color: #009900">int</span> y<span style="color: #990000">;</span>
+        Uint32 color<span style="color: #990000">;</span>
+    <span style="color: #FF0000">}</span> TStar<span style="color: #990000">;</span>
+    
+    SDL_Surface <span style="color: #990000">*</span>screen<span style="color: #990000">;</span> <span style="font-style: italic"><span style="color: #9A1900">//Pointer to the screen</span></span>
+    SDL_Surface <span style="color: #990000">*</span>font<span style="color: #990000">;</span>   <span style="font-style: italic"><span style="color: #9A1900">//Font bitmap</span></span>
+    
+    vector<span style="color: #FF0000">&lt;TSprite*&gt;</span> sprites<span style="color: #990000">;</span>  <span style="font-style: italic"><span style="color: #9A1900">//Common game graphics</span></span>
+    
+    Coordinates <span style="color: #990000">*</span>windowCenter<span style="color: #990000">;</span> <span style="font-style: italic"><span style="color: #9A1900">//Coordinates of window center,</span></span>
+                               <span style="font-style: italic"><span style="color: #9A1900">//needed in scrolling</span></span>
+    
+    TStar <span style="color: #990000">*</span>stars<span style="color: #990000">;</span>  <span style="font-style: italic"><span style="color: #9A1900">//Star field</span></span>
+    <span style="color: #009900">float</span> starfieldCenterX<span style="color: #990000">,</span> starfieldCenterY<span style="color: #990000">;</span> <span style="font-style: italic"><span style="color: #9A1900">//Coordinates of the center of</span></span>
+                                           <span style="font-style: italic"><span style="color: #9A1900">//star field, needed in scrolling</span></span>
+    
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Loads common game graphics. This should only be called once at init.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * If this fails, no graphics may be drawn.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @return true on success, false on failure</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="color: #009900">bool</span> <span style="font-weight: bold"><span style="color: #000000">loadSprites</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span><span style="color: #990000">;</span>
+    
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Destroys game graphics</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="color: #009900">void</span> <span style="font-weight: bold"><span style="color: #000000">destroySprites</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span><span style="color: #990000">;</span>
+    
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Plots a pixel directly to a surface. </span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @param *surface target surface</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @param x location in pixels</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @param y location in pixels</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @param color SDL color</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="font-weight: bold"><span style="color: #0000FF">inline</span></span> <span style="color: #009900">void</span> <span style="font-weight: bold"><span style="color: #000000">putpixel</span></span><span style="color: #990000">(</span>SDL_Surface <span style="color: #990000">*</span>surface<span style="color: #990000">,</span> <span style="color: #009900">int</span> x<span style="color: #990000">,</span> <span style="color: #009900">int</span> y<span style="color: #990000">,</span> Uint32 color<span style="color: #990000">)</span><span style="color: #990000">;</span>
+    
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Returns the pixel value at (x, y).</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @param *surface source surface</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @param x location in pixels</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @param y location in pixels</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="font-weight: bold"><span style="color: #0000FF">inline</span></span> Uint32 <span style="font-weight: bold"><span style="color: #000000">getpixel</span></span><span style="color: #990000">(</span><span style="font-weight: bold"><span style="color: #0000FF">const</span></span> SDL_Surface <span style="color: #990000">*</span>surface<span style="color: #990000">,</span> <span style="color: #009900">int</span> x<span style="color: #990000">,</span> <span style="color: #009900">int</span> y<span style="color: #990000">)</span><span style="color: #990000">;</span>
+
+<span style="color: #FF0000">}</span><span style="color: #990000">;</span>
+
+
+<span style="font-weight: bold"><span style="color: #000080">#endif</span></span>
+</tt></pre>

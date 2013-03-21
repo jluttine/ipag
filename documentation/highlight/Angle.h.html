@@ -1,0 +1,89 @@
+<pre><tt>
+<span style="font-weight: bold"><span style="color: #000080">#ifndef</span></span> _ANGLE_H_
+<span style="font-weight: bold"><span style="color: #000080">#define</span></span> _ANGLE_H_
+
+<span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * Class Angle.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * Represents an angle and offers some functions to handle angles.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * Angle fixes itself so that it is always inbetween 0 and 2*Pi</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> * @author Lasse Hakulinen</span></span>
+<span style="font-style: italic"><span style="color: #9A1900"> */</span></span>
+
+<span style="font-weight: bold"><span style="color: #0000FF">class</span></span> Angle <span style="color: #FF0000">{</span>
+
+<span style="font-weight: bold"><span style="color: #0000FF">public</span></span><span style="color: #990000">:</span>
+
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Constructor.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @param radian - the width of the angle in radian</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="font-weight: bold"><span style="color: #000000">Angle</span></span><span style="color: #990000">(</span><span style="color: #009900">float</span> radian <span style="color: #990000">=</span> <span style="color: #993399">0</span> <span style="color: #990000">)</span><span style="color: #990000">;</span>
+    
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Destructor.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="color: #990000">~</span><span style="font-weight: bold"><span style="color: #000000">Angle</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span><span style="color: #990000">;</span>
+
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Fixes the angle so that it is between 0 and 2*Pi</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @param &amp;angle - reference to the angle to fix</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="font-weight: bold"><span style="color: #0000FF">static</span></span> <span style="color: #009900">void</span> <span style="font-weight: bold"><span style="color: #000000">fix</span></span><span style="color: #990000">(</span><span style="color: #009900">float</span> <span style="color: #990000">&amp;</span>angle<span style="color: #990000">)</span><span style="color: #990000">;</span>
+    
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Tells if an angle is between two points.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @param angle - angle to check</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @param start - starting angle</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @param end - finishing angle</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @return true if angle is between start and end</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="font-weight: bold"><span style="color: #0000FF">static</span></span> <span style="color: #009900">bool</span> <span style="font-weight: bold"><span style="color: #000000">isBetween</span></span><span style="color: #990000">(</span><span style="color: #009900">float</span> angle<span style="color: #990000">,</span> <span style="color: #009900">float</span> start<span style="color: #990000">,</span> <span style="color: #009900">float</span> end<span style="color: #990000">)</span><span style="color: #990000">;</span>
+    
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Tells if the angle is between two points.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @param start - starting angle</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @param end - finishing angle</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @return true if the angle is between start and end</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="color: #009900">bool</span> <span style="font-weight: bold"><span style="color: #000000">isBetween</span></span><span style="color: #990000">(</span><span style="color: #009900">float</span> start<span style="color: #990000">,</span> <span style="color: #009900">float</span> end<span style="color: #990000">)</span><span style="color: #990000">;</span>
+            
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @return the value of angle</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="font-weight: bold"><span style="color: #0000FF">inline</span></span> <span style="color: #009900">float</span> <span style="font-weight: bold"><span style="color: #000000">getAngle</span></span><span style="color: #990000">(</span><span style="color: #990000">)</span> <span style="font-weight: bold"><span style="color: #0000FF">const</span></span> <span style="color: #FF0000">{</span> <span style="font-weight: bold"><span style="color: #0000FF">return</span></span> <span style="font-weight: bold"><span style="color: #0000FF">this</span></span><span style="color: #990000">-</span><span style="color: #990000">&gt;</span>radian<span style="color: #990000">;</span> <span style="color: #FF0000">}</span><span style="color: #990000">;</span>
+    
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Increases the value of angle.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @param angle - value of how much the angle is increased.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="color: #009900">void</span> <span style="font-weight: bold"><span style="color: #000000">add</span></span><span style="color: #990000">(</span><span style="color: #009900">float</span> angle<span style="color: #990000">)</span><span style="color: #990000">;</span>
+    
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Sets the value of the angle.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @param angle - the value which the angle is set to</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="color: #009900">void</span> <span style="font-weight: bold"><span style="color: #000000">set</span></span><span style="color: #990000">(</span><span style="color: #009900">float</span> angle<span style="color: #990000">)</span><span style="color: #990000">;</span>  
+    
+    <span style="font-style: italic"><span style="color: #9A1900">/**</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * Gets the distance between the angle and a given angle.</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @param angle - the other angle</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * @param direction - direction where the distance is calculated</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * if direction &gt; 0 = from the angle to positive direction</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * if direction &lt; 0 = from the angle to negative direction</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     * if direction = 0 = shortest distance</span></span>
+<span style="font-style: italic"><span style="color: #9A1900">     */</span></span>
+    <span style="color: #009900">float</span> <span style="font-weight: bold"><span style="color: #000000">getDistance</span></span><span style="color: #990000">(</span><span style="color: #009900">float</span> angle<span style="color: #990000">,</span> <span style="color: #009900">int</span> direction <span style="color: #990000">=</span> <span style="color: #993399">0</span><span style="color: #990000">)</span> <span style="font-weight: bold"><span style="color: #0000FF">const</span></span><span style="color: #990000">;</span>
+
+<span style="font-weight: bold"><span style="color: #0000FF">private</span></span><span style="color: #990000">:</span>
+
+    <span style="font-weight: bold"><span style="color: #000080">#ifndef</span></span> M_PI
+    <span style="font-weight: bold"><span style="color: #000080">#define</span></span> M_PI <span style="color: #993399">3.14159265358979323846</span>
+    <span style="font-weight: bold"><span style="color: #000080">#endif</span></span>
+    
+    <span style="color: #009900">float</span> radian<span style="color: #990000">;</span>
+    
+<span style="color: #FF0000">}</span><span style="color: #990000">;</span>
+
+<span style="font-weight: bold"><span style="color: #000080">#endif</span></span> <span style="font-style: italic"><span style="color: #9A1900">//_ANGLE_H_</span></span>
+
+</tt></pre>
